@@ -6,6 +6,9 @@ const { fetchForeverData, latestDataUrl, latestPatchNotes, fetchIcon } = require
 const { buildGearData, dbFromUrl } = require('./forever-gear.cjs');
 const { buildClassChanges } = require('./class-changes.cjs');
 const { buildDungeonData } = require('./forever-dungeons.cjs');
+const appUpdater = require('./app-updater.cjs');
+
+appUpdater.register();
 
 const isDev = process.argv.includes('--dev');
 

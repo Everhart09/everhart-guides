@@ -6,7 +6,7 @@ A desktop app with class and spec guides for **WoW Forever**, built with React, 
 
 Get the latest Windows installer from the [Releases page](https://github.com/Everhart09/everhart-guides/releases/latest) (`Everhart-Guides-Setup-x.y.z.exe`), run it, and pick where to install.
 
-The installer isn't code-signed yet, so Windows may show **"Windows protected your PC"**. Click **More info → Run anyway**. Once installed, the app keeps its guide data up to date by itself (**Settings → Check for updates**).
+The installer isn't code-signed yet, so Windows may show **"Windows protected your PC"**. Click **More info → Run anyway**. Once installed, the app keeps itself up to date: new versions download in the background from this repo's Releases (you'll see **Restart & update**), and guide data refreshes through **Settings → Check for updates**.
 
 > Fan-made and unofficial. World of Warcraft, WoW Forever, the game icons and the WoW Forever logo are trademarks and property of Blizzard Entertainment. Guide data comes from the WoW Forever beta and Wowhead, credited throughout the app.
 
@@ -68,8 +68,12 @@ npm run dist
 
 This builds `release/Everhart-Guides-Setup-<version>.exe` (about 115 MB), a standard Windows installer. It lets people pick the install folder and adds Desktop and Start Menu shortcuts, and the app appears in Windows' Apps list for uninstalling. Send people that one file; the rest of `release/` is build output.
 
-- **Releasing a new version:** bump `"version"` in `package.json` before running `npm run dist`. Installing a newer setup over an old one upgrades it in place, and each user's favorites, notes, settings and downloaded guide updates are kept (they live in `%APPDATA%\Everhart Guides`).
-- **Guide data stays current on its own:** installed copies get talent, gear, dungeon and class-comparison updates through Settings → Check for updates. A new installer is only needed for changes to the app itself.
+- **Releasing a new version:**
+  1. Bump `"version"` in `package.json` (e.g. `1.2.0`).
+  2. Run `npm run dist`. It writes `Everhart-Guides-Setup-<version>.exe`, its `.blockmap` and `latest.yml` to `release/`.
+  3. Publish all three on GitHub, e.g. `gh release create v1.2.0 release/Everhart-Guides-Setup-1.2.0.exe release/Everhart-Guides-Setup-1.2.0.exe.blockmap release/latest.yml --title "Everhart Guides 1.2.0" --notes "What changed"`.
+- **Automatic app updates:** installed copies (1.1.0 and later) check this repo's latest release on startup and in Settings → App version. They download new versions in the background and offer **Restart & update**. `latest.yml` must be attached to the release, because that's what the updater reads. Users' favorites, notes, settings and downloaded guide data are kept (they live in `%APPDATA%\Everhart Guides`).
+- **Guide data stays current on its own:** talent, gear, dungeon and class-comparison data update through Settings → Check for updates without a new release.
 - **Windows SmartScreen:** the installer isn't code-signed, so Windows will show "Windows protected your PC" the first time. Users click **More info → Run anyway**. Removing the warning requires a code-signing certificate (set `CSC_LINK`/`CSC_KEY_PASSWORD` before `npm run dist`).
 - **App icon:** `build/icon.png` (512×512).
 
@@ -89,3 +93,7 @@ All guide content lives in `src/data/classes/<class>.js`. The talent trees thems
 After editing a build, run `npm run validate`. It checks tier requirements (5 points per row), prerequisites, max ranks and the 51-point total.
 
 Talent trees are imported from the official WoW Forever beta data (via Wowhead's Forever talent calculator) with `npm run talents`. Run it again after each beta update, then `npm run validate` to see which builds or guide text need changes.
+
+## License
+
+The source code is [MIT licensed](LICENSE). Blizzard's game icons, the WoW Forever logo and imported game data aren't covered by that license; see [LICENSE](LICENSE) for details.

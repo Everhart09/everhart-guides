@@ -4,6 +4,7 @@ import { Icon, ROLE_ICON } from './icons.jsx';
 import { ClassEmblem, ProfessionEmblem } from './GameIcon.jsx';
 import { needsUpdate, updatesSupported, useUpdates } from '../lib/updates.js';
 import { toggleFavorite, usePrefs } from '../lib/prefs.js';
+import { useAppUpdate } from '../lib/appUpdate.js';
 import { pageInfo, pageKey } from '../lib/pages.js';
 
 function FavIcon({ info }) {
@@ -18,7 +19,8 @@ export default function Sidebar({ route, nav }) {
   const { favorites } = usePrefs();
   const current = pageKey(route);
   const favs = favorites.map((key) => ({ key, info: pageInfo(key) })).filter((f) => f.info);
-  const updateDot = !updatesSupported() ? '' : status === 'checking' ? 'checking' : needsUpdate(result) ? 'update' : result ? 'ok' : '';
+  const app = useAppUpdate();
+  const updateDot = !updatesSupported() ? '' : app.state === 'ready' || needsUpdate(result) ? 'update' : status === 'checking' ? 'checking' : result ? 'ok' : '';
 
   return (
     <nav className="sidebar">
@@ -122,7 +124,7 @@ export default function Sidebar({ route, nav }) {
       <button className="side-settings" onClick={nav.settings} title="Settings & updates">
         <Icon name="settings" size={16} />
         <span>Settings</span>
-        {updateDot && <span className={`set-dot ${updateDot}`} title={updateDot === 'update' ? 'Guide update available' : updateDot === 'ok' ? 'Guides are up to date' : 'Checking…'} />}
+        {updateDot && <span className={`set-dot ${updateDot}`} title={updateDot === 'update' ? (app.state === 'ready' ? `Version ${app.version} ready to install` : 'Guide update available') : updateDot === 'ok' ? 'Guides are up to date' : 'Checking…'} />}
       </button>
     </nav>
   );

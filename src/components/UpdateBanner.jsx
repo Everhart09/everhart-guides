@@ -1,18 +1,33 @@
 import { useEffect } from 'react';
 import { Icon } from './icons.jsx';
 import {
-  applyTalentUpdate, checkForUpdates, dismissUpdate, openExternal, updateKey, updatesSupported, useUpdates,
+  applyTalentUpdate, checkForUpdates, dismissUpdate, needsUpdate, openExternal, updateKey, updatesSupported, useUpdates,
 } from '../lib/updates.js';
+import { checkAppUpdateOnStartup, installAppUpdate, useAppUpdate } from '../lib/appUpdate.js';
 
 /** Banner shown when Blizzard or Wowhead have newer WoW Forever beta data than the app. */
 export default function UpdateBanner({ nav }) {
   const { status, result, error, dismissed } = useUpdates();
+  const app = useAppUpdate();
 
   useEffect(() => {
     checkForUpdates().catch(() => {});
+    checkAppUpdateOnStartup();
   }, []);
 
   if (!updatesSupported()) return null;
+
+  if (app.state === 'ready') {
+    return (
+      <div className="update-banner app">
+        <span className="ub-dot" />
+        <div className="ub-text"><span><b>Everhart Guides {app.version} is ready.</b> Restart to finish updating; your notes and settings are kept.</span></div>
+        <div className="ub-actions">
+          <button className="btn-primary" onClick={installAppUpdate}>Restart &amp; update</button>
+        </div>
+      </div>
+    );
+  }
 
   if (status === 'applying') {
     return (
@@ -31,7 +46,7 @@ export default function UpdateBanner({ nav }) {
     );
   }
 
-  const talents = result?.talents?.changed || result?.gear?.changed;
+  const talents = needsUpdate(result);
   const notes = result?.patchNotes?.changed;
   if (!talents && !notes) return null;
   if (dismissed === updateKey(result)) return null;
@@ -40,7 +55,7 @@ export default function UpdateBanner({ nav }) {
     <div className="update-banner">
       <span className="ub-dot" />
       <div className="ub-text">
-        {talents && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees and pre-raid gear.</span>}
+        {talents && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear and dungeon guides.</span>}
         {notes && <span>Blizzard posted new beta notes: <i>{result.patchNotes.title}</i></span>}
       </div>
       <div className="ub-actions">

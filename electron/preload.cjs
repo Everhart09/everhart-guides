@@ -26,6 +26,15 @@ contextBridge.exposeInMainWorld('everhart', {
   openExternal: (url) => ipcRenderer.invoke('app:open-external', url),
   /** Scales the whole window (text size setting). */
   setZoom: (factor) => webFrame.setZoomFactor(Math.min(1.5, Math.max(0.75, Number(factor) || 1))),
+  /** App (not guide data) updates from GitHub Releases. */
+  getAppUpdate: () => ipcRenderer.invoke('appupdate:get'),
+  checkAppUpdate: () => ipcRenderer.invoke('appupdate:check'),
+  installAppUpdate: () => ipcRenderer.invoke('appupdate:install'),
+  onAppUpdate: (callback) => {
+    const listener = (_event, status) => callback(status);
+    ipcRenderer.on('appupdate:status', listener);
+    return () => ipcRenderer.removeListener('appupdate:status', listener);
+  },
   /** Recolors the window controls to match the theme ('dark' | 'light'). */
   setTheme: (theme) => ipcRenderer.send('app:set-theme', theme),
   /** Saves the page's print layout as a PDF. Resolves to { ok, path? , canceled? }. */

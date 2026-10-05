@@ -1,7 +1,7 @@
 {
   "name": "everhart-guides",
   "productName": "Everhart Guides",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Class & spec guides for WoW Forever",
   "type": "module",
   "main": "electron/main.cjs",
@@ -9,7 +9,7 @@
     "dev": "concurrently -k -n vite,app -c yellow,cyan \"vite\" \"wait-on http://localhost:5173 && electron . --dev\"",
     "build": "vite build",
     "start": "vite build && electron .",
-    "dist": "vite build && electron-builder --win",
+    "dist": "vite build && electron-builder --win --publish never",
     "validate": "node scripts/validate.mjs",
     "icons": "node scripts/fetch-icons.mjs",
     "talents": "node scripts/import-talents.mjs",
@@ -51,10 +51,19 @@
       "uninstallDisplayName": "Everhart Guides",
       "artifactName": "Everhart-Guides-Setup-${version}.exe",
       "deleteAppDataOnUninstall": false
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Everhart09",
+        "repo": "everhart-guides",
+        "releaseType": "release"
+      }
+    ]
   },
   "dependencies": {
     "@fontsource/poppins": "^5.3.0",
+    "electron-updater": "^6.8.9",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
@@ -66,5 +75,10 @@
     "vite": "^8.3.2",
     "wait-on": "^9.5.1"
   },
-  "author": "Everhart Guides"
+  "author": "Everhart Guides",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Everhart09/everhart-guides.git"
+  }
 }

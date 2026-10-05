@@ -6,6 +6,7 @@ import { CHANGES_META } from '../data/classChangesData.js';
 import { DUNGEON_META } from '../data/dungeons/index.js';
 import { Icon } from './icons.jsx';
 import { TEXT_SIZES, setPref, usePrefs } from '../lib/prefs.js';
+import { appUpdatesSupported, checkAppUpdate, installAppUpdate, useAppUpdate } from '../lib/appUpdate.js';
 import {
   appInfo, autoCheckEnabled, checkForUpdates, downloadUpdate, needsUpdate, openExternal, restartApp,
   revertTalentUpdate, setAutoCheck, updatesSupported, useUpdates,
@@ -22,6 +23,7 @@ const when = (iso) => (iso ? new Date(iso).toLocaleString(undefined, { month: 's
 export default function SettingsModal({ initialMode = 'settings', onClose }) {
   const { result } = useUpdates();
   const prefs = usePrefs();
+  const appUpdate = useAppUpdate();
   const [phase, setPhase] = useState('settings'); // settings | checking | uptodate | updating | restarting | error
   const [progress, setProgress] = useState({ percent: 0, label: '' });
   const [error, setError] = useState(null);
@@ -119,6 +121,28 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
             </section>
 
             <section className="set-section">
+              <h3 className="set-title">App version</h3>
+              <div className="set-row">
+                <div>
+                  <h3>Everhart Guides {info?.version ?? ''}</h3>
+                  <p>
+                    {!appUpdatesSupported() || appUpdate.state === 'unsupported' ? 'App updates work in the installed app (download it from GitHub Releases).'
+                      : appUpdate.state === 'checking' ? 'Checking GitHub for a new version…'
+                        : appUpdate.state === 'downloading' ? `Downloading version ${appUpdate.version ?? ''}… ${appUpdate.percent ?? 0}%`
+                          : appUpdate.state === 'ready' ? `Version ${appUpdate.version} is ready. Restart to finish updating.`
+                            : appUpdate.state === 'none' ? 'You have the latest version.'
+                              : appUpdate.state === 'error' ? `Couldn't check for app updates: ${appUpdate.error}`
+                                : 'New versions download in the background and install when you restart.'}
+                  </p>
+                  {appUpdate.state === 'downloading' && <div className="progress small"><i style={{ width: `${appUpdate.percent ?? 0}%` }} /></div>}
+                </div>
+                {appUpdate.state === 'ready'
+                  ? <button className="btn-primary" onClick={installAppUpdate}>Restart &amp; update</button>
+                  : <button className="btn-ghost" onClick={checkAppUpdate} disabled={!appUpdatesSupported() || appUpdate.state === 'unsupported' || appUpdate.state === 'checking' || appUpdate.state === 'downloading'}>Check for app updates</button>}
+              </div>
+            </section>
+
+            <section className="set-section">
               <h3 className="set-title">Appearance</h3>
               <div className="set-row">
                 <div><h3>Theme</h3><p>System follows your Windows light or dark mode.</p></div>
@@ -162,7 +186,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
               <div className="set-row">
                 <div>
                   <h3>Check automatically</h3>
-                  <p>Look for new WoW Forever data when the app starts (at most every 6 hours).</p>
+                  <p>Look for new WoW Forever data and new app versions when the app starts.</p>
                 </div>
                 <button className={`toggle ${auto ? 'on' : ''}`} role="switch" aria-checked={auto} onClick={toggleAuto}>
                   <span />

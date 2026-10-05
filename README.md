@@ -96,4 +96,4 @@ Talent trees are imported from the official WoW Forever beta data (via Wowhead's
 
 ## License
 
-The source code is [MIT licensed](LICENSE). Blizzard's game icons, the WoW Forever logo and imported game data aren't covered by that license; see [LICENSE](LICENSE) for details.
+The source code is [MIT licensed](LICENSE). Blizzard's game icons, the WoW Forever logo and imported game data aren't covered by that license; see [NOTICE.md](NOTICE.md).

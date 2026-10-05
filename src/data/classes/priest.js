@@ -1,0 +1,212 @@
+import { foreverTrees } from '../talents/index.js';
+
+// Build: ordered list of [talent name, points]. The first point lands at level 10, one per level after.
+export default {
+  id: 'priest',
+  name: 'Priest',
+  color: '#F0F0F0',
+  resource: 'Mana',
+  armor: 'Cloth',
+  weaponsUsable: 'Staves, one-handed maces, daggers & wands',
+  description:
+    'The most powerful healer in the game. Priests have the deepest healing toolkit, absorb shields, Fortitude and Spirit buffs, and Mind Control. In the Shadow tree they become a fearsome DoT caster and PvP duelist.',
+  milestones: [
+    [1, 'Lesser Heal & Smite', 'Power Word: Fortitude'],
+    [6, 'Power Word: Shield', 'Absorb damage — the leveling MVP'],
+    [10, 'Shadow Word: Pain', 'Fade & Mind Blast too'],
+    [14, 'Psychic Scream', 'AoE fear'],
+    [20, 'Flash Heal & Inner Fire', 'Fast heal for groups'],
+    [24, 'Mana Burn', 'Drain enemy caster mana'],
+    [30, 'Mind Control & Prayer of Healing', 'Group healing'],
+    [40, 'Greater Heal', 'Your big raid heal'],
+  ],
+  trees: foreverTrees('priest'),
+  specs: [
+    {
+      id: 'shadow', tree: 'shadow', name: 'Shadow', role: 'Ranged DPS', roles: ['dps'],
+      tagline: 'Shadowform, Mind Flay and Spirit Tap — a self-sufficient killing machine.',
+      difficulty: 2,
+      ratings: { leveling: 5, solo: 5, group: 3, pvp: 5, raid: 2 },
+      summary:
+        'Shadow is the best way to level a priest. Spirit Tap and wand usage keep downtime minimal, Power Word: Shield prevents pushback, and Mind Flay slows everything. At 60 Shadow is a strong PvP spec and provides Shadow Weaving to raid warlocks.',
+      pros: [
+        'Fastest and safest priest leveling',
+        'Shield + Mind Flay + Psychic Scream = excellent survivability',
+        'Strong PvP with Mana Burn, Silence and big damage',
+        'Still able to heal outside of Shadowform in a pinch',
+      ],
+      cons: [
+        'Limited raid spots (usually one for Shadow Weaving)',
+        'Mana runs out in long fights',
+        'Can\'t heal in Shadowform — exiting costs a global',
+      ],
+      stats: [
+        { name: 'Spell Damage (Shadow)', weight: 100, note: '' },
+        { name: 'Spell Hit', weight: 80, note: 'Shadow Focus gives 1% per point (3% in this build)' },
+        { name: 'Stamina', weight: 65, note: 'PvP' },
+        { name: 'Intellect', weight: 60, note: '' },
+        { name: 'Spirit', weight: 55, note: 'Spirit Tap doubles it after kills' },
+        { name: 'Spell Critical', weight: 45, note: 'Shadow spells can crit in Forever — Shadowform boosts crit damage' },
+      ],
+      weapons: [
+        { type: 'Staff', tier: 'Best', note: 'Leveling and Spirit stacking' },
+        { type: 'Mace / Dagger + Off-hand', tier: 'Good', note: '' },
+        { type: 'Wand', tier: 'Best', note: 'Wand Specialization makes it a primary damage source' },
+      ],
+      rotation: {
+        opener: ['**Mind Blast** from max range', '**Shadow Word: Pain**', '**Power Word: Shield** before the mob arrives', '**Mind Flay** or wand'],
+        single: ['**Shadow Word: Pain** and **Devouring Plague** up', '**Mind Blast** on cooldown', '**Mind Flay** filler', '**Shadow Word: Death** to finish low targets (Early Demise)', 'Wand to finish and conserve mana'],
+        aoe: ['**Psychic Scream** to scatter adds', '**Shadow Word: Pain** on multiple targets', '**Devouring Plague** spreads on death with Devouring Contagion'],
+        cooldowns: ['**Inner Focus** for a free Mind Blast/Flash Heal', '**Silence** & **Mana Burn** in PvP', '**Fade** to drop threat in groups'],
+        notes: ['Keep **Inner Fire** and **Power Word: Fortitude** up', 'Kill → Spirit Tap → keep casting'],
+      },
+      leveling: [
+        'Wand + SW:P + Shield at low levels is extremely efficient',
+        'Spirit Tap first (5/5) — it\'s the reason Shadow levels fast',
+        'Mind Flay at 20 slows mobs so you can wand them down',
+        'Priests are always welcome in dungeons — heal groups as Shadow',
+      ],
+      races: [
+        { name: 'Undead', why: 'Devouring Plague & WotF' },
+        { name: 'Human', why: 'Feedback, Spirit bonus' },
+        { name: 'Dwarf', why: 'Fear Ward & Stoneform' },
+        { name: 'Troll', why: 'Shadowguard & Berserking' },
+      ],
+      professions: [
+        { name: 'Tailoring + Enchanting', why: 'Cloth gear & wands' },
+        { name: 'Engineering', why: 'PvP' },
+      ],
+      consumables: ['Elixir of Shadow Power', 'Greater Arcane Elixir', 'Major Mana Potion', 'Free Action Potion'],
+      build: [
+        ['Spirit Tap', 5], ['Improved Shadow Word: Pain', 2], ['Shadow Focus', 3], ['Mind Flay', 1],
+        ['Improved Mind Blast', 3], ['Improved Mind Flay', 1], ['Vampiric Embrace', 1], ['Shadow Weaving', 3],
+        ['Improved Mind Flay', 1], ['Silence', 1], ['Devouring Contagion', 2], ['Improved Mind Blast', 2],
+        ['Darkness', 5], ['Shadowform', 1], ['Wand Specialization', 2], ['Twin Disciplines', 3],
+        ['Improved Power Word: Shield', 3], ['Silent Resolve', 2], ['Mental Agility', 3], ['Inner Focus', 1],
+        ['Meditation', 3], ['Mental Strength', 3],
+      ],
+    },
+    {
+      id: 'holy', tree: 'holy', name: 'Holy', role: 'Healer', roles: ['healer'],
+      tagline: 'The raid\'s main healer — massive throughput and group heals.',
+      difficulty: 3,
+      ratings: { leveling: 2, solo: 2, group: 5, pvp: 2, raid: 5 },
+      summary:
+        'Holy priests are the strongest raid healers. Spiritual Guidance and Spiritual Healing boost every heal, Improved Healing makes Greater Heal efficient, and Holy Specialization + Inspiration add crit and armor buffs. Prayer of Mending and Binding Heal add strong group healing, and Divine Spirit is now baseline.',
+      pros: [
+        'Best healing throughput in the game',
+        'Prayer of Healing for group healing',
+        'Always in demand for dungeons and raids',
+        'Prayer of Mending bounces heals around the raid',
+      ],
+      cons: [
+        'Slow and painful solo leveling',
+        'Very weak damage output',
+        'Threat from healing can pull mobs early on',
+      ],
+      stats: [
+        { name: '+Healing', weight: 100, note: '' },
+        { name: 'Spirit', weight: 75, note: 'Spiritual Guidance converts Spirit to healing; mana regen' },
+        { name: 'Mana per 5 sec', weight: 70, note: '' },
+        { name: 'Intellect', weight: 65, note: '' },
+        { name: 'Spell Critical', weight: 40, note: 'Inspiration procs' },
+        { name: 'Stamina', weight: 20, note: '' },
+      ],
+      weapons: [
+        { type: 'Healing Mace / Dagger + Off-hand', tier: 'Best', note: 'Endgame' },
+        { type: 'Staff', tier: 'Good', note: 'Leveling' },
+        { type: 'Wand', tier: 'Good', note: 'Downtime damage' },
+      ],
+      rotation: {
+        opener: ['**Power Word: Shield** on the tank before pull', '**Renew** on the tank'],
+        single: ['**Prayer of Mending** on the tank on cooldown', '**Greater Heal** (down-ranked) on tanks', '**Flash Heal** for emergencies', '**Renew** for incoming damage', '**Binding Heal** when you and an ally are both hurt'],
+        aoe: ['**Prayer of Healing** when 3+ party members are hurt', '**Holy Nova** for melee-stack damage'],
+        cooldowns: ['**Inner Focus** + **Prayer of Healing** for free big heals', '**Spirit of Redemption** saves wipes', '**Fade** to drop healing threat'],
+        notes: ['Cancel-cast heals to avoid overhealing', 'Use the 5-second rule: stop casting to regen mana'],
+      },
+      leveling: [
+        'Level as Shadow and respec Holy at 60, or heal dungeons as you go',
+        'Keep a Spirit/Int set for regen and a healing set for groups',
+      ],
+      races: [
+        { name: 'Dwarf', why: 'Fear Ward is a raid tool' },
+        { name: 'Human', why: 'Spirit bonus' },
+        { name: 'Night Elf', why: 'Elune\'s Grace' },
+        { name: 'Undead', why: 'WotF' },
+      ],
+      professions: [
+        { name: 'Tailoring', why: 'Truefaith Vestments' },
+        { name: 'Alchemy', why: 'Flask of Distilled Wisdom' },
+      ],
+      consumables: ['Flask of Distilled Wisdom', 'Mageblood Potion', 'Major Mana Potion', 'Brilliant Mana Oil', 'Dark Rune / Demonic Rune'],
+      build: [
+        ['Holy Specialization', 5], ['Improved Renew', 3], ['Divine Fury', 2], ['Inspiration', 3],
+        ['Holy Nova', 1], ['Twilight Focus', 1], ['Improved Healing', 3], ['Binding Heal', 1],
+        ['Holy Reach', 1], ['Spirit of Redemption', 1], ['Litany of Light', 2], ['Spiritual Guidance', 2],
+        ['Spiritual Healing', 3], ['Spiritual Guidance', 2], ['Prayer of Mending', 1], ['Spiritual Guidance', 1],
+        ['Twin Disciplines', 5], ['Improved Power Word: Shield', 3], ['Silent Resolve', 2], ['Mental Agility', 3],
+        ['Inner Focus', 1], ['Meditation', 1], ['Mental Strength', 4],
+      ],
+    },
+    {
+      id: 'discipline', tree: 'discipline', name: 'Discipline', role: 'Healer / Support', roles: ['healer'],
+      tagline: 'Power Infusion, shields and mana efficiency.',
+      difficulty: 3,
+      ratings: { leveling: 3, solo: 3, group: 4, pvp: 4, raid: 4 },
+      summary:
+        'Discipline focuses on mana efficiency and raid support. Mental Strength and Meditation give huge mana pools and regen, Improved Shield absorbs more, Penance is an instant channeled heal, Divine Aegis turns crits into shields, and Power Infusion boosts your best caster. Paired with Holy talents for solid healing, it\'s great for long fights and PvP healing.',
+      pros: [
+        'Best mana efficiency of any priest spec',
+        'Power Infusion is a coveted raid buff',
+        'Strong PvP healer with Improved Shield and Mental Agility',
+        'Very forgiving on mana in long fights',
+      ],
+      cons: [
+        'Lower raw throughput than deep Holy',
+        'Leveling damage is mediocre without Shadow talents',
+        'Fewer group-healing tools',
+      ],
+      stats: [
+        { name: '+Healing', weight: 100, note: '' },
+        { name: 'Intellect', weight: 80, note: 'Mental Strength multiplies mana' },
+        { name: 'Spirit', weight: 70, note: 'Meditation regen' },
+        { name: 'Mana per 5 sec', weight: 65, note: '' },
+        { name: 'Stamina', weight: 40, note: 'PvP' },
+      ],
+      weapons: [
+        { type: 'Healing Mace / Dagger + Off-hand', tier: 'Best', note: '' },
+        { type: 'Staff', tier: 'Good', note: '' },
+        { type: 'Wand', tier: 'Good', note: 'Downtime damage while leveling' },
+      ],
+      rotation: {
+        opener: ['**Power Word: Shield** the tank', '**Renew**'],
+        single: ['**Power Word: Shield** liberally — Soul Warding cuts its cooldown', '**Penance** on cooldown', '**Flash Heal** / **Heal** on shielded targets (Renewed Hope crit bonus)', '**Greater Heal** for big damage'],
+        aoe: ['**Prayer of Healing** on group damage'],
+        cooldowns: ['**Power Infusion** on your best mage/warlock or yourself', '**Inner Focus** for a free big heal'],
+        notes: ['Crits leave Divine Aegis absorb shields', 'Keep **Divine Spirit** and **Power Word: Fortitude** up on the raid'],
+      },
+      leveling: [
+        'Twin Disciplines boosts instant spells like Shadow Word: Pain and Power Word: Shield',
+        'Shadow is faster, but Disc can heal dungeons easily while leveling',
+      ],
+      races: [
+        { name: 'Dwarf', why: 'Fear Ward' },
+        { name: 'Undead', why: 'WotF for PvP' },
+        { name: 'Human', why: 'Spirit' },
+      ],
+      professions: [
+        { name: 'Tailoring', why: 'Gear' },
+        { name: 'Alchemy', why: 'Flasks' },
+      ],
+      consumables: ['Flask of Distilled Wisdom', 'Major Mana Potion', 'Mageblood Potion'],
+      build: [
+        ['Twin Disciplines', 5], ['Improved Power Word: Shield', 3], ['Silent Resolve', 2], ['Mental Agility', 3],
+        ['Inner Focus', 1], ['Meditation', 3], ['Mental Strength', 3], ['Soul Warding', 1],
+        ['Penance', 1], ['Renewed Hope', 3], ['Divine Aegis', 3], ['Improved Inner Fire', 2],
+        ['Power Infusion', 1], ['Mental Strength', 2], ['Renewed Hope', 2], ['Holy Specialization', 5],
+        ['Improved Renew', 3], ['Divine Fury', 2], ['Inspiration', 3], ['Twilight Focus', 2],
+        ['Improved Healing', 1],
+      ],
+    },
+  ],
+};

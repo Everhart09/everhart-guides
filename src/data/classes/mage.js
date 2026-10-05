@@ -1,0 +1,210 @@
+import { foreverTrees } from '../talents/index.js';
+
+// Build: ordered list of [talent name, points]. The first point lands at level 10, one per level after.
+export default {
+  id: 'mage',
+  name: 'Mage',
+  color: '#3FC7EB',
+  resource: 'Mana',
+  armor: 'Cloth',
+  weaponsUsable: 'Staves, one-handed swords, daggers & wands',
+  description:
+    'The arcane artillery. Mages deal enormous ranged damage, conjure their own food and water, teleport across the world, and control the battlefield with Polymorph, Frost Nova and Counterspell. Famous for AoE grinding and fast leveling.',
+  milestones: [
+    [1, 'Fireball', 'Frost Armor too'],
+    [4, 'Frostbolt', 'Slows targets — your leveling workhorse'],
+    [8, 'Polymorph', 'Turn humanoids and beasts into sheep'],
+    [10, 'Frost Nova', 'Root everything around you'],
+    [20, 'Blink & Blizzard', 'Evocation and mounts-free AoE grinding begins'],
+    [24, 'Counterspell', 'Interrupt and lock out a school'],
+    [26, 'Cone of Cold', 'Core of AoE frost kiting'],
+    [40, 'Portals & Ice Armor', 'Teleport groups to capitals'],
+  ],
+  trees: foreverTrees('mage'),
+  specs: [
+    {
+      id: 'frost', tree: 'frost', name: 'Frost', role: 'Ranged DPS', roles: ['dps'],
+      tagline: 'Kite, freeze and shatter — the fastest leveling and AoE spec in the game.',
+      difficulty: 2,
+      ratings: { leveling: 5, solo: 5, group: 4, pvp: 5, raid: 3 },
+      summary:
+        'Frost combines safe single-target damage with legendary AoE grinding. Chills slow everything, Shatter turns Frost Nova into crits, Ice Lance deals triple damage to frozen targets, Fingers of Frost and Winter\'s Chill add even more crits, and Ice Barrier, Ice Block and Cold Snap give you tons of survivability. The default leveling and PvP mage spec.',
+      pros: [
+        'Fastest AoE grinding in the game (Blizzard + Cone of Cold)',
+        'Tons of control: Frost Nova, chills, and Fingers of Frost for free Shatter crits',
+        'Ice Barrier and Ice Block make you very hard to kill',
+        'Excellent PvP with Shatter combos',
+      ],
+      cons: [
+        'Lower raid DPS than Fire on non-fire-immune bosses',
+        'AoE pulls go wrong fast if you misjudge',
+        'Very mana-hungry when AoE grinding',
+        'Many Molten Core bosses are fine, but you\'ll be asked to go Fire later',
+      ],
+      stats: [
+        { name: 'Spell Damage (Frost)', weight: 100, note: 'Generic +spell damage or +Frost damage' },
+        { name: 'Spell Hit (to 10%)', weight: 90, note: 'Elemental Precision gives 1% per point (3% in this build); bosses need 16% total' },
+        { name: 'Intellect', weight: 65, note: 'Bigger mana pool for AoE' },
+        { name: 'Spell Critical', weight: 55, note: 'Shatter already crits frozen targets' },
+        { name: 'Stamina', weight: 50, note: 'Matters a lot in PvP' },
+        { name: 'Spirit', weight: 20, note: 'Only for leveling regen' },
+      ],
+      weapons: [
+        { type: 'Staff', tier: 'Best', note: 'Most stats in one slot while leveling' },
+        { type: 'Sword / Dagger + Off-hand', tier: 'Good', note: 'Endgame spell power daggers often win' },
+        { type: 'Wand', tier: 'Best', note: 'Finish off low targets for free' },
+      ],
+      rotation: {
+        opener: ['**Frostbolt** at max range', 'Second **Frostbolt** as they close', '**Frost Nova** when they reach you', 'Step back and **Frostbolt** the frozen target (Shatter crit)'],
+        single: ['**Frostbolt** spam (Winter\'s Chill stacks raise its crit)', '**Ice Lance** on Frozen targets or with Fingers of Frost — triple damage', '**Frost Nova** → **Ice Lance** / **Frostbolt** for Shatter crits', '**Fire Blast** while moving'],
+        aoe: ['Gather mobs, **Frost Nova**', '**Blizzard** from max range (Improved Blizzard slows them)', '**Cone of Cold** as they reach you', '**Cold Snap** → second Frost Nova if needed'],
+        cooldowns: ['**Ice Barrier** before every pull', '**Ice Block** to reset aggro or survive', '**Evocation** when out of mana', '**Cold Snap** for an extra Nova/Ice Block'],
+        notes: ['Keep **Arcane Intellect** and **Ice Armor** up', 'Conjure food & water between pulls', '**Polymorph** extra adds'],
+      },
+      leveling: [
+        'Single-target Frostbolt until 22, then start AoE grinding packs',
+        'Classic AoE spots: Hillsbrad yetis, Desolace, Tanaris, Winterspring',
+        'Always keep conjured water stocked and use Evocation',
+        'Run dungeons as the group\'s AoE — mages are always welcome',
+      ],
+      races: [
+        { name: 'Gnome', why: 'Escape Artist & +5% Intellect' },
+        { name: 'Human', why: 'Perception & +5% Spirit' },
+        { name: 'Undead', why: 'Will of the Forsaken' },
+        { name: 'Troll', why: 'Berserking burst' },
+      ],
+      professions: [
+        { name: 'Tailoring + Enchanting', why: 'Cloth gear and wand crafting' },
+        { name: 'Engineering', why: 'PvP gadgets & bombs' },
+      ],
+      consumables: ['Greater Arcane Elixir', 'Elixir of Frost Power', 'Major Mana Potion', 'Brilliant Wizard Oil', 'Flask of Supreme Power'],
+      build: [
+        ['Improved Frostbolt', 5], ['Ice Shards', 5], ['Improved Frost Nova', 2], ['Piercing Ice', 3],
+        ['Ice Lance', 1], ['Frost Channeling', 3], ['Shatter', 3], ['Ice Block', 1],
+        ['Cold Snap', 1], ['Fingers of Frost', 2], ["Winter's Chill", 5], ['Ice Barrier', 1],
+        ['Elemental Precision', 3], ['Improved Blizzard', 3], ['Improved Cone of Cold', 3], ['Wand Specialization', 2],
+        ['Arcane Focus', 3], ['Arcane Concentration', 5],
+      ],
+    },
+    {
+      id: 'fire', tree: 'fire', name: 'Fire', role: 'Ranged DPS', roles: ['dps'],
+      tagline: 'Ignite, Scorch stacks and Combustion — the raid damage spec.',
+      difficulty: 3,
+      ratings: { leveling: 3, solo: 3, group: 4, pvp: 3, raid: 5 },
+      summary:
+        'Fire is the classic raiding spec. Improved Scorch stacks a Fire vulnerability debuff, Ignite turns crits into rolling burns, and Combustion stacks crit for massive burst. Hard-hitting but squishier than Frost and weak on fire-immune bosses.',
+      pros: [
+        'Highest mage damage in raids',
+        'Ignite stacking with other fire mages is huge',
+        'Blast Wave offers an instant AoE and daze',
+        'Critical Mass + Combustion burst is satisfying',
+      ],
+      cons: [
+        'Many Molten Core mobs are fire immune',
+        'Fewer defensive tools than Frost',
+        'More threat — easy to pull aggro',
+        'Mana-hungry; needs Arcane Concentration help',
+      ],
+      stats: [
+        { name: 'Spell Hit (to 16%)', weight: 100, note: 'Boss hit cap; missed Fireballs are huge losses' },
+        { name: 'Spell Damage (Fire)', weight: 95, note: '' },
+        { name: 'Spell Critical', weight: 80, note: 'Fuels Ignite and Master of Elements' },
+        { name: 'Intellect', weight: 55, note: 'Mana & small crit' },
+        { name: 'Stamina', weight: 30, note: '' },
+      ],
+      weapons: [
+        { type: 'Staff', tier: 'Good', note: 'Large spell damage budget' },
+        { type: 'Spell Dagger + Off-hand', tier: 'Best', note: 'Endgame spell power daggers' },
+        { type: 'Wand', tier: 'Good', note: 'Fire wands stack with Fire talents' },
+      ],
+      rotation: {
+        opener: ['**Scorch** x5 to stack Improved Scorch (if no other fire mage does)', '**Fireball** spam', '**Combustion** + trinkets during burst windows'],
+        single: ['**Fireball** — main nuke', '**Pyroblast** when Heating Up stacks have shortened its cast', 'Refresh **Scorch** debuff before it falls off', '**Fire Blast** while moving'],
+        aoe: ['**Flamestrike** on clumped packs', '**Blast Wave** + **Arcane Explosion** in melee range', '**Frost Nova** to hold mobs in place'],
+        cooldowns: ['**Combustion** for burst', '**Evocation** on long fights', '**Blink** + **Frost Nova** if you pull aggro'],
+        notes: ['Watch your threat meter', 'Coordinate Scorch stacking with other mages'],
+      },
+      leveling: [
+        'Viable, but Frost is safer and faster — many fire mages level as Frost',
+        'Pyroblast pull → Fireball → Fire Blast kills most mobs quickly',
+      ],
+      races: [
+        { name: 'Gnome', why: '+5% Intellect' },
+        { name: 'Troll', why: 'Berserking stacks with Combustion' },
+        { name: 'Undead', why: 'Will of the Forsaken' },
+      ],
+      professions: [
+        { name: 'Tailoring', why: 'Robe of the Archmage, Flarecore set' },
+        { name: 'Alchemy', why: 'Flasks for raiding' },
+      ],
+      consumables: ['Greater Arcane Elixir', 'Elixir of Greater Firepower', 'Flask of Supreme Power', 'Brilliant Wizard Oil', 'Major Mana Potion'],
+      build: [
+        ['Improved Fireball', 5], ['Ignite', 5], ['Pyroblast', 1], ['Incineration', 3],
+        ['Flame Throwing', 1], ['Improved Scorch', 3], ['Heating Up', 1], ['Master of Elements', 2],
+        ['Critical Mass', 3], ['Blast Wave', 1], ['Fire Power', 5], ['Combustion', 1],
+        ['Wand Specialization', 2], ['Arcane Focus', 3], ['Arcane Subtlety', 2], ['Arcane Concentration', 5],
+        ['Magic Absorption', 2], ['Arcane Resilience', 1], ['Arcane Meditation', 3], ['Improved Counterspell', 2],
+      ],
+    },
+    {
+      id: 'arcane', tree: 'arcane', name: 'Arcane', role: 'Ranged DPS', roles: ['dps'],
+      tagline: 'Presence of Mind + Arcane Power burst and endless mana.',
+      difficulty: 3,
+      ratings: { leveling: 3, solo: 3, group: 3, pvp: 4, raid: 3 },
+      summary:
+        'Arcane is a utility and burst spec. Arcane Blast ramps up your damage, Missile Barrage speeds up Arcane Missiles, Arcane Mind doubles your Arcane crit bonus, Clearcasting saves mana, and Presence of Mind + Arcane Power lets you drop an instant, empowered Frostbolt or Pyroblast. Paired here with Frost for PvP control.',
+      pros: [
+        'Best mana efficiency of any mage spec',
+        'PoM instant big-hitters for burst kills',
+        'Improved Counterspell silence is great for PvP',
+        'Pairs well with Frost talents for control',
+      ],
+      cons: [
+        'Lower sustained damage than Fire or deep Frost',
+        'Cooldown-reliant; weak between Arcane Power windows',
+        'Fewer survivability tools than deep Frost (no Ice Barrier or Cold Snap)',
+      ],
+      stats: [
+        { name: 'Spell Damage', weight: 100, note: '' },
+        { name: 'Spell Hit', weight: 85, note: 'Arcane Focus helps on Arcane spells only' },
+        { name: 'Intellect', weight: 80, note: 'Arcane Mind multiplies your mana pool' },
+        { name: 'Spell Critical', weight: 60, note: '' },
+        { name: 'Stamina', weight: 45, note: 'PvP survivability' },
+      ],
+      weapons: [
+        { type: 'Staff', tier: 'Best', note: '' },
+        { type: 'Dagger + Off-hand', tier: 'Good', note: '' },
+        { type: 'Wand', tier: 'Good', note: '' },
+      ],
+      rotation: {
+        opener: ['**Arcane Power** → **Presence of Mind** → instant **Frostbolt**/**Pyroblast**', '**Frost Nova** → **Frostbolt** for Shatter-like follow-up'],
+        single: ['**Arcane Blast** to stack its damage buff (watch the rising mana cost)', '**Arcane Missiles** on Missile Barrage or Clearcasting procs', '**Frostbolt** when you need to save mana', '**Fire Blast** while moving'],
+        aoe: ['**Arcane Explosion** spam (Improved Arcane Explosion)', '**Blizzard** for ranged AoE'],
+        cooldowns: ['**Arcane Power** + **Presence of Mind** for burst', '**Evocation**', '**Cold Snap** for double Nova'],
+        notes: ['Use **Counterspell** aggressively — it silences', '**Polymorph** healers in PvP'],
+      },
+      leveling: [
+        'Pick up Arcane Concentration early for free spells',
+        'Arcane Explosion AoE grinding is viable at higher levels',
+      ],
+      races: [
+        { name: 'Gnome', why: '+5% Intellect, Escape Artist' },
+        { name: 'Undead', why: 'Will of the Forsaken' },
+        { name: 'Human', why: 'Perception' },
+      ],
+      professions: [
+        { name: 'Engineering', why: 'PvP' },
+        { name: 'Tailoring', why: 'Cloth gear' },
+      ],
+      consumables: ['Greater Arcane Elixir', 'Major Mana Potion', 'Free Action Potion', 'Mageblood Potion'],
+      build: [
+        ['Arcane Focus', 3], ['Wand Specialization', 2], ['Arcane Concentration', 5], ['Arcane Impact', 3],
+        ['Arcane Blast', 1], ['Arcane Subtlety', 1], ['Arcane Meditation', 3], ['Missile Barrage', 1],
+        ['Improved Counterspell', 1], ['Presence of Mind', 1], ['Arcane Mind', 4], ['Arcane Instability', 3],
+        ['Improved Counterspell', 1], ['Arcane Mind', 1], ['Arcane Power', 1], ['Improved Frostbolt', 5],
+        ['Elemental Precision', 3], ['Ice Shards', 2], ['Piercing Ice', 3], ['Ice Lance', 1],
+        ['Frost Channeling', 1], ['Ice Block', 1], ['Shatter', 3], ['Arctic Reach', 1],
+      ],
+    },
+  ],
+};

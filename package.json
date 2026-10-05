@@ -1,0 +1,70 @@
+{
+  "name": "everhart-guides",
+  "productName": "Everhart Guides",
+  "version": "1.0.0",
+  "description": "Class & spec guides for WoW Forever",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "concurrently -k -n vite,app -c yellow,cyan \"vite\" \"wait-on http://localhost:5173 && electron . --dev\"",
+    "build": "vite build",
+    "start": "vite build && electron .",
+    "dist": "vite build && electron-builder --win",
+    "validate": "node scripts/validate.mjs",
+    "icons": "node scripts/fetch-icons.mjs",
+    "talents": "node scripts/import-talents.mjs",
+    "gear": "node scripts/import-gear.mjs",
+    "changes": "node scripts/import-class-changes.mjs",
+    "dungeons": "node scripts/import-dungeons.mjs"
+  },
+  "build": {
+    "appId": "com.everhart.guides",
+    "productName": "Everhart Guides",
+    "copyright": "Everhart Guides. World of Warcraft and related assets are trademarks of Blizzard Entertainment.",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Everhart Guides",
+      "uninstallDisplayName": "Everhart Guides",
+      "artifactName": "Everhart-Guides-Setup-${version}.exe",
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "@fontsource/poppins": "^5.3.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "vite": "^8.3.2",
+    "wait-on": "^9.5.1"
+  },
+  "author": "Everhart Guides"
+}

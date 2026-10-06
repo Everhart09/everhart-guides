@@ -439,3 +439,29 @@ svg.filled { fill: currentColor; }
 /* App version row in Settings */
 .progress.small { height: 6px; margin-top: 8px; }
 .progress.small i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-2)); border-radius: 99px; transition: width .3s; }
+
+/* ───────────────────────── In-game talent tree backgrounds ───────────────────────── */
+/* The game's art for each tree sits behind its talents, darkened so icons and text stay readable. */
+.tree.has-bg {
+  overflow: hidden;
+  isolation: isolate;
+  background: #0b0d12;
+  /* The trees always look like the game's talent window, so they keep dark colors on the light theme too. */
+  --text: #ece6d8; --text-2: #b1ab9e; --muted: #8a8f9c; --line-soft: rgba(255, 255, 255, .08); --line: rgba(255, 255, 255, .14);
+  --line-strong: #3a4152; --track: rgba(255, 255, 255, .12); --sunken: #0e1117; --dim: #6b7282;
+}
+.tree.has-bg::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background: var(--tree-bg) center / cover no-repeat;
+  filter: saturate(1.05);
+}
+.tree.has-bg::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 15, .72) 0%, rgba(8, 10, 15, .5) 30%, rgba(8, 10, 15, .62) 100%),
+    radial-gradient(260px 160px at 50% 0%, color-mix(in srgb, var(--t) 18%, transparent), transparent 75%);
+}
+.tree.has-bg.main { border-color: color-mix(in srgb, var(--t) 45%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--t) 20%, transparent), 0 14px 34px -18px var(--t); }
+.tree.has-bg .tree-head h4 { color: var(--t); text-shadow: 0 1px 6px rgba(0, 0, 0, .8); }
+:root[data-theme='light'] .tree.has-bg .tree-head h4 { color: var(--t); }
+.tree.has-bg .tree-points, .tree.has-bg .tier-line span { text-shadow: 0 1px 4px rgba(0, 0, 0, .9); }

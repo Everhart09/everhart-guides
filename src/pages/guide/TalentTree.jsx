@@ -33,6 +33,10 @@ function arrowPath(from, to) {
 /**
  * One talent tree. Read-only by default; pass onAdd/onRemove (and canAdd) to make it a calculator.
  */
+// The game's background art for a tree. Absolute URL, because a relative url() inside a CSS variable would resolve
+// against the stylesheet's folder instead of the page.
+const treeBackground = (classId, treeId) => new URL(`talent-bg/${classId}-${treeId}.jpg`, document.baseURI).href;
+
 export default function TalentTree({ classId, tree, talents, ranks, finalRanks = ranks, spent, target, freshName, isMain, onTip, onAdd, onRemove, canAdd, headerAction }) {
   const interactive = Boolean(onAdd);
   const list = tree.talents.map((t) => talents[t.name]);
@@ -49,7 +53,7 @@ export default function TalentTree({ classId, tree, talents, ranks, finalRanks =
   };
 
   return (
-    <section className={`tree ${isMain ? 'main' : ''}`} style={{ '--t': tree.color }}>
+    <section className={`tree has-bg ${isMain ? 'main' : ''}`} style={{ '--t': tree.color, '--tree-bg': `url("${treeBackground(classId, tree.id)}")` }}>
       <header className="tree-head">
         <h4>
           {capstoneIcon && <img className="tree-icon" src={capstoneIcon} alt="" width={24} height={24} />}

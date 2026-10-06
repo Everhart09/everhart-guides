@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useSavedLevel } from '../../lib/useSavedLevel.js';
 import { RANKS, craftsFor } from '../../data/professions.js';
 import { Icon } from '../../components/icons.jsx';
 
@@ -18,7 +19,7 @@ function remainingMaterials(steps, skill) {
 }
 
 export default function SkillPlanner({ prof }) {
-  const [skill, setSkill] = useState(1);
+  const [skill, setSkill] = useSavedLevel(`skill.${prof.id}`, 1);
   const isGathering = !prof.steps[0].mats;
   const rank = RANKS.find((r) => skill >= r.from && skill < r.to) ?? RANKS[RANKS.length - 1];
   const nextRank = RANKS.find((r) => r.from > skill && r.from === rank.to);

@@ -2,13 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from '../../components/icons.jsx';
 import { FIRST_TALENT_LEVEL, MAX_LEVEL, TOTAL_POINTS, indexTalents, rankText, stateAtLevel } from '../../lib/talents.js';
+import { useSavedLevel } from '../../lib/useSavedLevel.js';
 import TalentTree from './TalentTree.jsx';
 import { talentIcon } from '../../lib/icons.js';
 
 const PLAY_INTERVAL_MS = 420;
 
 export default function TalentPlanner({ cls, spec, picks, onCustomize }) {
-  const [level, setLevel] = useState(MAX_LEVEL);
+  const [level, setLevel] = useSavedLevel(`talents.${cls.id}/${spec.id}`, 1);
   const [playing, setPlaying] = useState(false);
   const [tip, setTip] = useState(null);
 

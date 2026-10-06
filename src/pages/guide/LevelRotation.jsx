@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useSavedLevel } from '../../lib/useSavedLevel.js';
 import { Icon } from '../../components/icons.jsx';
 import { Rich } from '../../components/ui.jsx';
 import { rotationStages } from '../../data/levelRotations.js';
@@ -8,7 +9,7 @@ const abilitiesIn = (steps) => new Set(steps.flatMap((s) => s.split('**').filter
 
 export default function LevelRotation({ cls, spec }) {
   const stages = useMemo(() => rotationStages(cls, spec), [cls, spec]);
-  const [level, setLevel] = useState(MAX_LEVEL);
+  const [level, setLevel] = useSavedLevel(`rotation.${cls.id}/${spec.id}`, 1);
 
   const index = stages.reduce((found, s, i) => (s.level <= level ? i : found), 0);
   const stage = stages[index];

@@ -12,7 +12,6 @@ import ProfessionPage from './pages/ProfessionPage.jsx';
 import BetaNotes from './pages/BetaNotes.jsx';
 import PatchNotes from './pages/PatchNotes.jsx';
 import TalentCalculator from './pages/TalentCalculator.jsx';
-import LevelingRoute from './pages/LevelingRoute.jsx';
 import UpdateBanner from './components/UpdateBanner.jsx';
 import SettingsModal from './components/SettingsModal.jsx';
 import NotesDrawer from './components/NotesDrawer.jsx';
@@ -28,7 +27,7 @@ const GOLD = '#c9a45c';
 
 function isValid(r) {
   switch (r?.view) {
-    case 'home': case 'professions': case 'beta': case 'patch': case 'route': case 'dungeons': case 'picker': return true;
+    case 'home': case 'professions': case 'beta': case 'patch': case 'dungeons': case 'picker': return true;
     case 'dungeon': return !!getDungeon(r.dungeonId);
     case 'calc': return !!getClass(r.classId);
     case 'class': return !!getClass(r.classId);
@@ -95,7 +94,6 @@ export default function App() {
     prof: (profId, tab = 'overview') => setRoute({ view: 'profession', profId, tab }),
     beta: () => setRoute({ view: 'beta' }),
     patch: () => setRoute({ view: 'patch' }),
-    route: () => setRoute({ view: 'route' }),
     dungeons: () => setRoute({ view: 'dungeons' }),
     picker: () => setRoute({ view: 'picker' }),
     dungeon: (dungeonId) => setRoute({ view: 'dungeon', dungeonId }),
@@ -123,7 +121,6 @@ export default function App() {
           )}
           {route.view === 'beta' && <BetaNotes nav={nav} />}
           {route.view === 'patch' && <PatchNotes nav={nav} />}
-          {route.view === 'route' && <LevelingRoute nav={nav} />}
           {route.view === 'dungeons' && <DungeonsHub nav={nav} />}
           {route.view === 'picker' && <ClassPicker nav={nav} />}
           {route.view === 'dungeon' && dungeon && <DungeonPage key={dungeon.id} dungeon={dungeon} nav={nav} />}

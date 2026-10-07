@@ -465,3 +465,10 @@ svg.filled { fill: currentColor; }
 .tree.has-bg .tree-head h4 { color: var(--t); text-shadow: 0 1px 6px rgba(0, 0, 0, .8); }
 :root[data-theme='light'] .tree.has-bg .tree-head h4 { color: var(--t); }
 .tree.has-bg .tree-points, .tree.has-bg .tier-line span { text-shadow: 0 1px 4px rgba(0, 0, 0, .9); }
+
+/* Leveling route inside the spec guide's "Leveling & Route" tab */
+.route-embedded { margin-top: 16px; }
+.route-intro { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.route-intro h3 { font: 700 20px var(--font-display); text-transform: uppercase; letter-spacing: .03em; }
+.route-intro .lead.small { margin: 4px 0 0; max-width: 640px; }
+.route-intro .faction-toggle { margin-top: 0; }

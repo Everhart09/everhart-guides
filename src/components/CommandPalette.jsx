@@ -26,7 +26,6 @@ const ENTRIES = [
     icon: <ProfessionEmblem id={p.id} size={22} />,
     go: (nav) => nav.prof(p.id),
   })),
-  { key: 'route', label: 'Leveling Route', sub: 'Zones and dungeons by level for Alliance and Horde', color: '#c9a45c', icon: <Icon name="arrow" size={16} />, go: (nav) => nav.route() },
   ...CLASSES.flatMap((c) => [
     { key: `${c.id}/changes`, label: `What's new: ${c.name}`, sub: 'Classic vs Forever talents and abilities', color: c.color, icon: <ClassEmblem id={c.id} size={22} />, go: (nav) => nav.cls(c.id, 'changes') },
     { key: `${c.id}/trainer`, label: `${c.name} trainer checklist`, sub: 'Every ability rank and the level you learn it', color: c.color, icon: <ClassEmblem id={c.id} size={22} />, go: (nav) => nav.cls(c.id, 'trainer') },

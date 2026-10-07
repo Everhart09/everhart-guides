@@ -16,7 +16,7 @@ const TABS = [
   { id: 'talents', label: 'Talents' },
   { id: 'gear', label: 'Stats & Gear' },
   { id: 'rotation', label: 'Rotation' },
-  { id: 'leveling', label: 'Leveling' },
+  { id: 'leveling', label: 'Leveling & Route' },
 ];
 
 export default function GuidePage({ cls, spec, tab = 'overview', nav }) {
@@ -79,7 +79,7 @@ export default function GuidePage({ cls, spec, tab = 'overview', nav }) {
         {tab === 'talents' && <TalentPlanner cls={cls} spec={spec} picks={picks} onCustomize={() => nav.calc(cls.id, spec.id)} />}
         {tab === 'gear' && <GearTab cls={cls} spec={spec} />}
         {tab === 'rotation' && <RotationTab cls={cls} spec={spec} />}
-        {tab === 'leveling' && <LevelingTab cls={cls} spec={spec} picks={picks} />}
+        {tab === 'leveling' && <LevelingTab cls={cls} spec={spec} picks={picks} nav={nav} />}
       </div>
       <CheatSheet cls={cls} spec={spec} picks={picks} />
     </div>

@@ -67,6 +67,7 @@ function DungeonRow({ d, level, nav }) {
   );
 }
 
+/** Zones and dungeons by level and faction. Shown in every spec guide's "Leveling & Route" tab. */
 export default function LevelingRoute({ nav }) {
   const [faction, setFaction] = useState(() => read(FACTION_KEY, 'A'));
   const [level, setLevel] = useState(() => Number(read(LEVEL_KEY, 10)) || 10);
@@ -88,26 +89,24 @@ export default function LevelingRoute({ nav }) {
   const pct = ((level - 1) / (MAX_LEVEL - 1)) * 100;
 
   return (
-    <div className="page route-page">
-      <header className="hero">
-        <div className="hero-bg" />
-        <div className="hero-crest beta-crest"><Icon name="arrow" size={38} /></div>
-        <div className="hero-text">
-          <div className="kicker">WoW Forever · Leveling Route</div>
-          <h1>Where to level</h1>
-          <p className="hero-desc">
+    <div className="route-embedded">
+      <section className="panel route-intro">
+        <div>
+          <div className="kicker">Leveling route</div>
+          <h3>Where to level</h3>
+          <p className="lead small">
             Pick your faction and level to see the best zones to quest in and the dungeons to run, including Forever&apos;s new
             zones and dungeons.
           </p>
-          <div className="faction-toggle" role="group" aria-label="Faction">
-            {['A', 'H'].map((f) => (
-              <button key={f} className={`faction-btn side-${f} ${faction === f ? 'active' : ''}`} onClick={() => pickFaction(f)}>
-                {SIDE_NAMES[f]}
-              </button>
-            ))}
-          </div>
         </div>
-      </header>
+        <div className="faction-toggle" role="group" aria-label="Faction">
+          {['A', 'H'].map((f) => (
+            <button key={f} className={`faction-btn side-${f} ${faction === f ? 'active' : ''}`} onClick={() => pickFaction(f)}>
+              {SIDE_NAMES[f]}
+            </button>
+          ))}
+        </div>
+      </section>
 
       <section className="panel route-slider-panel">
         <div className="planner-level">

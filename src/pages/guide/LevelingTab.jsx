@@ -1,9 +1,10 @@
 import { Panel } from '../../components/ui.jsx';
 import { stateAtLevel } from '../../lib/talents.js';
+import LevelingRoute from '../LevelingRoute.jsx';
 
 const CHECKPOINTS = [20, 30, 40, 50, 60];
 
-export default function LevelingTab({ cls, spec, picks }) {
+export default function LevelingTab({ cls, spec, picks, nav }) {
   const checkpoints = CHECKPOINTS.map((lvl, i) => {
     const prev = i === 0 ? 9 : CHECKPOINTS[i - 1];
     const gained = picks.filter((p) => p.level > prev && p.level <= lvl);
@@ -12,6 +13,7 @@ export default function LevelingTab({ cls, spec, picks }) {
   });
 
   return (
+    <>
     <div className="grid-leveling">
       <Panel kicker="1 – 60" title="Leveling tips" className="span-2">
         <ul className="bullets big">
@@ -51,5 +53,7 @@ export default function LevelingTab({ cls, spec, picks }) {
         </ol>
       </Panel>
     </div>
+    <LevelingRoute nav={nav} />
+    </>
   );
 }

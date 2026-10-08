@@ -180,11 +180,11 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
             {tab === 'appearance' && (<>
             <section className="set-section">
               <div className="set-row">
-                <div><h3>Theme</h3><p>System follows your Windows light or dark mode.</p></div>
+                <div><h3>Theme</h3><p>Current is the classic Everhart look. Horde and Alliance recolor the app and add your faction&apos;s crest behind the pages.</p></div>
                 <div className="seg" role="radiogroup" aria-label="Theme">
-                  {[['dark', 'Dark', 'moon'], ['light', 'Light', 'sun'], ['system', 'System', 'settings']].map(([id, label, icon]) => (
-                    <button key={id} role="radio" aria-checked={prefs.theme === id} className={prefs.theme === id ? 'active' : ''} onClick={() => setPref('theme', id)}>
-                      <Icon name={icon} size={13} /> {label}
+                  {[['dark', 'Current'], ['horde', 'Horde'], ['alliance', 'Alliance']].map(([id, label]) => (
+                    <button key={id} role="radio" aria-checked={prefs.theme === id} className={`theme-opt theme-${id} ${prefs.theme === id ? 'active' : ''}`} onClick={() => setPref('theme', id)}>
+                      <span className="theme-swatch" /> {label}
                     </button>
                   ))}
                 </div>
@@ -200,7 +200,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
                 </div>
               </div>
               <div className="set-row">
-                <div><h3>Background orbs</h3><p>Floating orbs in the WoW Forever logo colors behind the pages.</p></div>
+                <div><h3>Background orbs</h3><p>Floating orbs in your theme&apos;s colors behind the pages.</p></div>
                 <button className={`toggle ${prefs.orbs !== false ? 'on' : ''}`} role="switch" aria-checked={prefs.orbs !== false} onClick={() => setPref('orbs', prefs.orbs === false)}>
                   <span />
                 </button>

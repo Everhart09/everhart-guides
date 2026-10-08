@@ -20,7 +20,8 @@ for (const cls of CLASSES) {
   for (const spec of cls.specs) {
     const r = spec.rotation;
     const texts = [...r.opener, ...r.single, ...r.aoe, ...r.cooldowns, ...r.notes,
-      ...[...(lr.shared ?? []), ...(lr[spec.id] ?? [])].flatMap(([, , steps, tip]) => [...steps, tip ?? ''])];
+      // Level-rotation steps are 'text' or ['text', 'why']; both parts can name abilities.
+      ...[...(lr.shared ?? []), ...(lr[spec.id] ?? [])].flatMap(([, , steps, tip, summary]) => [...steps.flat(), tip ?? '', summary ?? ''])];
     const unknown = unknownAbilityMentions(texts, known);
     if (unknown.length) warnings.push(`${spec.name}: ${unknown.join(', ')}`);
   }

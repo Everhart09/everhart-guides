@@ -30,14 +30,30 @@ function Perk({ perk, ranks, cap, onAdd, onRemove }) {
   return (
     <li
       className={`lg-perk ${state}`}
+      role="button"
+      tabIndex={0}
+      aria-label={`${perk.name}, ${r} of ${perk.max}`}
       onClick={() => !block && onAdd(perk)}
       onContextMenu={(e) => { e.preventDefault(); if (canRemove(ranks, perk)) onRemove(perk); }}
-      title={block && state !== 'maxed' ? block : 'Click to add a point, right-click to remove'}
+      onKeyDown={(e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && !block) { e.preventDefault(); onAdd(perk); }
+        if ((e.key === 'Backspace' || e.key === 'Delete' || e.key === '-') && canRemove(ranks, perk)) { e.preventDefault(); onRemove(perk); }
+      }}
+      title={block && state !== 'maxed' ? block : 'Click to add a point'}
     >
       <div className="lg-perk-head">
         {perkIcon(perk) && <img className="lg-perk-icon" src={iconByName(perkIcon(perk))} alt="" width={26} height={26} />}
         <strong>{perk.name}</strong>
         <span className="lg-rank">{r}/{perk.max}</span>
+        {r > 0 && (
+          <button
+            className="lg-minus"
+            onClick={(e) => { e.stopPropagation(); if (canRemove(ranks, perk)) onRemove(perk); }}
+            disabled={!canRemove(ranks, perk)}
+            title={canRemove(ranks, perk) ? 'Remove a point' : 'Another perk needs this one'}
+            aria-label={`Remove a point from ${perk.name}`}
+          >−</button>
+        )}
       </div>
       <p className="lg-effect">{perkEffect(perk, r)}</p>
       {r > 0 && r < perk.max && <p className="lg-next">Max rank: {perkEffect(perk, perk.max)}</p>}
@@ -123,7 +139,7 @@ export default function LegacyPage() {
           <div>
             <div className="kicker">Calculator</div>
             <h3>Plan a character&apos;s perks</h3>
-            <p className="fine">Click a perk to add a point, right-click to remove one.</p>
+            <p className="fine">Click a perk to add a point; use − (or right-click) to remove one.</p>
           </div>
           <div className="lg-points">
             <b className={spent >= cap ? 'full' : ''}>{spent}</b><span>/ {cap} points spent</span>

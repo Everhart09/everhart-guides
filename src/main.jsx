@@ -4,12 +4,7 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import './styles.css';
-import './styles-professions.css';
-import './styles-features.css';
-import './styles-tools.css';
-import './styles-theme.css';
-import './styles-extras.css';
+import './app.css';
 import App from './App.jsx';
 import { applyAppearance, watchSystem } from './lib/prefs.js';
 

@@ -4,6 +4,7 @@ import { PROFESSIONS, TYPE_LABELS } from '../data/professions.js';
 import { Icon } from './icons.jsx';
 import { ClassEmblem, ProfessionEmblem } from './GameIcon.jsx';
 import { DUNGEONS } from '../data/dungeons/index.js';
+import { isLaunched } from '../data/release.js';
 
 const ENTRIES = [
   ...CLASSES.flatMap((c) => [
@@ -37,8 +38,8 @@ const ENTRIES = [
     key: `dungeon/${d.id}`, label: d.name, sub: `Dungeon · levels ${d.levels[0]}–${d.levels[1]}${d.isNew ? ' · new in Forever' : ''} · ${d.bosses.map((b) => b.name).join(', ')}`,
     color: '#c9a45c', icon: <Icon name="skull" size={16} />, go: (nav) => nav.dungeon(d.id),
   })),
-  { key: 'patch', label: 'Patch notes — latest beta build', sub: 'WoW Forever beta development notes', color: '#c9a45c', icon: <Icon name="check" size={16} />, go: (nav) => nav.patch() },
-  { key: 'beta', label: 'WoW Forever Beta', sub: 'Beta schedule, level cap, dungeons, limitations and known issues', color: '#c9a45c', icon: <Icon name="check" size={16} />, go: (nav) => nav.beta() },
+  { key: 'patch', label: isLaunched() ? 'Patch notes' : 'News: latest beta patch notes', sub: 'WoW Forever development notes from Blizzard', color: '#c9a45c', icon: <Icon name="check" size={16} />, go: (nav) => nav.patch() },
+  ...(isLaunched() ? [] : [{ key: 'beta', label: 'Beta overview', sub: 'Beta schedule, level cap, dungeons, limitations and known issues', color: '#c9a45c', icon: <Icon name="check" size={16} />, go: (nav) => nav.beta() }]),
 ];
 
 export default function CommandPalette({ nav, onClose }) {

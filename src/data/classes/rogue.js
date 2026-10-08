@@ -169,7 +169,7 @@ export default {
         'Hemorrhage is a group-unfriendly spec in PvE',
       ],
       stats: [
-        { name: 'Attack Power', weight: 100, note: 'Deadliness multiplies your attack power' },
+        { name: 'Attack Power', weight: 100, note: 'Your openers, Hemorrhage and finishers all scale with it' },
         { name: 'Agility', weight: 90, note: '' },
         { name: 'Stamina', weight: 75, note: 'Survive burst and keep fighting' },
         { name: 'Hit', weight: 70, note: 'A missed Cheap Shot or Kidney is game-changing' },

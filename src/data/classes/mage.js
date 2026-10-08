@@ -179,7 +179,7 @@ export default {
       rotation: {
         opener: ['**Arcane Power** → **Presence of Mind** → instant **Frostbolt**/**Pyroblast**', '**Frost Nova** → **Frostbolt** for Shatter-like follow-up'],
         single: ['**Arcane Blast** to stack its damage buff (watch the rising mana cost)', '**Arcane Missiles** on Missile Barrage or Clearcasting procs', '**Frostbolt** when you need to save mana', '**Fire Blast** while moving'],
-        aoe: ['**Arcane Explosion** spam (Improved Arcane Explosion)', '**Blizzard** for ranged AoE'],
+        aoe: ['**Arcane Explosion** spam in melee range', '**Blizzard** for ranged AoE'],
         cooldowns: ['**Arcane Power** + **Presence of Mind** for burst', '**Evocation**', '**Cold Snap** for double Nova'],
         notes: ['Use **Counterspell** aggressively — it silences', '**Polymorph** healers in PvP'],
       },

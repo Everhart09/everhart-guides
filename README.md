@@ -33,9 +33,9 @@ There's also a class comparison page, a role filter and quick picks on the home 
 - **Favorites**: star any guide, class, profession or dungeon (top-right of the page) and it appears in a Favorites section at the top of the sidebar.
 - **Notes**: the notes button on any page opens a side panel for personal notes. They save automatically on your computer, and "All notes" lists every page you've written on.
 - **Cheat sheets**: every spec guide has Print and Save as PDF buttons that produce a one-page cheat sheet with the talent build (and its import code), stat priority, weapons, consumables, rotation and leveling tips.
-- **Appearance** (Settings): dark, light or system theme; four text sizes that scale the whole window; and a compact layout (Off / Auto for small windows / On).
+- **Appearance** (Settings): theme: Current (the classic dark look), Horde (crimson, with the Horde crest behind the pages) or Alliance (blue and gold, with the Alliance crest), each with matching background orbs; four text sizes that scale the whole window; and a compact layout (Off / Auto for small windows / On).
 
-**Automatic beta updates**: on startup (at most every 6 hours) the desktop app checks whether Wowhead has newer WoW Forever data or Blizzard has posted new beta notes. **Settings → Check for updates** (or the banner) downloads whatever is out of date: talent trees, pre-raid gear lists, dungeon guide data, zone maps, Legacy System perks, the "What's new" class comparisons and Blizzard's latest beta patch notes (imported straight from the official forum thread), with a progress bar, then restarts the app. No rebuild needed. Downloads are stored in your app-data folder; the WoW Forever Beta page has "Check now" and "Use bundled trees" buttons. Guides whose builds no longer fit the new trees show a warning with a link to fix them in the calculator.
+**Automatic beta updates**: on startup (at most once a day) the desktop app checks whether Wowhead has newer WoW Forever data or Blizzard has posted new beta notes. **Settings → Check for updates** (or the banner) downloads whatever is out of date: talent trees, pre-raid gear lists, dungeon guide data, zone maps, Legacy System perks, the "What's new" class comparisons and Blizzard's latest beta patch notes (imported straight from the official forum thread), with a progress bar, then restarts the app. No rebuild needed. Downloads are stored in your app-data folder; the WoW Forever Beta page has "Check now" and "Use bundled trees" buttons. Guides whose builds no longer fit the new trees show a warning with a link to fix them in the calculator.
 
 **Legacy System** (sidebar) explains WoW Forever's account-wide Legacy progression and includes a perk calculator: plan a character's points across the Professions, Adventure and Resourcefulness trees with the 16-point cap and tree requirements enforced, share builds as codes, and tick off the 65 Legacy challenges to see how many points your account has. Perk text and icons come from the official perk spells in the WoW Forever game data and refresh with Settings → Check for updates (`npm run legacy` updates the bundled copy); ranks, requirements and challenges are in `src/data/legacy.js`.
 
@@ -46,7 +46,7 @@ There's also a class comparison page, a role filter and quick picks on the home 
 - A hub page with recommended pairings and a class-fit grid (classes × professions)
 - Profession names in each spec guide link straight to their profession pages
 
-**WoW Forever Beta** covers the game's beta: schedule, current level cap, open dungeons, beta limitations, known issues and data update status. Edit it in `src/data/foreverBeta.js`. The **Patch Notes** page has the latest beta development notes. The app imports new builds' notes from Blizzard's forum automatically; `src/data/patchNotes.js` is the bundled fallback. The Beta page's level cap, dungeons and timeline update from those notes too.
+**News & Beta** (sidebar) has Blizzard's latest patch notes and, until launch, a **Beta overview** tab: schedule, current level cap, open dungeons, limitations and known issues. **Launch mode:** after the release date (`src/data/release.js`) the app drops its beta-only parts on its own: the countdown and Beta tab disappear, the leveling route stops showing a level cap, and the page becomes plain Patch Notes.
 
 ## Running
 
@@ -56,6 +56,7 @@ npm run dev       # hot-reloading dev mode (Vite + Electron)
 npm start         # production build, then launch
 npm run dist      # build a Windows installer into /release
 npm run validate  # check every talent build against the talent rules
+npm run smoke     # build, then open every page and tab in the real app and report any that break (run before releasing)
 npm run icons     # look up and download any missing game icons (only needed after adding talents)
 npm run changes   # regenerate the bundled Classic-vs-Forever comparison after `npm run talents` (the app can also rebuild it itself)
 npm run dungeons  # refresh dungeon boss abilities, loot and NPC info from Wowhead's Forever tooltips (add --force to refetch everything; the app can also update them itself)

@@ -18,7 +18,7 @@ function Item({ it }) {
   );
 }
 
-export default function PatchNotes({ nav }) {
+export default function PatchNotes({ nav, embedded = false }) {
   const [filter, setFilter] = useState('all');
   const [query, setQuery] = useState('');
 
@@ -42,7 +42,8 @@ export default function PatchNotes({ nav }) {
   ];
 
   return (
-    <div className="page">
+    <div className={embedded ? 'news-body' : 'page'}>
+      {!embedded && (<>
       <header className="hero">
         <div className="hero-bg" />
         <img className="hero-logo" src="./brand/wow-forever-logo.png" alt="World of Warcraft: Forever" />
@@ -60,6 +61,7 @@ export default function PatchNotes({ nav }) {
           </div>
         </div>
       </header>
+      </>)}
 
       <div className="pn-highlights">
         {PATCH.highlights.map((h) => (
@@ -114,17 +116,6 @@ export default function PatchNotes({ nav }) {
         ))}
         {!sections.length && <p className="muted-text pn-empty">No changes match “{query}”.</p>}
 
-        {filter === 'all' && !query && (
-          <section className="panel pn-section pn-previous">
-            <header className="panel-head">
-              <div>
-                <div className="kicker">Previous build</div>
-                <h3>{PATCH.previous.build} — highlights</h3>
-              </div>
-            </header>
-            <ul className="bullets small">{PATCH.previous.items.map((t) => <li key={t}>{t}</li>)}</ul>
-          </section>
-        )}
       </div>
     </div>
   );

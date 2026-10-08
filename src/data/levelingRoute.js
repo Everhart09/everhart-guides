@@ -99,4 +99,3 @@ export const BRACKETS = [
   { from: 51, to: 60, title: 'The road to 60', tip: 'Un\'Goro, Felwood, the Plaguelands and Winterspring. Start running Blackrock Depths and Dire Maul for pre-raid gear.' },
 ];
 
-export const BETA_CAP = 30;

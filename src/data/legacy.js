@@ -5,7 +5,10 @@
 import BUNDLED_DB from './legacyDb.json' with { type: 'json' };
 
 export const LEGACY_CAP = 16; // points one character can spend at launch
-export const LEGACY_SOURCE_NOTE = 'Based on the WoW Forever beta. Perk values and the point cap may change before launch.';
+import { isLaunched } from './release.js';
+export const LEGACY_SOURCE_NOTE = isLaunched()
+  ? 'Ranks, requirements and the point cap follow the launch version of WoW Forever.'
+  : 'Based on the WoW Forever beta. Ranks and the point cap may change before launch.';
 
 // gate: points needed in this tree first. requires: [perkId, rank] that must be maxed/reached first.
 // effect(rank) describes the bonus at a given rank.

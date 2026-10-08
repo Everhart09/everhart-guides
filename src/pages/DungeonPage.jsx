@@ -176,7 +176,9 @@ export default function DungeonPage({ dungeon: d, nav }) {
       </div>
 
       {d.bosses.map((b, i) => <Boss key={b.name} boss={b} index={i} total={d.bosses.length} onTip={setTip} />)}
-      {d.bosses.length === 0 && <section className="panel"><p className="fine">Boss guides for {d.name} are coming. Wowhead hasn&apos;t published a Forever guide yet.</p></section>}
+      {d.pendingBosses?.length > 0 && (
+        <p className="fine dg-pending">Also in {d.name}: {d.pendingBosses.join(' and ')}. Their mechanics aren&apos;t known yet; they&apos;ll be added once they can be tested.</p>
+      )}
 
       <p className="fine dg-credit">
         Strategy written for Everhart Guides from the WoW Forever beta and Wowhead&apos;s Forever dungeon guides

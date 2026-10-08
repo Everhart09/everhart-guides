@@ -34,9 +34,13 @@ export const portraitUrl = (model) => (model ? (DESKTOP ? `ehicon://portraits/${
 
 const npcLevel = (npc) => (npc?.level && npc.level !== '??' ? npc.level : null);
 
-export const DUNGEONS = CATALOG.map((d) => ({
+// Bosses whose mechanics aren't known yet are listed by name only, not given an empty section.
+const isUnknown = (b) => /not known yet|unknown/i.test(b.strategy ?? '') && !b.spells.length;
+
+const ALL = CATALOG.map((d) => ({
   ...d,
-  bosses: d.bosses.map((b) => {
+  pendingBosses: d.bosses.filter(isUnknown).map((b) => b.name),
+  bosses: d.bosses.filter((b) => !isUnknown(b)).map((b) => {
     const npc = b.npc ? DB.npcs[b.npc] : null;
     return {
       ...b,
@@ -49,6 +53,9 @@ export const DUNGEONS = CATALOG.map((d) => ({
     };
   }),
 }));
+
+/** Dungeons with a guide to show. Ones without any boss guides yet (e.g. Uldaman) stay hidden until they get one. */
+export const DUNGEONS = ALL.filter((d) => d.bosses.length > 0);
 
 export { RAIDS };
 export const getDungeon = (id) => DUNGEONS.find((d) => d.id === id) ?? null;

@@ -9,8 +9,7 @@ import ClassPage from './pages/ClassPage.jsx';
 import GuidePage from './pages/GuidePage.jsx';
 import ProfessionsHub from './pages/ProfessionsHub.jsx';
 import ProfessionPage from './pages/ProfessionPage.jsx';
-import BetaNotes from './pages/BetaNotes.jsx';
-import PatchNotes from './pages/PatchNotes.jsx';
+import NewsPage from './pages/NewsPage.jsx';
 import TalentCalculator from './pages/TalentCalculator.jsx';
 import UpdateBanner from './components/UpdateBanner.jsx';
 import SettingsModal from './components/SettingsModal.jsx';
@@ -95,8 +94,8 @@ export default function App() {
     tab: (tab) => setRoute((r) => ({ ...r, tab })),
     professions: () => setRoute({ view: 'professions' }),
     prof: (profId, tab = 'overview') => setRoute({ view: 'profession', profId, tab }),
-    beta: () => setRoute({ view: 'beta' }),
-    patch: () => setRoute({ view: 'patch' }),
+    patch: (tab) => setRoute({ view: 'patch', tab: typeof tab === 'string' ? tab : 'notes' }),
+    beta: () => setRoute({ view: 'patch', tab: 'beta' }),
     dungeons: () => setRoute({ view: 'dungeons' }),
     picker: () => setRoute({ view: 'picker' }),
     legacy: () => setRoute({ view: 'legacy' }),
@@ -123,8 +122,7 @@ export default function App() {
           {route.view === 'profession' && prof && (
             <ProfessionPage key={prof.id} prof={prof} tab={route.tab} nav={nav} />
           )}
-          {route.view === 'beta' && <BetaNotes nav={nav} />}
-          {route.view === 'patch' && <PatchNotes nav={nav} />}
+          {(route.view === 'patch' || route.view === 'beta') && <NewsPage tab={route.view === 'beta' ? 'beta' : route.tab} nav={nav} />}
           {route.view === 'dungeons' && <DungeonsHub nav={nav} />}
           {route.view === 'picker' && <ClassPicker nav={nav} />}
           {route.view === 'legacy' && <LegacyPage />}

@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { mapUrl } from '../data/zoneMapsData.js';
-import { BETA_CAP, BRACKETS, DUNGEONS, UNANNOUNCED, ZONES } from '../data/levelingRoute.js';
+import { BRACKETS, DUNGEONS, UNANNOUNCED, ZONES } from '../data/levelingRoute.js';
+import { BETA } from '../data/foreverBeta.js';
+import { isLaunched } from '../data/release.js';
+
+// Before launch, the beta's level cap (kept current from the latest patch notes); after launch, no cap marker.
+const BETA_CAP = isLaunched() ? null : BETA.current.levelCap;
 import { Icon } from '../components/icons.jsx';
 import { dungeonByName } from '../data/dungeons/index.js';
 
@@ -146,9 +151,9 @@ export default function LevelingRoute({ nav }) {
         </div>
         <div className="planner-slider">
           <div className="slider-wrap">
-            <div className="beta-cap-mark" style={{ left: `calc(11px + (100% - 22px) * ${(BETA_CAP - 1) / (MAX_LEVEL - 1)})` }} title="Beta level cap">
+            {BETA_CAP && <div className="beta-cap-mark" style={{ left: `calc(11px + (100% - 22px) * ${(BETA_CAP - 1) / (MAX_LEVEL - 1)})` }} title="Beta level cap">
               <span>Beta cap {BETA_CAP}</span>
-            </div>
+            </div>}
             <input type="range" min={1} max={MAX_LEVEL} value={level} className="level-range"
               style={{ '--pct': `${pct}%` }} aria-label="Your level" onChange={(e) => set(Number(e.target.value))} />
             <div className="slider-ticks">
@@ -165,7 +170,7 @@ export default function LevelingRoute({ nav }) {
         <p className="route-tip">{bracket.tip}</p>
       </section>
 
-      {level > BETA_CAP && (
+      {BETA_CAP && level > BETA_CAP && (
         <p className="route-beta-note">The beta currently stops at level {BETA_CAP} — content past that can&apos;t be tested until launch.</p>
       )}
 

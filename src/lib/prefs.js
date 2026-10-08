@@ -23,6 +23,9 @@ function write(key, value) {
 }
 
 let prefs = { ...DEFAULTS, ...read(KEY) };
+// Themes are now Current (dark) / Horde / Alliance; the old Light and System choices fall back to Current.
+export const THEMES = ['dark', 'horde', 'alliance'];
+if (!THEMES.includes(prefs.theme)) prefs = { ...prefs, theme: 'dark' };
 let notes = read(NOTES_KEY) ?? {};
 const listeners = new Set();
 const emit = () => listeners.forEach((l) => l());
@@ -39,7 +42,7 @@ export function setPref(key, value) {
 // --- Appearance ---------------------------------------------------------------------------
 
 const media = (q) => globalThis.matchMedia?.(q);
-const resolvedTheme = () => (prefs.theme === 'system' ? (media('(prefers-color-scheme: light)')?.matches ? 'light' : 'dark') : prefs.theme);
+const resolvedTheme = () => (THEMES.includes(prefs.theme) ? prefs.theme : 'dark');
 const isCompact = () => prefs.compact === 'on' || (prefs.compact === 'auto' && Boolean(media(SMALL_SCREEN)?.matches));
 
 /** Puts the theme, density and text size on the page. Called at startup and whenever a preference changes. */
@@ -54,7 +57,6 @@ export function applyAppearance() {
 }
 
 export function watchSystem() {
-  media('(prefers-color-scheme: light)')?.addEventListener?.('change', applyAppearance);
   media(SMALL_SCREEN)?.addEventListener?.('change', applyAppearance);
 }
 

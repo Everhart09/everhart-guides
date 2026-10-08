@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { DUNGEONS, RAIDS } from '../data/dungeons/index.js';
+import { DUNGEONS } from '../data/dungeons/index.js';
+import { isLaunched } from '../data/release.js';
 import { Icon } from '../components/icons.jsx';
 import { isFavorite, usePrefs } from '../lib/prefs.js';
 
@@ -89,23 +90,10 @@ export default function DungeonsHub({ nav }) {
         ))}
       </div>
 
-      <section className="panel dh-raids">
-        <div className="kicker">Raids</div>
-        <h3 className="route-aside-title">Not in the beta yet</h3>
-        <p className="lead small">
-          The beta is capped at level 30, so raids aren&apos;t open. They&apos;re in WoW Forever&apos;s data and guides will be added once
-          they can be tested.
-        </p>
-        <ul className="dh-raid-list">
-          {RAIDS.map((r) => (
-            <li key={r.id}>
-              <Icon name="skull" size={16} />
-              <span><b>{r.name}</b><em>{r.location}</em></span>
-              <span className="dh-raid-size">{r.players}-player · level {r.levels[0]}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <p className="fine dh-raids-note">
+        <Icon name="skull" size={13} /> Raid guides (Molten Core, Onyxia and beyond) will be added once raids open
+        {isLaunched() ? ' and can be tested.' : " after launch. The beta stops at a low level cap, so they can't be tested yet."}
+      </p>
     </div>
   );
 }

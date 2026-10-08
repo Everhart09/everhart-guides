@@ -32,7 +32,7 @@ export default {
       pros: [
         'Can tank AND DPS with one spec — great for dungeons',
         'Stealth in Cat Form for skipping mobs and picking fights',
-        'Travel Form & Feline Swiftness = fast movement',
+        'Travel Form & Feral Swiftness = fast movement',
         'Leader of the Pack is a strong group buff',
       ],
       cons: [

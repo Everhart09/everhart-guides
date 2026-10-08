@@ -98,9 +98,9 @@ export default {
         'Cleanse removes poison, disease and magic',
       ],
       cons: [
-        'No group heals in Classic',
+        "Group healing only through Light's Vigil and Holy Shock; no true area heal",
         'Slow solo leveling',
-        'Healing is mostly limited to Holy Light / Flash of Light',
+        'A small toolkit: Holy Light, Flash of Light and Holy Shock do almost all your healing',
       ],
       stats: [
         { name: '+Healing', weight: 100, note: '' },

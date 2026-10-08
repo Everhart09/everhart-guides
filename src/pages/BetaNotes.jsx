@@ -8,7 +8,7 @@ import DataStatus from '../components/DataStatus.jsx';
 const DAY = 86400000;
 const fmt = (d) => new Date(d + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 
-export default function BetaNotes({ nav }) {
+export default function BetaNotes({ nav, embedded = false }) {
   const now = Date.now();
   const end = Date.parse(BETA.end + 'T23:59:59-07:00');
   const daysLeft = Math.max(0, Math.ceil((end - now) / DAY));
@@ -16,7 +16,8 @@ export default function BetaNotes({ nav }) {
   const knownIssues = PATCH.sections.find((s) => s.id === 'known')?.groups.flatMap((g) => g.items) ?? [];
 
   return (
-    <div className="page">
+    <div className={embedded ? 'news-body' : 'page'}>
+      {!embedded && (<>
       <header className="hero">
         <div className="hero-bg" />
         <div className="hero-crest beta-crest">β</div>
@@ -32,6 +33,7 @@ export default function BetaNotes({ nav }) {
           </div>
         </div>
       </header>
+      </>)}
 
       <div className="pn-highlights">
         <div className="pn-highlight">

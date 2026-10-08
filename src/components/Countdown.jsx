@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RELEASE } from '../data/release.js';
+import { RELEASE, isLaunched, showLaunchBanner } from '../data/release.js';
 
 const RELEASE_MS = Date.parse(RELEASE.at);
 
@@ -24,6 +24,7 @@ const localLaunch = new Date(RELEASE_MS).toLocaleString(undefined, {
 /** Large countdown card for the home page. */
 export function CountdownHero({ onPatchNotes }) {
   const now = useNow();
+  if (!showLaunchBanner(now)) return null;
   const left = RELEASE_MS - now;
   const t = parts(left);
   const pad = (n) => String(n).padStart(2, '0');
@@ -35,7 +36,7 @@ export function CountdownHero({ onPatchNotes }) {
         <div className="kicker">Full release</div>
         <h2>{left > 0 ? `${RELEASE.name} launches in` : `${RELEASE.name} is live!`}</h2>
         <p>{RELEASE.label} · your time: {localLaunch}</p>
-        {onPatchNotes && <button className="btn-ghost" onClick={onPatchNotes}>Read the latest beta patch notes</button>}
+        {onPatchNotes && <button className="btn-ghost" onClick={() => onPatchNotes()}>{left > 0 ? 'Read the latest beta patch notes' : 'Read the patch notes'}</button>}
       </div>
       {left > 0 ? (
         <div className="countdown-clock" role="timer" aria-live="off">
@@ -56,6 +57,7 @@ export function CountdownHero({ onPatchNotes }) {
 /** Compact countdown for the title bar. */
 export function CountdownPill({ onClick }) {
   const now = useNow(1000);
+  if (isLaunched(now)) return null;
   const left = RELEASE_MS - now;
   const t = parts(left);
   return (

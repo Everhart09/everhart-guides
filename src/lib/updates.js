@@ -13,7 +13,7 @@ import { LEGACY_META, LEGACY_SPELL_IDS } from '../data/legacy.js';
 const LAST_KEY = 'everhart.updates.last';
 const DISMISS_KEY = 'everhart.updates.dismissed';
 const AUTO_KEY = 'everhart.updates.auto';
-const AUTO_INTERVAL_MS = 6 * 60 * 60 * 1000; // automatic checks at most every 6 hours
+const AUTO_INTERVAL_MS = 24 * 60 * 60 * 1000; // automatic checks at most once a day (keeps load on Wowhead low)
 
 const bridge = () => globalThis.everhart;
 export const updatesSupported = () => Boolean(bridge()?.checkForUpdates);

@@ -309,7 +309,7 @@ export const ROTATION_WHY = {
     '**Arcane Missiles** on Missile Barrage or Clearcasting procs': 'Free or faster casts from procs.',
     '**Frostbolt** when you need to save mana': 'A cheaper filler while Arcane Blast resets.',
     '**Fire Blast** while moving': 'Instant damage on the move.',
-    '**Arcane Explosion** spam (Improved Arcane Explosion)': 'Instant AoE around you.',
+    '**Arcane Explosion** spam in melee range': 'Instant AoE around you; stand in the middle of the pack.',
     '**Blizzard** for ranged AoE': 'AoE from a distance.',
     '**Arcane Power** + **Presence of Mind** for burst': 'Your biggest damage window.',
     '**Evocation**': 'Restores mana.',

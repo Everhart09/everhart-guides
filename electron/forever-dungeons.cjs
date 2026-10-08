@@ -4,6 +4,8 @@
 const API = 'https://nether.wowhead.com/forever/tooltip/';
 const UA = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Wowhead's render of a creature's in-game model ("classicplus" = WoW Forever), by model display id.
+const portraitSource = (model) => `https://wow.zamimg.com/modelviewer/classicplus/webthumbs/npc/${model % 256}/${model}.webp`;
 
 const text = (html) => html
   .replace(/<!--[\s\S]*?-->/g, '')
@@ -64,13 +66,14 @@ async function get(kind, id) {
 
 /** Spell, item and NPC ids used by the dungeon catalog. */
 function catalogIds(catalog) {
-  const ids = { spells: new Set(), items: new Set(), npcs: new Set() };
+  const ids = { spells: new Set(), items: new Set(), npcs: new Set(), models: new Set() };
   for (const d of catalog) for (const b of d.bosses) {
+    if (b.model) ids.models.add(b.model);
     b.spells.forEach((s) => ids.spells.add(s));
     b.loot.forEach((i) => ids.items.add(i));
     if (b.npc) ids.npcs.add(b.npc);
   }
-  return { spells: [...ids.spells], items: [...ids.items], npcs: [...ids.npcs] };
+  return { spells: [...ids.spells], items: [...ids.items], npcs: [...ids.npcs], models: [...ids.models] };
 }
 
 /**
@@ -99,4 +102,4 @@ async function buildDungeonData({ ids, db = null, previous = null, force = true,
   return { data, icons, missing };
 }
 
-module.exports = { buildDungeonData, catalogIds };
+module.exports = { buildDungeonData, catalogIds, portraitSource };

@@ -5,7 +5,7 @@ const { pathToFileURL } = require('url');
 const { fetchForeverData, latestDataUrl, latestPatchNotes, fetchIcon } = require('./forever-data.cjs');
 const { buildGearData, dbFromUrl } = require('./forever-gear.cjs');
 const { buildClassChanges } = require('./class-changes.cjs');
-const { buildDungeonData } = require('./forever-dungeons.cjs');
+const { buildDungeonData, portraitSource } = require('./forever-dungeons.cjs');
 const appUpdater = require('./app-updater.cjs');
 
 appUpdater.register();
@@ -20,6 +20,16 @@ const changesFile = () => path.join(userDir(), 'class-changes.json');
 const dungeonsFile = () => path.join(userDir(), 'forever-dungeons.json');
 const userIconDir = () => path.join(userDir(), 'icons');
 const bundledIconDirs = () => [path.join(__dirname, '..', 'dist', 'icons'), path.join(__dirname, '..', 'public', 'icons')];
+// Boss portraits for the dungeon guides: downloaded first, then the ones bundled with the app.
+const userPortraitDir = () => path.join(userDir(), 'portraits');
+const bundledPortraitDirs = () => [path.join(__dirname, '..', 'dist', 'portraits'), path.join(__dirname, '..', 'public', 'portraits')];
+function findPortrait(model) {
+  for (const dir of [userPortraitDir(), ...bundledPortraitDirs()]) {
+    const file = path.join(dir, `${model}.webp`);
+    if (fs.existsSync(file)) return file;
+  }
+  return null;
+}
 // Zone maps for the leveling route: downloaded updates first, then the maps bundled with the app.
 const userMapDir = () => path.join(userDir(), 'maps');
 const bundledMapDirs = () => [path.join(__dirname, '..', 'dist', 'maps'), path.join(__dirname, '..', 'public', 'maps')];
@@ -170,7 +180,15 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
         db,
         onProgress: (f, label) => stepProgress('dungeons')(f * 0.9, label),
       });
-      await downloadIcons(icons, send, split('dungeons', 0.9), ranges.dungeons[1], 'Downloading new dungeon icons');
+      await downloadIcons(icons, send, split('dungeons', 0.9), split('dungeons', 0.95), 'Downloading new dungeon icons');
+      // Portraits for any boss the app doesn't have one for yet (new bosses in a beta build).
+      const missingPortraits = (options.dungeonIds.models ?? []).filter((m) => !findPortrait(m));
+      fs.mkdirSync(userPortraitDir(), { recursive: true });
+      for (const [i, model] of missingPortraits.entries()) {
+        send(split('dungeons', 0.95 + (0.05 * i) / missingPortraits.length), `Downloading boss portraits (${i + 1} of ${missingPortraits.length})…`);
+        const res = await fetch(portraitSource(model), { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (res.ok) fs.writeFileSync(path.join(userPortraitDir(), `${model}.webp`), Buffer.from(await res.arrayBuffer()));
+      }
       dungeonData = data;
     }
 
@@ -316,9 +334,9 @@ app.whenReady().then(() => {
   // ehicon://icons/<name>.jpg → downloaded icons first, then the icons bundled with the app.
   protocol.handle('ehicon', (request) => {
     const url = new URL(request.url);
-    const name = path.basename(url.pathname, '.jpg').replace(/[^a-z0-9_-]/gi, '');
-    // ehicon://maps/<zone id>.jpg → zone maps; ehicon://icons/<name>.jpg → game icons.
-    const file = url.hostname === 'maps' ? findMap(name) : findIcon(name);
+    const name = path.basename(url.pathname).replace(/\.(jpg|webp)$/, '').replace(/[^a-z0-9_-]/gi, '');
+    // ehicon://maps/<zone id>.jpg → zone maps; ehicon://portraits/<model>.webp → boss portraits; ehicon://icons/<name>.jpg → icons.
+    const file = url.hostname === 'maps' ? findMap(name) : url.hostname === 'portraits' ? findPortrait(name) : findIcon(name);
     return file ? net.fetch(pathToFileURL(file).toString()) : new Response('', { status: 404 });
   });
 

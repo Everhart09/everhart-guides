@@ -7,7 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
 const require = createRequire(import.meta.url);
-const { buildDungeonData, catalogIds } = require('../electron/forever-dungeons.cjs');
+const { buildDungeonData, catalogIds, portraitSource } = require('../electron/forever-dungeons.cjs');
 const { latestDataUrl } = require('../electron/forever-data.cjs');
 const { dbFromUrl } = require('../electron/forever-gear.cjs');
 
@@ -45,6 +45,21 @@ for (const icon of icons) {
   await sleep(120);
 }
 console.log(`Icons: ${icons.length} needed, ${fetched} downloaded.`);
+
+// Boss portraits (renders of the in-game models).
+const PORTRAIT_DIR = path.join(ROOT, 'public', 'portraits');
+mkdirSync(PORTRAIT_DIR, { recursive: true });
+const models = catalogIds(CATALOG).models;
+let portraits = 0;
+for (const model of models) {
+  const file = path.join(PORTRAIT_DIR, `${model}.webp`);
+  if (existsSync(file)) continue;
+  const res = await fetch(portraitSource(model));
+  if (res.ok) { writeFileSync(file, Buffer.from(await res.arrayBuffer())); portraits++; }
+  else console.warn(`Portrait ${model}: HTTP ${res.status}`);
+  await sleep(120);
+}
+console.log(`Portraits: ${models.length} needed, ${portraits} downloaded.`);
 
 writeFileSync(OUT, JSON.stringify(data) + '\n');
 console.log('Wrote src/data/dungeons/db.json');

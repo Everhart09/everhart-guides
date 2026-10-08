@@ -18,14 +18,19 @@ export const DUNGEON_META = { ...DB.meta, origin: override ? 'downloaded' : 'bun
 
 /** Every spell, item and NPC id the guides use, so the updater knows what to download. */
 export const DUNGEON_IDS = (() => {
-  const ids = { spells: new Set(), items: new Set(), npcs: new Set() };
+  const ids = { spells: new Set(), items: new Set(), npcs: new Set(), models: new Set() };
   for (const d of CATALOG) for (const b of d.bosses) {
+    if (b.model) ids.models.add(b.model);
     b.spells.forEach((s) => ids.spells.add(s));
     b.loot.forEach((i) => ids.items.add(i));
     if (b.npc) ids.npcs.add(b.npc);
   }
-  return { spells: [...ids.spells], items: [...ids.items], npcs: [...ids.npcs] };
+  return { spells: [...ids.spells], items: [...ids.items], npcs: [...ids.npcs], models: [...ids.models] };
 })();
+
+const DESKTOP = Boolean(globalThis.everhart?.isDesktop);
+/** Render of a boss's in-game model. In the desktop app, portraits downloaded by updates take priority. */
+export const portraitUrl = (model) => (model ? (DESKTOP ? `ehicon://portraits/${model}.webp` : new URL(`portraits/${model}.webp`, document.baseURI).href) : null);
 
 const npcLevel = (npc) => (npc?.level && npc.level !== '??' ? npc.level : null);
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { DUNGEON_META, wowheadItem, wowheadNpc } from '../data/dungeons/index.js';
+import { DUNGEON_META, portraitUrl, wowheadItem, wowheadNpc } from '../data/dungeons/index.js';
 import { Icon, ROLE_ICON } from '../components/icons.jsx';
 import PageActions from '../components/PageActions.jsx';
 import { iconByName } from '../lib/icons.js';
@@ -9,6 +9,7 @@ import { openExternal } from '../lib/updates.js';
 const SIDE_NAMES = { A: 'Alliance territory', H: 'Horde territory', C: 'Contested' };
 const ROLES = [['tank', 'Tank'], ['healer', 'Healer'], ['dps', 'DPS']];
 const day = (ymd) => new Date(ymd + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+const jump = (i) => document.getElementById(`boss-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 function LootTip({ tip }) {
   const { item } = tip;
@@ -27,64 +28,95 @@ function LootTip({ tip }) {
   );
 }
 
-function Boss({ boss, index, onTip }) {
+function Portrait({ boss, size = 'lg' }) {
+  const [failed, setFailed] = useState(false);
+  const src = portraitUrl(boss.model);
+  return (
+    <div className={`boss-portrait ${size}`}>
+      {src && !failed ? <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} /> : <Icon name="skull" size={size === 'lg' ? 48 : 22} />}
+    </div>
+  );
+}
+
+/** The boss roster at the top of the page: portraits you click to jump to that boss. */
+function Roster({ bosses }) {
+  return (
+    <nav className="boss-roster" aria-label="Bosses">
+      {bosses.map((b, i) => (
+        <button key={b.name} className="roster-card" onClick={() => jump(i)}>
+          <Portrait boss={b} size="sm" />
+          <span className="roster-num">{i + 1}</span>
+          <span className="roster-name">{b.name}</span>
+          {(b.rare || b.optional || b.event) && <span className="roster-tag">{b.rare ? 'Rare' : b.event ? 'Event' : 'Optional'}</span>}
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+function Boss({ boss, index, total, onTip }) {
   const showTip = (item) => (e) => {
     const r = e.currentTarget.getBoundingClientRect();
-    onTip({ item, x: Math.min(r.right + 12, window.innerWidth - 300), y: Math.max(8, Math.min(r.top, window.innerHeight - 280)) });
+    onTip({ item, x: Math.max(8, r.left - 300), y: Math.max(8, Math.min(r.top, window.innerHeight - 280)) });
   };
+  const roles = ROLES.filter(([role]) => boss[role] && boss[role] !== '—');
+
   return (
-    <section className="panel boss" id={`boss-${index}`}>
-      <header className="boss-head">
-        <span className="boss-num">{index + 1}</span>
-        <div className="boss-title">
-          <h3>{boss.name}</h3>
-          <div className="boss-sub">
+    <section className="boss-section" id={`boss-${index}`}>
+      <header className="bs-head">
+        <Portrait boss={boss} />
+        <div className="bs-title">
+          <div className="kicker">Boss {index + 1} of {total}{boss.rare ? ' · Rare spawn' : ''}{boss.optional ? ' · Optional' : ''}{boss.event ? ' · Event' : ''}</div>
+          <h2>{boss.name}</h2>
+          <div className="bs-facts">
             {boss.title && <span>&lt;{boss.title}&gt;</span>}
             {boss.level && <span>Level {boss.level}</span>}
             {boss.kind && <span>{boss.kind}</span>}
-            {boss.rare && <span className="chip">Rare spawn</span>}
-            {boss.optional && <span className="chip">Optional</span>}
-            {boss.event && <span className="chip">Event</span>}
+            {boss.npc && <button className="link-btn inline" onClick={() => openExternal(wowheadNpc(boss.npc))}>Wowhead <Icon name="arrow" size={11} /></button>}
           </div>
+          <p className="bs-summary">{boss.strategy}</p>
         </div>
-        {boss.npc && <button className="gear-link" onClick={() => openExternal(wowheadNpc(boss.npc))} title="Open on Wowhead"><Icon name="arrow" size={12} /></button>}
       </header>
 
-      <p className="boss-strategy">{boss.strategy}</p>
-
-      <div className="boss-roles">
-        {ROLES.map(([role, label]) => boss[role] && boss[role] !== '—' && (
-          <div key={role} className={`boss-role ${role}`}>
-            <span className="boss-role-label"><Icon name={ROLE_ICON[role]} size={12} /> {label}</span>
-            <p>{boss[role]}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="boss-cols">
-        {boss.abilities.length > 0 && (
-          <div>
-            <h4 className="boss-h4">Abilities</h4>
-            <ul className="boss-abilities">
+      <div className="bs-grid">
+        <div className="bs-card">
+          <h3 className="bs-card-title"><Icon name="sword" size={14} /> Mechanics</h3>
+          {boss.abilities.length ? (
+            <ul className="bs-abilities">
               {boss.abilities.map((a) => (
                 <li key={a.id}>
-                  {a.icon ? <img src={iconByName(a.icon)} alt="" width={28} height={28} /> : <span className="tg-noicon" />}
+                  {a.icon ? <img src={iconByName(a.icon)} alt="" width={32} height={32} /> : <span className="tg-noicon" />}
                   <div>
                     <strong>{a.name}</strong>{a.school && a.school !== 'Magic' && <em className="ab-school">{a.school}</em>}
-                    {a.desc && <p>{a.desc}</p>}
+                    <p>{a.desc || 'No description in the game data.'}</p>
                   </div>
                 </li>
               ))}
             </ul>
-          </div>
-        )}
-        {boss.items.length > 0 && (
-          <div>
-            <h4 className="boss-h4">Loot</h4>
-            <ul className="boss-loot">
+          ) : <p className="fine">No special abilities: a straightforward fight.</p>}
+        </div>
+
+        <div className="bs-card">
+          <h3 className="bs-card-title"><Icon name="shield" size={14} /> What to watch out for</h3>
+          {roles.length ? (
+            <ul className="bs-watch">
+              {roles.map(([role, label]) => (
+                <li key={role} className={role}>
+                  <span className="bs-role"><Icon name={ROLE_ICON[role]} size={13} /> {label}</span>
+                  <p>{boss[role]}</p>
+                </li>
+              ))}
+            </ul>
+          ) : <p className="fine">Mechanics aren&apos;t known yet. This boss isn&apos;t in the beta.</p>}
+        </div>
+
+        <div className="bs-card">
+          <h3 className="bs-card-title"><Icon name="star" size={14} /> Drops</h3>
+          {boss.items.length ? (
+            <ul className="bs-loot">
               {boss.items.map((it) => (
                 <li key={it.id} onMouseEnter={showTip(it)} onMouseLeave={() => onTip(null)}>
-                  {it.icon ? <img className={`gear-icon q${it.q}`} src={iconByName(it.icon)} alt="" width={30} height={30} /> : <span className="gear-icon" />}
+                  {it.icon ? <img className={`gear-icon q${it.q}`} src={iconByName(it.icon)} alt="" width={34} height={34} /> : <span className="gear-icon" />}
                   <div className="bl-text">
                     <span className={`q${it.q}`}>{it.name}</span>
                     <span className="bl-sub">{[it.slot, it.type].filter(Boolean).join(' · ') || (it.quest ? 'Quest item' : 'Item')}{it.ilvl > 1 ? ` · i${it.ilvl}` : ''}</span>
@@ -94,8 +126,8 @@ function Boss({ boss, index, onTip }) {
                 </li>
               ))}
             </ul>
-          </div>
-        )}
+          ) : <p className="fine">No notable drops listed.</p>}
+        </div>
       </div>
     </section>
   );
@@ -103,7 +135,6 @@ function Boss({ boss, index, onTip }) {
 
 export default function DungeonPage({ dungeon: d, nav }) {
   const [tip, setTip] = useState(null);
-  const jump = (i) => document.getElementById(`boss-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   return (
     <div className="page dungeon-page">
@@ -124,51 +155,34 @@ export default function DungeonPage({ dungeon: d, nav }) {
             <span className={`route-side side-${d.side}`}>{SIDE_NAMES[d.side]}</span>
             {d.isNew && <span className="chip chip-new">New in Forever</span>}
             {d.status === 'later' && <span className="chip">Not open in the beta yet</span>}
+            {d.bosses.length > 0 && <span className="meta-pill">{d.bosses.length} bosses</span>}
           </div>
         </div>
         <PageActions favKey={`dungeon:${d.id}`} noteKey={`dungeon:${d.id}`} nav={nav} />
       </header>
 
-      <div className="dungeon-layout">
-        <div className="dungeon-main">
-          <section className="panel">
-            <div className="kicker">Getting there</div>
-            <p className="dg-where"><Icon name="arrow" size={14} /> {d.location}</p>
-            <p className="dg-text">{d.getThere}</p>
-          </section>
+      {d.bosses.length > 0 && <Roster bosses={d.bosses} />}
 
-          {d.bosses.map((b, i) => <Boss key={b.name} boss={b} index={i} onTip={setTip} />)}
-          {d.bosses.length === 0 && <section className="panel"><p className="fine">Boss guides for {d.name} are coming. Wowhead hasn&apos;t published a Forever guide yet.</p></section>}
-        </div>
-
-        <aside className="dungeon-aside">
-          {d.bosses.length > 0 && (
-            <section className="panel dg-bosslist">
-              <div className="kicker">Bosses</div>
-              <ol>
-                {d.bosses.map((b, i) => (
-                  <li key={b.name}>
-                    <button onClick={() => jump(i)}>
-                      <span className="boss-num small">{i + 1}</span>
-                      <span>{b.name}</span>
-                      {(b.rare || b.optional) && <em>{b.rare ? 'rare' : 'optional'}</em>}
-                    </button>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          )}
-          <section className="panel">
-            <div className="kicker">Tips</div>
-            <ul className="dg-tips">{d.tips.map((t) => <li key={t}>{t}</li>)}</ul>
-          </section>
-          <p className="fine dg-credit">
-            Strategy written for Everhart Guides from the WoW Forever beta and Wowhead&apos;s Forever dungeon guides
-            {d.guide && <> (<button className="link-btn inline" onClick={() => openExternal(d.guide)}>read the full guide</button>)</>}.
-            Abilities, loot and drop chances from Wowhead&apos;s Forever database, {day(DUNGEON_META.importedAt)}.
-          </p>
-        </aside>
+      <div className="dg-intro">
+        <section className="panel">
+          <div className="kicker">Getting there</div>
+          <p className="dg-where"><Icon name="arrow" size={14} /> {d.location}</p>
+          <p className="dg-text">{d.getThere}</p>
+        </section>
+        <section className="panel">
+          <div className="kicker">Before you go</div>
+          <ul className="dg-tips">{d.tips.map((t) => <li key={t}>{t}</li>)}</ul>
+        </section>
       </div>
+
+      {d.bosses.map((b, i) => <Boss key={b.name} boss={b} index={i} total={d.bosses.length} onTip={setTip} />)}
+      {d.bosses.length === 0 && <section className="panel"><p className="fine">Boss guides for {d.name} are coming. Wowhead hasn&apos;t published a Forever guide yet.</p></section>}
+
+      <p className="fine dg-credit">
+        Strategy written for Everhart Guides from the WoW Forever beta and Wowhead&apos;s Forever dungeon guides
+        {d.guide && <> (<button className="link-btn inline" onClick={() => openExternal(d.guide)}>read the full guide</button>)</>}.
+        Abilities, loot, drop chances and boss models from Wowhead&apos;s Forever database, {day(DUNGEON_META.importedAt)}.
+      </p>
       {tip && <LootTip tip={tip} />}
     </div>
   );

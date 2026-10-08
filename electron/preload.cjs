@@ -9,6 +9,8 @@ contextBridge.exposeInMainWorld('everhart', {
   getGearOverride: () => ipcRenderer.sendSync('gear:get-override'),
   /** Downloaded dungeon abilities, loot and boss info (or null to use the bundled data). */
   getDungeonOverride: () => ipcRenderer.sendSync('dungeons:get-override'),
+  /** Downloaded Legacy System perk data (or null to use the bundled data). */
+  getLegacyOverride: () => ipcRenderer.sendSync('legacy:get-override'),
   /** Downloaded beta patch notes (or null to use the bundled ones). */
   getPatchNotesOverride: () => ipcRenderer.sendSync('patchnotes:get-override'),
   /** Info about downloaded zone maps (or null to use the bundled maps). */

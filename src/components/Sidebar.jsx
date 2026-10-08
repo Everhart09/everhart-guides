@@ -37,6 +37,9 @@ export default function Sidebar({ route, nav }) {
       <button className={`side-home ${route.view === 'calc' ? 'active' : ''}`} onClick={() => nav.calc()}>
         <Icon name="plus" size={16} /> Talent Calculator
       </button>
+      <button className={`side-home ${route.view === 'legacy' ? 'active' : ''}`} onClick={nav.legacy}>
+        <Icon name="star" size={16} /> Legacy System
+      </button>
       <button className={`side-home ${route.view === 'dungeons' || route.view === 'dungeon' ? 'active' : ''}`} onClick={nav.dungeons}>
         <Icon name="skull" size={16} /> Dungeons &amp; Raids
       </button>

@@ -47,7 +47,7 @@ export default function UpdateBanner({ nav }) {
   }
 
   const notes = result?.patchNotes?.changed;
-  const data = needsUpdate(result) && ['talents', 'gear', 'dungeons', 'maps', 'changes'].some((k) => result?.[k]?.changed);
+  const data = needsUpdate(result) && ['talents', 'gear', 'dungeons', 'maps', 'legacy', 'changes'].some((k) => result?.[k]?.changed);
   if (!data && !notes) return null;
   if (dismissed === updateKey(result)) return null;
 
@@ -55,7 +55,7 @@ export default function UpdateBanner({ nav }) {
     <div className="update-banner">
       <span className="ub-dot" />
       <div className="ub-text">
-        {data && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear, dungeon guides and zone maps.</span>}
+        {data && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear, dungeon guides, zone maps and Legacy perks.</span>}
         {notes && <span><b>Blizzard posted new beta notes</b> (<i>{result.patchNotes.title}</i>). Update to add them to the Patch Notes page.</span>}
       </div>
       <div className="ub-actions">

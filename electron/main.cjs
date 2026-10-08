@@ -8,6 +8,7 @@ const { buildClassChanges } = require('./class-changes.cjs');
 const { buildDungeonData, portraitSource } = require('./forever-dungeons.cjs');
 const appUpdater = require('./app-updater.cjs');
 const { fetchPatchNotes, latestPost } = require('./forever-patchnotes.cjs');
+const { buildLegacyData } = require('./forever-legacy.cjs');
 
 appUpdater.register();
 
@@ -19,6 +20,7 @@ const overrideFile = () => path.join(userDir(), 'forever-talents.json');
 const gearFile = () => path.join(userDir(), 'forever-gear.json');
 const changesFile = () => path.join(userDir(), 'class-changes.json');
 const patchNotesFile = () => path.join(userDir(), 'patch-notes.json');
+const legacyFile = () => path.join(userDir(), 'forever-legacy.json');
 const dungeonsFile = () => path.join(userDir(), 'forever-dungeons.json');
 const userIconDir = () => path.join(userDir(), 'icons');
 const bundledIconDirs = () => [path.join(__dirname, '..', 'dist', 'icons'), path.join(__dirname, '..', 'public', 'icons')];
@@ -91,6 +93,10 @@ ipcMain.on('dungeons:get-override', (event) => {
   event.returnValue = readJSON(dungeonsFile());
 });
 
+ipcMain.on('legacy:get-override', (event) => {
+  event.returnValue = readJSON(legacyFile());
+});
+
 ipcMain.on('patchnotes:get-override', (event) => {
   event.returnValue = readJSON(patchNotesFile());
 });
@@ -104,7 +110,7 @@ ipcMain.on('changes:get-override', (event) => {
 });
 
 ipcMain.handle('updates:check', async (_event, current) => {
-  const result = { checkedAt: new Date().toISOString(), talents: null, gear: null, dungeons: null, maps: null, changes: null, patchNotes: null };
+  const result = { checkedAt: new Date().toISOString(), talents: null, gear: null, dungeons: null, maps: null, legacy: null, changes: null, patchNotes: null };
   try {
     const latest = await latestDataUrl();
     const latestDb = dbFromUrl(latest);
@@ -112,6 +118,7 @@ ipcMain.handle('updates:check', async (_event, current) => {
     result.gear = { latest: latestDb, current: current?.gearDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.gearDb };
     result.dungeons = { latest: latestDb, current: current?.dungeonsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.dungeonsDb };
     result.maps = { latest: latestDb, current: current?.mapsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.mapsDb };
+    result.legacy = { latest: latestDb, current: current?.legacyDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.legacyDb };
     // The Classic-vs-Forever comparison is out of date whenever it was built from different Forever data than the latest.
     result.changes = { latest, current: current?.changesFor ?? null, changed: latest !== current?.changesFor };
   } catch (e) {
@@ -119,6 +126,7 @@ ipcMain.handle('updates:check', async (_event, current) => {
     result.gear = { error: e.message };
     result.dungeons = { error: e.message };
     result.maps = { error: e.message };
+    result.legacy = { error: e.message };
     result.changes = { error: e.message };
   }
   try {
@@ -148,10 +156,11 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
   const doDungeons = Boolean(options.dungeons && options.dungeonIds);
   const doMaps = Boolean(options.maps && options.mapZones?.length);
   const doPatch = Boolean(options.patchNotes);
+  const doLegacy = Boolean(options.legacy && options.legacySpells?.length);
   const doChanges = Boolean(options.changes);
 
   // Each step gets a slice of the progress bar (0–95%) sized by roughly how long it takes; saving is the last 5%.
-  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, patch: doPatch ? 0.5 : 0, changes: doChanges ? 0.6 : 0 };
+  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, patch: doPatch ? 0.5 : 0, legacy: doLegacy ? 0.5 : 0, changes: doChanges ? 0.6 : 0 };
   const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
   const ranges = {};
   let at = 0;
@@ -218,6 +227,13 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
       fs.writeFileSync(path.join(staging, 'meta.json'), JSON.stringify(mapsMeta));
     }
 
+    let legacyData = null;
+    if (doLegacy) {
+      const { data, icons } = await buildLegacyData({ spellIds: options.legacySpells, db, onProgress: (f, label) => stepProgress('legacy')(f * 0.9, label) });
+      await downloadIcons(icons, send, split('legacy', 0.9), ranges.legacy[1], 'Downloading Legacy perk icons');
+      legacyData = data;
+    }
+
     let patchData = null;
     if (doPatch) {
       send(ranges.patch[0], 'Downloading the latest beta patch notes…');
@@ -243,6 +259,7 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
     }
     if (changesData) fs.writeFileSync(changesFile(), JSON.stringify(changesData));
     if (patchData) fs.writeFileSync(patchNotesFile(), JSON.stringify(patchData));
+    if (legacyData) fs.writeFileSync(legacyFile(), JSON.stringify(legacyData));
     send(1, 'Update complete');
     return {
       ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, maps: mapsMeta, patchNotes: patchData ? { build: patchData.build } : null, changes: changesData?.meta ?? null,
@@ -270,6 +287,7 @@ ipcMain.handle('updates:clear-talents', () => {
     fs.rmSync(changesFile(), { force: true });
     fs.rmSync(dungeonsFile(), { force: true });
     fs.rmSync(patchNotesFile(), { force: true });
+    fs.rmSync(legacyFile(), { force: true });
     fs.rmSync(userMapDir(), { recursive: true, force: true });
     return { ok: true };
   } catch (e) {

@@ -1,7 +1,7 @@
 {
   "name": "everhart-guides",
   "productName": "Everhart Guides",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Class & spec guides for WoW Forever",
   "type": "module",
   "main": "electron/main.cjs",
@@ -17,7 +17,8 @@
     "changes": "node scripts/import-class-changes.mjs",
     "dungeons": "node scripts/import-dungeons.mjs",
     "talent-bg": "node scripts/fetch-talent-backgrounds.mjs",
-    "maps": "node scripts/fetch-zone-maps.mjs"
+    "maps": "node scripts/fetch-zone-maps.mjs",
+    "legacy": "node scripts/import-legacy.mjs"
   },
   "build": {
     "appId": "com.everhart.guides",

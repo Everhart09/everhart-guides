@@ -102,4 +102,4 @@ async function buildDungeonData({ ids, db = null, previous = null, force = true,
   return { data, icons, missing };
 }
 
-module.exports = { buildDungeonData, catalogIds, portraitSource };
+module.exports = { buildDungeonData, catalogIds, portraitSource, parseSpell, getTooltip: get };

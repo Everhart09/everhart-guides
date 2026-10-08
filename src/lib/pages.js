@@ -3,7 +3,7 @@ import { CLASSES, getClass, getSpec } from '../data/classes/index.js';
 import { getProfession } from '../data/professions.js';
 import { getDungeon } from '../data/dungeons/index.js';
 
-const VIEW_LABELS = { home: 'Overview', patch: 'Patch notes', calc: 'Talent calculator', route: 'Leveling route', picker: 'Class picker', beta: 'WoW Forever Beta', professions: 'All professions', dungeons: 'Dungeons & raids' };
+const VIEW_LABELS = { home: 'Overview', patch: 'Patch notes', calc: 'Talent calculator', route: 'Leveling route', picker: 'Class picker', legacy: 'Legacy System', beta: 'WoW Forever Beta', professions: 'All professions', dungeons: 'Dungeons & raids' };
 
 /** The key of the page a route shows, e.g. "guide:priest/shadow". */
 export function pageKey(route) {

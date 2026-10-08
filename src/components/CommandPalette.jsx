@@ -31,6 +31,7 @@ const ENTRIES = [
     { key: `${c.id}/trainer`, label: `${c.name} trainer checklist`, sub: 'Every ability rank and the level you learn it', color: c.color, icon: <ClassEmblem id={c.id} size={22} />, go: (nav) => nav.cls(c.id, 'trainer') },
   ]),
   { key: 'picker', label: 'Class Picker', sub: 'Answer a few questions and get class suggestions', color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.picker() },
+  { key: 'legacy', label: 'Legacy System', sub: 'Legacy points, perk calculator and challenges', color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.legacy() },
   { key: 'dungeons', label: 'Dungeons & Raids', sub: 'Boss guides, abilities and loot for every beta dungeon', color: '#c9a45c', icon: <Icon name="skull" size={16} />, go: (nav) => nav.dungeons() },
   ...DUNGEONS.map((d) => ({
     key: `dungeon/${d.id}`, label: d.name, sub: `Dungeon · levels ${d.levels[0]}–${d.levels[1]}${d.isNew ? ' · new in Forever' : ''} · ${d.bosses.map((b) => b.name).join(', ')}`,

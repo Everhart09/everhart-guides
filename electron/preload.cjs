@@ -9,6 +9,8 @@ contextBridge.exposeInMainWorld('everhart', {
   getGearOverride: () => ipcRenderer.sendSync('gear:get-override'),
   /** Downloaded dungeon abilities, loot and boss info (or null to use the bundled data). */
   getDungeonOverride: () => ipcRenderer.sendSync('dungeons:get-override'),
+  /** Info about downloaded zone maps (or null to use the bundled maps). */
+  getMapsMeta: () => ipcRenderer.sendSync('maps:get-meta'),
   /** Downloaded Classic-vs-Forever class comparison (or null to use the bundled one). */
   getChangesOverride: () => ipcRenderer.sendSync('changes:get-override'),
   checkForUpdates: (current) => ipcRenderer.invoke('updates:check', current),

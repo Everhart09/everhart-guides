@@ -20,6 +20,17 @@ const changesFile = () => path.join(userDir(), 'class-changes.json');
 const dungeonsFile = () => path.join(userDir(), 'forever-dungeons.json');
 const userIconDir = () => path.join(userDir(), 'icons');
 const bundledIconDirs = () => [path.join(__dirname, '..', 'dist', 'icons'), path.join(__dirname, '..', 'public', 'icons')];
+// Zone maps for the leveling route: downloaded updates first, then the maps bundled with the app.
+const userMapDir = () => path.join(userDir(), 'maps');
+const bundledMapDirs = () => [path.join(__dirname, '..', 'dist', 'maps'), path.join(__dirname, '..', 'public', 'maps')];
+const MAP_CDN = 'https://wow.zamimg.com/images/wow/classicplus/maps/enus/zoom/'; // "classicplus" = WoW Forever on Wowhead
+function findMap(id) {
+  for (const dir of [userMapDir(), ...bundledMapDirs()]) {
+    const file = path.join(dir, `${id}.jpg`);
+    if (fs.existsSync(file)) return file;
+  }
+  return null;
+}
 
 protocol.registerSchemesAsPrivileged([
   { scheme: 'ehicon', privileges: { standard: true, secure: true, supportFetchAPI: true } },
@@ -68,24 +79,30 @@ ipcMain.on('dungeons:get-override', (event) => {
   event.returnValue = readJSON(dungeonsFile());
 });
 
+ipcMain.on('maps:get-meta', (event) => {
+  event.returnValue = readJSON(path.join(userMapDir(), 'meta.json'));
+});
+
 ipcMain.on('changes:get-override', (event) => {
   event.returnValue = readJSON(changesFile());
 });
 
 ipcMain.handle('updates:check', async (_event, current) => {
-  const result = { checkedAt: new Date().toISOString(), talents: null, gear: null, dungeons: null, changes: null, patchNotes: null };
+  const result = { checkedAt: new Date().toISOString(), talents: null, gear: null, dungeons: null, maps: null, changes: null, patchNotes: null };
   try {
     const latest = await latestDataUrl();
     const latestDb = dbFromUrl(latest);
     result.talents = { latest, current: current?.talentDataUrl ?? null, changed: latest !== current?.talentDataUrl };
     result.gear = { latest: latestDb, current: current?.gearDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.gearDb };
     result.dungeons = { latest: latestDb, current: current?.dungeonsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.dungeonsDb };
+    result.maps = { latest: latestDb, current: current?.mapsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.mapsDb };
     // The Classic-vs-Forever comparison is out of date whenever it was built from different Forever data than the latest.
     result.changes = { latest, current: current?.changesFor ?? null, changed: latest !== current?.changesFor };
   } catch (e) {
     result.talents = { error: e.message };
     result.gear = { error: e.message };
     result.dungeons = { error: e.message };
+    result.maps = { error: e.message };
     result.changes = { error: e.message };
   }
   try {
@@ -110,10 +127,11 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
   const doTalents = options.talents !== false;
   const doGear = Boolean(options.gear && options.gearProfiles && options.classGear);
   const doDungeons = Boolean(options.dungeons && options.dungeonIds);
+  const doMaps = Boolean(options.maps && options.mapZones?.length);
   const doChanges = Boolean(options.changes);
 
   // Each step gets a slice of the progress bar (0–95%) sized by roughly how long it takes; saving is the last 5%.
-  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, changes: doChanges ? 0.6 : 0 };
+  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, changes: doChanges ? 0.6 : 0 };
   const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
   const ranges = {};
   let at = 0;
@@ -156,6 +174,22 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
       dungeonData = data;
     }
 
+    let mapsMeta = null;
+    if (doMaps) {
+      // Maps download into a staging folder and replace the old ones only once every map has arrived.
+      const staging = path.join(userDir(), 'maps-new');
+      fs.rmSync(staging, { recursive: true, force: true });
+      fs.mkdirSync(staging, { recursive: true });
+      const zones = [...new Set(options.mapZones)];
+      for (const [i, id] of zones.entries()) {
+        stepProgress('maps')(i / zones.length, `Downloading zone maps (${i + 1} of ${zones.length})…`);
+        const res = await fetch(`${MAP_CDN}${id}.jpg`, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (res.ok) fs.writeFileSync(path.join(staging, `${id}.jpg`), Buffer.from(await res.arrayBuffer()));
+      }
+      mapsMeta = { db, importedAt: new Date().toISOString().slice(0, 10), count: fs.readdirSync(staging).length };
+      fs.writeFileSync(path.join(staging, 'meta.json'), JSON.stringify(mapsMeta));
+    }
+
     let changesData = null;
     // Compare against the Forever data the app will use after restarting: what we just downloaded, or an earlier download.
     const foreverData = talentData ?? readOverride();
@@ -169,10 +203,14 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
     if (talentData) fs.writeFileSync(overrideFile(), JSON.stringify(talentData));
     if (gearData) fs.writeFileSync(gearFile(), JSON.stringify(gearData));
     if (dungeonData) fs.writeFileSync(dungeonsFile(), JSON.stringify(dungeonData));
+    if (mapsMeta) {
+      fs.rmSync(userMapDir(), { recursive: true, force: true });
+      fs.renameSync(path.join(userDir(), 'maps-new'), userMapDir());
+    }
     if (changesData) fs.writeFileSync(changesFile(), JSON.stringify(changesData));
     send(1, 'Update complete');
     return {
-      ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, changes: changesData?.meta ?? null,
+      ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, maps: mapsMeta, changes: changesData?.meta ?? null,
     };
   } catch (e) {
     return { ok: false, error: e.message };
@@ -196,6 +234,7 @@ ipcMain.handle('updates:clear-talents', () => {
     fs.rmSync(gearFile(), { force: true });
     fs.rmSync(changesFile(), { force: true });
     fs.rmSync(dungeonsFile(), { force: true });
+    fs.rmSync(userMapDir(), { recursive: true, force: true });
     return { ok: true };
   } catch (e) {
     return { ok: false, error: e.message };
@@ -276,8 +315,10 @@ function createWindow() {
 app.whenReady().then(() => {
   // ehicon://icons/<name>.jpg → downloaded icons first, then the icons bundled with the app.
   protocol.handle('ehicon', (request) => {
-    const name = path.basename(new URL(request.url).pathname, '.jpg').replace(/[^a-z0-9_-]/gi, '');
-    const file = findIcon(name);
+    const url = new URL(request.url);
+    const name = path.basename(url.pathname, '.jpg').replace(/[^a-z0-9_-]/gi, '');
+    // ehicon://maps/<zone id>.jpg → zone maps; ehicon://icons/<name>.jpg → game icons.
+    const file = url.hostname === 'maps' ? findMap(name) : findIcon(name);
     return file ? net.fetch(pathToFileURL(file).toString()) : new Response('', { status: 404 });
   });
 

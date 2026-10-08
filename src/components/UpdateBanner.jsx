@@ -55,7 +55,7 @@ export default function UpdateBanner({ nav }) {
     <div className="update-banner">
       <span className="ub-dot" />
       <div className="ub-text">
-        {talents && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear and dungeon guides.</span>}
+        {talents && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear, dungeon guides and zone maps.</span>}
         {notes && <span>Blizzard posted new beta notes: <i>{result.patchNotes.title}</i></span>}
       </div>
       <div className="ub-actions">

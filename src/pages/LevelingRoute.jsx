@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { mapUrl } from '../data/zoneMapsData.js';
 import { BETA_CAP, BRACKETS, DUNGEONS, UNANNOUNCED, ZONES } from '../data/levelingRoute.js';
 import { Icon } from '../components/icons.jsx';
 import { dungeonByName } from '../data/dungeons/index.js';
@@ -29,11 +31,36 @@ const visibleTo = (side, faction) => side === 'C' || side === faction;
 const CAPITALS = ['Orgrimmar', 'Stormwind City', 'Undercity', 'Ironforge', 'Thunder Bluff', 'Darnassus'];
 const canRun = (d, faction) => visibleTo(d.side, faction) || !CAPITALS.includes(d.where);
 
-function ZoneCard({ zone, level }) {
+
+function MapViewer({ zone, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  return createPortal(
+    <div className="modal-backdrop map-viewer" onMouseDown={onClose}>
+      <figure onMouseDown={(e) => e.stopPropagation()}>
+        <img src={mapUrl(zone.zone)} alt={`Map of ${zone.name}`} />
+        <figcaption>
+          <b>{zone.name}</b> · levels {zone.levels[0]}–{zone.levels[1]}
+          <button className="ub-close" onClick={onClose} title="Close (Esc)"><Icon name="x" size={16} /></button>
+        </figcaption>
+      </figure>
+    </div>,
+    document.body,
+  );
+}
+
+function ZoneCard({ zone, level, selected, onSelect }) {
   const [lo, hi] = zone.levels;
   const pct = Math.min(100, Math.max(0, ((level - lo) / Math.max(1, hi - lo)) * 100));
   return (
-    <article className={`route-card side-${zone.side}`}>
+    <article
+      className={`route-card side-${zone.side} ${selected ? 'selected' : ''}`}
+      role="button" tabIndex={0} title={`Show the ${zone.name} map`}
+      onClick={onSelect} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onSelect())}
+    >
       <header>
         <h4>{zone.name}</h4>
         {zone.isNew && <em className="badge new">New in Forever</em>}
@@ -85,6 +112,9 @@ export default function LevelingRoute({ nav }) {
     .sort((a, b) => Math.abs((a.levels[0] + a.levels[1]) / 2 - level) - Math.abs((b.levels[0] + b.levels[1]) / 2 - level));
   const dungeonsNow = DUNGEONS.filter((d) => canRun(d, faction) && fits(d.levels, level));
   const upcoming = ZONES.filter((z) => visibleTo(z.side, faction) && z.levels[0] > level && z.levels[0] <= level + 6);
+  const [picked, setPicked] = useState(null);
+  const [zoomed, setZoomed] = useState(null);
+  const mapZone = zonesNow.find((z) => z.name === picked) ?? zonesNow[0] ?? null;
   const bracket = BRACKETS.find((b) => level >= b.from && level <= b.to) ?? BRACKETS[BRACKETS.length - 1];
   const pct = ((level - 1) / (MAX_LEVEL - 1)) * 100;
 
@@ -148,7 +178,23 @@ export default function LevelingRoute({ nav }) {
             </div>
           </header>
           {zonesNow.length ? (
-            <div className="route-grid">{zonesNow.map((z) => <ZoneCard key={z.name} zone={z} level={level} />)}</div>
+            <>
+              <div className="route-grid">
+                {zonesNow.map((z) => <ZoneCard key={z.name} zone={z} level={level} selected={z.name === mapZone?.name} onSelect={() => setPicked(z.name)} />)}
+              </div>
+              {mapZone?.zone && (
+                <figure className="route-map">
+                  <button className="route-map-img" onClick={() => setZoomed(mapZone)} title="View full size">
+                    <img src={mapUrl(mapZone.zone)} alt={`Map of ${mapZone.name}`} loading="lazy" />
+                    <span className="route-map-zoom"><Icon name="search" size={14} /> Full size</span>
+                  </button>
+                  <figcaption>
+                    <b>{mapZone.name}</b> · levels {mapZone.levels[0]}–{mapZone.levels[1]}
+                    {zonesNow.length > 1 && <span> · click a zone above to switch maps</span>}
+                  </figcaption>
+                </figure>
+              )}
+            </>
           ) : (
             <p className="fine">No zones listed for this level yet.</p>
           )}
@@ -224,6 +270,7 @@ export default function LevelingRoute({ nav }) {
         </ul>
         <p className="fine">These are in Wowhead&apos;s WoW Forever data but Blizzard hasn&apos;t published their level ranges yet. They&apos;ll be added to the route once announced.</p>
       </section>
+      {zoomed && <MapViewer zone={zoomed} onClose={() => setZoomed(null)} />}
     </div>
   );
 }

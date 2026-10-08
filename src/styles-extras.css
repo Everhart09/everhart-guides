@@ -472,3 +472,22 @@ svg.filled { fill: currentColor; }
 .route-intro h3 { font: 700 20px var(--font-display); text-transform: uppercase; letter-spacing: .03em; }
 .route-intro .lead.small { margin: 4px 0 0; max-width: 640px; }
 .route-intro .faction-toggle { margin-top: 0; }
+
+/* Zone maps in the leveling route */
+.route-card[role='button'] { cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
+.route-card[role='button']:hover { transform: translateY(-1px); border-color: var(--line); }
+.route-card.selected { border-color: color-mix(in srgb, var(--gold) 55%, var(--line)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 35%, transparent), 0 10px 24px -16px var(--gold); }
+.route-map { margin: 14px 0 0; }
+.route-map-img { position: relative; display: block; width: 100%; padding: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--sunken); }
+.route-map-img img { display: block; width: 100%; height: auto; aspect-ratio: 772 / 515; object-fit: cover; transition: transform .4s; }
+.route-map-img:hover img { transform: scale(1.02); }
+.route-map-zoom { position: absolute; right: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #f3ead6; padding: 5px 10px; border-radius: 99px; background: rgba(10, 12, 18, .72); border: 1px solid rgba(255, 255, 255, .15); opacity: 0; transition: opacity .2s; }
+.route-map-img:hover .route-map-zoom, .route-map-img:focus-visible .route-map-zoom { opacity: 1; }
+.route-map figcaption { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.route-map figcaption b { color: var(--text); }
+.map-viewer { display: grid; place-items: center; z-index: 140; }
+.map-viewer figure { margin: 0; max-width: 94vw; max-height: 90vh; display: flex; flex-direction: column; gap: 8px; animation: reveal-in .25s ease both; }
+.map-viewer img { max-width: 94vw; max-height: calc(90vh - 44px); width: auto; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .15); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .8); }
+.map-viewer figcaption { display: flex; align-items: center; gap: 10px; color: #d8d1c2; font-size: 13px; }
+.map-viewer figcaption b { color: #fff; }
+.map-viewer figcaption .ub-close { margin-left: auto; color: #d8d1c2; }

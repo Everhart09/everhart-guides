@@ -7,6 +7,7 @@ import { GEAR_META } from '../data/gearData.js';
 import { CLASS_GEAR, GEAR_PROFILES } from '../data/gearProfiles.js';
 import { CHANGES_META } from '../data/classChangesData.js';
 import { DUNGEON_IDS, DUNGEON_META } from '../data/dungeons/index.js';
+import { MAP_ZONES, MAPS_META } from '../data/zoneMapsData.js';
 
 const LAST_KEY = 'everhart.updates.last';
 const DISMISS_KEY = 'everhart.updates.dismissed';
@@ -37,7 +38,8 @@ let state = {
   status: 'idle', // idle | checking | applying | error
   result: cached?.talents?.current === TALENT_META.dataUrl && (cached?.gear?.current ?? null) === (GEAR_META.db ?? null)
     && (cached?.changes?.current ?? null) === (CHANGES_META.forever ?? null)
-    && (cached?.dungeons?.current ?? null) === (DUNGEON_META.db ?? null) ? cached : null,
+    && (cached?.dungeons?.current ?? null) === (DUNGEON_META.db ?? null)
+    && (cached?.maps?.current ?? null) === (MAPS_META.db ?? null) ? cached : null,
   error: null,
   dismissed: read(DISMISS_KEY),
 };
@@ -52,7 +54,7 @@ export function useUpdates() {
 }
 
 /** Key identifying the specific update on offer, so dismissing hides only that one. */
-export const updateKey = (result) => `${result?.talents?.latest ?? ''}|${result?.gear?.latest ?? ''}|${result?.changes?.changed ? 'changes' : ''}|${result?.dungeons?.latest ?? ''}|${result?.patchNotes?.title ?? ''}`;
+export const updateKey = (result) => `${result?.talents?.latest ?? ''}|${result?.gear?.latest ?? ''}|${result?.changes?.changed ? 'changes' : ''}|${result?.dungeons?.latest ?? ''}|${result?.maps?.changed ? 'maps' : ''}|${result?.patchNotes?.title ?? ''}`;
 
 /** Whether the app checks for updates by itself on startup (on by default). */
 export const autoCheckEnabled = () => read(AUTO_KEY) !== false;
@@ -69,7 +71,7 @@ export async function checkForUpdates({ force = false } = {}) {
   set({ status: 'checking', error: null });
   try {
     const result = await bridge().checkForUpdates({
-      talentDataUrl: TALENT_META.dataUrl, gearDb: GEAR_META.db ?? null, changesFor: CHANGES_META.forever ?? null, dungeonsDb: DUNGEON_META.db ?? null,
+      talentDataUrl: TALENT_META.dataUrl, gearDb: GEAR_META.db ?? null, changesFor: CHANGES_META.forever ?? null, dungeonsDb: DUNGEON_META.db ?? null, mapsDb: MAPS_META.db ?? null,
       patchTitle: PATCH.forumTitle,
     });
     write(LAST_KEY, result);
@@ -81,8 +83,8 @@ export async function checkForUpdates({ force = false } = {}) {
   }
 }
 
-/** True when the guides' talent trees, gear lists, dungeon data or class comparisons are behind the latest WoW Forever data. */
-export const needsUpdate = (result) => Boolean(result?.talents?.changed || result?.gear?.changed || result?.dungeons?.changed || result?.changes?.changed);
+/** True when the guides' talent trees, gear lists, dungeon data, zone maps or class comparisons are behind the latest WoW Forever data. */
+export const needsUpdate = (result) => Boolean(result?.talents?.changed || result?.gear?.changed || result?.dungeons?.changed || result?.maps?.changed || result?.changes?.changed);
 
 /** Downloads whatever is out of date (talent trees, gear lists, dungeon data, class comparisons), reporting { percent, label }. Returns { ok, error? }. */
 export async function downloadUpdate(onProgress, result = state.result) {
@@ -95,6 +97,8 @@ export async function downloadUpdate(onProgress, result = state.result) {
       changes: Boolean(result?.changes?.changed),
       dungeons: Boolean(result?.dungeons?.changed),
       dungeonIds: DUNGEON_IDS,
+      maps: Boolean(result?.maps?.changed),
+      mapZones: MAP_ZONES,
       gearProfiles: GEAR_PROFILES,
       classGear: CLASS_GEAR,
     });

@@ -4,6 +4,7 @@ import { PATCH } from '../data/patchNotes.js';
 import { GEAR_META } from '../data/gearData.js';
 import { CHANGES_META } from '../data/classChangesData.js';
 import { DUNGEON_META } from '../data/dungeons/index.js';
+import { MAPS_META } from '../data/zoneMapsData.js';
 import { Icon } from './icons.jsx';
 import { TEXT_SIZES, setPref, usePrefs } from '../lib/prefs.js';
 import { appUpdatesSupported, checkAppUpdate, installAppUpdate, useAppUpdate } from '../lib/appUpdate.js';
@@ -54,7 +55,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
       setNotes(res?.patchNotes?.changed ? res.patchNotes : null);
       if (res?.talents?.error) throw new Error(`Couldn't reach the WoW Forever data: ${res.talents.error}`);
       if (!needsUpdate(res)) return setPhase('uptodate');
-      setUpdating([res.talents?.changed && 'talent trees', res.gear?.changed && 'pre-raid gear lists', res.dungeons?.changed && 'dungeon guides',
+      setUpdating([res.talents?.changed && 'talent trees', res.gear?.changed && 'pre-raid gear lists', res.dungeons?.changed && 'dungeon guides', res.maps?.changed && 'zone maps',
         res.changes?.changed && "“What's new” class comparisons"].filter(Boolean));
       setProgress({ percent: 0, label: 'Starting update…' });
       setPhase('updating');
@@ -114,6 +115,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
                 <li><span>Talent data</span><b>{TALENT_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(TALENT_META.importedAt)}</b></li>
                 <li><span>Gear lists</span><b>{GEAR_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(GEAR_META.importedAt)}</b></li>
                 <li><span>Dungeon guides</span><b>{DUNGEON_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(DUNGEON_META.importedAt)}</b></li>
+                <li><span>Zone maps</span><b>{MAPS_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(MAPS_META.importedAt)}</b></li>
                 <li><span>Patch notes</span><b>{PATCH.build}</b></li>
                 <li><span>Last checked</span><b>{supported ? when(result?.checkedAt) : 'Desktop app only'}</b></li>
               </ul>
@@ -192,11 +194,11 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
                   <span />
                 </button>
               </div>
-              {(TALENT_META.origin === 'downloaded' || GEAR_META.origin === 'downloaded' || CHANGES_META.origin === 'downloaded' || DUNGEON_META.origin === 'downloaded') && (
+              {(TALENT_META.origin === 'downloaded' || GEAR_META.origin === 'downloaded' || CHANGES_META.origin === 'downloaded' || DUNGEON_META.origin === 'downloaded' || MAPS_META.origin === 'downloaded') && (
                 <div className="set-row">
                   <div>
                     <h3>Use bundled guide data</h3>
-                    <p>Undo downloaded updates and go back to the talent trees, gear lists, dungeon guides and class comparisons that shipped with the app.</p>
+                    <p>Undo downloaded updates and go back to the talent trees, gear lists, dungeon guides, zone maps and class comparisons that shipped with the app.</p>
                   </div>
                   <button className="btn-ghost" onClick={revertTalentUpdate}>Revert & restart</button>
                 </div>
@@ -226,7 +228,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
           <div className="modal-body center">
             <div className="big-check"><Icon name="check" size={34} /></div>
             <h3>All guides are up to date!</h3>
-            <p>Your talent trees, pre-raid gear lists, dungeon guides and class comparisons match the latest WoW Forever release.</p>
+            <p>Your talent trees, gear lists, dungeon guides, zone maps and class comparisons match the latest WoW Forever release.</p>
             {notes && (
               <p className="modal-note">
                 Blizzard has posted newer beta notes: <i>{notes.title}</i>

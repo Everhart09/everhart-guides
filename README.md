@@ -4,10 +4,7 @@ A desktop app with class and spec guides for **WoW Forever**, built with React, 
 
 ## Download
 
-Get the latest version from the [Releases page](https://github.com/Everhart09/everhart-guides/releases/latest):
-
-- **Windows:** `Everhart-Guides-Setup-x.y.z.exe`. Run it and pick where to install.
-- **Mac** (Apple Silicon and Intel): `Everhart-Guides-x.y.z-mac.dmg`. Open it and drag Everhart Guides into Applications. The app isn't signed by Apple, so the first time you open it, right-click it in Applications and choose **Open**, then **Open** again. On newer macOS versions you may need **System Settings → Privacy & Security → Open Anyway** instead. Mac copies tell you when a new version is out, but you download it yourself; guide data still updates in-app.
+Get the latest Windows installer from the [Releases page](https://github.com/Everhart09/everhart-guides/releases/latest) (`Everhart-Guides-Setup-x.y.z.exe`), run it, and pick where to install.
 
 The installer isn't code-signed yet, so Windows may show **"Windows protected your PC"**. Click **More info → Run anyway**. Once installed, the app keeps itself up to date: new versions download in the background from this repo's Releases (you'll see **Restart & update**), and guide data refreshes through **Settings → Check for updates**.
 
@@ -58,7 +55,6 @@ npm install
 npm run dev       # hot-reloading dev mode (Vite + Electron)
 npm start         # production build, then launch
 npm run dist      # build a Windows installer into /release
-npm run dist:mac  # build the Mac app (dmg + zip); run on a Mac. GitHub Actions does this for every release
 npm run validate  # check every talent build against the talent rules
 npm run icons     # look up and download any missing game icons (only needed after adding talents)
 npm run changes   # regenerate the bundled Classic-vs-Forever comparison after `npm run talents` (the app can also rebuild it itself)

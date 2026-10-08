@@ -21,7 +21,7 @@ export default function Sidebar({ route, nav }) {
   const current = pageKey(route);
   const favs = favorites.map((key) => ({ key, info: pageInfo(key) })).filter((f) => f.info);
   const app = useAppUpdate();
-  const updateDot = !updatesSupported() ? '' : app.state === 'ready' || app.state === 'available' || needsUpdate(result) ? 'update' : status === 'checking' ? 'checking' : result ? 'ok' : '';
+  const updateDot = !updatesSupported() ? '' : app.state === 'ready' || needsUpdate(result) ? 'update' : status === 'checking' ? 'checking' : result ? 'ok' : '';
 
   return (
     <nav className="sidebar">

@@ -3,7 +3,6 @@ const { contextBridge, ipcRenderer, webFrame } = require('electron');
 
 contextBridge.exposeInMainWorld('everhart', {
   isDesktop: true,
-  platform: process.platform,
   /** Downloaded talent data (or null to use the data bundled with the app). Synchronous so data modules can load it. */
   getTalentOverride: () => ipcRenderer.sendSync('talents:get-override'),
   /** Downloaded pre-raid gear lists (or null to use the bundled ones). */

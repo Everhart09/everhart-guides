@@ -1,7 +1,7 @@
 {
   "name": "everhart-guides",
   "productName": "Everhart Guides",
-  "version": "1.1.8",
+  "version": "1.1.7",
   "description": "Class & spec guides for WoW Forever",
   "type": "module",
   "main": "electron/main.cjs",
@@ -18,8 +18,7 @@
     "dungeons": "node scripts/import-dungeons.mjs",
     "talent-bg": "node scripts/fetch-talent-backgrounds.mjs",
     "maps": "node scripts/fetch-zone-maps.mjs",
-    "legacy": "node scripts/import-legacy.mjs",
-    "dist:mac": "vite build && electron-builder --mac --universal --publish never"
+    "legacy": "node scripts/import-legacy.mjs"
   },
   "build": {
     "appId": "com.everhart.guides",
@@ -63,33 +62,7 @@
         "repo": "everhart-guides",
         "releaseType": "release"
       }
-    ],
-    "mac": {
-      "category": "public.app-category.games",
-      "icon": "build/icon.png",
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "universal"
-          ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "universal"
-          ]
-        }
-      ],
-      "identity": "-",
-      "hardenedRuntime": false,
-      "gatekeeperAssess": false,
-      "artifactName": "Everhart-Guides-${version}-mac.${ext}"
-    },
-    "dmg": {
-      "title": "Everhart Guides ${version}",
-      "artifactName": "Everhart-Guides-${version}-mac.${ext}"
-    }
+    ]
   },
   "dependencies": {
     "@fontsource/poppins": "^5.3.0",

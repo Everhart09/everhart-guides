@@ -163,16 +163,13 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
                       : appUpdate.state === 'checking' ? 'Checking GitHub for a new version…'
                         : appUpdate.state === 'downloading' ? `Downloading version ${appUpdate.version ?? ''}… ${appUpdate.percent ?? 0}%`
                           : appUpdate.state === 'ready' ? `Version ${appUpdate.version} is ready. Restart to finish updating.`
-                          : appUpdate.state === 'available' ? `Version ${appUpdate.version} is available. Download it from GitHub to update.`
                             : appUpdate.state === 'none' ? 'You have the latest version.'
                               : appUpdate.state === 'error' ? `Couldn't check for app updates: ${appUpdate.error}`
                                 : 'New versions download in the background and install when you restart.'}
                   </p>
                   {appUpdate.state === 'downloading' && <div className="progress small"><i style={{ width: `${appUpdate.percent ?? 0}%` }} /></div>}
                 </div>
-                {appUpdate.state === 'available'
-                  ? <button className="btn-primary" onClick={() => openExternal(appUpdate.url)}>Download {appUpdate.version}</button>
-                  : appUpdate.state === 'ready'
+                {appUpdate.state === 'ready'
                   ? <button className="btn-primary" onClick={installAppUpdate}>Restart &amp; update</button>
                   : <button className="btn-ghost" onClick={checkAppUpdate} disabled={!appUpdatesSupported() || appUpdate.state === 'unsupported' || appUpdate.state === 'checking' || appUpdate.state === 'downloading'}>Check for app updates</button>}
               </div>

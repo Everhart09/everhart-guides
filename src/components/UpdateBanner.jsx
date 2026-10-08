@@ -17,17 +17,6 @@ export default function UpdateBanner({ nav }) {
 
   if (!updatesSupported()) return null;
 
-  if (app.state === 'available') {
-    return (
-      <div className="update-banner app">
-        <span className="ub-dot" />
-        <div className="ub-text"><span><b>Everhart Guides {app.version} is available.</b> Download the new version to update; your notes and settings are kept.</span></div>
-        <div className="ub-actions">
-          <button className="btn-primary" onClick={() => openExternal(app.url)}>Download {app.version}</button>
-        </div>
-      </div>
-    );
-  }
   if (app.state === 'ready') {
     return (
       <div className="update-banner app">

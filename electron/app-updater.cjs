@@ -5,7 +5,6 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 
 let status = { state: 'idle', version: null, percent: 0, error: null, current: app.getVersion() };
 let updater = null;
-const IS_MAC = process.platform === 'darwin';
 // electron-updater errors include whole HTTP dumps; keep a short, readable line for the Settings screen.
 const shortError = (e) => {
   const msg = String(e?.message ?? e ?? 'Unknown error');
@@ -24,13 +23,10 @@ function broadcast(patch) {
 function getUpdater() {
   if (updater || !app.isPackaged) return updater; // only installed copies can update themselves
   ({ autoUpdater: updater } = require('electron-updater'));
-  // macOS only installs updates for code-signed apps, so there we just announce new versions with a download link.
-  updater.autoDownload = !IS_MAC;
+  updater.autoDownload = true;
   updater.autoInstallOnAppQuit = true; // if the user just quits, the update installs then
   updater.on('checking-for-update', () => broadcast({ state: 'checking', error: null }));
-  updater.on('update-available', (info) => broadcast(IS_MAC
-    ? { state: 'available', version: info.version, url: `https://github.com/Everhart09/everhart-guides/releases/tag/v${info.version}` }
-    : { state: 'downloading', version: info.version, notes: info.releaseNotes ?? null, percent: 0 }));
+  updater.on('update-available', (info) => broadcast({ state: 'downloading', version: info.version, notes: info.releaseNotes ?? null, percent: 0 }));
   updater.on('update-not-available', () => broadcast({ state: 'none' }));
   updater.on('download-progress', (p) => broadcast({ state: 'downloading', percent: Math.round(p.percent) }));
   updater.on('update-downloaded', (info) => broadcast({ state: 'ready', version: info.version, percent: 100 }));
@@ -41,7 +37,7 @@ function getUpdater() {
 async function check() {
   const u = getUpdater();
   if (!u) return { ...status, state: 'unsupported' };
-  if (status.state === 'downloading' || status.state === 'ready' || status.state === 'available') return status;
+  if (status.state === 'downloading' || status.state === 'ready') return status;
   try {
     await u.checkForUpdates();
   } catch (e) {

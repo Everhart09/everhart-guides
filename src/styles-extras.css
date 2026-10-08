@@ -689,3 +689,8 @@ svg.filled { fill: currentColor; }
 .lg-perk-head { align-items: center; }
 .lg-perk-icon { flex: none; border-radius: 6px; box-shadow: 0 0 0 1px var(--line); }
 .lg-perk.locked .lg-perk-icon { filter: grayscale(1); }
+
+/* macOS: room for the traffic-light buttons on the left; no Windows caption buttons on the right */
+:root[data-platform='darwin'] .titlebar { padding-left: 86px; }
+:root[data-platform='darwin'] .titlebar-spacer { width: 20px; }
+:root[data-platform='darwin'] .brand { width: 190px; }

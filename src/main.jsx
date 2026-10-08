@@ -14,6 +14,7 @@ import App from './App.jsx';
 import { applyAppearance, watchSystem } from './lib/prefs.js';
 
 // Theme, density and text size go on before the first render so there's no flash of the wrong theme.
+document.documentElement.dataset.platform = globalThis.everhart?.platform ?? 'web';
 applyAppearance();
 watchSystem();
 

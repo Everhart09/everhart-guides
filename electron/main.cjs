@@ -303,7 +303,7 @@ const OVERLAY = { dark: { color: '#0c0e13', symbolColor: '#c9a45c' }, light: { c
 ipcMain.on('app:set-theme', (event, theme) => {
   const win = BrowserWindow.fromWebContents(event.sender);
   try {
-    win?.setTitleBarOverlay?.({ ...(OVERLAY[theme] ?? OVERLAY.dark), height: 44 });
+    if (process.platform !== 'darwin') win?.setTitleBarOverlay?.({ ...(OVERLAY[theme] ?? OVERLAY.dark), height: 44 });
     win?.setBackgroundColor(OVERLAY[theme]?.color ?? OVERLAY.dark.color);
   } catch {
     /* no overlay on this platform */
@@ -340,8 +340,10 @@ function createWindow() {
     minHeight: 700,
     backgroundColor: '#0c0e13',
     title: 'Everhart Guides',
-    titleBarStyle: 'hidden',
-    titleBarOverlay: { color: '#0c0e13', symbolColor: '#c9a45c', height: 44 },
+    // Windows: our own title bar with the system buttons drawn on the right. macOS: traffic lights inset on the left.
+    ...(process.platform === 'darwin'
+      ? { titleBarStyle: 'hiddenInset', trafficLightPosition: { x: 16, y: 14 } }
+      : { titleBarStyle: 'hidden', titleBarOverlay: { color: '#0c0e13', symbolColor: '#c9a45c', height: 44 } }),
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),

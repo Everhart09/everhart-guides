@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CHANGES } from '../../data/classChangesData.js';
 import { Panel } from '../../components/ui.jsx';
 import { talentIcon, iconUrl } from '../../lib/icons.js';
+import { describeChange } from '../../lib/describeChange.js';
 
 const day = (ymd) => new Date(ymd + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -13,7 +14,8 @@ function ChangedTalent({ t, classId }) {
         {talentIcon(classId, t.name) && <img className="chg-icon" src={talentIcon(classId, t.name)} alt="" width={30} height={30} />}
         <div className="chg-text">
           <strong>{t.name}</strong> <span className="chg-tree">{t.tree}</span>
-          <div className="chg-notes">{t.notes.map((n) => <span key={n} className="chip">{n}</span>)}</div>
+          <div className="chg-notes">{t.notes.filter((n) => n !== 'Effect changed').map((n) => <span key={n} className="chip">{n}</span>)}</div>
+          {t.before && (() => { const d = describeChange(t.before, t.after); return d && <p className={`chg-summary-line ${d.kind}`}>{d.text}</p>; })()}
         </div>
         {t.before && <button className="btn-ghost" onClick={() => setOpen(!open)}>{open ? 'Hide' : 'Compare'}</button>}
       </div>

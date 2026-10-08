@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Icon } from '../../components/icons.jsx';
 import { FIRST_TALENT_LEVEL, MAX_LEVEL, TOTAL_POINTS, indexTalents, rankText, stateAtLevel } from '../../lib/talents.js';
 import { useSavedLevel } from '../../lib/useSavedLevel.js';
+import { BUILD_WHY } from '../../data/buildWhy.js';
 import TalentTree from './TalentTree.jsx';
 import { talentIcon } from '../../lib/icons.js';
 
@@ -60,8 +61,20 @@ export default function TalentPlanner({ cls, spec, picks, onCustomize }) {
   const signature = picks.filter((p) => p.max === 1);
   const treeById = Object.fromEntries(cls.trees.map((t) => [t.id, t]));
 
+  const why = BUILD_WHY[`${cls.id}/${spec.id}`];
+
   return (
     <div className="planner">
+      {why && (
+        <section className="panel build-why">
+          <div className="kicker">Why this build</div>
+          <div className="bw-grid">
+            <p><b>{cls.trees.map((t) => picks.filter((p) => p.tree === t.id).length).join(' / ')}</b> {why.main}</p>
+            <p>{why.second}</p>
+            <p className="bw-early"><b>Leveling tip:</b> {why.early}</p>
+          </div>
+        </section>
+      )}
       <section className="panel planner-head">
         <div className="planner-level">
           <span className="pl-label">Character level</span>

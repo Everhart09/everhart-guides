@@ -46,20 +46,20 @@ export default function UpdateBanner({ nav }) {
     );
   }
 
-  const talents = needsUpdate(result);
   const notes = result?.patchNotes?.changed;
-  if (!talents && !notes) return null;
+  const data = needsUpdate(result) && ['talents', 'gear', 'dungeons', 'maps', 'changes'].some((k) => result?.[k]?.changed);
+  if (!data && !notes) return null;
   if (dismissed === updateKey(result)) return null;
 
   return (
     <div className="update-banner">
       <span className="ub-dot" />
       <div className="ub-text">
-        {talents && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear, dungeon guides and zone maps.</span>}
-        {notes && <span>Blizzard posted new beta notes: <i>{result.patchNotes.title}</i></span>}
+        {data && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear, dungeon guides and zone maps.</span>}
+        {notes && <span><b>Blizzard posted new beta notes</b> (<i>{result.patchNotes.title}</i>). Update to add them to the Patch Notes page.</span>}
       </div>
       <div className="ub-actions">
-        {talents && <button className="btn-primary" onClick={applyTalentUpdate}>Update guides</button>}
+        <button className="btn-primary" onClick={applyTalentUpdate}>Update guides</button>
         {notes && <button className="btn-ghost" onClick={() => openExternal(result.patchNotes.url)}>Read on forums <Icon name="arrow" size={12} /></button>}
         <button className="btn-ghost" onClick={nav.beta}>Details</button>
         <button className="ub-close" onClick={() => dismissUpdate(result)} title="Dismiss"><Icon name="x" size={14} /></button>

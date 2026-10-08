@@ -203,7 +203,7 @@ export const PROFESSIONS = [
     classFit: fit(3, 3, 3, 3, 4, 3, 4, 4, 3),
     pros: ['Disenchant every green you find', 'Enchant your own gear for free', 'Crusader & Spell Power enchants are in huge demand', 'Craft your own wands early'],
     cons: ['Very expensive to level — eats materials', 'No direct gathering partner', 'Enchant income is mostly tips'],
-    tips: ['Disenchant greens rather than vendoring them while leveling', 'Runed rods (Copper, Silver, Golden, Truesilver, Arcanite) are required tools', 'Enchanting Lesser/Greater Magic Wands is a great early caster weapon'],
+    tips: ['Disenchant greens rather than vendoring them while leveling', 'Runed rods (Copper, Silver, Golden, Truesilver, Arcanite) are required tools', 'Enchanting Lesser/Greater Magic Wands is a great early caster weapon. Make them to use: in WoW Forever crafted wands only sell to vendors for 1 copper'],
     trainers: ['Apprentice to Expert: capital city enchanters', 'Artisan: special trainers (e.g. Uldaman for some, check your capital)'],
     steps: [
       { from: 1, to: 2, item: 'Runed Copper Rod', mats: [['Copper Rod', 1], ['Strange Dust', 1], ['Lesser Magic Essence', 1]], crafts: 1 },

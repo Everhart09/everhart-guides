@@ -5,7 +5,7 @@ import { Rich } from '../../components/ui.jsx';
 import { rotationStages } from '../../data/levelRotations.js';
 
 const MAX_LEVEL = 60;
-const abilitiesIn = (steps) => new Set(steps.flatMap((s) => s.split('**').filter((_, i) => i % 2)));
+const abilitiesIn = (steps) => new Set(steps.flatMap((s) => s.text.split('**').filter((_, i) => i % 2)));
 
 export default function LevelRotation({ cls, spec }) {
   const stages = useMemo(() => rotationStages(cls, spec), [cls, spec]);
@@ -62,6 +62,7 @@ export default function LevelRotation({ cls, spec }) {
             Levels {stage.level}–{next ? next.level - 1 : MAX_LEVEL}
           </span>
           <h4>{stage.title}</h4>
+          {stage.summary && <p className="lr-summary">{stage.summary}</p>}
           {fresh.length > 0 && (
             <div className="lr-new">
               <span className="lr-new-label">New</span>
@@ -73,7 +74,13 @@ export default function LevelRotation({ cls, spec }) {
         </div>
         <ol className="prio lr-prio">
           {stage.steps.map((s, i) => (
-            <li key={s}><span className="prio-n">{i + 1}</span><span><Rich text={s} /></span></li>
+            <li key={s.text}>
+              <span className="prio-n">{i + 1}</span>
+              <span className="lr-step">
+                <span className="lr-step-text"><Rich text={s.text} /></span>
+                {s.why && <span className="lr-step-why">{s.why}</span>}
+              </span>
+            </li>
           ))}
         </ol>
       </div>

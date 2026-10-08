@@ -35,7 +35,7 @@ There's also a class comparison page, a role filter and quick picks on the home 
 - **Cheat sheets**: every spec guide has Print and Save as PDF buttons that produce a one-page cheat sheet with the talent build (and its import code), stat priority, weapons, consumables, rotation and leveling tips.
 - **Appearance** (Settings): dark, light or system theme; four text sizes that scale the whole window; and a compact layout (Off / Auto for small windows / On).
 
-**Automatic beta updates**: on startup (at most every 6 hours) the desktop app checks whether Wowhead has newer WoW Forever data or Blizzard has posted new beta notes. **Settings → Check for updates** (or the banner) downloads whatever is out of date: talent trees, pre-raid gear lists, dungeon guide data, zone maps and the "What's new" class comparisons, with a progress bar, then restarts the app. No rebuild needed. Downloads are stored in your app-data folder; the WoW Forever Beta page has "Check now" and "Use bundled trees" buttons. Guides whose builds no longer fit the new trees show a warning with a link to fix them in the calculator.
+**Automatic beta updates**: on startup (at most every 6 hours) the desktop app checks whether Wowhead has newer WoW Forever data or Blizzard has posted new beta notes. **Settings → Check for updates** (or the banner) downloads whatever is out of date: talent trees, pre-raid gear lists, dungeon guide data, zone maps, the "What's new" class comparisons and Blizzard's latest beta patch notes (imported straight from the official forum thread), with a progress bar, then restarts the app. No rebuild needed. Downloads are stored in your app-data folder; the WoW Forever Beta page has "Check now" and "Use bundled trees" buttons. Guides whose builds no longer fit the new trees show a warning with a link to fix them in the calculator.
 
 **Professions** covers all 12 professions (gathering, crafting and secondary):
 
@@ -44,7 +44,7 @@ There's also a class comparison page, a role filter and quick picks on the home 
 - A hub page with recommended pairings and a class-fit grid (classes × professions)
 - Profession names in each spec guide link straight to their profession pages
 
-**WoW Forever Beta** covers the game's beta: schedule, current level cap, open dungeons, beta limitations, known issues and data update status. Edit it in `src/data/foreverBeta.js`. The **Patch Notes** page (`src/data/patchNotes.js`) has the latest beta development notes.
+**WoW Forever Beta** covers the game's beta: schedule, current level cap, open dungeons, beta limitations, known issues and data update status. Edit it in `src/data/foreverBeta.js`. The **Patch Notes** page has the latest beta development notes. The app imports new builds' notes from Blizzard's forum automatically; `src/data/patchNotes.js` is the bundled fallback. The Beta page's level cap, dungeons and timeline update from those notes too.
 
 ## Running
 

@@ -7,6 +7,7 @@ const { buildGearData, dbFromUrl } = require('./forever-gear.cjs');
 const { buildClassChanges } = require('./class-changes.cjs');
 const { buildDungeonData, portraitSource } = require('./forever-dungeons.cjs');
 const appUpdater = require('./app-updater.cjs');
+const { fetchPatchNotes, latestPost } = require('./forever-patchnotes.cjs');
 
 appUpdater.register();
 
@@ -17,6 +18,7 @@ const userDir = () => app.getPath('userData');
 const overrideFile = () => path.join(userDir(), 'forever-talents.json');
 const gearFile = () => path.join(userDir(), 'forever-gear.json');
 const changesFile = () => path.join(userDir(), 'class-changes.json');
+const patchNotesFile = () => path.join(userDir(), 'patch-notes.json');
 const dungeonsFile = () => path.join(userDir(), 'forever-dungeons.json');
 const userIconDir = () => path.join(userDir(), 'icons');
 const bundledIconDirs = () => [path.join(__dirname, '..', 'dist', 'icons'), path.join(__dirname, '..', 'public', 'icons')];
@@ -89,6 +91,10 @@ ipcMain.on('dungeons:get-override', (event) => {
   event.returnValue = readJSON(dungeonsFile());
 });
 
+ipcMain.on('patchnotes:get-override', (event) => {
+  event.returnValue = readJSON(patchNotesFile());
+});
+
 ipcMain.on('maps:get-meta', (event) => {
   event.returnValue = readJSON(path.join(userMapDir(), 'meta.json'));
 });
@@ -116,9 +122,12 @@ ipcMain.handle('updates:check', async (_event, current) => {
     result.changes = { error: e.message };
   }
   try {
-    const notes = await latestPatchNotes();
+    const { topic, post } = await latestPost();
+    const notes = { title: topic.title, postId: post.id, updatedAt: post.created_at, url: 'https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes/2360696' };
     const norm = (s) => (s ?? '').replace(/[–—-]/g, '-').replace(/\s+/g, ' ').trim().toLowerCase();
-    result.patchNotes = { ...notes, changed: norm(notes.title) !== norm(current?.patchTitle) };
+    // New notes = a new thread title, or (once we know which post we have) a newer post in the thread.
+    const newerPost = current?.patchPostId ? notes.postId !== current.patchPostId : false;
+    result.patchNotes = { ...notes, changed: norm(notes.title) !== norm(current?.patchTitle) || newerPost };
   } catch (e) {
     result.patchNotes = { error: e.message };
   }
@@ -138,10 +147,11 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
   const doGear = Boolean(options.gear && options.gearProfiles && options.classGear);
   const doDungeons = Boolean(options.dungeons && options.dungeonIds);
   const doMaps = Boolean(options.maps && options.mapZones?.length);
+  const doPatch = Boolean(options.patchNotes);
   const doChanges = Boolean(options.changes);
 
   // Each step gets a slice of the progress bar (0–95%) sized by roughly how long it takes; saving is the last 5%.
-  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, changes: doChanges ? 0.6 : 0 };
+  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, patch: doPatch ? 0.5 : 0, changes: doChanges ? 0.6 : 0 };
   const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
   const ranges = {};
   let at = 0;
@@ -208,6 +218,12 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
       fs.writeFileSync(path.join(staging, 'meta.json'), JSON.stringify(mapsMeta));
     }
 
+    let patchData = null;
+    if (doPatch) {
+      send(ranges.patch[0], 'Downloading the latest beta patch notes…');
+      patchData = await fetchPatchNotes(options.currentPatch ?? null);
+    }
+
     let changesData = null;
     // Compare against the Forever data the app will use after restarting: what we just downloaded, or an earlier download.
     const foreverData = talentData ?? readOverride();
@@ -226,9 +242,10 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
       fs.renameSync(path.join(userDir(), 'maps-new'), userMapDir());
     }
     if (changesData) fs.writeFileSync(changesFile(), JSON.stringify(changesData));
+    if (patchData) fs.writeFileSync(patchNotesFile(), JSON.stringify(patchData));
     send(1, 'Update complete');
     return {
-      ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, maps: mapsMeta, changes: changesData?.meta ?? null,
+      ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, maps: mapsMeta, patchNotes: patchData ? { build: patchData.build } : null, changes: changesData?.meta ?? null,
     };
   } catch (e) {
     return { ok: false, error: e.message };
@@ -252,6 +269,7 @@ ipcMain.handle('updates:clear-talents', () => {
     fs.rmSync(gearFile(), { force: true });
     fs.rmSync(changesFile(), { force: true });
     fs.rmSync(dungeonsFile(), { force: true });
+    fs.rmSync(patchNotesFile(), { force: true });
     fs.rmSync(userMapDir(), { recursive: true, force: true });
     return { ok: true };
   } catch (e) {

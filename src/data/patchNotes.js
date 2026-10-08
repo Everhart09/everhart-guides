@@ -1,8 +1,8 @@
-// Latest WoW Forever beta patch notes, transcribed from Blizzard's official
-// "WoW Forever Beta Development Notes" forum post. Update this file when a new build drops.
+// WoW Forever beta patch notes bundled with the app, from Blizzard's official "WoW Forever Beta Development Notes"
+// forum thread. The desktop app imports newer notes automatically (Settings → Check for updates); those win.
 // Items are strings, or { t: text, note: developers' note, sub: [nested items] }.
 
-export const PATCH = {
+const BUNDLED_PATCH = {
   title: 'Beta Development Notes',
   build: 'October 1, 2026 update',
   // Title of Blizzard's forum thread when these notes were transcribed — the update check compares against it.
@@ -217,3 +217,15 @@ export const PATCH = {
     ],
   },
 };
+
+const downloaded = (() => {
+  try {
+    const data = globalThis.everhart?.getPatchNotesOverride?.();
+    return data?.sections && data?.build ? data : null;
+  } catch {
+    return null;
+  }
+})();
+
+export const PATCH = downloaded ?? BUNDLED_PATCH;
+export const PATCH_ORIGIN = downloaded ? 'downloaded' : 'bundled';

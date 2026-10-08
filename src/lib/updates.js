@@ -72,7 +72,7 @@ export async function checkForUpdates({ force = false } = {}) {
   try {
     const result = await bridge().checkForUpdates({
       talentDataUrl: TALENT_META.dataUrl, gearDb: GEAR_META.db ?? null, changesFor: CHANGES_META.forever ?? null, dungeonsDb: DUNGEON_META.db ?? null, mapsDb: MAPS_META.db ?? null,
-      patchTitle: PATCH.forumTitle,
+      patchTitle: PATCH.forumTitle, patchPostId: PATCH.postId ?? null,
     });
     write(LAST_KEY, result);
     set({ status: 'idle', result });
@@ -84,7 +84,7 @@ export async function checkForUpdates({ force = false } = {}) {
 }
 
 /** True when the guides' talent trees, gear lists, dungeon data, zone maps or class comparisons are behind the latest WoW Forever data. */
-export const needsUpdate = (result) => Boolean(result?.talents?.changed || result?.gear?.changed || result?.dungeons?.changed || result?.maps?.changed || result?.changes?.changed);
+export const needsUpdate = (result) => Boolean(result?.talents?.changed || result?.gear?.changed || result?.dungeons?.changed || result?.maps?.changed || result?.changes?.changed || result?.patchNotes?.changed);
 
 /** Downloads whatever is out of date (talent trees, gear lists, dungeon data, class comparisons), reporting { percent, label }. Returns { ok, error? }. */
 export async function downloadUpdate(onProgress, result = state.result) {
@@ -99,6 +99,8 @@ export async function downloadUpdate(onProgress, result = state.result) {
       dungeonIds: DUNGEON_IDS,
       maps: Boolean(result?.maps?.changed),
       mapZones: MAP_ZONES,
+      patchNotes: Boolean(result?.patchNotes?.changed),
+      currentPatch: { build: PATCH.build, highlights: PATCH.highlights, previous: PATCH.previous ?? null },
       gearProfiles: GEAR_PROFILES,
       classGear: CLASS_GEAR,
     });

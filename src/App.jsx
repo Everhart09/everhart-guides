@@ -21,6 +21,7 @@ import ClassPicker from './pages/ClassPicker.jsx';
 import DungeonPage from './pages/DungeonPage.jsx';
 import { getDungeon } from './data/dungeons/index.js';
 import { pageKey } from './lib/pages.js';
+import { rememberPage } from './lib/prefs.js';
 
 const STORAGE_KEY = 'everhart.route';
 const GOLD = '#c9a45c';
@@ -62,6 +63,7 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(route));
+      rememberPage(pageKey(route));
     } catch {
       /* storage unavailable */
     }

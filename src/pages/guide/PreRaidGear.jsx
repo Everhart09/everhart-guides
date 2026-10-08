@@ -103,8 +103,10 @@ export default function PreRaidGear({ cls, spec }) {
         </div>
       </header>
       <p className="gear-intro">
-        The best items you can get before raiding — dungeons, quests, crafting, reputation and honor — ranked for {spec.name}{' '}
-        {cls.name} using Forever stat weights for this spec (listed at the bottom). Hover an item for its stats; the arrow opens it on Wowhead.
+        The best items you can get before raiding (dungeons, quests, crafting, reputation and honor), ranked for {spec.name}{' '}
+        {cls.name}. Each item gets a <b>score</b>: every stat on it multiplied by how much that stat is worth to this spec (the
+        weights at the bottom), plus weapon damage for weapons. The highest score in each slot is listed first, and the items
+        under it are close alternatives. Hover an item for its stats and score; the arrow opens it on Wowhead.
       </p>
 
       <div className="gear-grid">

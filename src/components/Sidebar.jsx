@@ -5,6 +5,7 @@ import { ClassEmblem, ProfessionEmblem } from './GameIcon.jsx';
 import { needsUpdate, updatesSupported, useUpdates } from '../lib/updates.js';
 import { toggleFavorite, usePrefs } from '../lib/prefs.js';
 import { useAppUpdate } from '../lib/appUpdate.js';
+import { PATCH } from '../data/patchNotes.js';
 import { pageInfo, pageKey } from '../lib/pages.js';
 
 function FavIcon({ info }) {
@@ -31,7 +32,7 @@ export default function Sidebar({ route, nav }) {
         <Icon name="star" size={16} /> Class Picker
       </button>
       <button className={`side-home ${route.view === 'patch' ? 'active' : ''}`} onClick={nav.patch}>
-        <Icon name="check" size={16} /> Patch Notes <span className="side-new">Oct 1</span>
+        <Icon name="check" size={16} /> Patch Notes <span className="side-new">{new Date(PATCH.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
       </button>
       <button className={`side-home ${route.view === 'calc' ? 'active' : ''}`} onClick={() => nav.calc()}>
         <Icon name="plus" size={16} /> Talent Calculator

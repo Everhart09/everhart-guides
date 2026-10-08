@@ -4,6 +4,7 @@ import { Icon, ROLE_ICON } from '../components/icons.jsx';
 import { ClassEmblem } from '../components/GameIcon.jsx';
 import { RoleChip } from '../components/ui.jsx';
 import { CountdownHero } from '../components/Countdown.jsx';
+import ContinueRow from '../components/ContinueRow.jsx';
 
 const ALL_SPECS = CLASSES.flatMap((c) => c.specs.map((s) => ({ cls: c, spec: s })));
 
@@ -69,6 +70,8 @@ export default function Home({ nav }) {
         </div>
         </div>
       </section>
+
+      <ContinueRow nav={nav} />
 
       <CountdownHero onPatchNotes={nav.patch} />
 

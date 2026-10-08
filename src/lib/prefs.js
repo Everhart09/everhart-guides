@@ -3,7 +3,7 @@ import { useSyncExternalStore } from 'react';
 
 const KEY = 'everhart.prefs';
 const NOTES_KEY = 'everhart.notes';
-const DEFAULTS = { theme: 'dark', textSize: 1, compact: 'auto', orbs: true, favorites: [] };
+const DEFAULTS = { theme: 'dark', textSize: 1, compact: 'auto', orbs: true, favorites: [], recent: [] };
 export const TEXT_SIZES = [[0.9, 'Small'], [1, 'Default'], [1.1, 'Large'], [1.25, 'Extra large']];
 const SMALL_SCREEN = '(max-width: 1180px)';
 
@@ -64,6 +64,15 @@ export function watchSystem() {
 export const isFavorite = (key) => prefs.favorites.includes(key);
 export function toggleFavorite(key) {
   setPref('favorites', isFavorite(key) ? prefs.favorites.filter((k) => k !== key) : [...prefs.favorites, key]);
+}
+
+// --- Recently visited pages (for the home page) ------------------------------------------
+// Only pages worth returning to: guides, classes, professions and dungeons.
+export function rememberPage(key) {
+  if (!key || !/^(guide|class|prof|dungeon):/.test(key) || prefs.recent[0] === key) return;
+  prefs = { ...prefs, recent: [key, ...prefs.recent.filter((k) => k !== key)].slice(0, 8) };
+  write(KEY, prefs);
+  emit();
 }
 
 // --- Notes --------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { TALENT_META } from '../data/talents/index.js';
-import { PATCH } from '../data/patchNotes.js';
+import { PATCH, PATCH_ORIGIN } from '../data/patchNotes.js';
 import { GEAR_META } from '../data/gearData.js';
 import { CHANGES_META } from '../data/classChangesData.js';
 import { DUNGEON_META } from '../data/dungeons/index.js';
@@ -33,6 +33,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
   const [countdown, setCountdown] = useState(RESTART_DELAY_S);
   const [info, setInfo] = useState(null);
   const [auto, setAuto] = useState(autoCheckEnabled);
+  const [tab, setTab] = useState('updates');
   const started = useRef(false);
   const supported = updatesSupported();
   const busy = phase === 'checking' || phase === 'updating' || phase === 'restarting';
@@ -55,7 +56,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
       setNotes(res?.patchNotes?.changed ? res.patchNotes : null);
       if (res?.talents?.error) throw new Error(`Couldn't reach the WoW Forever data: ${res.talents.error}`);
       if (!needsUpdate(res)) return setPhase('uptodate');
-      setUpdating([res.talents?.changed && 'talent trees', res.gear?.changed && 'pre-raid gear lists', res.dungeons?.changed && 'dungeon guides', res.maps?.changed && 'zone maps',
+      setUpdating([res.talents?.changed && 'talent trees', res.gear?.changed && 'pre-raid gear lists', res.dungeons?.changed && 'dungeon guides', res.maps?.changed && 'zone maps', res.patchNotes?.changed && 'beta patch notes',
         res.changes?.changed && "“What's new” class comparisons"].filter(Boolean));
       setProgress({ percent: 0, label: 'Starting update…' });
       setPhase('updating');
@@ -103,6 +104,13 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
 
         {phase === 'settings' && (
           <div className="modal-body">
+            <nav className="set-tabs" role="tablist">
+              {[['updates', 'Updates'], ['appearance', 'Appearance'], ['about', 'About']].map(([id, label]) => (
+                <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}>{label}</button>
+              ))}
+            </nav>
+
+            {tab === 'updates' && (<>
             <section className="set-section">
               <div className="set-row">
                 <div>
@@ -116,10 +124,31 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
                 <li><span>Gear lists</span><b>{GEAR_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(GEAR_META.importedAt)}</b></li>
                 <li><span>Dungeon guides</span><b>{DUNGEON_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(DUNGEON_META.importedAt)}</b></li>
                 <li><span>Zone maps</span><b>{MAPS_META.origin === 'downloaded' ? 'Updated in-app' : 'Bundled with app'} · {day(MAPS_META.importedAt)}</b></li>
-                <li><span>Patch notes</span><b>{PATCH.build}</b></li>
+                <li><span>Patch notes</span><b>{PATCH_ORIGIN === 'downloaded' ? 'Imported in-app' : 'Bundled with app'} · {PATCH.build}</b></li>
                 <li><span>Last checked</span><b>{supported ? when(result?.checkedAt) : 'Desktop app only'}</b></li>
               </ul>
               {!supported && <p className="fine">Updates are only available in the desktop app.</p>}
+            </section>
+
+            <section className="set-section">
+              <div className="set-row">
+                <div>
+                  <h3>Check automatically</h3>
+                  <p>Look for new WoW Forever data and new app versions when the app starts.</p>
+                </div>
+                <button className={`toggle ${auto ? 'on' : ''}`} role="switch" aria-checked={auto} onClick={toggleAuto}>
+                  <span />
+                </button>
+              </div>
+              {(TALENT_META.origin === 'downloaded' || GEAR_META.origin === 'downloaded' || CHANGES_META.origin === 'downloaded' || DUNGEON_META.origin === 'downloaded' || MAPS_META.origin === 'downloaded' || PATCH_ORIGIN === 'downloaded') && (
+                <div className="set-row">
+                  <div>
+                    <h3>Use bundled guide data</h3>
+                    <p>Undo downloaded updates and go back to the guide data, maps and patch notes that shipped with the app.</p>
+                  </div>
+                  <button className="btn-ghost" onClick={revertTalentUpdate}>Revert & restart</button>
+                </div>
+              )}
             </section>
 
             <section className="set-section">
@@ -144,8 +173,10 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
               </div>
             </section>
 
+            </>)}
+
+            {tab === 'appearance' && (<>
             <section className="set-section">
-              <h3 className="set-title">Appearance</h3>
               <div className="set-row">
                 <div><h3>Theme</h3><p>System follows your Windows light or dark mode.</p></div>
                 <div className="seg" role="radiogroup" aria-label="Theme">
@@ -184,35 +215,22 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
               </div>
             </section>
 
-            <section className="set-section">
-              <div className="set-row">
-                <div>
-                  <h3>Check automatically</h3>
-                  <p>Look for new WoW Forever data and new app versions when the app starts.</p>
-                </div>
-                <button className={`toggle ${auto ? 'on' : ''}`} role="switch" aria-checked={auto} onClick={toggleAuto}>
-                  <span />
-                </button>
-              </div>
-              {(TALENT_META.origin === 'downloaded' || GEAR_META.origin === 'downloaded' || CHANGES_META.origin === 'downloaded' || DUNGEON_META.origin === 'downloaded' || MAPS_META.origin === 'downloaded') && (
-                <div className="set-row">
-                  <div>
-                    <h3>Use bundled guide data</h3>
-                    <p>Undo downloaded updates and go back to the talent trees, gear lists, dungeon guides, zone maps and class comparisons that shipped with the app.</p>
-                  </div>
-                  <button className="btn-ghost" onClick={revertTalentUpdate}>Revert & restart</button>
-                </div>
-              )}
-            </section>
+            </>)}
 
+            {tab === 'about' && (
             <section className="set-section about">
-              <h3>About</h3>
               <ul className="set-facts">
                 <li><span>Everhart Guides</span><b>Version {info?.version ?? '—'}</b></li>
                 <li><span>Talent source</span><b>{TALENT_META.source}</b></li>
                 <li><span>Data folder</span><b className="mono">{info?.dataFolder ?? '—'}</b></li>
               </ul>
+              <p className="set-credits">
+                A free, unofficial fan project. Game data comes from the WoW Forever beta via Wowhead, and patch notes from
+                Blizzard&apos;s official forum. World of Warcraft, WoW Forever and their artwork belong to Blizzard Entertainment.
+              </p>
+              <button className="btn-ghost" onClick={() => openExternal('https://github.com/Everhart09/everhart-guides')}>View on GitHub <Icon name="arrow" size={12} /></button>
             </section>
+            )}
           </div>
         )}
 
@@ -228,7 +246,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
           <div className="modal-body center">
             <div className="big-check"><Icon name="check" size={34} /></div>
             <h3>All guides are up to date!</h3>
-            <p>Your talent trees, gear lists, dungeon guides, zone maps and class comparisons match the latest WoW Forever release.</p>
+            <p>Your talent trees, gear lists, dungeon guides, zone maps, class comparisons and patch notes match the latest WoW Forever release.</p>
             {notes && (
               <p className="modal-note">
                 Blizzard has posted newer beta notes: <i>{notes.title}</i>

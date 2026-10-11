@@ -2540,3 +2540,70 @@ svg.filled { fill: currentColor; }
 .lg-perk:focus-visible { outline: 2px solid var(--t); outline-offset: 2px; }
 .dh-raids-note { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
 .dg-pending { margin: -4px 0 18px; }
+
+/* ---------- Title bar: About button ---------- */
+.tb-about {
+  -webkit-app-region: no-drag;
+  display: inline-flex; align-items: center; gap: 7px; flex: none;
+  height: 28px; padding: 0 12px; margin-left: auto;
+  border-radius: 99px; border: 1px solid var(--line);
+  font-size: 12px; color: var(--text-2); white-space: nowrap;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.tb-about:hover { border-color: var(--line-strong); color: var(--text); }
+.tb-about.active { color: var(--gold-2); border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); background: color-mix(in srgb, var(--gold) 10%, transparent); }
+.cd-pill + .tb-about { margin-left: 0; }
+@media (max-width: 980px) { .tb-about span { display: none; } .tb-about { padding: 0 8px; } }
+
+/* ---------- About page ---------- */
+.ab-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+.ab-step { display: flex; gap: 10px; padding: 14px; border-radius: 14px; background: color-mix(in srgb, var(--panel) var(--glass-a, 90%), transparent); border: 1px solid var(--line-soft); }
+.ab-step-n { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; font-weight: 700; font-size: 13px; color: var(--on-accent); background: var(--gold); }
+.ab-step b { font-size: 14px; }
+.ab-step p { font-size: 12.5px; color: var(--text-2); margin-top: 3px; line-height: 1.5; }
+
+.ab-jump { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.ab-jump button {
+  padding: 5px 11px; border-radius: 99px; font-size: 12px; color: var(--text-2);
+  border: 1px solid var(--line-soft); background: color-mix(in srgb, var(--panel) 70%, transparent);
+  transition: border-color .15s, color .15s;
+}
+.ab-jump button:hover { color: var(--gold-2); border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); }
+
+.ab-features { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 14px; align-items: start; }
+.ab-feature { display: flex; flex-direction: column; scroll-margin-top: 16px; }
+.ab-feature header { display: flex; align-items: center; gap: 10px; }
+.ab-feature h3 { font: 600 16px var(--font-display); letter-spacing: .03em; }
+.ab-icon { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: var(--gold-2); background: color-mix(in srgb, var(--gold) 12%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 28%, transparent); }
+.ab-what { margin-top: 10px; color: var(--text); font-size: 13.5px; line-height: 1.55; }
+.ab-feature ul, .ab-sources ul { margin-top: 10px; padding-left: 18px; display: grid; gap: 6px; }
+.ab-feature li, .ab-sources li { font-size: 12.8px; color: var(--text-2); line-height: 1.55; }
+.ab-feature li::marker, .ab-sources li::marker { color: var(--gold); }
+.ab-feature li b, .ab-sources li b { color: var(--text); font-weight: 600; }
+.ab-open { align-self: flex-start; margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; }
+
+.ab-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.ab-two p { margin-top: 8px; font-size: 13.2px; color: var(--text-2); line-height: 1.6; }
+.ab-two p b { color: var(--text); }
+.ab-h { font: 600 16px var(--font-display); letter-spacing: .03em; margin-top: 4px; }
+.ab-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.ab-tags li { padding: 4px 10px; border-radius: 99px; font-size: 11.5px; color: var(--text-2); border: 1px solid var(--line-soft); background: color-mix(in srgb, var(--gold) 6%, transparent); }
+#about-updates, #about-faq { scroll-margin-top: 16px; }
+
+.ab-faq details { border-bottom: 1px solid var(--line-soft); padding: 12px 2px; }
+.ab-faq details:last-child { border-bottom: 0; }
+.ab-faq summary { cursor: pointer; font-weight: 600; font-size: 14px; list-style: none; display: flex; align-items: center; gap: 10px; }
+.ab-faq summary::-webkit-details-marker { display: none; }
+.ab-faq summary::before { content: '+'; width: 18px; color: var(--gold); font-weight: 700; }
+.ab-faq details[open] summary::before { content: '−'; }
+.ab-faq details p { margin: 8px 0 2px 28px; font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+.ab-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 28px 0 8px; }
+.ab-footer a { text-decoration: none; }
+.ab-footer .fine { flex-basis: 100%; }
+
+@media (max-width: 900px) {
+  .ab-steps { grid-template-columns: 1fr 1fr; }
+  .ab-two { grid-template-columns: 1fr; }
+  .ab-features { grid-template-columns: 1fr; }
+}

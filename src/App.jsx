@@ -18,6 +18,7 @@ import BackgroundOrbs from './components/BackgroundOrbs.jsx';
 import DungeonsHub from './pages/DungeonsHub.jsx';
 import ClassPicker from './pages/ClassPicker.jsx';
 import LegacyPage from './pages/LegacyPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 import DungeonPage from './pages/DungeonPage.jsx';
 import { getDungeon } from './data/dungeons/index.js';
 import { pageKey } from './lib/pages.js';
@@ -28,7 +29,7 @@ const GOLD = '#c9a45c';
 
 function isValid(r) {
   switch (r?.view) {
-    case 'home': case 'professions': case 'beta': case 'patch': case 'dungeons': case 'picker': case 'legacy': return true;
+    case 'home': case 'professions': case 'beta': case 'patch': case 'dungeons': case 'picker': case 'legacy': case 'about': return true;
     case 'dungeon': return !!getDungeon(r.dungeonId);
     case 'calc': return !!getClass(r.classId);
     case 'class': return !!getClass(r.classId);
@@ -99,6 +100,7 @@ export default function App() {
     dungeons: () => setRoute({ view: 'dungeons' }),
     picker: () => setRoute({ view: 'picker' }),
     legacy: () => setRoute({ view: 'legacy' }),
+    about: () => setRoute({ view: 'about' }),
     dungeon: (dungeonId) => setRoute({ view: 'dungeon', dungeonId }),
     notes: () => setNotesOpen((o) => !o),
     settings: () => setSettings('settings'),
@@ -107,7 +109,7 @@ export default function App() {
 
   return (
     <div className="app" style={{ '--cls': accent }}>
-      <TitleBar onSearch={() => setPaletteOpen(true)} onCountdown={nav.home} />
+      <TitleBar onSearch={() => setPaletteOpen(true)} onCountdown={nav.home} onAbout={nav.about} aboutActive={route.view === 'about'} />
       <div className="body">
         <Sidebar route={route} nav={nav} />
         <BackgroundOrbs />
@@ -126,6 +128,7 @@ export default function App() {
           {route.view === 'dungeons' && <DungeonsHub nav={nav} />}
           {route.view === 'picker' && <ClassPicker nav={nav} />}
           {route.view === 'legacy' && <LegacyPage />}
+          {route.view === 'about' && <AboutPage nav={nav} />}
           {route.view === 'dungeon' && dungeon && <DungeonPage key={dungeon.id} dungeon={dungeon} nav={nav} />}
           {route.view === 'calc' && cls && (
             <TalentCalculator key={cls.id + (route.from ?? '')} classId={cls.id} fromSpec={route.from} nav={nav} />

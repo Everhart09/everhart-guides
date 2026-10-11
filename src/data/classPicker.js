@@ -1,21 +1,60 @@
 // Class picker quiz. Each answer adds points to specs; ratings and difficulty come from the spec guides themselves,
-// the "style" tags below describe each class's fantasy and playstyle.
+// the traits below describe each spec's fantasy and playstyle.
 
-// Playstyle tags per class, with spec-level additions.
-export const STYLE = {
-  warrior: { tags: ['armor', 'weapons'], specs: {} },
-  paladin: { tags: ['armor', 'holy', 'weapons'], specs: {} },
-  hunter: { tags: ['nature', 'pet', 'weapons'], specs: {} },
-  rogue: { tags: ['stealth', 'weapons'], specs: {} },
-  priest: { tags: ['magic', 'holy'], specs: { shadow: ['shadow'] } },
-  shaman: { tags: ['nature', 'magic'], specs: { enhancement: ['weapons'] } },
-  mage: { tags: ['magic'], specs: {} },
-  warlock: { tags: ['magic', 'shadow', 'pet'], specs: {} },
-  druid: { tags: ['nature', 'magic', 'shapeshift'], specs: { feral: ['stealth'] } },
+// Playstyle traits per spec. Every spec gets its own list so specs inside one class can come out differently.
+//   fantasy: armor holy arcane dark stealth beast nature elements shapeshift
+//   pace:    burst steady setup        survive: tough control escape selfheal
+//   brings:  damage support utility    other:   pet
+export const TRAITS = {
+  warrior: {
+    arms: ['armor', 'burst', 'tough', 'damage'],
+    fury: ['armor', 'steady', 'tough', 'damage'],
+    protection: ['armor', 'steady', 'tough', 'support', 'utility'],
+  },
+  paladin: {
+    retribution: ['armor', 'holy', 'burst', 'tough', 'selfheal', 'support'],
+    holy: ['holy', 'burst', 'selfheal', 'support'],
+    protection: ['holy', 'armor', 'setup', 'tough', 'support'],
+  },
+  hunter: {
+    'beast-mastery': ['beast', 'nature', 'pet', 'setup', 'escape', 'damage'],
+    marksmanship: ['beast', 'pet', 'steady', 'control', 'damage', 'support'],
+    survival: ['beast', 'nature', 'pet', 'burst', 'control', 'escape', 'utility'],
+  },
+  rogue: {
+    combat: ['stealth', 'steady', 'escape', 'damage'],
+    assassination: ['stealth', 'dark', 'burst', 'escape', 'damage'],
+    subtlety: ['stealth', 'dark', 'burst', 'escape', 'control', 'utility'],
+  },
+  priest: {
+    shadow: ['dark', 'setup', 'selfheal', 'control', 'support', 'utility'],
+    holy: ['holy', 'steady', 'selfheal', 'support', 'utility'],
+    discipline: ['holy', 'setup', 'selfheal', 'control', 'support', 'utility'],
+  },
+  shaman: {
+    enhancement: ['elements', 'nature', 'burst', 'tough', 'selfheal', 'support'],
+    elemental: ['elements', 'arcane', 'burst', 'control', 'selfheal', 'damage', 'support'],
+    restoration: ['elements', 'nature', 'steady', 'selfheal', 'support'],
+  },
+  mage: {
+    frost: ['arcane', 'steady', 'control', 'utility'],
+    fire: ['arcane', 'burst', 'escape', 'damage'],
+    arcane: ['arcane', 'burst', 'escape', 'utility', 'support'],
+  },
+  warlock: {
+    affliction: ['dark', 'pet', 'setup', 'control', 'selfheal', 'utility'],
+    demonology: ['dark', 'pet', 'setup', 'tough', 'utility', 'support'],
+    destruction: ['dark', 'pet', 'burst', 'control', 'damage'],
+  },
+  druid: {
+    feral: ['shapeshift', 'beast', 'steady', 'tough', 'escape', 'damage'],
+    balance: ['nature', 'shapeshift', 'arcane', 'setup', 'control', 'selfheal', 'support'],
+    restoration: ['nature', 'setup', 'selfheal', 'support', 'utility'],
+  },
 };
 export const HYBRIDS = ['paladin', 'priest', 'shaman', 'druid'];
 
-// Each option's effect: role / range / tags / rating / difficulty / pet / hybrid. Weights are points added per spec.
+// Each option's effect: role / range / tag / rating / difficulty / pet / hybrid. The scoring lives in src/lib/classPicker.js.
 export const QUESTIONS = [
   {
     id: 'role',
@@ -41,11 +80,45 @@ export const QUESTIONS = [
     id: 'fantasy',
     q: 'Which fantasy speaks to you most?',
     options: [
-      { id: 'armor', label: 'Heavy armor and big weapons', sub: 'A knight in plate', tag: 'armor' },
-      { id: 'magic', label: 'Arcane and elemental magic', sub: 'Fireballs, frost and lightning', tag: 'magic' },
-      { id: 'shadow', label: 'Shadows and stealth', sub: 'Dark magic or striking unseen', tag: ['shadow', 'stealth'] },
-      { id: 'nature', label: 'Nature and beasts', sub: 'Animal companions and wild forms', tag: ['nature', 'shapeshift'] },
+      { id: 'armor', label: 'Plate and steel', sub: 'A warrior in heavy armor', tag: 'armor' },
       { id: 'holy', label: 'Holy light', sub: 'Faith, protection and healing', tag: 'holy' },
+      { id: 'arcane', label: 'Fire, frost and arcane', sub: 'A spellcaster bending raw magic', tag: 'arcane' },
+      { id: 'dark', label: 'Dark magic', sub: 'Curses, demons and the void', tag: 'dark' },
+      { id: 'stealth', label: 'Striking unseen', sub: 'Stealth, poisons and ambushes', tag: 'stealth' },
+      { id: 'beast', label: 'Beasts and the hunt', sub: 'Tracking prey with an animal at your side', tag: 'beast' },
+      { id: 'nature', label: 'The wild', sub: 'Nature magic, forms and the elements', tag: ['nature', 'shapeshift'] },
+      { id: 'elements', label: 'Totems and storms', sub: 'Calling on earth, fire, water and air', tag: 'elements' },
+    ],
+  },
+  {
+    id: 'pace',
+    q: 'How do you like a fight to play out?',
+    hint: 'This applies to healing and tanking too.',
+    options: [
+      { id: 'burst', label: 'Big moments', sub: 'Build up, then unload huge hits or heals', tag: 'burst', why: 'Plays around big burst moments' },
+      { id: 'steady', label: 'A steady rhythm', sub: 'Constant pressure, always something to press', tag: 'steady', why: 'Has a steady, constant rhythm' },
+      { id: 'setup', label: 'Set it up and let it work', sub: 'DoTs, HoTs, shields and pets doing the job over time', tag: 'setup', why: 'Wins by setting things up and letting them tick' },
+      { id: 'any', label: 'No preference', sub: '' },
+    ],
+  },
+  {
+    id: 'survive',
+    q: 'When a fight goes wrong, how do you get out of it?',
+    options: [
+      { id: 'tough', label: 'Tough it out', sub: 'Heavy armor and a thick skin', tag: 'tough', why: 'Hard to kill' },
+      { id: 'control', label: 'Control the fight', sub: 'Roots, fears, slows and kiting', tag: 'control', why: 'Lots of crowd control to stay in charge' },
+      { id: 'escape', label: 'Slip away', sub: 'Vanish, blink or play dead', tag: 'escape', why: 'Great escape tools' },
+      { id: 'selfheal', label: 'Heal through it', sub: 'Patch myself up mid-fight', tag: 'selfheal', why: 'Can heal itself through trouble' },
+    ],
+  },
+  {
+    id: 'brings',
+    q: 'What would you most like to bring to a group?',
+    options: [
+      { id: 'damage', label: 'Raw numbers', sub: 'The biggest hits on the meter', tag: 'damage', why: 'Brings big raw numbers' },
+      { id: 'support', label: 'Buffs and support', sub: 'Auras, totems and blessings that lift everyone', tag: 'support', why: 'Makes the whole group stronger' },
+      { id: 'utility', label: 'Utility and tricks', sub: 'Crowd control, portals, summons and resurrection', tag: 'utility', why: 'Packed with utility' },
+      { id: 'any', label: 'Whatever wins', sub: '' },
     ],
   },
   {

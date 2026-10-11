@@ -1,7 +1,7 @@
 import { Icon } from './icons.jsx';
 import { CountdownPill } from './Countdown.jsx';
 
-export default function TitleBar({ onSearch, onCountdown }) {
+export default function TitleBar({ onSearch, onCountdown, onAbout, aboutActive }) {
   return (
     <header className="titlebar">
       <div className="brand">
@@ -17,6 +17,10 @@ export default function TitleBar({ onSearch, onCountdown }) {
         <kbd>Ctrl K</kbd>
       </button>
       <CountdownPill onClick={onCountdown} />
+      <button className={`tb-about ${aboutActive ? 'active' : ''}`} onClick={onAbout} title="What everything in the app does">
+        <Icon name="info" size={14} />
+        <span>About this app</span>
+      </button>
       <div className="titlebar-spacer" />
     </header>
   );

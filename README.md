@@ -20,6 +20,10 @@ It covers 9 classes and 27 specs. Each guide has:
 
 There's also a class comparison page, a role filter and quick picks on the home screen. Press `Ctrl+K` to search.
 
+**About this app** (button at the top right of the title bar, or search "About") explains every feature and how to use it, how app and guide-data updates work, where the data comes from, and common questions. The text lives in `src/pages/AboutPage.jsx`; update it when features change.
+
+**Class Picker** (sidebar) asks 11 questions about role, fantasy, pace, survival style and what you like to bring to a group, then scores all 27 specs. Each spec has its own playstyle traits in `src/data/classPicker.js`, so specs within a class can come out differently.
+
 **Talent Calculator** (sidebar) lets you build your own 51-point spec on the real Forever trees with all rules enforced. Load any guide build to tweak it, save builds locally, and share them as codes like `warrior:30305213032015201-15050130032`.
 
 **Leveling help**:

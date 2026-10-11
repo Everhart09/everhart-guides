@@ -17,7 +17,7 @@ app.whenReady().then(async () => {
 
   // Top-level pages; classes, specs, professions and dungeons are discovered from the app's own sidebar and hub below.
   const routes = [{ view: 'home' }, { view: 'picker' }, { view: 'patch', tab: 'notes' }, { view: 'patch', tab: 'beta' },
-    { view: 'calc', classId: 'warrior' }, { view: 'legacy' }, { view: 'dungeons' }, { view: 'professions' }];
+    { view: 'calc', classId: 'warrior' }, { view: 'legacy' }, { view: 'about' }, { view: 'dungeons' }, { view: 'professions' }];
 
   const pages = [];
   const visit = async (route, label) => {

@@ -299,7 +299,7 @@ ipcMain.handle('app:open-external', (_event, url) => {
   if (/^https:\/\//.test(url)) shell.openExternal(url);
 });
 
-const OVERLAY = { dark: { color: '#0c0e13', symbolColor: '#c9a45c' }, horde: { color: '#100909', symbolColor: '#f09a6a' }, alliance: { color: '#090d16', symbolColor: '#e8c872' } };
+const OVERLAY = { dark: { color: '#0c0e13', symbolColor: '#c9a45c' }, horde: { color: '#100909', symbolColor: '#f09a6a' }, alliance: { color: '#090d16', symbolColor: '#e8c872' }, nebula: { color: '#0d0a17', symbolColor: '#5ce6d8' } };
 ipcMain.on('app:set-theme', (event, theme) => {
   const win = BrowserWindow.fromWebContents(event.sender);
   try {

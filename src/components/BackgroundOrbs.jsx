@@ -1,11 +1,12 @@
 import { usePrefs } from '../lib/prefs.js';
 
 // Orb colors per theme. Current: the WoW Forever logo's teal, bronze and cream. Horde: crimson, ember and dark red.
-// Alliance: royal blue, gold and pale blue.
+// Alliance: royal blue, gold and pale blue. Nebula: hot pink, violet and turquoise.
 const PALETTES = {
   dark: ['#1d9ec4', '#c9a45c', '#0d5f86', '#a8743a', '#f0dcae', '#3fc2df'],
   horde: ['#b3261e', '#e0662a', '#6e1410', '#c8372d', '#f0a060', '#8a1c14'],
   alliance: ['#2f6fd6', '#e0b84a', '#163a7a', '#4a8ff0', '#f2dc9a', '#1d4fa8'],
+  nebula: ['#e64fb0', '#7b4fe0', '#2fd4c8', '#a53fd6', '#ff8fd0', '#1fa8b8'],
 };
 const LAYOUT = [
   { size: 620, x: '8%', y: '6%', dur: 46, delay: 0 },

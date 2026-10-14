@@ -117,7 +117,7 @@ const FEATURES = [
     id: 'appearance', icon: 'sun', title: 'Settings & appearance',
     what: 'Open Settings from the bottom of the sidebar.',
     how: [
-      '**Theme**: Current (dark), Horde (crimson, with the Horde crest) or Alliance (blue and gold, with the Alliance crest), each with matching background orbs.',
+      '**Theme**: Current (dark), Horde (crimson, with the Horde crest), Alliance (blue and gold, with the Alliance crest) or Nebula (pink, purple and turquoise), each with matching background orbs.',
       '**Text size**: four sizes that scale the whole window. **Compact layout**: Off, Auto (for small windows) or On.',
       '**Updates**: turn automatic checks on or off, check now, or go back to the guide data that came with the app.',
     ],

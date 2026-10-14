@@ -23,8 +23,8 @@ function write(key, value) {
 }
 
 let prefs = { ...DEFAULTS, ...read(KEY) };
-// Themes are now Current (dark) / Horde / Alliance; the old Light and System choices fall back to Current.
-export const THEMES = ['dark', 'horde', 'alliance'];
+// Themes are Current (dark) / Horde / Alliance / Nebula; the old Light and System choices fall back to Current.
+export const THEMES = ['dark', 'horde', 'alliance', 'nebula'];
 if (!THEMES.includes(prefs.theme)) prefs = { ...prefs, theme: 'dark' };
 let notes = read(NOTES_KEY) ?? {};
 const listeners = new Set();

@@ -2521,6 +2521,14 @@ svg.filled { fill: currentColor; }
   --gold: #3b78d8; --gold-2: #e8c872; --accent-hi: #fff1c9; --on-accent: #08101f;
   --track: #18243a; --sunken: #0a0f1a; --glass: rgba(12, 18, 32, .9); --hover: rgba(120, 170, 255, .05);
 }
+/* Nebula: deep violet backgrounds, hot pink accents and turquoise highlights. */
+:root[data-theme='nebula'] {
+  --bg: #0d0a17; --bg-2: #120e20; --panel: #181229; --panel-2: #1e1733; --panel-3: #261d40;
+  --line: #34284f; --line-soft: #251d3b; --line-strong: #463669;
+  --text: #f1eaf8; --text-2: #bcaed2; --muted: #85789e;
+  --gold: #e64fb0; --gold-2: #5ce6d8; --accent-hi: #c8fff8; --on-accent: #1a0616;
+  --track: #241b3a; --sunken: #0f0b1b; --glass: rgba(18, 13, 32, .9); --hover: rgba(200, 120, 255, .06);
+}
 /* The faction crest, very faint, behind the pages (inside the orb layer, so it doesn't scroll). */
 .bg-crest {
   position: absolute; right: 4%; top: 50%; width: min(46vw, 560px); transform: translateY(-50%);
@@ -2534,6 +2542,7 @@ svg.filled { fill: currentColor; }
 .theme-dark .theme-swatch { background: linear-gradient(135deg, #1d9ec4, #c9a45c); }
 .theme-horde .theme-swatch { background: linear-gradient(135deg, #c8372d, #f09a6a); }
 .theme-alliance .theme-swatch { background: linear-gradient(135deg, #3b78d8, #e8c872); }
+.theme-nebula .theme-swatch { background: linear-gradient(135deg, #e64fb0, #7b4fe0 50%, #5ce6d8); }
 .lg-minus { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 6px; font-weight: 700; line-height: 1; color: var(--text-2); background: var(--bg-2); border: 1px solid var(--line); }
 .lg-minus:hover:not(:disabled) { color: var(--text); border-color: var(--t); }
 .lg-minus:disabled { opacity: .35; cursor: not-allowed; }

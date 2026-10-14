@@ -66,11 +66,6 @@ export default {
         'Shield + mace is fine pre-20',
         'Drink and heal yourself rather than eating',
       ],
-      races: [
-        { name: 'Orc', why: '+5 Axe skill, Blood Fury' },
-        { name: 'Tauren', why: 'War Stomp, +5% HP' },
-        { name: 'Troll', why: 'Berserking' },
-      ],
       professions: [
         { name: 'Mining + Blacksmithing', why: 'Two-handers' },
         { name: 'Skinning + Leatherworking', why: 'Gear' },
@@ -123,11 +118,6 @@ export default {
       leveling: [
         'Viable but mana-hungry — many level Enhancement and respec',
         'Lightning Bolt pull → Earth Shock finish is efficient',
-      ],
-      races: [
-        { name: 'Orc', why: 'Blood Fury & stun resistance' },
-        { name: 'Troll', why: 'Berserking' },
-        { name: 'Tauren', why: 'War Stomp' },
       ],
       professions: [
         { name: 'Engineering', why: 'PvP' },
@@ -182,11 +172,6 @@ export default {
       leveling: [
         'Level Enhancement and respec at 60',
         'Resto shamans are in high demand for dungeons at all levels',
-      ],
-      races: [
-        { name: 'Tauren', why: 'War Stomp & HP' },
-        { name: 'Orc', why: 'Stun resistance' },
-        { name: 'Troll', why: 'Berserking (faster heals)' },
       ],
       professions: [
         { name: 'Herbalism + Alchemy', why: 'Flasks & potions' },

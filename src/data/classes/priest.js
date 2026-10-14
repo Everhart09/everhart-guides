@@ -66,12 +66,6 @@ export default {
         'Mind Flay at 20 slows mobs so you can wand them down',
         'Priests are always welcome in dungeons — heal groups as Shadow',
       ],
-      races: [
-        { name: 'Undead', why: 'Devouring Plague & WotF' },
-        { name: 'Human', why: 'Feedback, Spirit bonus' },
-        { name: 'Dwarf', why: 'Fear Ward & Stoneform' },
-        { name: 'Troll', why: 'Shadowguard & Berserking' },
-      ],
       professions: [
         { name: 'Tailoring + Enchanting', why: 'Cloth gear & wands' },
         { name: 'Engineering', why: 'PvP' },
@@ -128,12 +122,6 @@ export default {
         'Level as Shadow and respec Holy at 60, or heal dungeons as you go',
         'Keep a Spirit/Int set for regen and a healing set for groups',
       ],
-      races: [
-        { name: 'Dwarf', why: 'Fear Ward is a raid tool' },
-        { name: 'Human', why: 'Spirit bonus' },
-        { name: 'Night Elf', why: 'Elune\'s Grace' },
-        { name: 'Undead', why: 'WotF' },
-      ],
       professions: [
         { name: 'Tailoring', why: 'Truefaith Vestments' },
         { name: 'Alchemy', why: 'Flask of Distilled Wisdom' },
@@ -188,11 +176,6 @@ export default {
       leveling: [
         'Twin Disciplines boosts instant spells like Shadow Word: Pain and Power Word: Shield',
         'Shadow is faster, but Disc can heal dungeons easily while leveling',
-      ],
-      races: [
-        { name: 'Dwarf', why: 'Fear Ward' },
-        { name: 'Undead', why: 'WotF for PvP' },
-        { name: 'Human', why: 'Spirit' },
       ],
       professions: [
         { name: 'Tailoring', why: 'Gear' },

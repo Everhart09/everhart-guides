@@ -4,6 +4,7 @@ import { indexTalents, rankText } from '../../lib/talents.js';
 import { talentIcon } from '../../lib/icons.js';
 import { PROFESSIONS } from '../../data/professions.js';
 import { ProfessionEmblem } from '../../components/GameIcon.jsx';
+import { bestBySide, standouts } from '../../lib/races.js';
 
 /** Profession pages mentioned in a free-text recommendation like "Mining + Blacksmithing". */
 const linkedProfessions = (text) =>
@@ -57,10 +58,8 @@ export default function OverviewTab({ cls, spec, picks, nav }) {
         </ul>
       </Panel>
 
-      <Panel kicker="Character creation" title="Recommended races">
-        <ul className="kv-list">
-          {spec.races.map((r) => <li key={r.name}><strong>{r.name}</strong><span>{r.why}</span></li>)}
-        </ul>
+      <Panel kicker="Character creation" title="Best races">
+        <BestRaces cls={cls} spec={spec} nav={nav} />
       </Panel>
 
       <Panel kicker="Crafting" title="Professions">
@@ -87,5 +86,29 @@ export default function OverviewTab({ cls, spec, picks, nav }) {
         </div>
       </Panel>
     </div>
+  );
+}
+
+/** Best Alliance and Horde race for dungeons & raids, plus the PvP pick when it differs. Full rankings live on the Best Race page. */
+function BestRaces({ cls, spec, nav }) {
+  const pve = bestBySide(cls, spec, 'pve');
+  const pvp = bestBySide(cls, spec, 'pvp');
+  return (
+    <>
+      <ul className="kv-list">
+        {[['A', 'Alliance'], ['H', 'Horde']].map(([side, label]) => {
+          const b = pve[side];
+          const p = pvp[side];
+          if (!b) return <li key={side}><strong>{label}</strong><span>{cls.name}s can&apos;t be {label} in WoW Forever.</span></li>;
+          return (
+            <li key={side}>
+              <strong>{b.race.name} <span className={`route-side side-${side}`}>{label}</span></strong>
+              <span>Dungeons &amp; raids: {standouts(b)}.{p && p.race.id !== b.race.id ? ` For PvP, ${p.race.name} (${standouts(p)}).` : ''}</span>
+            </li>
+          );
+        })}
+      </ul>
+      <button className="link-btn" onClick={() => nav.races(cls.id, spec.id)}>Every race ranked, with why <Icon name="arrow" size={12} /></button>
+    </>
   );
 }

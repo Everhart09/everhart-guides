@@ -44,6 +44,17 @@ const FEATURES = [
     go: (nav) => nav.calc(), open: 'Open the calculator',
   },
   {
+    id: 'races', icon: 'shield', title: 'Best Race',
+    what: 'Every race each spec can be in WoW Forever, ranked, with what each racial does for that spec and why.',
+    how: [
+      'Pick a class and spec, then what you will do most: **Dungeons & raids**, **PvP** or **Leveling**. Each changes which racials matter. Filter to Alliance or Horde.',
+      'The top cards name the best Alliance and Horde race. Below, every race shows all four racials, rated Key, Useful, Minor or No real use for that spec, with the reason and the in-game tooltip.',
+      'Forever reworked racials: weapon racials now give crit instead of weapon skill, resistances are gone, and the new Skyborne get haste and elemental bonuses. New race/class combinations are marked.',
+      "Each guide's Overview shows the best race on each side and links here for the full breakdown.",
+    ],
+    go: (nav) => nav.races(), open: 'Find your race',
+  },
+  {
     id: 'picker', icon: 'star', title: 'Class Picker',
     what: 'Not sure what to play? Answer 11 quick questions and get your best-matching class and spec.',
     how: [

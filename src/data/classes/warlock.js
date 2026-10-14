@@ -65,12 +65,6 @@ export default {
         'Life Tap → Drain Life cycle means you rarely drink',
         'Felsteed at 40 (class quest) saves 100 gold',
       ],
-      races: [
-        { name: 'Undead', why: 'Will of the Forsaken, Shadow resist' },
-        { name: 'Orc', why: 'Command (pet damage) & stun resist' },
-        { name: 'Gnome', why: 'Escape Artist, +Int' },
-        { name: 'Human', why: 'Perception, Spirit' },
-      ],
       professions: [
         { name: 'Tailoring + Enchanting', why: 'Felcloth bags, cloth gear' },
         { name: 'Engineering', why: 'PvP' },
@@ -124,11 +118,6 @@ export default {
       leveling: [
         'Very smooth leveling thanks to strong pets',
         'Voidwalker for most content; Succubus for faster kills when comfortable',
-      ],
-      races: [
-        { name: 'Orc', why: 'Command: +pet damage' },
-        { name: 'Undead', why: 'Will of the Forsaken' },
-        { name: 'Gnome', why: 'Escape Artist' },
       ],
       professions: [
         { name: 'Tailoring', why: 'Gear' },
@@ -184,11 +173,6 @@ export default {
       leveling: [
         'Level Affliction, then respec into Destruction for raids',
         'Shadowburn is a strong finisher while leveling too',
-      ],
-      races: [
-        { name: 'Undead', why: 'Shadow resist & WotF' },
-        { name: 'Gnome', why: '+Int' },
-        { name: 'Orc', why: 'Blood Fury' },
       ],
       professions: [
         { name: 'Tailoring', why: 'Felheart/Felcloth gear' },

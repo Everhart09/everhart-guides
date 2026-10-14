@@ -67,10 +67,6 @@ export default {
         'Travel Form at 30 — no mount needed until 40',
         'Tank dungeons in Bear Form for fast groups',
       ],
-      races: [
-        { name: 'Tauren', why: '+5% health & War Stomp' },
-        { name: 'Night Elf', why: 'Shadowmeld, +1% dodge' },
-      ],
       professions: [
         { name: 'Skinning + Leatherworking', why: 'Wolfshead Helm & Devilsaur' },
         { name: 'Engineering', why: 'PvP' },
@@ -126,10 +122,6 @@ export default {
         'Balance is fine until ~20, but Feral is faster afterwards',
         'Root + Starfire is strong against melee mobs',
       ],
-      races: [
-        { name: 'Night Elf', why: 'Shadowmeld' },
-        { name: 'Tauren', why: 'War Stomp' },
-      ],
       professions: [
         { name: 'Tailoring', why: 'Cloth caster gear works' },
         { name: 'Alchemy', why: 'Mana potions' },
@@ -182,10 +174,6 @@ export default {
       leveling: [
         'Level Feral and respec Resto at 60',
         'In dungeons, Resto druids can heal everything up to Scholomance easily',
-      ],
-      races: [
-        { name: 'Tauren', why: 'War Stomp & +5% HP for PvP' },
-        { name: 'Night Elf', why: 'Shadowmeld to drink safely' },
       ],
       professions: [
         { name: 'Herbalism + Alchemy', why: 'Flasks and potions' },

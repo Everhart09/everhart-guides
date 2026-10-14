@@ -66,10 +66,6 @@ export default {
         'Group up — paladins boost every party they join',
         'Charger class quest at 60 saves 1,000 gold',
       ],
-      races: [
-        { name: 'Human', why: '+5 Sword/Mace skill, Perception' },
-        { name: 'Dwarf', why: 'Stoneform & Frost resist' },
-      ],
       professions: [
         { name: 'Mining + Blacksmithing', why: 'Plate and two-handers' },
         { name: 'Engineering', why: 'PvP' },
@@ -123,10 +119,6 @@ export default {
       leveling: [
         'Level as Retribution and respec at 60',
         'Holy is fine for dungeon healing while leveling',
-      ],
-      races: [
-        { name: 'Human', why: 'Spirit bonus' },
-        { name: 'Dwarf', why: 'Stoneform' },
       ],
       professions: [
         { name: 'Herbalism + Alchemy', why: 'Flasks & potions' },
@@ -182,10 +174,6 @@ export default {
       leveling: [
         'Prot leveling via AoE tanking pulls is viable with a spell-damage weapon',
         'Pair with a healer friend for very fast dungeon runs',
-      ],
-      races: [
-        { name: 'Human', why: 'Perception & skill' },
-        { name: 'Dwarf', why: 'Stoneform' },
       ],
       professions: [
         { name: 'Mining + Blacksmithing', why: 'Plate tanking gear' },

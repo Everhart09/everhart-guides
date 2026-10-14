@@ -17,7 +17,7 @@ app.whenReady().then(async () => {
 
   // Top-level pages; classes, specs, professions and dungeons are discovered from the app's own sidebar and hub below.
   const routes = [{ view: 'home' }, { view: 'picker' }, { view: 'patch', tab: 'notes' }, { view: 'patch', tab: 'beta' },
-    { view: 'calc', classId: 'warrior' }, { view: 'legacy' }, { view: 'about' }, { view: 'dungeons' }, { view: 'professions' }];
+    { view: 'calc', classId: 'warrior' }, { view: 'legacy' }, { view: 'about' }, { view: 'races' }, { view: 'races', classId: 'shaman', specId: 'enhancement' }, { view: 'dungeons' }, { view: 'professions' }];
 
   const pages = [];
   const visit = async (route, label) => {
@@ -45,6 +45,8 @@ app.whenReady().then(async () => {
   await visit({ view: 'professions' }, 'professions (catalog)');
   const profs = await js(`[...document.querySelectorAll('.side-specs button')].map((b) => b.textContent.trim().toLowerCase().replace(/\\s+/g, '-'))`);
   for (const p of profs) for (const tab of ['overview', 'leveling', 'recipes']) await visit({ view: 'profession', profId: p, tab }, `profession ${p}/${tab}`);
+  // Show every dungeon: a saved level or faction filter would hide some from the catalog.
+  await js("localStorage.setItem('everhart.dungeons.level', ''); localStorage.setItem('everhart.dungeons.filter', 'all'); true");
   await visit({ view: 'dungeons' }, 'dungeons (catalog)');
   const dungeonCount = await js(`document.querySelectorAll('.dh-card').length`);
   for (let i = 0; i < dungeonCount; i++) {

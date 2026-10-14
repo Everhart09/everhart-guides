@@ -69,12 +69,6 @@ export default {
         'Use Sap + Sap-break to split pulls',
         'Gouge → bandage is a classic emergency trick',
       ],
-      races: [
-        { name: 'Human', why: '+5 Sword & Mace skill — best Combat race' },
-        { name: 'Orc', why: 'Stun resistance & Blood Fury' },
-        { name: 'Undead', why: 'Will of the Forsaken' },
-        { name: 'Gnome', why: 'Escape Artist' },
-      ],
       professions: [
         { name: 'Engineering', why: 'Sappers & PvP gadgets — best rogue profession' },
         { name: 'Skinning + Leatherworking', why: 'Devilsaur set and early gear' },
@@ -131,11 +125,6 @@ export default {
         'Level as Combat and respec at 60 for PvP, or level with daggers and Backstab if you enjoy positioning',
         'Seal Fate at level 35 ramps up damage noticeably',
       ],
-      races: [
-        { name: 'Human', why: 'Perception & weapon skill' },
-        { name: 'Undead', why: 'Will of the Forsaken for PvP' },
-        { name: 'Night Elf', why: 'Shadowmeld & dodge' },
-      ],
       professions: [
         { name: 'Engineering', why: 'Nets, bombs, and Sappers for PvP' },
         { name: 'Alchemy', why: 'Free potions & flasks' },
@@ -190,11 +179,6 @@ export default {
       leveling: [
         'Not recommended for leveling — respec at 60 for PvP',
         'Practice opener → Kidney Shot chains in duels',
-      ],
-      races: [
-        { name: 'Undead', why: 'Will of the Forsaken' },
-        { name: 'Gnome', why: 'Escape Artist' },
-        { name: 'Human', why: 'Perception spots enemy rogues' },
       ],
       professions: [
         { name: 'Engineering', why: 'Mandatory for serious PvP' },

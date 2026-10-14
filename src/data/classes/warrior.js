@@ -68,12 +68,6 @@ export default {
         'Use First Aid aggressively; it is your main downtime reducer',
         'Group up for elite quests — warriors excel with a healer behind them',
       ],
-      races: [
-        { name: 'Human', why: 'Sword & Mace skill +5, Perception' },
-        { name: 'Orc', why: 'Axe skill +5, Blood Fury, stun resistance' },
-        { name: 'Tauren', why: 'War Stomp and +5% health' },
-        { name: 'Undead', why: 'Will of the Forsaken for PvP' },
-      ],
       professions: [
         { name: 'Mining + Blacksmithing', why: 'Arcanite Reaper and plate crafts' },
         { name: 'Engineering', why: 'Bombs, nets and gadgets for PvP' },
@@ -108,15 +102,15 @@ export default {
       ],
       stats: [
         { name: 'Hit (to 9%)', weight: 100, note: 'Dual wielding adds a 19% miss penalty to white hits — special attacks cap at 9%' },
-        { name: 'Weapon Skill', weight: 90, note: '+5 skill from race or gear is massive (glancing blows)' },
+        { name: 'Weapon Skill', weight: 90, note: '+5 skill from gear is massive (glancing blows); racials no longer give weapon skill in Forever' },
         { name: 'Strength / Attack Power', weight: 75, note: 'Your main damage stat' },
         { name: 'Critical Strike', weight: 75, note: 'Flurry uptime and Deep Wounds' },
         { name: 'Agility', weight: 45, note: 'Crit and armor' },
         { name: 'Stamina', weight: 20, note: 'Enough to survive raid AoE' },
       ],
       weapons: [
-        { type: 'Dual One-Hand Swords', tier: 'Best', note: 'Fast off-hand, slow main hand; Human weapon skill bonus' },
-        { type: 'Dual One-Hand Axes', tier: 'Best', note: 'Orcs get +5 axe skill' },
+        { type: 'Dual One-Hand Swords', tier: 'Best', note: 'Fast off-hand, slow main hand; Humans get +2% crit with swords' },
+        { type: 'Dual One-Hand Axes', tier: 'Best', note: 'Orcs get +1% crit with axes' },
         { type: 'Dual Maces', tier: 'Good', note: 'Fine when itemization favors them' },
         { type: 'Fist Weapons / Daggers', tier: 'Usable', note: 'Stat sticks — check the numbers' },
         { type: 'Two-Handed Weapons', tier: 'Avoid', note: 'Use Arms if you prefer a two-hander' },
@@ -132,11 +126,6 @@ export default {
         'Consider leveling as Arms and respeccing at 60 — Fury catches up only with gear',
         'If leveling Fury, grab two decent 1-handers and keep Battle Shout up',
         'Bloodthirst at 40 drastically improves your downtime',
-      ],
-      races: [
-        { name: 'Human', why: '+5 Sword & Mace skill' },
-        { name: 'Orc', why: '+5 Axe skill & Blood Fury' },
-        { name: 'Troll', why: 'Berserking haste burst' },
       ],
       professions: [
         { name: 'Mining + Blacksmithing', why: 'Weapon crafts & Dark Iron gear' },
@@ -194,12 +183,6 @@ export default {
         'Level as Arms, swap to Prot around 50–60 when doing lots of dungeons',
         'Collect a tanking set while leveling — Defense items from dungeons',
         'Keep a 2-hander in your bags for solo questing',
-      ],
-      races: [
-        { name: 'Night Elf', why: 'Shadowmeld, +1% dodge' },
-        { name: 'Dwarf', why: 'Stoneform removes bleeds/poisons' },
-        { name: 'Tauren', why: '+5% health, War Stomp' },
-        { name: 'Orc', why: 'Stun resistance' },
       ],
       professions: [
         { name: 'Mining + Blacksmithing', why: 'Tanking plate & Lionheart Helm' },

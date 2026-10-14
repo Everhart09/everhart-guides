@@ -67,12 +67,6 @@ export default {
         'Always keep conjured water stocked and use Evocation',
         'Run dungeons as the group\'s AoE — mages are always welcome',
       ],
-      races: [
-        { name: 'Gnome', why: 'Escape Artist & +5% Intellect' },
-        { name: 'Human', why: 'Perception & +5% Spirit' },
-        { name: 'Undead', why: 'Will of the Forsaken' },
-        { name: 'Troll', why: 'Berserking burst' },
-      ],
       professions: [
         { name: 'Tailoring + Enchanting', why: 'Cloth gear and wand crafting' },
         { name: 'Engineering', why: 'PvP gadgets & bombs' },
@@ -128,11 +122,6 @@ export default {
         'Viable, but Frost is safer and faster — many fire mages level as Frost',
         'Pyroblast pull → Fireball → Fire Blast kills most mobs quickly',
       ],
-      races: [
-        { name: 'Gnome', why: '+5% Intellect' },
-        { name: 'Troll', why: 'Berserking stacks with Combustion' },
-        { name: 'Undead', why: 'Will of the Forsaken' },
-      ],
       professions: [
         { name: 'Tailoring', why: 'Robe of the Archmage, Flarecore set' },
         { name: 'Alchemy', why: 'Flasks for raiding' },
@@ -186,11 +175,6 @@ export default {
       leveling: [
         'Pick up Arcane Concentration early for free spells',
         'Arcane Explosion AoE grinding is viable at higher levels',
-      ],
-      races: [
-        { name: 'Gnome', why: '+5% Intellect, Escape Artist' },
-        { name: 'Undead', why: 'Will of the Forsaken' },
-        { name: 'Human', why: 'Perception' },
       ],
       professions: [
         { name: 'Engineering', why: 'PvP' },

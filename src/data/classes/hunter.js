@@ -66,12 +66,6 @@ export default {
         'Always carry ammo and pet food',
         'Use Aspect of the Cheetah between pulls — no mount needed until 40',
       ],
-      races: [
-        { name: 'Night Elf', why: 'Shadowmeld, +1% dodge' },
-        { name: 'Dwarf', why: '+5 Gun skill, Stoneform' },
-        { name: 'Orc', why: 'Command: +pet damage' },
-        { name: 'Troll', why: '+5 Bow skill, Berserking' },
-      ],
       professions: [
         { name: 'Skinning + Leatherworking', why: 'Devilsaur & quivers' },
         { name: 'Engineering', why: 'Scopes, bombs, guns' },
@@ -126,12 +120,6 @@ export default {
         'Very viable to level as MM — big Aimed Shot openers',
         'Deadly Aspects (Beast Mastery row 1) is a strong early pick for faster leveling',
       ],
-      races: [
-        { name: 'Night Elf', why: 'Shadowmeld' },
-        { name: 'Dwarf', why: '+Gun skill' },
-        { name: 'Troll', why: '+Bow skill & Berserking' },
-        { name: 'Orc', why: 'Blood Fury' },
-      ],
       professions: [
         { name: 'Engineering', why: 'Scopes & Biznicks' },
         { name: 'Leatherworking', why: 'Quivers & leather gear' },
@@ -185,11 +173,6 @@ export default {
       leveling: [
         'Survival levels well — Mongoose Bite and Raptor Strike handle mobs that reach you',
         'Pick up Deterrence early for emergencies',
-      ],
-      races: [
-        { name: 'Night Elf', why: 'Shadowmeld' },
-        { name: 'Dwarf', why: 'Stoneform & +Gun skill' },
-        { name: 'Tauren', why: 'War Stomp & HP' },
       ],
       professions: [
         { name: 'Engineering', why: 'PvP essential' },

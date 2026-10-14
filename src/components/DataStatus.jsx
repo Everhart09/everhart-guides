@@ -8,7 +8,7 @@ import {
 
 const when = (iso) => (iso ? new Date(iso).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'never');
 
-/** "Data & updates" panel: what beta data the app uses and whether newer data exists. */
+/** "Data & updates" panel: what game data the app uses and whether newer data exists. */
 export default function DataStatus() {
   const { status, result, error } = useUpdates();
   const supported = updatesSupported();
@@ -67,9 +67,9 @@ export default function DataStatus() {
         </div>
       )}
       <p className="fine">
-        Updates download talent trees and pre-raid gear lists straight from the Forever beta data on Wowhead. If a guide build no
-        longer fits the new trees, its guide will say so and you can fix it in the Talent Calculator. Patch notes still
-        need to be transcribed into the app by hand.
+        Updates download talent trees, gear lists, dungeon data, maps and Legacy perks straight from the WoW Forever data on Wowhead,
+        and import Blizzard&apos;s latest patch notes from the official forums. If a guide build no longer fits the new trees, its
+        guide will say so and you can fix it in the Talent Calculator.
       </p>
     </div>
   );

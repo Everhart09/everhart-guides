@@ -3,6 +3,7 @@
 // New Forever content is marked `isNew`. Update as Blizzard announces more (see UNANNOUNCED below).
 //
 // side: 'A' Alliance, 'H' Horde, 'C' contested/both.  `start` = faction's own starting zone.
+import { stage } from './release.js';
 
 export const ZONES = [
   // Starting zones (1–12)
@@ -93,7 +94,10 @@ export const UNANNOUNCED = [
 export const BRACKETS = [
   { from: 1, to: 12, title: 'Starting out', tip: 'Finish your starting zone, then head to your faction\'s first hub. Skyborne begin on Zephras Isle and leave at 12.' },
   { from: 13, to: 20, title: 'First dungeons', tip: 'Forever adds two new low-level dungeons — Hall of Thanes and Ruins of Lordaeron — alongside the classics.' },
-  { from: 21, to: 30, title: 'The beta cap', tip: 'The WoW Forever beta currently stops at 30. Excavation Site: Wetlands (26–31) is the newest dungeon to test.' },
+  { from: 21, to: 30, ...stage(
+    { title: 'The beta cap', tip: 'The WoW Forever beta currently stops at 30. Excavation Site: Wetlands (26–31) is the newest dungeon to test.' },
+    { title: 'Into the Wetlands', tip: 'Forever\'s new Excavation Site: Wetlands (26–31) sits alongside Shadowfang Keep, Blackfathom Deeps and the Stockade. Ashenvale, Hillsbrad and the Wetlands are the main quest hubs.' },
+  ) },
   { from: 31, to: 40, title: 'Mounts & Stranglethorn', tip: 'In Classic, riding unlocks at 40 — watch for Forever changes. Stranglethorn Vale and Arathi Highlands are busy hubs — Desolace is quieter.' },
   { from: 41, to: 50, title: 'Riverglades & Tanaris', tip: 'Riverglades is Forever\'s new 36–44 zone. Tanaris, Feralas and the Hinterlands carry you to 50.' },
   { from: 51, to: 60, title: 'The road to 60', tip: 'Un\'Goro, Felwood, the Plaguelands and Winterspring. Start running Blackrock Depths and Dire Maul for pre-raid gear.' },

@@ -67,7 +67,7 @@ export default function GuidePage({ cls, spec, tab = 'overview', nav }) {
         <div className="build-warning">
           <Icon name="x" size={14} />
           <span>
-            <b>The beta talent trees changed since this build was written.</b> {buildProblems.length} build
+            <b>The talent trees changed since this build was written.</b> {buildProblems.length} build
             {buildProblems.length === 1 ? ' issue' : ' issues'} found — talents that no longer fit are skipped in the planner.
           </span>
           <button className="btn-ghost" onClick={() => nav.calc(cls.id, spec.id)}>Fix it in the calculator</button>

@@ -1,10 +1,31 @@
-// Imports Blizzard's "WoW Forever Beta Development Notes" forum thread into the app's patch notes format
-// (see src/data/patchNotes.js). Each new beta build is a new post in the same thread; the newest post with content
-// is the current notes. Used by the desktop app's updater.
+// Imports Blizzard's WoW Forever patch notes forum thread into the app's patch notes format (see src/data/patchNotes.js).
+// Each new build is a new post in the same thread; the newest post with content is the current notes. Used by the
+// desktop app's updater.
+//
+// During the beta that's the "WoW Forever Beta Development Notes" thread. After launch Blizzard will post live patch
+// notes in a new thread, so the thread to read comes from `sources.json` in the app's GitHub repo: change
+// `patchNotesTopic` there to the new thread's number and every installed copy switches on its next update check,
+// without a new release. If the file can't be read, the beta thread is used.
 
-const TOPIC = 'https://us.forums.blizzard.com/en/wow/t/2360696.json';
-const TOPIC_PAGE = 'https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes/2360696';
+const FORUM = 'https://us.forums.blizzard.com/en/wow/t';
+const BETA_TOPIC = 2360696;
+const SOURCES = 'https://raw.githubusercontent.com/Everhart09/everhart-guides/main/sources.json';
 const UA = { 'User-Agent': 'Mozilla/5.0 (EverhartGuides)', Accept: 'application/json' };
+
+/** The forum thread number to import patch notes from. */
+async function topicId() {
+  try {
+    const res = await fetch(SOURCES, { headers: { 'User-Agent': UA['User-Agent'] }, signal: AbortSignal.timeout(6000) });
+    if (res.ok) {
+      const id = Number((await res.json()).patchNotesTopic);
+      if (Number.isInteger(id) && id > 0) return id;
+    }
+  } catch {
+    /* offline or GitHub unreachable: use the beta thread */
+  }
+  return BETA_TOPIC;
+}
+const topicPage = (topic) => `${FORUM}/${topic.slug ?? 'topic'}/${topic.id}`;
 
 const CLASS_IDS = ['druid', 'hunter', 'mage', 'paladin', 'priest', 'rogue', 'shaman', 'warlock', 'warrior'];
 // Section headings in the notes → our section ids. Anything else becomes its own section.
@@ -182,9 +203,10 @@ function highlightsOf(sections, niceDate) {
   return out.slice(0, 4);
 }
 
-/** Fetches the thread and returns { title, postId, updatedAt } for the newest notes post. */
+/** Fetches the thread and returns { topic, post, url } for the newest notes post. */
 async function latestPost() {
-  const res = await fetch(TOPIC, { headers: UA });
+  const id = await topicId();
+  const res = await fetch(`${FORUM}/${id}.json`, { headers: UA });
   if (!res.ok) throw new Error(`Blizzard forums returned HTTP ${res.status}`);
   const topic = await res.json();
   const posts = (topic.post_stream?.posts ?? []).filter((p) => p.cooked && p.cooked.length > 200);
@@ -193,30 +215,30 @@ async function latestPost() {
   const lastId = stream[stream.length - 1];
   let newest = posts[posts.length - 1];
   if (lastId && !posts.some((p) => p.id === lastId)) {
-    const r = await fetch(`https://us.forums.blizzard.com/en/wow/t/2360696/posts.json?${stream.slice(-10).map((id) => `post_ids[]=${id}`).join('&')}`, { headers: UA });
+    const r = await fetch(`${FORUM}/${id}/posts.json?${stream.slice(-10).map((id) => `post_ids[]=${id}`).join('&')}`, { headers: UA });
     if (r.ok) {
       const more = ((await r.json()).post_stream?.posts ?? []).filter((p) => p.cooked && p.cooked.length > 200);
       if (more.length) newest = more[more.length - 1];
     }
   }
   if (!newest) throw new Error('No patch notes post found in the thread.');
-  return { topic, post: newest };
+  return { topic, post: newest, url: topicPage(topic) };
 }
 
 /** Downloads and converts the newest notes. `previous` is the PATCH being replaced (for the "previous build" box). */
 async function fetchPatchNotes(previous = null) {
-  const { topic, post } = await latestPost();
+  const { topic, post, url } = await latestPost();
   const sections = toSections(post.cooked);
   const date = (post.created_at ?? new Date().toISOString()).slice(0, 10);
   const nice = new Date(date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   return {
-    title: 'Beta Development Notes',
+    title: /beta/i.test(topic.title ?? '') ? 'Beta Development Notes' : 'Patch Notes',
     build: `${nice} update`,
     forumTitle: topic.title,
     postId: post.id,
     date,
     author: post.username,
-    source: `${TOPIC_PAGE}/${post.post_number}`,
+    source: `${url}/${post.post_number}`,
     imported: true,
     highlights: highlightsOf(sections, nice),
     sections,

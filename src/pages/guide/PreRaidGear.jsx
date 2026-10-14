@@ -125,7 +125,7 @@ export default function PreRaidGear({ cls, spec }) {
       <p className="fine gear-notes">
         Trinkets are ranked by their stats only — on-use and proc effects aren&apos;t scored, so check those yourself. Items marked
         Alliance/Horde are faction-only. Raid drops, raid-linked quests and high-rank PvP gear are left out. Rankings use the stat
-        weights below and will update as the beta item data changes.
+        weights below and will update as the item data changes.
       </p>
       <div className="gear-weights">
         <span className="kicker">How items are scored</span>

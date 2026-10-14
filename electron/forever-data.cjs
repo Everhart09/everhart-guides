@@ -3,8 +3,6 @@
 
 // Wowhead environments: 'forever' (WoW Forever) or 'classic' (Classic Era, used for the Classic vs Forever comparison).
 const calcPage = (env) => `https://www.wowhead.com/${env}/talent-calc/priest`;
-const PATCH_NOTES_TOPIC = 'https://us.forums.blizzard.com/en/wow/t/2360696.json';
-const PATCH_NOTES_URL = 'https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes/2360696';
 const ICON_CDN = 'https://wow.zamimg.com/images/wow/icons/large/';
 const UA = { 'User-Agent': 'Mozilla/5.0' };
 
@@ -120,18 +118,10 @@ async function fetchForeverData(onProgress = () => {}, env = 'forever') {
   return { meta, classes, abilities, icons };
 }
 
-/** Latest title and update time of Blizzard's beta development notes thread. */
-async function latestPatchNotes() {
-  const res = await fetch(PATCH_NOTES_TOPIC, { headers: { ...UA, Accept: 'application/json' } });
-  if (!res.ok) throw new Error(`Blizzard forums returned HTTP ${res.status}`);
-  const topic = await res.json();
-  return { title: topic.title, updatedAt: topic.last_posted_at ?? topic.bumped_at ?? null, url: PATCH_NOTES_URL };
-}
-
 /** Downloads one icon image; returns a Buffer or null. */
 async function fetchIcon(name) {
   const res = await fetch(ICON_CDN + name + '.jpg', { headers: UA });
   return res.ok ? Buffer.from(await res.arrayBuffer()) : null;
 }
 
-module.exports = { fetchForeverData, latestDataUrl, latestPatchNotes, fetchIcon, TREES };
+module.exports = { fetchForeverData, latestDataUrl, fetchIcon, TREES };

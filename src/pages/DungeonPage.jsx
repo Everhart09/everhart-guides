@@ -5,6 +5,7 @@ import { Icon, ROLE_ICON } from '../components/icons.jsx';
 import PageActions from '../components/PageActions.jsx';
 import { iconByName } from '../lib/icons.js';
 import { openExternal } from '../lib/updates.js';
+import { isLaunched, stage } from '../data/release.js';
 
 const SIDE_NAMES = { A: 'Alliance territory', H: 'Horde territory', C: 'Contested' };
 const ROLES = [['tank', 'Tank'], ['healer', 'Healer'], ['dps', 'DPS']];
@@ -107,7 +108,7 @@ function Boss({ boss, index, total, onTip }) {
                 </li>
               ))}
             </ul>
-          ) : <p className="fine">Mechanics aren&apos;t known yet. This boss isn&apos;t in the beta.</p>}
+          ) : <p className="fine">Mechanics aren&apos;t known yet. {stage('This boss isn\'t in the beta.', 'They\'ll be added in a guide update.')}</p>}
         </div>
 
         <div className="bs-card">
@@ -151,10 +152,10 @@ export default function DungeonPage({ dungeon: d, nav }) {
           <p className="hero-desc">{d.summary}</p>
           <div className="hero-meta">
             <span className="meta-pill">Levels {d.levels[0]}–{d.levels[1]}</span>
-            {d.minLevel && <span className="meta-pill">Opens at {d.minLevel} in the beta</span>}
+            {d.minLevel && !isLaunched() && <span className="meta-pill">Opens at {d.minLevel} in the beta</span>}
             <span className={`route-side side-${d.side}`}>{SIDE_NAMES[d.side]}</span>
             {d.isNew && <span className="chip chip-new">New in Forever</span>}
-            {d.status === 'later' && <span className="chip">Not open in the beta yet</span>}
+            {d.status === 'later' && <span className="chip">{stage('Not open in the beta yet', 'Not open yet')}</span>}
             {d.bosses.length > 0 && <span className="meta-pill">{d.bosses.length} bosses</span>}
           </div>
         </div>
@@ -181,7 +182,7 @@ export default function DungeonPage({ dungeon: d, nav }) {
       )}
 
       <p className="fine dg-credit">
-        Strategy written for Everhart Guides from the WoW Forever beta and Wowhead&apos;s Forever dungeon guides
+        Strategy written for Everhart Guides from the WoW Forever {stage('beta', 'game')} and Wowhead&apos;s Forever dungeon guides
         {d.guide && <> (<button className="link-btn inline" onClick={() => openExternal(d.guide)}>read the full guide</button>)</>}.
         Abilities, loot, drop chances and boss models from Wowhead&apos;s Forever database, {day(DUNGEON_META.importedAt)}.
       </p>

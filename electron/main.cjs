@@ -2,7 +2,7 @@ const { app, BrowserWindow, dialog, ipcMain, net, protocol, shell } = require('e
 const fs = require('fs');
 const path = require('path');
 const { pathToFileURL } = require('url');
-const { fetchForeverData, latestDataUrl, latestPatchNotes, fetchIcon } = require('./forever-data.cjs');
+const { fetchForeverData, latestDataUrl, fetchIcon } = require('./forever-data.cjs');
 const { buildGearData, dbFromUrl } = require('./forever-gear.cjs');
 const { buildClassChanges } = require('./class-changes.cjs');
 const { buildDungeonData, portraitSource } = require('./forever-dungeons.cjs');
@@ -130,8 +130,8 @@ ipcMain.handle('updates:check', async (_event, current) => {
     result.changes = { error: e.message };
   }
   try {
-    const { topic, post } = await latestPost();
-    const notes = { title: topic.title, postId: post.id, updatedAt: post.created_at, url: 'https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes/2360696' };
+    const { topic, post, url } = await latestPost();
+    const notes = { title: topic.title, postId: post.id, updatedAt: post.created_at, url };
     const norm = (s) => (s ?? '').replace(/[–—-]/g, '-').replace(/\s+/g, ' ').trim().toLowerCase();
     // New notes = a new thread title, or (once we know which post we have) a newer post in the thread.
     const newerPost = current?.patchPostId ? notes.postId !== current.patchPostId : false;

@@ -1,0 +1,4 @@
+{
+  "_about": "Read by installed copies of Everhart Guides when they check for updates. patchNotesTopic is the Blizzard forum thread number for WoW Forever patch notes (the number at the end of the thread's URL). At launch, change it to Blizzard's live patch notes thread and push; every copy switches on its next update check.",
+  "patchNotesTopic": 2360696
+}

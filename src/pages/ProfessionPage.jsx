@@ -6,6 +6,7 @@ import PageActions from '../components/PageActions.jsx';
 import { PATCH } from '../data/patchNotes.js';
 import { Panel, Ratings } from '../components/ui.jsx';
 import SkillPlanner from './profession/SkillPlanner.jsx';
+import { stage } from '../data/release.js';
 
 const TABS = [
   { id: 'overview', label: 'Overview' },
@@ -13,7 +14,7 @@ const TABS = [
   { id: 'recipes', label: 'Recipes & Specializations' },
 ];
 
-/** Lines from the latest beta patch notes that mention this profession (they stay current as new notes import). */
+/** Lines from the latest patch notes that mention this profession (they stay current as new notes import). */
 function foreverChanges(prof) {
   const name = prof.name.toLowerCase(); // profession names are plain words ("First Aid", "Leatherworking")
   const prefix = `${name} — `;
@@ -105,14 +106,14 @@ function Overview({ prof, nav }) {
             <Panel kicker="Know before you go" title="Tips" className="span-2">
         <ul className="bullets">{prof.tips.map((t) => <li key={t}>{t}</li>)}</ul>
       </Panel>
-      <Panel kicker={`Latest beta notes · ${PATCH.build}`} title="Changes in WoW Forever">
+      <Panel kicker={`${stage('Latest beta notes', 'Latest patch notes')} · ${PATCH.build}`} title="Changes in WoW Forever">
         {(() => {
           const changes = foreverChanges(prof);
           return changes.length ? (
             <ul className="bullets">
               {changes.map((c) => <li key={c.t}>{c.t}{c.note && <em className="prof-note"> Developers&apos; note: {c.note}</em>}</li>)}
             </ul>
-          ) : <p className="fine">No changes to {prof.name} in the latest beta notes. Everything above matches Classic.</p>;
+          ) : <p className="fine">No changes to {prof.name} in the latest {stage('beta', 'patch')} notes. Everything above matches Classic.</p>;
         })()}
         <button className="link-btn inline" onClick={nav.patch}>See all patch notes</button>
       </Panel>

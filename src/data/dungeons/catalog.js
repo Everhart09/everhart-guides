@@ -345,7 +345,7 @@ export const CATALOG = [
     id: 'razorfen-downs', name: 'Razorfen Downs', short: 'RFD', zone: 722, levels: [37, 43], side: 'H', minLevel: 25, status: 'beta',
     location: 'Southern Barrens — the border with Thousand Needles',
     summary: 'The quilboar\'s burial grounds, now in the grip of the Scourge and the lich Amnennar the Coldbringer.',
-    getThere: 'Just south of Razorfen Kraul, on the border with Thousand Needles. Open in the beta from level 25.',
+    getThere: 'Just south of Razorfen Kraul, on the border with Thousand Needles.',
     tips: ['Freezing Spirits cast Frost Nova. Stack on the tank so nobody gets stuck out of position.', 'The gong event summons Tuten\'kash after a few waves of spiders.'],
     guide: WH + '34945',
     bosses: [
@@ -360,7 +360,7 @@ export const CATALOG = [
   {
     id: 'uldaman', name: 'Uldaman', short: 'Ulda', zone: 1337, levels: [42, 52], side: 'C', minLevel: 30, status: 'beta',
     location: 'Badlands — the Hall of the Crafters, northern Badlands',
-    summary: 'A titan vault excavated by the Explorers\' League and overrun by troggs and Dark Iron dwarves. Open in the beta from level 30.',
+    summary: 'A titan vault excavated by the Explorers\' League and overrun by troggs and Dark Iron dwarves.',
     getThere: 'The main entrance is in the north of the Badlands, near the Loch Modan border.',
     tips: ['Wowhead hasn\'t published a Forever strategy guide for Uldaman yet. This page will fill in when one is available.'],
     guide: null,
@@ -369,7 +369,7 @@ export const CATALOG = [
   {
     id: 'city-of-dalaran', name: 'City of Dalaran', short: 'CoD', zone: 16560, levels: [28, 35], side: 'C', isNew: true, status: 'later',
     location: 'Alterac Mountains — Dalaran, now rebuilt',
-    summary: 'The rebuilt city of the Kirin Tor, seen for the first time in Classic now that its violet barrier is down. Threats have overrun the city. Not open in the beta yet; this is early information.',
+    summary: 'The rebuilt city of the Kirin Tor, seen for the first time in Classic now that its violet barrier is down. Threats have overrun the city. It isn\'t open yet; this is early information.',
     getThere: 'Alliance enter through the Dalaran sewers after the run up from Hillsbrad. Horde use a special tunnel; at least one group member needs the access item to open the gate. Swimming from Silverpine is quickest.',
     tips: ['Not playable yet. Mechanics may change before it opens.'],
     guide: WH + '34964',

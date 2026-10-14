@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom';
 import { Rich } from './ui.jsx';
 import { encodeBuild, orderFromBuild } from '../lib/calculator.js';
 import { TALENT_META } from '../data/talents/index.js';
+import { stage } from '../data/release.js';
 
 const ROLE_NAMES = { tank: 'Tank', healer: 'Healer', dps: 'DPS' };
 const ROTATION = [['opener', 'Opener'], ['single', 'Single target'], ['aoe', 'AoE'], ['cooldowns', 'Cooldowns']];
@@ -73,7 +74,7 @@ export default function CheatSheet({ cls, spec, picks }) {
       )}
 
       <footer className="cs-foot">
-        Talents from the WoW Forever beta data ({TALENT_META.importedAt ?? 'bundled'}) · Printed {day(new Date())} · Import the build code in the Everhart Guides talent calculator.
+        Talents from the WoW Forever {stage('beta ', '')}data ({TALENT_META.importedAt ?? 'bundled'}) · Printed {day(new Date())} · Import the build code in the Everhart Guides talent calculator.
       </footer>
     </article>,
     document.body,

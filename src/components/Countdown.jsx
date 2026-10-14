@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { RELEASE, isLaunched, showLaunchBanner } from '../data/release.js';
+import { BETA_END, RELEASE, isLaunched, showLaunchBanner } from '../data/release.js';
 
 const RELEASE_MS = Date.parse(RELEASE.at);
+const BETA_END_MS = Date.parse(BETA_END.at);
 
 function useNow(interval = 1000) {
   const [now, setNow] = useState(Date.now);
@@ -50,7 +51,30 @@ export function CountdownHero({ onPatchNotes }) {
       ) : (
         <div className="countdown-live">Servers are open. Good luck out there!</div>
       )}
+      {left > 0 && <BetaEnd now={now} />}
     </section>
+  );
+}
+
+/** Strip under the launch countdown: time left in the beta, then a note once it has closed. Gone at launch. */
+function BetaEnd({ now }) {
+  const left = BETA_END_MS - now;
+  const t = parts(left);
+  const pad = (n) => String(n).padStart(2, '0');
+  if (left <= 0) {
+    return (
+      <div className="cd-beta ended">
+        <span className="cd-beta-label">Beta</span>
+        <span>The beta closed on {BETA_END.short}. The next time anyone can play is launch day.</span>
+      </div>
+    );
+  }
+  return (
+    <div className="cd-beta">
+      <span className="cd-beta-label">Beta ends in</span>
+      <b className="cd-beta-clock" role="timer" aria-live="off">{t.days}d {pad(t.hours)}h {pad(t.minutes)}m {pad(t.seconds)}s</b>
+      <span className="cd-beta-when">{BETA_END.label} · exact closing time not announced yet</span>
+    </div>
   );
 }
 

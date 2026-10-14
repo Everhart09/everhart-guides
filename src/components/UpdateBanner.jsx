@@ -4,8 +4,9 @@ import {
   applyTalentUpdate, checkForUpdates, dismissUpdate, needsUpdate, openExternal, updateKey, updatesSupported, useUpdates,
 } from '../lib/updates.js';
 import { checkAppUpdateOnStartup, installAppUpdate, useAppUpdate } from '../lib/appUpdate.js';
+import { isLaunched } from '../data/release.js';
 
-/** Banner shown when Blizzard or Wowhead have newer WoW Forever beta data than the app. */
+/** Banner shown when Blizzard or Wowhead have newer WoW Forever data than the app. */
 export default function UpdateBanner({ nav }) {
   const { status, result, error, dismissed } = useUpdates();
   const app = useAppUpdate();
@@ -55,13 +56,13 @@ export default function UpdateBanner({ nav }) {
     <div className="update-banner">
       <span className="ub-dot" />
       <div className="ub-text">
-        {data && <span><b>New WoW Forever beta data is available.</b> Update to refresh talent trees, gear, dungeon guides, zone maps and Legacy perks.</span>}
-        {notes && <span><b>Blizzard posted new beta notes</b> (<i>{result.patchNotes.title}</i>). Update to add them to the Patch Notes page.</span>}
+        {data && <span><b>New WoW Forever data is available.</b> Update to refresh talent trees, gear, dungeon guides, zone maps and Legacy perks.</span>}
+        {notes && <span><b>Blizzard posted new patch notes</b> (<i>{result.patchNotes.title}</i>). Update to add them to the Patch Notes page.</span>}
       </div>
       <div className="ub-actions">
         <button className="btn-primary" onClick={applyTalentUpdate}>Update guides</button>
         {notes && <button className="btn-ghost" onClick={() => openExternal(result.patchNotes.url)}>Read on forums <Icon name="arrow" size={12} /></button>}
-        <button className="btn-ghost" onClick={nav.beta}>Details</button>
+        <button className="btn-ghost" onClick={isLaunched() ? nav.settings : nav.beta}>Details</button>
         <button className="ub-close" onClick={() => dismissUpdate(result)} title="Dismiss"><Icon name="x" size={14} /></button>
       </div>
     </div>

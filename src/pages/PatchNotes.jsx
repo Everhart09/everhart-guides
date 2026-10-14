@@ -3,6 +3,7 @@ import { PATCH } from '../data/patchNotes.js';
 import { CLASSES, getClass } from '../data/classes/index.js';
 import { ClassEmblem } from '../components/GameIcon.jsx';
 import { Icon } from '../components/icons.jsx';
+import { stage } from '../data/release.js';
 
 const CHIP_LABELS = { general: 'General', pvp: 'PvP', professions: 'Professions', quests: 'Quests', ui: 'Interface', known: 'Known issues' };
 const itemText =(it) => (typeof it === 'string' ? it : [it.t, it.note, ...(it.sub ?? [])].join(' '));
@@ -48,10 +49,10 @@ export default function PatchNotes({ nav, embedded = false }) {
         <div className="hero-bg" />
         <img className="hero-logo" src="./brand/wow-forever-logo.png" alt="World of Warcraft: Forever" />
         <div className="hero-text">
-          <div className="kicker">Latest beta patch · {PATCH.build}</div>
+          <div className="kicker">{stage('Latest beta patch', 'Latest patch')} · {PATCH.build}</div>
           <h1>WoW Forever Patch Notes</h1>
           <p className="hero-desc">
-            Blizzard&apos;s official beta development notes for the most recent build, posted by {PATCH.author}.
+            Blizzard&apos;s official {stage('beta development', 'patch')} notes for the most recent {stage('build', 'update')}, posted by {PATCH.author}.
             Filter by class or category, or search for a specific change.
           </p>
           <div className="hero-meta">

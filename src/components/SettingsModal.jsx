@@ -227,7 +227,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
                 <li><span>Data folder</span><b className="mono">{info?.dataFolder ?? '—'}</b></li>
               </ul>
               <p className="set-credits">
-                A free, unofficial fan project. Game data comes from the WoW Forever beta via Wowhead, and patch notes from
+                A free, unofficial fan project. Game data comes from WoW Forever via Wowhead, and patch notes from
                 Blizzard&apos;s official forum. World of Warcraft, WoW Forever and their artwork belong to Blizzard Entertainment.
               </p>
               <button className="btn-ghost" onClick={() => openExternal('https://github.com/Everhart09/everhart-guides')}>View on GitHub <Icon name="arrow" size={12} /></button>
@@ -251,7 +251,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
             <p>Your talent trees, gear lists, dungeon guides, zone maps, Legacy perks, class comparisons and patch notes match the latest WoW Forever release.</p>
             {notes && (
               <p className="modal-note">
-                Blizzard has posted newer beta notes: <i>{notes.title}</i>
+                Blizzard has posted newer patch notes: <i>{notes.title}</i>
                 <button className="link-btn" onClick={() => openExternal(notes.url)}>Read them</button>
               </p>
             )}

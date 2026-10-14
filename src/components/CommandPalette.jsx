@@ -34,7 +34,7 @@ const ENTRIES = [
   { key: 'picker', label: 'Class Picker', sub: 'Answer a few questions and get class suggestions', color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.picker() },
   { key: 'legacy', label: 'Legacy System', sub: 'Legacy points, perk calculator and challenges', color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.legacy() },
   { key: 'about', label: 'About this app', sub: 'Every feature explained, how updates work and FAQ', color: '#c9a45c', icon: <Icon name="heart" size={16} />, go: (nav) => nav.about() },
-  { key: 'dungeons', label: 'Dungeons & Raids', sub: 'Boss guides, abilities and loot for every beta dungeon', color: '#c9a45c', icon: <Icon name="skull" size={16} />, go: (nav) => nav.dungeons() },
+  { key: 'dungeons', label: 'Dungeons & Raids', sub: 'Boss guides, abilities and loot for every dungeon', color: '#c9a45c', icon: <Icon name="skull" size={16} />, go: (nav) => nav.dungeons() },
   ...DUNGEONS.map((d) => ({
     key: `dungeon/${d.id}`, label: d.name, sub: `Dungeon · levels ${d.levels[0]}–${d.levels[1]}${d.isNew ? ' · new in Forever' : ''} · ${d.bosses.map((b) => b.name).join(', ')}`,
     color: '#c9a45c', icon: <Icon name="skull" size={16} />, go: (nav) => nav.dungeon(d.id),

@@ -4,6 +4,7 @@ import { PROFESSIONS } from '../data/professions.js';
 import { DUNGEONS } from '../data/dungeons/index.js';
 import { Icon } from '../components/icons.jsx';
 import { appInfo } from '../lib/updates.js';
+import { stage } from '../data/release.js';
 
 const REPO = 'https://github.com/Everhart09/everhart-guides';
 const SPECS = CLASSES.reduce((n, c) => n + c.specs.length, 0);
@@ -83,12 +84,14 @@ const FEATURES = [
     go: (nav) => nav.legacy(), open: 'Open Legacy',
   },
   {
-    id: 'news', icon: 'note', title: 'News & Beta',
+    id: 'news', icon: 'note', title: stage('News & Beta', 'Patch Notes'),
     what: "Blizzard's latest WoW Forever patch notes, imported straight from the official forum thread.",
     how: [
       'Patch notes are grouped by class and system, with the current notes always on top.',
-      'Until launch, a Beta overview tab covers the schedule, current level cap, open dungeons and known issues.',
-      'At launch the countdown and beta-only parts disappear on their own.',
+      ...stage([
+        'Until launch, a Beta overview tab covers the schedule, current level cap, open dungeons and known issues.',
+        'At launch the countdown and beta-only parts disappear on their own.',
+      ], []),
     ],
     go: (nav) => nav.patch(), open: 'Read the notes',
   },
@@ -124,14 +127,14 @@ const FEATURES = [
 
 const UPDATE_DATA = [
   'Talent trees', 'Pre-raid gear lists', 'Dungeon abilities, loot and portraits', 'Zone maps',
-  'Legacy perks', "What's new in Forever comparisons", "Blizzard's beta patch notes",
+  'Legacy perks', "What's new in Forever comparisons", "Blizzard's patch notes",
 ];
 
 const FAQ = [
   ['Does it need the internet?', 'No. Everything is bundled, so the guides work offline. The internet is only used to check for updates.'],
   ['Is my information sent anywhere?', 'No. There are no accounts, ads or tracking. Your favorites, notes, settings and saved builds stay on your computer.'],
   ['Why did Windows warn me when I installed it?', 'The installer isn’t code-signed (a paid certificate), so Windows SmartScreen shows "Windows protected your PC" for new apps. Click More info → Run anyway.'],
-  ['A guide says its build no longer fits the talents.', 'Blizzard changed the trees in a beta update. The warning links to the calculator so you can see what moved. The guide itself is fixed in a later app update.'],
+  ['A guide says its build no longer fits the talents.', 'Blizzard changed the trees in a game update. The warning links to the calculator so you can see what moved. The guide itself is fixed in a later app update.'],
   ['Something looks wrong or out of date.', 'Run Settings → Check for updates first. If it is still wrong, report it on the GitHub page below.'],
 ];
 
@@ -206,7 +209,7 @@ export default function AboutPage({ nav }) {
         </section>
         <section className="panel">
           <div className="kicker">The guide data</div>
-          <h3 className="ab-h">Beta and patch changes</h3>
+          <h3 className="ab-h">Game and patch changes</h3>
           <p>
             Once a day (and any time you press <b>Settings → Check for updates</b>), the app asks Wowhead whether it has newer WoW Forever
             data and checks Blizzard’s forum for new patch notes. Anything out of date is downloaded, with a progress bar, and the app

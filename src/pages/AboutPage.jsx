@@ -122,6 +122,7 @@ const FEATURES = [
     how: [
       'Press **Ctrl + K** (or click the search bar at the top) and start typing a class, spec, profession, dungeon or page name.',
       'Use the arrow keys to choose a result and Enter to open it.',
+      '**Back**: guides, classes, dungeons, professions and the calculator have a Back button at the top that returns to the page you came from. The mouse back button and **Alt + ←** work too.',
     ],
   },
   {

@@ -18,7 +18,7 @@ It covers 9 classes and 27 specs. Each guide has:
 - **Rotation**: opener, single-target and AoE priorities, cooldowns and notes
 - **Leveling**: tips, talent checkpoints every 10 levels, and class ability milestones
 
-There's also a class comparison page, a role filter and quick picks on the home screen. Press `Ctrl+K` to search.
+There's also a class comparison page, a role filter and quick picks on the home screen. Press `Ctrl+K` to search. Detail pages (guides, classes, dungeons, professions, the calculator) have a **Back** button that returns to the page you came from (or the parent list after a restart); the mouse back button and Alt+← also work.
 
 **About this app** (button at the top right of the title bar, or search "About") explains every feature and how to use it, how app and guide-data updates work, where the data comes from, and common questions. The text lives in `src/pages/AboutPage.jsx`; update it when features change.
 

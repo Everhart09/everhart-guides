@@ -10,6 +10,7 @@ import RotationTab from './guide/RotationTab.jsx';
 import LevelingTab from './guide/LevelingTab.jsx';
 import PageActions from '../components/PageActions.jsx';
 import CheatSheet from '../components/CheatSheet.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 const TABS = [
   { id: 'overview', label: 'Overview' },
@@ -26,6 +27,7 @@ export default function GuidePage({ cls, spec, tab = 'overview', nav }) {
 
   return (
     <div className="page guide">
+      <BackButton nav={nav} fallback={{ label: cls.name, go: () => nav.cls(cls.id) }} />
       <header className="hero guide-hero">
         <div className="hero-bg" />
         <div className="hero-crest"><ClassEmblem id={cls.id} size={56} className="crest-img" /></div>

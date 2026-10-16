@@ -4,6 +4,7 @@ import { ClassEmblem } from '../components/GameIcon.jsx';
 import { Difficulty, Panel, Ratings, RoleChip } from '../components/ui.jsx';
 import ClassChanges from './class/ClassChanges.jsx';
 import TrainerChecklist from './class/TrainerChecklist.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 const TABS = [
   { id: 'overview', label: 'Overview' },
@@ -14,6 +15,7 @@ const TABS = [
 export default function ClassPage({ cls, tab = 'overview', nav }) {
   return (
     <div className="page">
+      <BackButton nav={nav} fallback={{ label: 'All classes', go: nav.home }} />
       <header className="hero">
         <div className="hero-bg" />
         <div className="hero-crest"><ClassEmblem id={cls.id} size={56} className="crest-img" /></div>

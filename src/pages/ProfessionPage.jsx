@@ -7,6 +7,7 @@ import { PATCH } from '../data/patchNotes.js';
 import { Panel, Ratings } from '../components/ui.jsx';
 import SkillPlanner from './profession/SkillPlanner.jsx';
 import { stage } from '../data/release.js';
+import BackButton from '../components/BackButton.jsx';
 
 const TABS = [
   { id: 'overview', label: 'Overview' },
@@ -32,6 +33,7 @@ function foreverChanges(prof) {
 export default function ProfessionPage({ prof, tab = 'overview', nav }) {
   return (
     <div className="page">
+      <BackButton nav={nav} fallback={{ label: 'All Professions', go: nav.professions }} />
       <header className="hero">
         <div className="hero-bg" />
         <div className="hero-crest"><ProfessionEmblem id={prof.id} size={56} className="crest-img" /></div>

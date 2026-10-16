@@ -91,7 +91,7 @@ function DungeonRow({ d, level, nav }) {
         <span>{d.where}{d.side !== 'C' ? ` · ${SIDE_NAMES[d.side]} territory` : ''}{d.opens ? ` · opens at ${d.opens} in Forever` : ''}</span>
       </div>
       {guide && nav && (
-        <button className="rd-guide" onClick={() => nav.dungeon(guide.id)} title={`Open the ${guide.name} guide`}>
+        <button className="rd-guide" onClick={() => nav.dungeon(guide.id)} title={`Open the guide for ${guide.name}`}>
           Guide <Icon name="chevron" size={12} />
         </button>
       )}

@@ -6,6 +6,7 @@ import PageActions from '../components/PageActions.jsx';
 import { iconByName } from '../lib/icons.js';
 import { openExternal } from '../lib/updates.js';
 import { isLaunched, stage } from '../data/release.js';
+import BackButton from '../components/BackButton.jsx';
 
 const SIDE_NAMES = { A: 'Alliance territory', H: 'Horde territory', C: 'Contested' };
 const ROLES = [['tank', 'Tank'], ['healer', 'Healer'], ['dps', 'DPS']];
@@ -139,6 +140,7 @@ export default function DungeonPage({ dungeon: d, nav }) {
 
   return (
     <div className="page dungeon-page">
+      <BackButton nav={nav} fallback={{ label: 'Dungeons & Raids', go: nav.dungeons }} />
       <header className="hero">
         <div className="hero-bg" />
         <div className="hero-crest"><Icon name="skull" size={40} /></div>

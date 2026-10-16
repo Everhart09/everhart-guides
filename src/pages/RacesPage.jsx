@@ -5,6 +5,7 @@ import { bestBySide, rankRaces, standouts } from '../lib/races.js';
 import { iconByName } from '../lib/icons.js';
 import { ClassEmblem } from '../components/GameIcon.jsx';
 import { Icon } from '../components/icons.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 const KEY = 'everhart.races';
 const SIDE_NAMES = { A: 'Alliance', H: 'Horde' };
@@ -47,6 +48,7 @@ export default function RacesPage({ classId, specId, nav }) {
 
   return (
     <div className="page races-page" style={{ '--cls': cls.color }}>
+      <BackButton nav={nav} />
       <header className="hero">
         <div className="hero-bg" />
         <div className="hero-crest"><Icon name="shield" size={38} /></div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getClass, getSpec } from './data/classes/index.js';
 import { TYPE_COLORS, getProfession } from './data/professions.js';
 import TitleBar from './components/TitleBar.jsx';
@@ -51,7 +51,25 @@ function loadRoute() {
 }
 
 export default function App() {
-  const [route, setRoute] = useState(loadRoute);
+  const [route, setRouteRaw] = useState(loadRoute);
+  // Pages visited this session, so Back can return to where you came from. Switching tabs within a page isn't a new page.
+  const routeRef = useRef(route);
+  const historyRef = useRef([]);
+  const setRoute = (next) => {
+    const current = routeRef.current;
+    const n = typeof next === 'function' ? next(current) : next;
+    if (pageKey(n) !== pageKey(current)) historyRef.current = [...historyRef.current.slice(-29), current];
+    routeRef.current = n;
+    setRouteRaw(n);
+  };
+  const goBack = () => {
+    let prev = historyRef.current.pop();
+    while (prev && !isValid(prev)) prev = historyRef.current.pop(); // skip pages that no longer exist
+    if (!prev) return false;
+    routeRef.current = prev;
+    setRouteRaw(prev);
+    return true;
+  };
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [settings, setSettings] = useState(null); // null | 'settings' | 'update'
   const [notesOpen, setNotesOpen] = useState(false);
@@ -71,6 +89,15 @@ export default function App() {
     }
     document.querySelector('.main')?.scrollTo({ top: 0 });
   }, [route]);
+
+  // The mouse's back button and Alt+Left go back, like a browser.
+  useEffect(() => {
+    const onMouse = (e) => { if (e.button === 3) { e.preventDefault(); goBack(); } };
+    const onKey = (e) => { if (e.altKey && e.key === 'ArrowLeft') { e.preventDefault(); goBack(); } };
+    window.addEventListener('mouseup', onMouse);
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('mouseup', onMouse); window.removeEventListener('keydown', onKey); };
+  });
 
   useEffect(() => {
     const onKey = (e) => {
@@ -107,6 +134,9 @@ export default function App() {
     notes: () => setNotesOpen((o) => !o),
     settings: () => setSettings('settings'),
     calc: (classId = route.classId ?? 'warrior', from = null) => setRoute({ view: 'calc', classId, from }),
+    back: goBack,
+    /** The page Back would return to, or null. */
+    previous: historyRef.current.at(-1) ?? null,
   };
 
   return (

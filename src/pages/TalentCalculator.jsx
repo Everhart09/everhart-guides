@@ -11,6 +11,7 @@ import {
   ranksOf, removeBlocker, removeLast,
 } from '../lib/calculator.js';
 import TalentTree from './guide/TalentTree.jsx';
+import BackButton from '../components/BackButton.jsx';
 
 const SAVED_KEY = 'everhart.calc.saved';
 const stateKey = (classId) => `everhart.calc.${classId}`;
@@ -146,6 +147,7 @@ export default function TalentCalculator({ classId, fromSpec, nav }) {
 
   return (
     <div className="page calc" style={{ '--cls': cls.color }}>
+      <BackButton nav={nav} fallback={fromSpec && getSpec(cls, fromSpec) ? { label: `${getSpec(cls, fromSpec).name} ${cls.name}`, go: () => nav.guide(cls.id, fromSpec) } : null} />
       <header className="calc-head">
         <div>
           <div className="kicker">WoW Forever · Talent Calculator</div>

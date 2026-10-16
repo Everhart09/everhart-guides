@@ -2691,3 +2691,15 @@ svg.filled { fill: currentColor; }
   .rc-list { grid-template-columns: 1fr; }
   .rc-row .seg:last-child { margin-left: 0; }
 }
+
+/* ---------- Back button (top of detail pages) ---------- */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 7px; margin: 0 0 12px; padding: 6px 12px 6px 10px;
+  border-radius: 99px; font-size: 12.5px; color: var(--text-2);
+  border: 1px solid var(--line-soft); background: color-mix(in srgb, var(--panel) 80%, transparent);
+  transition: color .15s, border-color .15s, background .15s;
+}
+.back-btn:hover { color: var(--gold-2); border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); background: color-mix(in srgb, var(--gold) 8%, var(--panel)); }
+.back-btn:hover svg { transform: translateX(-2px); }
+.back-btn svg { transition: transform .15s; }
+@media print { .back-btn { display: none; } }

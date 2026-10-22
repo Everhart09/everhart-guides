@@ -2703,3 +2703,10 @@ svg.filled { fill: currentColor; }
 .back-btn:hover svg { transform: translateX(-2px); }
 .back-btn svg { transition: transform .15s; }
 @media print { .back-btn { display: none; } }
+
+/* ---------- Guide update: data types skipped this time ---------- */
+.update-skipped { margin-top: 16px; padding: 12px 14px; border-radius: 10px; text-align: left; font-size: 12.5px; line-height: 1.55; color: var(--text-2); border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line)); background: color-mix(in srgb, var(--gold) 7%, transparent); }
+.update-skipped b { display: block; margin-bottom: 4px; color: var(--gold-2); }
+.update-skipped ul { padding-left: 16px; display: grid; gap: 4px; }
+.update-skipped strong { color: var(--text); }
+.update-skipped p { margin-top: 6px; }

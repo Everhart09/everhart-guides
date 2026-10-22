@@ -40,7 +40,8 @@ async function getText(url) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     const res = await fetch(url, { headers: UA });
     if (res.ok) return res.text();
-    if (attempt === 3) throw new Error(`${url} → HTTP ${res.status}`);
+    // 403 means the site is refusing automated requests; retrying won't change that.
+    if (attempt === 3 || res.status === 403) throw new Error(`${url} → HTTP ${res.status}`);
     await sleep(5000 * attempt);
   }
 }

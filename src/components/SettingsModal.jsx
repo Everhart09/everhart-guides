@@ -32,6 +32,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
   const [notes, setNotes] = useState(null);
   const [updating, setUpdating] = useState([]); // what's being updated, e.g. ['talent trees', 'gear lists']
   const [countdown, setCountdown] = useState(RESTART_DELAY_S);
+  const [skipped, setSkipped] = useState([]); // [{ what, reason }] data types a source refused this time
   const [info, setInfo] = useState(null);
   const [auto, setAuto] = useState(autoCheckEnabled);
   const [tab, setTab] = useState('updates');
@@ -57,12 +58,15 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
       setNotes(res?.patchNotes?.changed ? res.patchNotes : null);
       if (res?.talents?.error) throw new Error(`Couldn't reach the WoW Forever data: ${res.talents.error}`);
       if (!needsUpdate(res)) return setPhase('uptodate');
-      setUpdating([res.talents?.changed && 'talent trees', res.gear?.changed && 'pre-raid gear lists', res.dungeons?.changed && 'dungeon guides', res.maps?.changed && 'zone maps', res.legacy?.changed && 'Legacy perks', res.patchNotes?.changed && 'beta patch notes',
+      setUpdating([res.talents?.changed && 'talent trees', res.gear?.changed && 'pre-raid gear lists', res.dungeons?.changed && 'dungeon guides', res.maps?.changed && 'zone maps', res.legacy?.changed && 'Legacy perks', res.patchNotes?.changed && 'patch notes',
         res.changes?.changed && "“What's new” class comparisons"].filter(Boolean));
       setProgress({ percent: 0, label: 'Starting update…' });
       setPhase('updating');
       const applied = await downloadUpdate(setProgress, res);
       if (!applied.ok) throw new Error(applied.error);
+      // Some types can be skipped (e.g. Wowhead blocking a page); give time to read why before restarting.
+      setSkipped(applied.skipped ?? []);
+      if (applied.skipped?.length) setCountdown(12);
       setProgress({ percent: 100, label: 'Update complete' });
       setPhase('restarting');
     } catch (e) {
@@ -262,7 +266,7 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
         {(phase === 'updating' || phase === 'restarting') && (
           <div className="modal-body center">
             <h3>{phase === 'restarting' ? 'Update complete' : 'Updating guides…'}</h3>
-            {updating.length > 0 && <p className="updating-what">Updating {updating.join(' and ')}</p>}
+            {updating.length > 0 && <p className="updating-what">Updating {updating.length > 1 ? `${updating.slice(0, -1).join(', ')} and ${updating.at(-1)}` : updating[0]}</p>}
             <div className="progress" role="progressbar" aria-valuenow={progress.percent} aria-valuemin={0} aria-valuemax={100}>
               <i style={{ width: `${progress.percent}%` }} />
             </div>
@@ -270,6 +274,13 @@ export default function SettingsModal({ initialMode = 'settings', onClose }) {
               <span>{progress.label}</span>
               <b>{progress.percent}%</b>
             </div>
+            {phase === 'restarting' && skipped.length > 0 && (
+              <div className="update-skipped">
+                <b>Skipped this time</b>
+                <ul>{skipped.map((x) => <li key={x.what}><strong>{x.what}:</strong> {x.reason}</li>)}</ul>
+                <p>Everything else was updated.</p>
+              </div>
+            )}
             {phase === 'restarting' && (
               <p className="restart-note">Restarting Everhart Guides in {countdown}…</p>
             )}

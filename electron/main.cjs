@@ -21,6 +21,8 @@ const gearFile = () => path.join(userDir(), 'forever-gear.json');
 const changesFile = () => path.join(userDir(), 'class-changes.json');
 const patchNotesFile = () => path.join(userDir(), 'patch-notes.json');
 const legacyFile = () => path.join(userDir(), 'forever-legacy.json');
+// Data versions a source refused to serve (e.g. { gear: 1792500090 }), so the daily check doesn't keep offering them.
+const skippedFile = () => path.join(userDir(), 'skipped-updates.json');
 const dungeonsFile = () => path.join(userDir(), 'forever-dungeons.json');
 const userIconDir = () => path.join(userDir(), 'icons');
 const bundledIconDirs = () => [path.join(__dirname, '..', 'dist', 'icons'), path.join(__dirname, '..', 'public', 'icons')];
@@ -115,7 +117,8 @@ ipcMain.handle('updates:check', async (_event, current) => {
     const latest = await latestDataUrl();
     const latestDb = dbFromUrl(latest);
     result.talents = { latest, current: current?.talentDataUrl ?? null, changed: latest !== current?.talentDataUrl };
-    result.gear = { latest: latestDb, current: current?.gearDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.gearDb };
+    const refused = readJSON(skippedFile()) ?? {};
+    result.gear = { latest: latestDb, current: current?.gearDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.gearDb && latestDb !== refused.gear };
     result.dungeons = { latest: latestDb, current: current?.dungeonsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.dungeonsDb };
     result.maps = { latest: latestDb, current: current?.mapsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.mapsDb };
     result.legacy = { latest: latestDb, current: current?.legacyDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.legacyDb };
@@ -160,7 +163,7 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
   const doChanges = Boolean(options.changes);
 
   // Each step gets a slice of the progress bar (0–95%) sized by roughly how long it takes; saving is the last 5%.
-  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, patch: doPatch ? 0.5 : 0, legacy: doLegacy ? 0.5 : 0, changes: doChanges ? 0.6 : 0 };
+  const weights = { talents: doTalents ? 2 : 0, gear: doGear ? 6 : 0, dungeons: doDungeons ? 3 : 0, maps: doMaps ? 2 : 0, legacy: doLegacy ? 0.5 : 0, patch: doPatch ? 0.5 : 0, changes: doChanges ? 0.6 : 0 };
   const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
   const ranges = {};
   let at = 0;
@@ -172,16 +175,35 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
   const stepProgress = (step) => (f, label) => send(ranges[step][0] + f * (ranges[step][1] - ranges[step][0]), label);
   const split = (step, share) => ranges[step][0] + share * (ranges[step][1] - ranges[step][0]);
 
-  try {
-    let talentData = null;
-    if (doTalents) {
-      talentData = await fetchForeverData((f, label) => stepProgress('talents')(f * 0.85, label));
-      await downloadIcons(Object.values(talentData.icons), send, split('talents', 0.85), ranges.talents[1], 'Downloading new talent icons');
+  // Each data type is its own step: if one source fails (e.g. Wowhead blocks a page), that type is skipped and keeps
+  // its current data, and the other types still update.
+  const skipped = [];
+  const reasonOf = (e) => (/www\.wowhead\.com.*HTTP 403/.test(e.message)
+    ? 'Wowhead is blocking automated downloads of these pages right now. Your current copy is kept.'
+    : `${e.message}. Your current copy is kept.`);
+  const attempt = async (what, fn) => {
+    try {
+      return await fn();
+    } catch (e) {
+      skipped.push({ what, reason: reasonOf(e), blocked: /HTTP 403/.test(e.message) });
+      return null;
     }
-    const db = dbFromUrl(talentData?.meta.dataUrl ?? (await latestDataUrl()));
+  };
 
-    let gearData = null;
-    if (doGear) {
+  try {
+    const talentData = doTalents ? await attempt('Talent trees', async () => {
+      const data = await fetchForeverData((f, label) => stepProgress('talents')(f * 0.85, label));
+      await downloadIcons(Object.values(data.icons), send, split('talents', 0.85), ranges.talents[1], 'Downloading new talent icons');
+      return data;
+    }) : null;
+    let db = null;
+    try {
+      db = dbFromUrl(talentData?.meta.dataUrl ?? (await latestDataUrl()));
+    } catch {
+      /* data version unknown: the next check will offer the affected types again */
+    }
+
+    const gearData = doGear ? await attempt('Pre-raid gear lists', async () => {
       const { icons, ...gear } = await buildGearData({
         profiles: options.gearProfiles,
         classGear: options.classGear,
@@ -189,11 +211,15 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
         onProgress: (f, label) => stepProgress('gear')(f * 0.9, label),
       });
       await downloadIcons(icons, send, split('gear', 0.9), ranges.gear[1], 'Downloading new item icons');
-      gearData = gear;
-    }
+      return gear;
+    }) : null;
+    // Remember a refused gear download for this data version, so the daily check stops offering it until the data changes.
+    const refused = readJSON(skippedFile()) ?? {};
+    if (db && skipped.some((x) => x.what === 'Pre-raid gear lists' && x.blocked)) refused.gear = db;
+    if (gearData) delete refused.gear;
+    fs.writeFileSync(skippedFile(), JSON.stringify(refused));
 
-    let dungeonData = null;
-    if (doDungeons) {
+    const dungeonData = doDungeons ? await attempt('Dungeon guides', async () => {
       const { data, icons } = await buildDungeonData({
         ids: options.dungeonIds,
         db,
@@ -208,13 +234,12 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
         const res = await fetch(portraitSource(model), { headers: { 'User-Agent': 'Mozilla/5.0' } });
         if (res.ok) fs.writeFileSync(path.join(userPortraitDir(), `${model}.webp`), Buffer.from(await res.arrayBuffer()));
       }
-      dungeonData = data;
-    }
+      return data;
+    }) : null;
 
-    let mapsMeta = null;
-    if (doMaps) {
-      // Maps download into a staging folder and replace the old ones only once every map has arrived.
-      const staging = path.join(userDir(), 'maps-new');
+    // Maps download into a staging folder and replace the old ones only once every map has arrived.
+    const staging = path.join(userDir(), 'maps-new');
+    const mapsMeta = doMaps ? await attempt('Zone maps', async () => {
       fs.rmSync(staging, { recursive: true, force: true });
       fs.mkdirSync(staging, { recursive: true });
       const zones = [...new Set(options.mapZones)];
@@ -223,31 +248,33 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
         const res = await fetch(`${MAP_CDN}${id}.jpg`, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         if (res.ok) fs.writeFileSync(path.join(staging, `${id}.jpg`), Buffer.from(await res.arrayBuffer()));
       }
-      mapsMeta = { db, importedAt: new Date().toISOString().slice(0, 10), count: fs.readdirSync(staging).length };
-      fs.writeFileSync(path.join(staging, 'meta.json'), JSON.stringify(mapsMeta));
-    }
+      const meta = { db, importedAt: new Date().toISOString().slice(0, 10), count: fs.readdirSync(staging).length };
+      fs.writeFileSync(path.join(staging, 'meta.json'), JSON.stringify(meta));
+      return meta;
+    }) : null;
+    if (doMaps && !mapsMeta) fs.rmSync(staging, { recursive: true, force: true });
 
-    let legacyData = null;
-    if (doLegacy) {
+    const legacyData = doLegacy ? await attempt('Legacy perks', async () => {
       const { data, icons } = await buildLegacyData({ spellIds: options.legacySpells, db, onProgress: (f, label) => stepProgress('legacy')(f * 0.9, label) });
       await downloadIcons(icons, send, split('legacy', 0.9), ranges.legacy[1], 'Downloading Legacy perk icons');
-      legacyData = data;
-    }
+      return data;
+    }) : null;
 
-    let patchData = null;
-    if (doPatch) {
-      send(ranges.patch[0], 'Downloading the latest beta patch notes…');
-      patchData = await fetchPatchNotes(options.currentPatch ?? null);
-    }
+    const patchData = doPatch ? await attempt('Patch notes', async () => {
+      send(ranges.patch[0], 'Downloading the latest patch notes…');
+      return fetchPatchNotes(options.currentPatch ?? null);
+    }) : null;
 
-    let changesData = null;
     // Compare against the Forever data the app will use after restarting: what we just downloaded, or an earlier download.
     const foreverData = talentData ?? readOverride();
-    if (doChanges && foreverData?.abilities) {
+    const changesData = doChanges && foreverData?.abilities ? await attempt("What's new class comparisons", async () => {
       send(ranges.changes[0], 'Comparing Classic and Forever classes…');
       const classic = await fetchForeverData((f) => stepProgress('changes')(f * 0.9, 'Downloading Classic talent data for comparison…'), 'classic');
-      changesData = buildClassChanges(foreverData, classic);
-    }
+      return buildClassChanges(foreverData, classic);
+    }) : null;
+
+    const updated = [talentData, gearData, dungeonData, mapsMeta, legacyData, patchData, changesData].filter(Boolean).length;
+    if (!updated) return { ok: false, error: skipped.map((x) => `${x.what}: ${x.reason}`).join(' ') || 'Nothing could be updated.', skipped };
 
     send(0.97, 'Saving the updated guides…');
     if (talentData) fs.writeFileSync(overrideFile(), JSON.stringify(talentData));
@@ -255,17 +282,17 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
     if (dungeonData) fs.writeFileSync(dungeonsFile(), JSON.stringify(dungeonData));
     if (mapsMeta) {
       fs.rmSync(userMapDir(), { recursive: true, force: true });
-      fs.renameSync(path.join(userDir(), 'maps-new'), userMapDir());
+      fs.renameSync(staging, userMapDir());
     }
     if (changesData) fs.writeFileSync(changesFile(), JSON.stringify(changesData));
     if (patchData) fs.writeFileSync(patchNotesFile(), JSON.stringify(patchData));
     if (legacyData) fs.writeFileSync(legacyFile(), JSON.stringify(legacyData));
-    send(1, 'Update complete');
+    send(1, skipped.length ? 'Update complete (some items skipped)' : 'Update complete');
     return {
-      ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, maps: mapsMeta, patchNotes: patchData ? { build: patchData.build } : null, changes: changesData?.meta ?? null,
+      ok: true, talents: talentData?.meta ?? null, gear: gearData?.meta ?? null, dungeons: dungeonData?.meta ?? null, maps: mapsMeta, patchNotes: patchData ? { build: patchData.build } : null, changes: changesData?.meta ?? null, skipped,
     };
   } catch (e) {
-    return { ok: false, error: e.message };
+    return { ok: false, error: e.message, skipped };
   }
 });
 
@@ -284,6 +311,7 @@ ipcMain.handle('updates:clear-talents', () => {
   try {
     fs.rmSync(overrideFile(), { force: true });
     fs.rmSync(gearFile(), { force: true });
+    fs.rmSync(skippedFile(), { force: true });
     fs.rmSync(changesFile(), { force: true });
     fs.rmSync(dungeonsFile(), { force: true });
     fs.rmSync(patchNotesFile(), { force: true });

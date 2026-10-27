@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BETA_END, RELEASE, isLaunched, showLaunchBanner } from '../data/release.js';
+import { BETA_END, RELEASE, isBetaOver, isLaunched, showLaunchBanner, stage } from '../data/release.js';
 
 const RELEASE_MS = Date.parse(RELEASE.at);
 const BETA_END_MS = Date.parse(BETA_END.at);
@@ -37,7 +37,7 @@ export function CountdownHero({ onPatchNotes }) {
         <div className="kicker">Full release</div>
         <h2>{left > 0 ? `${RELEASE.name} launches in` : `${RELEASE.name} is live!`}</h2>
         <p>{RELEASE.label} · your time: {localLaunch}</p>
-        {onPatchNotes && <button className="btn-ghost" onClick={() => onPatchNotes()}>{left > 0 ? 'Read the latest beta patch notes' : 'Read the patch notes'}</button>}
+        {onPatchNotes && <button className="btn-ghost" onClick={() => onPatchNotes()}>{left > 0 ? stage('Read the latest beta patch notes', 'Read the latest patch notes') : 'Read the patch notes'}</button>}
       </div>
       {left > 0 ? (
         <div className="countdown-clock" role="timer" aria-live="off">
@@ -51,12 +51,12 @@ export function CountdownHero({ onPatchNotes }) {
       ) : (
         <div className="countdown-live">Servers are open. Good luck out there!</div>
       )}
-      {left > 0 && <BetaEnd now={now} />}
+      {left > 0 && !isBetaOver(now) && <BetaEnd now={now} />}
     </section>
   );
 }
 
-/** Strip under the launch countdown: time left in the beta, then a note once it has closed. Gone at launch. */
+/** Strip under the launch countdown: time left in the beta. Gone once the beta has ended. */
 function BetaEnd({ now }) {
   const left = BETA_END_MS - now;
   const t = parts(left);

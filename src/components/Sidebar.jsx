@@ -6,7 +6,7 @@ import { needsUpdate, updatesSupported, useUpdates } from '../lib/updates.js';
 import { toggleFavorite, usePrefs } from '../lib/prefs.js';
 import { useAppUpdate } from '../lib/appUpdate.js';
 import { PATCH } from '../data/patchNotes.js';
-import { isLaunched } from '../data/release.js';
+import { isBetaOver } from '../data/release.js';
 import { pageInfo, pageKey } from '../lib/pages.js';
 
 function FavIcon({ info }) {
@@ -33,7 +33,7 @@ export default function Sidebar({ route, nav }) {
         <Icon name="star" size={16} /> Class Picker
       </button>
       <button className={`side-home ${route.view === 'patch' || route.view === 'beta' ? 'active' : ''}`} onClick={() => nav.patch()}>
-        <Icon name="check" size={16} /> {isLaunched() ? 'Patch Notes' : 'News & Beta'} <span className="side-new">{new Date(PATCH.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+        <Icon name="check" size={16} /> {isBetaOver() ? 'Patch Notes' : 'News & Beta'} <span className="side-new">{new Date(PATCH.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
       </button>
 
       <div className="side-label">Tools</div>

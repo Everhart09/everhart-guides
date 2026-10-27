@@ -1,12 +1,12 @@
 import { PATCH } from '../data/patchNotes.js';
-import { isLaunched } from '../data/release.js';
+import { isBetaOver } from '../data/release.js';
 import { Icon } from '../components/icons.jsx';
 import PatchNotes from './PatchNotes.jsx';
 import BetaNotes from './BetaNotes.jsx';
 
-/** Patch notes and (until launch) the beta overview, on one page. */
+/** Patch notes and (while the beta runs) the beta overview, on one page. */
 export default function NewsPage({ tab = 'notes', nav }) {
-  const launched = isLaunched();
+  const launched = isBetaOver(); // the beta overview and beta wording go away once the beta has ended
   const showBeta = !launched;
   const current = showBeta && tab === 'beta' ? 'beta' : 'notes';
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DUNGEONS } from '../data/dungeons/index.js';
-import { isLaunched, stage } from '../data/release.js';
+import { isBetaOver, isLaunched, stage } from '../data/release.js';
 import { Icon } from '../components/icons.jsx';
 import { isFavorite, usePrefs } from '../lib/prefs.js';
 
@@ -103,7 +103,7 @@ export default function DungeonsHub({ nav }) {
             <div className="dh-card-foot">
               <span className={`route-side side-${d.side}`}>{SIDE_NAMES[d.side]}</span>
               <span>{d.bosses.length ? `${d.bosses.length} bosses` : 'Guide coming'}</span>
-              {d.minLevel && !isLaunched() && <span>Opens at {d.minLevel} in the beta</span>}
+              {d.minLevel && !isBetaOver() && <span>Opens at {d.minLevel} in the beta</span>}
             </div>
           </button>
         ))}
@@ -111,7 +111,7 @@ export default function DungeonsHub({ nav }) {
 
       <p className="fine dh-raids-note">
         <Icon name="skull" size={13} /> Raid guides (Molten Core, Onyxia and beyond) will be added once raids open
-        {isLaunched() ? ' and can be tested.' : " after launch. The beta stops at a low level cap, so they can't be tested yet."}
+        {isLaunched() ? ' and can be tested.' : isBetaOver() ? ' after launch.' : " after launch. The beta stops at a low level cap, so they can't be tested yet."}
       </p>
     </div>
   );

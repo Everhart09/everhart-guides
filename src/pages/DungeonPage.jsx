@@ -5,7 +5,7 @@ import { Icon, ROLE_ICON } from '../components/icons.jsx';
 import PageActions from '../components/PageActions.jsx';
 import { iconByName } from '../lib/icons.js';
 import { openExternal } from '../lib/updates.js';
-import { isLaunched, stage } from '../data/release.js';
+import { isBetaOver, stage } from '../data/release.js';
 import BackButton from '../components/BackButton.jsx';
 
 const SIDE_NAMES = { A: 'Alliance territory', H: 'Horde territory', C: 'Contested' };
@@ -154,7 +154,7 @@ export default function DungeonPage({ dungeon: d, nav }) {
           <p className="hero-desc">{d.summary}</p>
           <div className="hero-meta">
             <span className="meta-pill">Levels {d.levels[0]}–{d.levels[1]}</span>
-            {d.minLevel && !isLaunched() && <span className="meta-pill">Opens at {d.minLevel} in the beta</span>}
+            {d.minLevel && !isBetaOver() && <span className="meta-pill">Opens at {d.minLevel} in the beta</span>}
             <span className={`route-side side-${d.side}`}>{SIDE_NAMES[d.side]}</span>
             {d.isNew && <span className="chip chip-new">New in Forever</span>}
             {d.status === 'later' && <span className="chip">{stage('Not open in the beta yet', 'Not open yet')}</span>}

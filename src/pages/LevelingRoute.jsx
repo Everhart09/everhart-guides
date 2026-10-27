@@ -3,10 +3,10 @@ import { createPortal } from 'react-dom';
 import { mapUrl } from '../data/zoneMapsData.js';
 import { BRACKETS, DUNGEONS, UNANNOUNCED, ZONES } from '../data/levelingRoute.js';
 import { BETA } from '../data/foreverBeta.js';
-import { isLaunched } from '../data/release.js';
+import { isBetaOver } from '../data/release.js';
 
 // Before launch, the beta's level cap (kept current from the latest patch notes); after launch, no cap marker.
-const BETA_CAP = isLaunched() ? null : BETA.current.levelCap;
+const BETA_CAP = isBetaOver() ? null : BETA.current.levelCap;
 import { Icon } from '../components/icons.jsx';
 import { dungeonByName } from '../data/dungeons/index.js';
 

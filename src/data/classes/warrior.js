@@ -109,8 +109,8 @@ export default {
         { name: 'Stamina', weight: 20, note: 'Enough to survive raid AoE' },
       ],
       weapons: [
-        { type: 'Dual One-Hand Swords', tier: 'Best', note: 'Fast off-hand, slow main hand; Humans get +2% crit with swords' },
-        { type: 'Dual One-Hand Axes', tier: 'Best', note: 'Orcs get +1% crit with axes' },
+        { type: 'Dual One-Hand Swords', tier: 'Best', note: 'Fast off-hand, slow main hand' },
+        { type: 'Dual One-Hand Axes', tier: 'Best', note: 'Just as good as swords: no race favors a weapon type in Forever' },
         { type: 'Dual Maces', tier: 'Good', note: 'Fine when itemization favors them' },
         { type: 'Fist Weapons / Daggers', tier: 'Usable', note: 'Stat sticks — check the numbers' },
         { type: 'Two-Handed Weapons', tier: 'Avoid', note: 'Use Arms if you prefer a two-hander' },

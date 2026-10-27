@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CLASSES, getClass, getSpec } from '../data/classes/index.js';
-import { MODES } from '../data/races.js';
+import { MODES, RACIALS_AS_OF } from '../data/races.js';
 import { bestBySide, rankRaces, standouts } from '../lib/races.js';
 import { iconByName } from '../lib/icons.js';
 import { ClassEmblem } from '../components/GameIcon.jsx';
@@ -56,7 +56,7 @@ export default function RacesPage({ classId, specId, nav }) {
           <div className="kicker">WoW Forever · Character creation</div>
           <h1>Best race for your spec</h1>
           <p className="hero-desc">
-            Forever reworked every race: four racials each, weapon racials that give crit, no more resistances, and the new Skyborne.
+            Forever reworked every race: four racials each, none tied to a weapon type, no more resistances, and the new Skyborne.
             Pick a spec to see every race it can be, ranked, with what each racial does for that spec and why.
           </p>
         </div>
@@ -146,7 +146,7 @@ export default function RacesPage({ classId, specId, nav }) {
                       <span className={`rc-tag tag-${x.tag}`}>{TAG_LABELS[x.tag]}</span>
                     </div>
                     <p className="rc-why">{x.why}</p>
-                    <p className="rc-text">In game: {x.racial.text}</p>
+                    <p className="rc-text">{x.racial.source === 'notes' ? "Per Blizzard's patch notes (not in the game data yet)" : 'Tooltip'}: {x.racial.text}</p>
                   </div>
                 </li>
               ))}
@@ -159,9 +159,9 @@ export default function RacesPage({ classId, specId, nav }) {
         <button className="btn-ghost" onClick={() => nav.guide(cls.id, spec.id)}>Open the {spec.name} {cls.name} guide <Icon name="arrow" size={13} /></button>
         <p className="fine">
           Rankings weigh how much each racial helps this spec in the mode you picked: permanent bonuses count for more than short
-          cooldowns, and weapon racials only count if the spec actually uses that weapon. Close scores mean a small difference, so
-          pick the race you&apos;ll enjoy. Racial text and numbers come from the official WoW Forever spell data; race and class
-          combinations follow Forever&apos;s character creation.
+          cooldowns, and pet or mana racials only count for specs that use them. Close scores mean a small difference, so
+          pick the race you&apos;ll enjoy. Racials are as of the {RACIALS_AS_OF}: the official WoW Forever spell data plus
+          Blizzard&apos;s latest racial changes. Race and class combinations follow Forever&apos;s character creation.
         </p>
       </div>
     </div>

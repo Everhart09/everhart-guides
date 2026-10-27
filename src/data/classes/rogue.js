@@ -43,7 +43,7 @@ export default {
       ],
       stats: [
         { name: 'Hit (to 9%)', weight: 100, note: 'Dual-wield cap for special attacks; Precision covers 3%' },
-        { name: 'Weapon Skill', weight: 85, note: 'Human & Orc racials; Weapon Expertise also cuts dodge/parry by 2%' },
+        { name: 'Weapon Skill', weight: 85, note: 'From gear (racials no longer give it in Forever); Weapon Expertise also cuts dodge/parry by 2%' },
         { name: 'Agility', weight: 80, note: 'Attack power, crit and dodge' },
         { name: 'Attack Power', weight: 70, note: 'Direct damage increase' },
         { name: 'Critical Strike', weight: 60, note: 'Scales with Lethality' },

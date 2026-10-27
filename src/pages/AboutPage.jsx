@@ -49,7 +49,7 @@ const FEATURES = [
     how: [
       'Pick a class and spec, then what you will do most: **Dungeons & raids**, **PvP** or **Leveling**. Each changes which racials matter. Filter to Alliance or Horde.',
       'The top cards name the best Alliance and Horde race. Below, every race shows all four racials, rated Key, Useful, Minor or No real use for that spec, with the reason and the in-game tooltip.',
-      'Forever reworked racials: weapon racials now give crit instead of weapon skill, resistances are gone, and the new Skyborne get haste and elemental bonuses. New race/class combinations are marked.',
+      'Forever reworked racials: no racial depends on your weapon anymore, resistances are gone, and the new Skyborne get haste and elemental bonuses. Racials follow Blizzard\'s final pre-launch pass (Oct 26). New race/class combinations are marked.',
       "Each guide's Overview shows the best race on each side and links here for the full breakdown.",
     ],
     go: (nav) => nav.races(), open: 'Find your race',

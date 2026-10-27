@@ -7,26 +7,6 @@ const physical = (p) => p.kind === 'melee' || p.kind === 'ranged' || p.kind === 
 const an = (word) => (/^[aeiou]/i.test(word) ? `an ${word}` : `a ${word}`);
 const roleWord = (p) => ({ melee: 'melee damage dealers', ranged: 'hunters', caster: 'casters', healer: 'healers', tank: 'tanks' }[p.kind]);
 
-// A weapon-specialization racial: crit while that weapon type is equipped, worth as much as the weapon is realistic.
-function weaponSpec(p, type, crit) {
-  const w = p.weap?.[type] ?? 0;
-  if (!w) {
-    return { v: [0, 0, 0], why: `Doesn't help: you won't be using ${an(type)} as this spec${p.kind === 'caster' || p.kind === 'healer' ? ', or your class can\'t equip one' : ''}.` };
-  }
-  // Permanent crit beats short cooldowns: +2% all fight is worth more than +10% for 15 sec every 3 min (~0.8% on average).
-  const base = p.kind === 'tank' ? [6, 5, 4] : physical(p) ? [10, 7, 6] : [7, 5, 3];
-  const scale = crit === 2 ? 1 : 0.6;
-  const v = base.map((b) => Math.round(b * w * scale));
-  const how = p.kind === 'ranged'
-    ? `It also works for hunters: carry ${an(type)} as your melee stat stick and your shots get the crit too. ${w >= 0.8 ? `You fight with ${type}s anyway, so it's nearly always active.` : `Worth it whenever your best stat stick is ${an(type)}.`}`
-    : p.kind === 'caster' || p.kind === 'healer'
-      ? `Counts for spells too, so a caster ${type} in your main hand gives +${crit}% spell crit. ${w >= 0.8 ? `${type[0].toUpperCase() + type.slice(1)}s are among your best weapons, so it's usually active.` : `You'll often use a staff or dagger instead, so it isn't always active.`}`
-      : w >= 0.9
-        ? `${type[0].toUpperCase() + type.slice(1)}s are a top weapon choice for this spec, so it's nearly always active.`
-        : `${type[0].toUpperCase() + type.slice(1)}s are a solid option, so it's active whenever the best drop is ${an(type)}.`;
-  return { v, why: `+${crit}% crit on everything while ${an(type)} is equipped. In Forever this replaced the old +5 weapon skill. ${how}` };
-}
-
 /** value(ctx) → { v: [pve, pvp, leveling] (0–10), why: string | { pve, pvp, leveling } } */
 const VALUE = {
   willToSurvive: (p) => ({
@@ -37,11 +17,15 @@ const VALUE = {
     v: [0, p.stealth ? 5 : 4, 1],
     why: { pve: 'No use in dungeons or raids.', pvp: `Reveals stealthed Rogues and Druids for 20 sec. Good for ${p.stealth ? 'stealth duels and spotting the enemy first' : 'stopping openers on you or your healer'}.`, leveling: 'Helps spot stealthed mobs and players in contested zones.' },
   }),
-  swordSpec: (p) => weaponSpec(p, 'sword', 2),
+  ruthless: (p) => {
+    if (dps(p)) return { v: [5, 4, 3], why: '+1% crit on everything, always on, whatever weapon you use. Small but permanent. (It replaced Sword Specialization, so it no longer needs a sword.)' };
+    if (p.kind === 'healer') return { v: [3, 2, 1], why: '+1% crit, always on: a few more critical heals. Small.' };
+    return { v: [3, 2, 2], why: '+1% crit, always on: a little more threat and damage. Small.' };
+  },
   humanSpirit: (p) => {
-    if (p.kind === 'healer' || p.spirit) return { v: [4, 2, 3], why: `+5% Spirit means more mana regeneration${p.spirit && p.kind !== 'healer' ? ', and Shadow gets even more from Spirit Tap' : ' between casts'}. Small but always on.` };
-    if (p.res === 'mana') return { v: [2, 1, 2], why: '+5% Spirit is a little extra mana regeneration. Minor.' };
-    return { v: [0, 0, 1], why: `+5% Spirit barely matters for ${an(p.res)} user beyond slightly faster health regeneration out of combat.` };
+    if (p.kind === 'healer' || p.spirit) return { v: [6, 3, 4], why: `+10% Spirit means noticeably more mana regeneration${p.spirit && p.kind !== 'healer' ? ', and Shadow gets even more from Spirit Tap' : ' between casts'}. Always on, and doubled in Blizzard\'s final pass.` };
+    if (p.res === 'mana') return { v: [3, 1, 3], why: '+10% Spirit is some extra mana regeneration, mostly felt while leveling.' };
+    return { v: [0, 0, 1], why: `+10% Spirit barely matters for ${an(p.res)} user beyond slightly faster health regeneration out of combat.` };
   },
 
   stoneform: (p) => ({
@@ -54,8 +38,11 @@ const VALUE = {
       leveling: 'Saves a few deaths to poison and bleed mobs.',
     },
   }),
-  findTreasure: () => ({ v: [0, 0, 2], why: 'Shows treasure chests on the minimap. A little extra gold and loot while leveling, nothing else.' }),
-  maceSpec: (p) => weaponSpec(p, 'mace', 1),
+  findTreasure: () => ({ v: [0, 0, 3], why: 'Shows treasure chests on the minimap and can find extra items in most chests. Some extra gold and loot while leveling, nothing in combat.' }),
+  artisansPrecision: (p) => {
+    if (p.kind === 'healer') return { v: [1, 1, 1], why: '+1% hit with spells and attacks. Healers don\'t need hit, so it does little for you.' };
+    return { v: [p.kind === 'tank' ? 5 : 6, 3, 2], why: `+1% hit with spells and attacks, always on. Hit is a stat you need anyway${p.kind === 'tank' ? ' (missed attacks cost threat)' : ''}, so this frees gear for other stats until you reach the hit cap. (It replaced Mace Specialization and the short-lived Earth Fury.)` };
+  },
   bigGameHunter: (p) => ({ v: [1, 0, 5], why: { pve: '+5% damage to Beasts. Few dungeon or raid bosses are beasts, so it rarely matters at 60.', pvp: 'No effect on players.', leveling: `+5% damage to Beasts, and a huge share of leveling mobs are beasts${p.kind === 'healer' ? ' (when you\'re soloing)' : ''}. Noticeably faster questing.` } }),
 
   elunesLight: (p) => {
@@ -84,10 +71,10 @@ const VALUE = {
     why: { pve: 'Breaks roots and slows. Rarely needed in dungeons and raids.', pvp: p.kind === 'melee' ? 'Breaks Frost Nova, Hamstring, Crippling Poison and every other root or slow, then 3 sec of immunity. For melee, staying on target is everything.' : p.kind === 'ranged' ? 'Breaks roots and slows so you can get back to range. Excellent for kiting.' : 'Breaks a root or slow and buys 3 sec of free movement to get away or reposition.', leveling: 'Escapes a root or slow while questing now and then.' },
   }),
   eureka: (p) => {
-    if (p.kind === 'healer') return { v: [4, 3, 1], why: 'Your next 3 non-periodic heals cost 10% less and heal 10% more. A small boost for a damage spike.' };
+    if (p.kind === 'healer') return { v: [4, 3, 1], why: 'For 8 sec, your direct heals cost 10% less and heal 10% more (Power Word: Shield counts too). A small boost for a damage spike every 2 min.' };
     if (p.dots) return { v: [3, 3, 2], why: 'Only empowers non-periodic spells, and most of your damage comes from DoTs, so it does less for this spec.' };
-    if (p.kind === 'tank') return { v: [3, 2, 2], why: 'Your next 3 abilities deal 10% more damage (more threat) at 10% less cost. A small opener boost.' };
-    return { v: [4, 5, 2], why: `Your next 3 non-periodic ${p.kind === 'caster' ? 'spells' : 'abilities'} deal 10% more damage and cost 10% less. Use it on your biggest hitters for a short burst every 2 min.` };
+    if (p.kind === 'tank') return { v: [3, 2, 2], why: 'For 8 sec, your abilities deal 10% more damage (more threat) at 10% less cost. A small boost on the pull.' };
+    return { v: [5, 5, 2], why: `For 8 sec, your non-periodic ${p.kind === 'caster' ? 'spells' : 'abilities'} deal 10% more damage and cost 10% less. Line it up with your other cooldowns every 2 min.` };
   },
   expansiveMind: (p) => {
     if (p.res === 'energy') return { v: [4, 4, 2], why: '+5% maximum Energy: a bigger pool to fill before openers and burst. Energy specs feel this every fight.' };
@@ -97,24 +84,28 @@ const VALUE = {
   engineeringSpec: () => ({ v: [1, 2, 0], why: 'Only matters if you take Engineering: gadgets fail and backfire 20% less often, which helps most in PvP.' }),
 
   walkOnAir: () => ({ v: [0, 2, 2], why: 'Glide for 10 sec. Shortcuts off cliffs and safe falls: fun utility, no combat power.' }),
-  windBlessed: (p) => ({ v: [4, 2, 2], why: `+1% Haste on everything, always on. Faster ${p.kind === 'caster' || p.kind === 'healer' ? 'casts' : p.kind === 'ranged' ? 'shots and attacks' : 'attacks'} for every second of every fight. Small but permanent.` }),
+  windBlessed: (p) => ({ v: [5, 3, 3], why: `+2% Haste on everything, always on. Faster ${p.kind === 'caster' || p.kind === 'healer' ? 'casts' : p.kind === 'ranged' ? 'shots and attacks' : 'attacks'} for every second of every fight.` }),
   elementalInsight: () => ({ v: [3, 0, 2], why: { pve: '+5% damage to Elementals. Molten Core is mostly elementals, so it shines there; elsewhere it\'s situational.', pvp: 'No effect on players.', leveling: '+5% damage against the elementals you meet while questing. Situational.' } }),
   readLeyLine: (p) => ({
-    v: p.res === 'mana' ? [1, 0, 4] : [0, 0, 2],
-    why: p.res === 'mana' ? 'Doubles Health and Mana regeneration, for 15 min if you\'re near a ley line. Great for cutting downtime while leveling, minor elsewhere.' : 'Doubles Health regeneration, for 15 min near a ley line. Less downtime while leveling.',
+    v: p.res === 'mana' ? [2, 0, 5] : [0, 0, 3],
+    why: p.res === 'mana'
+      ? '+50% Health and Mana regeneration for 15 sec. Use it at a Ley Line to become Attuned for an hour (it survives death), doubling that to +100%. Cuts a lot of drinking while leveling.'
+      : '+50% Health regeneration for 15 sec, or +100% for an hour after using it at a Ley Line. Less downtime while leveling.',
   }),
-  skysight: () => ({ v: [0, 1, 3], why: '+10% movement and mounted speed for 30 sec (longer near an elemental convergence). Faster travel while leveling.' }),
+  skysight: () => ({ v: [0, 1, 4], why: '+15% run speed for 15 sec. Use it at an elemental convergence to become Charged for an hour (it survives death): +30% run speed. Much faster questing on foot.' }),
 
   bloodFury: (p) => {
-    if (dps(p)) return { v: [7, 8, 4], why: `+10% ${p.kind === 'caster' ? 'Spell Power' : 'Attack Power'} for 15 sec every 2 min. A strong, frequent burst cooldown${p.pet ? ' (and it boosts the damage you deal, not your pet\'s)' : ''}.` };
-    if (p.kind === 'tank') return { v: [5, 4, 3], why: '+10% Attack Power and Spell Power for 15 sec: more threat on the pull, every 2 min.' };
+    if (dps(p)) return { v: [6, 7, 3], why: `+10% ${p.kind === 'caster' ? 'Spell Power' : 'Attack Power'} for 15 sec every 3 min. A solid burst cooldown to stack with your others${p.pet ? ' (it boosts your damage, not your pet\'s)' : ''}.` };
+    if (p.kind === 'tank') return { v: [4, 3, 2], why: '+10% Attack Power and Spell Power for 15 sec every 3 min: more threat on the pull.' };
     return { v: [3, 2, 2], why: 'The tooltip boosts Spell Power, so it may lift your healing; it\'s mainly a damage cooldown.' };
   },
   shatterCurse: (p) => ({
-    v: [p.kind === 'tank' ? 5 : p.kind === 'healer' ? 3 : 2, p.kind === 'melee' ? 6 : 5, 1],
-    why: { pve: p.kind === 'tank' ? 'A magic defensive: 15% less Magical damage for 8 sec, plus curse removal. Great on caster bosses.' : 'Removes curses and cuts Magical damage by 15% for 8 sec. Situational in PvE.', pvp: 'Breaks Warlock curses and makes you immune for 8 sec with 15% less magic damage. Strong against Warlocks and Mages.', leveling: 'Removes the odd curse from a mob.' },
+    v: [p.kind === 'tank' ? 3 : p.kind === 'healer' ? 2 : 1, p.kind === 'melee' ? 4 : 3, 1],
+    why: { pve: 'Removes your curses and cuts Magical damage taken by 5% for 8 sec. Situational: handy on curse-heavy fights.', pvp: 'Cleanses Warlock curses on demand, with 5% less magic damage for 8 sec. It no longer gives immunity, so they can be reapplied.', leveling: 'Removes the odd curse from a mob.' },
   }),
-  axeSpec: (p) => weaponSpec(p, 'axe', 1),
+  command: (p) => (p.pet
+    ? { v: [6, 4, 5], why: 'Your pet deals 5% more damage, always on. A real chunk of a Hunter\'s or Warlock\'s damage comes from the pet, and while leveling the pet does even more of the work.' }
+    : { v: [0, 0, 0], why: 'Only Hunter and Warlock pets benefit, so it does nothing for this spec.' }),
   hardiness: (p) => ({ v: [1, physical(p) ? 6 : 5, 1], why: { pve: 'Stuns are rare in PvE, so it barely matters.', pvp: 'Every stun on you lasts 20% shorter: Kidney Shot, Cheap Shot, Hammer of Justice and more. Always on.', leveling: 'Barely matters while questing.' } }),
 
   willOfTheForsaken: (p) => ({
@@ -123,18 +114,17 @@ const VALUE = {
   }),
   cannibalize: (p) => ({ v: [1, 2, 5], why: `Restores 35% Health${p.res === 'mana' ? ' and Mana' : ''} over 10 sec from a humanoid or undead corpse. Cuts a lot of eating${p.res === 'mana' ? ' and drinking' : ''} while leveling.` }),
   underwaterBreathing: () => ({ v: [0, 0, 1], why: 'Breath lasts 4 times longer underwater. Convenient for underwater quests.' }),
-  touchOfTheGrave: (p) => ({ v: [2, 3, 3], why: `Your ${p.kind === 'caster' || p.kind === 'healer' ? 'spells' : 'attacks'} sometimes drain health (up to 5% of your max). Free sustain, best for ${p.kind === 'melee' || p.kind === 'tank' ? 'fast-hitting melee' : 'specs that hit often'}.` }),
+  touchOfTheGrave: (p) => ({ v: [2, 3, 3], why: `Every so often your ${p.kind === 'caster' || p.kind === 'healer' ? 'spells' : 'attacks'} drain up to 5% of your max Health (${p.kind === 'caster' || p.kind === 'healer' ? '30%' : '20%'} chance, at most once every 25 sec). Small free sustain.` }),
 
   warStomp: (p) => ({
     v: [p.kind === 'tank' ? 3 : 2, p.kind === 'melee' || p.kind === 'healer' ? 6 : 5, 3],
     why: { pve: p.kind === 'tank' ? 'A 2-sec AoE stun: interrupts casters on trash pulls and buys time to pick up loose mobs.' : 'A 2-sec AoE stun for emergencies on trash.', pvp: 'Stuns up to 5 enemies for 2 sec: interrupt a cast, peel a Rogue off your healer, or start a kill.', leveling: 'Escape or interrupt when a pull goes wrong.' },
   }),
   cultivation: () => ({ v: [0, 0, 2], why: 'Grow extra herbs you can pick without Herbalism. A little extra gold.' }),
-  plainsrunning: () => ({ v: [0, 2, 3], why: 'Up to 30% faster after moving for a while out of combat. Great for travel and leveling, not for fights.' }),
+  plainsrunning: () => ({ v: [0, 3, 4], why: { pve: 'Builds up to 60% run speed while you keep moving. Nice between pulls, no help in a fight.', pvp: 'Builds up to 60% run speed while moving undamaged: great for world PvP roaming and running flags early on.', leveling: 'Builds up to 60% run speed while you keep moving (doubled in Blizzard\'s final pass). Big for questing on foot, though it doesn\'t boost mounts.' } }),
   endurance: (p) => {
-    if (p.kind === 'tank' || p.also === 'tank') return { v: [7, 4, 3], why: '+5% Health and +1% hit. Health is a tank\'s first defense, and the hit makes your threat more reliable.' };
-    if (p.kind === 'healer') return { v: [2, 4, 1], why: '+5% Health: more room to survive. The hit chance does little for a healer.' };
-    return { v: [p.kind === 'caster' ? 5 : 6, 4, 3], why: `+1% hit, a stat you need anyway, frees itemization for other stats. +5% Health keeps you alive. The tooltip doesn't separate melee from spell hit.` };
+    if (p.kind === 'tank' || p.also === 'tank') return { v: [5, 4, 3], why: '+5% Health, always on. Health is a tank\'s first defense against spikes.' };
+    return { v: [2, 4, 2], why: '+5% Health: more room to survive burst, especially in PvP. (Blizzard\'s final pass removed its hit and crit bonuses.)' };
   },
 
   berserking: (p) => {
@@ -144,7 +134,7 @@ const VALUE = {
   },
   rapidRegeneration: () => ({ v: [1, 1, 5], why: 'Channel to regenerate 50% of your Health over 6 sec. Skip eating between pulls: great while leveling.' }),
   beastSlaying: (p) => VALUE.bigGameHunter(p),
-  regeneration: () => ({ v: [0, 1, 2], why: '10% of Health regeneration continues in combat, +10% out of combat. Minor.' }),
+  regeneration: () => ({ v: [0, 1, 3], why: '+20% Health regeneration, and 20% of it continues in combat. Less eating between pulls while leveling.' }),
 };
 
 const tierOf = (score, best) => {

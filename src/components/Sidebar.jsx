@@ -43,6 +43,9 @@ export default function Sidebar({ route, nav }) {
       <button className={`side-home ${route.view === 'races' ? 'active' : ''}`} onClick={() => nav.races()}>
         <Icon name="shield" size={16} /> Best Race
       </button>
+      <button className={`side-home ${route.view === 'racials' ? 'active' : ''}`} onClick={nav.racials}>
+        <Icon name="star" size={16} /> Racials
+      </button>
       <button className={`side-home ${route.view === 'legacy' ? 'active' : ''}`} onClick={nav.legacy}>
         <Icon name="star" size={16} /> Legacy System
       </button>

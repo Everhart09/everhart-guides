@@ -34,6 +34,7 @@ const ENTRIES = [
   { key: 'picker', label: 'Class Picker', sub: 'Answer a few questions and get class suggestions', color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.picker() },
   { key: 'legacy', label: 'Legacy System', sub: 'Legacy points, perk calculator and challenges', color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.legacy() },
   { key: 'races', label: 'Best Race', sub: 'Every race ranked for each spec, with what each racial does and why', color: '#c9a45c', icon: <Icon name="shield" size={16} />, go: (nav) => nav.races() },
+  { key: 'racials', label: 'Racials', sub: "Every race's four racials side by side, with what changed", color: '#c9a45c', icon: <Icon name="star" size={16} />, go: (nav) => nav.racials() },
   { key: 'about', label: 'About this app', sub: 'Every feature explained, how updates work and FAQ', color: '#c9a45c', icon: <Icon name="heart" size={16} />, go: (nav) => nav.about() },
   { key: 'dungeons', label: 'Dungeons & Raids', sub: 'Boss guides, abilities and loot for every dungeon', color: '#c9a45c', icon: <Icon name="skull" size={16} />, go: (nav) => nav.dungeons() },
   ...DUNGEONS.map((d) => ({

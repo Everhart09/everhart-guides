@@ -20,6 +20,7 @@ import ClassPicker from './pages/ClassPicker.jsx';
 import LegacyPage from './pages/LegacyPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import RacesPage from './pages/RacesPage.jsx';
+import RacialsPage from './pages/RacialsPage.jsx';
 import DungeonPage from './pages/DungeonPage.jsx';
 import { getDungeon } from './data/dungeons/index.js';
 import { pageKey } from './lib/pages.js';
@@ -30,7 +31,7 @@ const GOLD = '#c9a45c';
 
 function isValid(r) {
   switch (r?.view) {
-    case 'home': case 'professions': case 'beta': case 'patch': case 'dungeons': case 'picker': case 'legacy': case 'about': case 'races': return true;
+    case 'home': case 'professions': case 'beta': case 'patch': case 'dungeons': case 'picker': case 'legacy': case 'about': case 'races': case 'racials': return true;
     case 'dungeon': return !!getDungeon(r.dungeonId);
     case 'calc': return !!getClass(r.classId);
     case 'class': return !!getClass(r.classId);
@@ -130,6 +131,7 @@ export default function App() {
     legacy: () => setRoute({ view: 'legacy' }),
     about: () => setRoute({ view: 'about' }),
     races: (classId, specId) => setRoute({ view: 'races', classId, specId }),
+    racials: () => setRoute({ view: 'racials' }),
     dungeon: (dungeonId) => setRoute({ view: 'dungeon', dungeonId }),
     notes: () => setNotesOpen((o) => !o),
     settings: () => setSettings('settings'),
@@ -161,6 +163,7 @@ export default function App() {
           {route.view === 'picker' && <ClassPicker nav={nav} />}
           {route.view === 'legacy' && <LegacyPage />}
           {route.view === 'about' && <AboutPage nav={nav} />}
+          {route.view === 'racials' && <RacialsPage nav={nav} />}
           {route.view === 'races' && <RacesPage key={`${route.classId}/${route.specId}`} classId={route.classId} specId={route.specId} nav={nav} />}
           {route.view === 'dungeon' && dungeon && <DungeonPage key={dungeon.id} dungeon={dungeon} nav={nav} />}
           {route.view === 'calc' && cls && (

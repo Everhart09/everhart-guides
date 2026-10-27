@@ -55,6 +55,16 @@ const FEATURES = [
     go: (nav) => nav.races(), open: 'Find your race',
   },
   {
+    id: 'racials', icon: 'star', title: 'Racials',
+    what: 'Every race and its four racials side by side.',
+    how: [
+      'Each race shows its faction, the classes it can play (new combinations ringed in green) and all four racials with cooldowns and the official text.',
+      'Racials Blizzard reworked late in the beta are marked **Changed** with what changed, in case you remember an older version.',
+      'Filter by faction, or pick a class to see only the races that can play it.',
+    ],
+    go: (nav) => nav.racials(), open: 'See all racials',
+  },
+  {
     id: 'picker', icon: 'star', title: 'Class Picker',
     what: 'Not sure what to play? Answer 11 quick questions and get your best-matching class and spec.',
     how: [

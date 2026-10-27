@@ -3,7 +3,7 @@ import { CLASSES, getClass, getSpec } from '../data/classes/index.js';
 import { getProfession } from '../data/professions.js';
 import { getDungeon } from '../data/dungeons/index.js';
 
-const VIEW_LABELS = { home: 'Overview', patch: 'Patch notes', calc: 'Talent calculator', route: 'Leveling route', picker: 'Class picker', legacy: 'Legacy System', about: 'About this app', races: 'Best Race', beta: 'Beta overview', professions: 'All Professions', dungeons: 'Dungeons & Raids' };
+const VIEW_LABELS = { home: 'Overview', patch: 'Patch notes', calc: 'Talent calculator', route: 'Leveling route', picker: 'Class picker', legacy: 'Legacy System', about: 'About this app', races: 'Best Race', racials: 'Racials', beta: 'Beta overview', professions: 'All Professions', dungeons: 'Dungeons & Raids' };
 
 /** The key of the page a route shows, e.g. "guide:priest/shadow". */
 export function pageKey(route) {

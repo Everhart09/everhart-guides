@@ -89,14 +89,14 @@ const VALUE = {
   readLeyLine: (p) => ({
     v: p.res === 'mana' ? [2, 0, 5] : [0, 0, 3],
     why: p.res === 'mana'
-      ? '+50% Health and Mana regeneration for 15 sec. Use it at a Ley Line to become Attuned for an hour (it survives death), doubling that to +100%. Cuts a lot of drinking while leveling.'
+      ? '+50% Health and Mana regeneration for 15 sec. Use it at a Ley Line to become Attuned for an hour (it survives death, but not entering a raid), doubling that to +100%. Cuts a lot of drinking while leveling.'
       : '+50% Health regeneration for 15 sec, or +100% for an hour after using it at a Ley Line. Less downtime while leveling.',
   }),
-  skysight: () => ({ v: [0, 1, 4], why: '+15% run speed for 15 sec. Use it at an elemental convergence to become Charged for an hour (it survives death): +30% run speed. Much faster questing on foot.' }),
+  skysight: () => ({ v: [0, 1, 4], why: '+15% run speed for 15 sec. Use it at an elemental convergence to become Charged for an hour (it survives death, but not entering a raid): +30% run speed. Much faster questing on foot.' }),
 
   bloodFury: (p) => {
-    if (dps(p)) return { v: [6, 7, 3], why: `+10% ${p.kind === 'caster' ? 'Spell Power' : 'Attack Power'} for 15 sec every 3 min. A solid burst cooldown to stack with your others${p.pet ? ' (it boosts your damage, not your pet\'s)' : ''}.` };
-    if (p.kind === 'tank') return { v: [4, 3, 2], why: '+10% Attack Power and Spell Power for 15 sec every 3 min: more threat on the pull.' };
+    if (dps(p)) return { v: [7, 8, 4], why: `+10% ${p.kind === 'caster' ? 'Spell Power' : 'Attack Power'} for 15 sec every 2 min. A solid burst cooldown to stack with your others${p.pet ? ' (it boosts your damage, not your pet\'s)' : ''}.` };
+    if (p.kind === 'tank') return { v: [4, 3, 2], why: '+10% Attack Power and Spell Power for 15 sec every 2 min: more threat on the pull.' };
     return { v: [3, 2, 2], why: 'The tooltip boosts Spell Power, so it may lift your healing; it\'s mainly a damage cooldown.' };
   },
   shatterCurse: (p) => ({
@@ -114,7 +114,7 @@ const VALUE = {
   }),
   cannibalize: (p) => ({ v: [1, 2, 5], why: `Restores 35% Health${p.res === 'mana' ? ' and Mana' : ''} over 10 sec from a humanoid or undead corpse. Cuts a lot of eating${p.res === 'mana' ? ' and drinking' : ''} while leveling.` }),
   underwaterBreathing: () => ({ v: [0, 0, 1], why: 'Breath lasts 4 times longer underwater. Convenient for underwater quests.' }),
-  touchOfTheGrave: (p) => ({ v: [2, 3, 3], why: `Every so often your ${p.kind === 'caster' || p.kind === 'healer' ? 'spells' : 'attacks'} drain up to 5% of your max Health (${p.kind === 'caster' || p.kind === 'healer' ? '30%' : '20%'} chance, at most once every 25 sec). Small free sustain.` }),
+  touchOfTheGrave: (p) => ({ v: [2, 3, 3], why: `Every so often your ${p.kind === 'caster' || p.kind === 'healer' ? 'spells' : 'attacks'} drain up to 5% of your max Health (${p.kind === 'caster' || p.kind === 'healer' ? '30%' : '20%'} chance, at most once every 15 sec). Small free sustain.` }),
 
   warStomp: (p) => ({
     v: [p.kind === 'tank' ? 3 : 2, p.kind === 'melee' || p.kind === 'healer' ? 6 : 5, 3],
@@ -128,9 +128,9 @@ const VALUE = {
   },
 
   berserking: (p) => {
-    if (dps(p)) return { v: [5, 5, 3], why: `+10% ${p.kind === 'caster' ? 'casting' : 'attack'} speed for 10 sec every 3 min. A solid burst cooldown to stack with your others.` };
-    if (p.kind === 'healer') return { v: [5, 4, 1], why: '+10% casting speed for 10 sec: faster heals when the group is taking heavy damage.' };
-    return { v: [4, 3, 2], why: '+10% attack speed for 10 sec: more swings, more rage and threat.' };
+    if (dps(p)) return { v: [6, 5, 3], why: `+10% ${p.kind === 'caster' ? 'casting' : 'attack'} speed for 15 sec every 3 min. A solid burst cooldown to stack with your others.` };
+    if (p.kind === 'healer') return { v: [5, 4, 1], why: '+10% casting speed for 15 sec: faster heals when the group is taking heavy damage.' };
+    return { v: [4, 3, 2], why: '+10% attack speed for 15 sec: more swings, more rage and threat.' };
   },
   rapidRegeneration: () => ({ v: [1, 1, 5], why: 'Channel to regenerate 50% of your Health over 6 sec. Skip eating between pulls: great while leveling.' }),
   beastSlaying: (p) => VALUE.bigGameHunter(p),
@@ -169,7 +169,7 @@ export function bestBySide(cls, spec, mode = 'pve') {
   return { A: ranked.find((r) => r.race.side === 'A') ?? null, H: ranked.find((r) => r.race.side === 'H') ?? null };
 }
 
-/** One sentence naming a race's standout racials for this spec, e.g. "Blood Fury and Axe Specialization". */
+/** One sentence naming a race's standout racials for this spec, e.g. "Blood Fury and Command". */
 export function standouts(entry) {
   const top = entry.racials.filter((r) => r.value >= 3).slice(0, 2).map((r) => r.racial.name);
   return top.length ? top.join(' and ') : 'small, mostly utility racials';

@@ -147,6 +147,7 @@ export default function RacesPage({ classId, specId, nav }) {
                     </div>
                     <p className="rc-why">{x.why}</p>
                     <p className="rc-text">{x.racial.source === 'notes' ? "Per Blizzard's patch notes (not in the game data yet)" : 'Tooltip'}: {x.racial.text}</p>
+                    {x.racial.changed && <p className="rl-changed"><span>Changed</span> {x.racial.changed}</p>}
                   </div>
                 </li>
               ))}

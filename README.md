@@ -24,6 +24,8 @@ There's also a class comparison page, a role filter and quick picks on the home 
 
 **Best Race** (sidebar, Tools) ranks every race each spec can be in WoW Forever for dungeons & raids, PvP or leveling, and explains every racial for that spec: what it does (official Forever tooltip text) and why it matters or doesn't. Racials and race/class combinations live in `src/data/races.js`; the per-spec scoring and explanations in `src/lib/races.js`. Each guide's Overview shows the best Alliance and Horde race from the same data.
 
+**Racials** (sidebar, Tools) lists every race with its four racials, cooldowns, official text, the classes it can play, and a Changed note on racials Blizzard reworked late in the beta. Filter by faction or class.
+
 **Class Picker** (sidebar) asks 11 questions about role, fantasy, pace, survival style and what you like to bring to a group, then scores all 27 specs. Each spec has its own playstyle traits in `src/data/classPicker.js`, so specs within a class can come out differently.
 
 **Talent Calculator** (sidebar) lets you build your own 51-point spec on the real Forever trees with all rules enforced. Load any guide build to tweak it, save builds locally, and share them as codes like `warrior:30305213032015201-15050130032`.

@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from 'react';
 import { TALENT_META } from '../data/talents/index.js';
 import { PATCH } from '../data/patchNotes.js';
-import { GEAR_META } from '../data/gearData.js';
+import { GEAR, GEAR_META } from '../data/gearData.js';
 import { CLASS_GEAR, GEAR_PROFILES } from '../data/gearProfiles.js';
 import { CHANGES_META } from '../data/classChangesData.js';
 import { DUNGEON_IDS, DUNGEON_META } from '../data/dungeons/index.js';
@@ -74,7 +74,7 @@ export async function checkForUpdates({ force = false } = {}) {
   try {
     const result = await bridge().checkForUpdates({
       talentDataUrl: TALENT_META.dataUrl, gearDb: GEAR_META.db ?? null, changesFor: CHANGES_META.forever ?? null, dungeonsDb: DUNGEON_META.db ?? null, mapsDb: MAPS_META.db ?? null, legacyDb: LEGACY_META.db ?? null,
-      patchTitle: PATCH.forumTitle, patchPostId: PATCH.postId ?? null,
+      patchTitle: PATCH.forumTitle, patchPostId: PATCH.postId ?? null, patchParser: PATCH.parser ?? 0,
     });
     write(LAST_KEY, result);
     set({ status: 'idle', result });
@@ -107,6 +107,8 @@ export async function downloadUpdate(onProgress, result = state.result) {
       currentPatch: { build: PATCH.build, highlights: PATCH.highlights, previous: PATCH.previous ?? null },
       gearProfiles: GEAR_PROFILES,
       classGear: CLASS_GEAR,
+      // The lists in use now: if Wowhead blocks a rebuild, the updater checks these items one by one instead.
+      currentGear: GEAR,
     });
     if (res.ok) write(LAST_KEY, null);
     set({ status: res.ok ? 'idle' : 'error', error: res.ok ? null : res.error });

@@ -30,7 +30,8 @@ const topicPage = (topic) => `${FORUM}/${topic.slug ?? 'topic'}/${topic.id}`;
 const CLASS_IDS = ['druid', 'hunter', 'mage', 'paladin', 'priest', 'rogue', 'shaman', 'warlock', 'warrior'];
 // Section headings in the notes → our section ids. Anything else becomes its own section.
 const SECTION_OF = [
-  [/^(bug ?fixes|changes and updates|general|world|camping|items|races|dungeons?)$/i, 'general', 'General & World'],
+  [/^(bug ?fixes|changes and updates|change ?log|general|world|camping|items|dungeons?)$/i, 'general', 'General & World'],
+  [/^(races?|racial abilities( and (traits|talents))?|human|dwarf|night elf|gnome|orc|undead|tauren|troll|skyborne)$/i, 'races', 'Races'],
   [/^classes?$/i, 'classes', 'Classes'],
   [/^(pvp|player versus player|honor)/i, 'pvp', 'Player versus Player'],
   [/^professions?/i, 'professions', 'Professions'],
@@ -72,6 +73,27 @@ const isHeadingOnly = (li) => {
   return own.length > 0 && own.every((c) => c.tag === 'strong' || (c.text !== undefined && !c.text.trim())) && childEls(li, 'ul').length > 0;
 };
 const DEV_NOTE = /^developers[’']? ?notes?:\s*/i;
+const ownText = (li) => clean(li.children.filter((c) => c.tag !== 'ul').map(textOf).join(''));
+// A lead-in paragraph like "We'd also like to clarify that for Skyborne:" names the group that follows.
+const NAMED_GROUP = /\b(Human|Dwarf|Night Elf|Gnome|Skyborne|Orc|Undead|Tauren|Troll)\b/i;
+
+/** The <li>s of a list, joining a heading-only <li> with a following <li> that holds just its list. */
+function itemsOf(ul) {
+  const lis = childEls(ul, 'li');
+  const out = [];
+  for (let i = 0; i < lis.length; i++) {
+    const li = lis[i];
+    const next = lis[i + 1];
+    const own = li.children.filter((c) => c.tag !== 'ul');
+    const headingAlone = !childEls(li, 'ul').length && own.length > 0
+      && own.every((c) => c.tag === 'strong' || (c.text !== undefined && !c.text.trim())) && childEls(li, 'strong').length > 0;
+    if (headingAlone && next && childEls(next, 'ul').length && !ownText(next)) {
+      out.push({ tag: 'li', children: [...li.children, ...childEls(next, 'ul')] });
+      i++;
+    } else out.push(li);
+  }
+  return out;
+}
 
 /** One <li> → a string, or { t, note?, sub? }. */
 function toItem(li) {
@@ -82,7 +104,7 @@ function toItem(li) {
     for (const sub of childEls(ul, 'li')) {
       const t = clean(textOf(sub));
       if (!t) continue;
-      if (DEV_NOTE.test(t)) note = t.replace(DEV_NOTE, '');
+      if (DEV_NOTE.test(t)) note = note ? `${note} ${t.replace(DEV_NOTE, '')}` : t.replace(DEV_NOTE, '');
       else if (childEls(sub, 'ul').length && !clean(sub.children.filter((c) => c.tag !== 'ul').map(textOf).join(''))) {
         // An empty <li> wrapping another list (seen in dungeon lists): flatten it.
         subs.push(childEls(sub, 'ul').flatMap((u) => childEls(u, 'li').map((x) => clean(textOf(x)))).join(', '));
@@ -96,7 +118,7 @@ function toItem(li) {
 /** Items in a <ul>; nested "<li><strong>Heading</strong><ul>" become prefixed items or their own groups. */
 function listItems(ul, prefix = '') {
   const out = [];
-  for (const li of childEls(ul, 'li')) {
+  for (const li of itemsOf(ul)) {
     if (isHeadingOnly(li)) {
       const head = clean(childEls(li, 'strong').map(textOf).join(' '));
       for (const inner of childEls(li, 'ul')) out.push(...listItems(inner, prefix ? `${prefix} — ${head}` : head));
@@ -130,14 +152,15 @@ function toSections(cooked) {
       const strong = childEls(node, 'strong');
       const t = clean(textOf(node));
       if (/^h\d$/.test(node.tag) && /known issues/i.test(t)) heading = 'Known Issues';
-      else if ((strong.length && clean(strong.map(textOf).join(' ')) === t) || /^h[34]$/.test(node.tag)) heading = t;
+      else if ((strong.length && clean(strong.map(textOf).join(' ')) === t) || /^h[234]$/.test(node.tag)) heading = t;
+      else if (node.tag === 'p' && /:$/.test(t) && t.length <= 120) heading = t.match(NAMED_GROUP)?.[1] ?? t.replace(/:$/, '');
       continue;
     }
     if (node.tag !== 'ul') continue;
     const sec = section(heading);
     if (sec.id === 'classes') {
       // <li><strong>Druid</strong><ul>…</ul></li> per class
-      for (const li of childEls(node, 'li')) {
+      for (const li of itemsOf(node)) {
         const name = clean(childEls(li, 'strong').map(textOf).join(' ')).toLowerCase();
         const classId = CLASS_IDS.find((c) => name === c);
         if (classId && isHeadingOnly(li)) {
@@ -155,7 +178,7 @@ function toSections(cooked) {
     // Top-level items under the heading form a group; "<li><strong>Camping</strong><ul>" become their own groups.
     const loose = [];
     const at = sec.groups.length;
-    for (const li of childEls(node, 'li')) {
+    for (const li of itemsOf(node)) {
       if (isHeadingOnly(li)) {
         const title = clean(childEls(li, 'strong').map(textOf).join(' '));
         sec.groups.push({ title, items: attachNotes(childEls(li, 'ul').flatMap((ul) => listItems(ul))) });
@@ -179,7 +202,8 @@ function attachNotes(items) {
     const t = typeof it === 'string' ? it : it.t;
     if (DEV_NOTE.test(t ?? '') && out.length) {
       const prev = out[out.length - 1];
-      out[out.length - 1] = typeof prev === 'string' ? { t: prev, note: t.replace(DEV_NOTE, '') } : { ...prev, note: t.replace(DEV_NOTE, '') };
+      const note = t.replace(DEV_NOTE, '');
+      out[out.length - 1] = typeof prev === 'string' ? { t: prev, note } : { ...prev, note: prev.note ? `${prev.note} ${note}` : note };
     } else out.push(it);
   }
   return out;
@@ -213,22 +237,67 @@ async function latestPost() {
   // The thread may have more posts than the first page shows; fetch the newest ones if needed.
   const stream = topic.post_stream?.stream ?? [];
   const lastId = stream[stream.length - 1];
-  let newest = posts[posts.length - 1];
+  const all = [...posts];
   if (lastId && !posts.some((p) => p.id === lastId)) {
     const r = await fetch(`${FORUM}/${id}/posts.json?${stream.slice(-10).map((id) => `post_ids[]=${id}`).join('&')}`, { headers: UA });
     if (r.ok) {
       const more = ((await r.json()).post_stream?.posts ?? []).filter((p) => p.cooked && p.cooked.length > 200);
-      if (more.length) newest = more[more.length - 1];
+      for (const m of more) if (!all.some((x) => x.id === m.id)) all.push(m);
     }
   }
+  all.sort((a, b) => a.post_number - b.post_number);
+  const newest = all.at(-1);
   if (!newest) throw new Error('No patch notes post found in the thread.');
-  return { topic, post: newest, url: topicPage(topic) };
+  // The content post before the newest, in case the newest only adds to it.
+  const earlier = all.at(-2) ?? null;
+  return { topic, post: newest, url: topicPage(topic), earlier };
 }
+
+/** Blizzard's opening paragraphs (the "why" behind a set of changes), before the first heading or list. */
+function introOf(cooked) {
+  const root = parse(cooked);
+  const out = [];
+  for (const node of root.children) {
+    if (node.tag === 'ul' || /^h\d$/.test(node.tag ?? '')) break;
+    if (node.tag !== 'p') continue;
+    const t = clean(textOf(node));
+    // Skip the stock opener ("Today, we updated the WoW Forever Beta with a new build…") and short labels.
+    if (t.length > 80 && !/^today,? we updated/i.test(t)) out.push(t);
+  }
+  return out;
+}
+
+// Blizzard sometimes follows a build's notes with a short post that only adds a few lines to it.
+const ADDENDUM = /updated the previous post|additional updates|additions that were intended|in addition to the (previous|above)/i;
+
+/** Sections of b merged into a: same section and group, duplicate lines dropped. */
+function mergeSections(a, b) {
+  const key = (g) => g.classId ?? g.title ?? '';
+  const text = (it) => (typeof it === 'string' ? it : it.t);
+  const out = a.map((s) => ({ ...s, groups: s.groups.map((g) => ({ ...g, items: [...g.items] })) }));
+  for (const sb of b) {
+    let sa = out.find((x) => x.id === sb.id);
+    if (!sa) out.push((sa = { ...sb, groups: [] }));
+    for (const gb of sb.groups) {
+      let ga = sa.groups.find((g) => key(g) === key(gb));
+      if (!ga) sa.groups.push((ga = { ...gb, items: [] }));
+      for (const it of gb.items) if (!ga.items.some((x) => text(x) === text(it))) ga.items.push(it);
+    }
+  }
+  return out;
+}
+
+// Bump when the conversion improves, so notes imported by an older version are re-imported once.
+const PARSER_VERSION = 2;
 
 /** Downloads and converts the newest notes. `previous` is the PATCH being replaced (for the "previous build" box). */
 async function fetchPatchNotes(previous = null) {
-  const { topic, post, url } = await latestPost();
-  const sections = toSections(post.cooked);
+  const { topic, post, url, earlier } = await latestPost();
+  let sections = toSections(post.cooked);
+  // An addendum is shown together with the post it adds to, so the page has the whole update.
+  const addendum = ADDENDUM.test(post.cooked.replace(/<[^>]+>/g, ' ')) && earlier;
+  if (addendum) sections = mergeSections(toSections(earlier.cooked), sections);
+  const intro = introOf(addendum ? earlier.cooked : post.cooked);
   const date = (post.created_at ?? new Date().toISOString()).slice(0, 10);
   const nice = new Date(date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   return {
@@ -240,7 +309,9 @@ async function fetchPatchNotes(previous = null) {
     author: post.username,
     source: `${url}/${post.post_number}`,
     imported: true,
+    parser: PARSER_VERSION,
     highlights: highlightsOf(sections, nice),
+    intro,
     sections,
     previous: previous && previous.build !== `${nice} update`
       ? { build: previous.build, items: (previous.highlights ?? []).map((h) => h.text).filter(Boolean) }
@@ -248,4 +319,4 @@ async function fetchPatchNotes(previous = null) {
   };
 }
 
-module.exports = { fetchPatchNotes, latestPost, toSections };
+module.exports = { fetchPatchNotes, latestPost, toSections, PARSER_VERSION };

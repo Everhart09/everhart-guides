@@ -1,14 +1,14 @@
 {
  "meta": {
-  "importedAt": "2026-10-08",
-  "db": "1790897736",
+  "importedAt": "2026-10-31",
+  "db": "1793399207",
   "source": "Wowhead WoW Forever tooltips"
  },
  "spells": {
   "1225435": {
    "name": "Bountiful Harvest",
    "icon": "inv_misc_bag_18",
-   "desc": "You discover 100% more Scarce materials from Mining, Herbalism, and Skinning."
+   "desc": "You are 100% more likely to discover Scarce materials from Mining, Herbalism, and Skinning."
   },
   "1225451": {
    "name": "Working Overtime",

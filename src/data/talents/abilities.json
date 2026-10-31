@@ -36,7 +36,21 @@
    ]
   ],
   [
+   "Improved Cleave",
+   1,
+   [
+    1
+   ]
+  ],
+  [
    "Improved Overpower",
+   1,
+   [
+    1
+   ]
+  ],
+  [
+   "Toughness",
    1,
    [
     1
@@ -260,6 +274,13 @@
    ]
   ],
   [
+   "Berserker Rage",
+   30,
+   [
+    30
+   ]
+  ],
+  [
    "Berserker Stance",
    30,
    [
@@ -273,13 +294,6 @@
     30,
     42,
     52
-   ]
-  ],
-  [
-   "Berserker Rage",
-   32,
-   [
-    32
    ]
   ],
   [
@@ -360,6 +374,13 @@
     50,
     54,
     60
+   ]
+  ],
+  [
+   "One-Handed Weapon Specialization",
+   1,
+   [
+    1
    ]
   ],
   [
@@ -466,12 +487,19 @@
    ]
   ],
   [
+   "Righteous Fury",
+   10,
+   [
+    10
+   ]
+  ],
+  [
    "Seal of Fury",
    10,
    [
     10,
     18,
-    25,
+    26,
     34,
     42,
     50,
@@ -510,13 +538,6 @@
     36,
     46,
     56
-   ]
-  ],
-  [
-   "Righteous Fury",
-   16,
-   [
-    16
    ]
   ],
   [
@@ -569,7 +590,7 @@
    ]
   ],
   [
-   "Sense Undead",
+   "Voice of Truth",
    20,
    [
     20
@@ -607,13 +628,6 @@
     42,
     50,
     58
-   ]
-  ],
-  [
-   "Blessing of Salvation",
-   26,
-   [
-    26
    ]
   ],
   [
@@ -688,12 +702,11 @@
    ]
   ],
   [
-   "Blessing of Light",
+   "Holy Shield",
    40,
    [
     40,
-    50,
-    60
+    50
    ]
   ],
   [
@@ -730,14 +743,6 @@
    ]
   ],
   [
-   "Holy Shield",
-   50,
-   [
-    50,
-    60
-   ]
-  ],
-  [
    "Holy Wrath",
    50,
    [
@@ -771,20 +776,6 @@
   ],
   [
    "Greater Blessing of Kings",
-   60,
-   [
-    60
-   ]
-  ],
-  [
-   "Greater Blessing of Light",
-   60,
-   [
-    60
-   ]
-  ],
-  [
-   "Greater Blessing of Salvation",
    60,
    [
     60
@@ -2566,6 +2557,15 @@
    ]
   ],
   [
+   "Mana Tide Totem",
+   38,
+   [
+    38,
+    48,
+    58
+   ]
+  ],
+  [
    "Call of the Spirits",
    40,
    [
@@ -2582,27 +2582,20 @@
    ]
   ],
   [
+   "Lava Burst",
+   40,
+   [
+    40,
+    50,
+    60
+   ]
+  ],
+  [
    "Grace of Air Totem",
    42,
    [
     42,
     56,
-    60
-   ]
-  ],
-  [
-   "Mana Tide Totem",
-   48,
-   [
-    48,
-    58
-   ]
-  ],
-  [
-   "Lava Burst",
-   50,
-   [
-    50,
     60
    ]
   ],
@@ -2616,6 +2609,13 @@
   ]
  ],
  "mage": [
+  [
+   "Arcane Focus",
+   1,
+   [
+    1
+   ]
+  ],
   [
    "Arcane Intellect",
    1,
@@ -2662,6 +2662,13 @@
   ],
   [
    "Magic Attunement",
+   1,
+   [
+    1
+   ]
+  ],
+  [
+   "Piercing Ice",
    1,
    [
     1
@@ -2924,6 +2931,15 @@
    ]
   ],
   [
+   "Frost Blast",
+   24,
+   [
+    24,
+    36,
+    48
+   ]
+  ],
+  [
    "Pyroblast",
    24,
    [
@@ -3006,6 +3022,15 @@
     34,
     46,
     58
+   ]
+  ],
+  [
+   "Arcane Wrath",
+   36,
+   [
+    36,
+    48,
+    60
    ]
   ],
   [
@@ -3867,6 +3892,17 @@
    ]
   ],
   [
+   "Shred",
+   20,
+   [
+    20,
+    30,
+    38,
+    46,
+    54
+   ]
+  ],
+  [
    "Starfire",
    20,
    [
@@ -3877,17 +3913,6 @@
     50,
     58,
     60
-   ]
-  ],
-  [
-   "Shred",
-   22,
-   [
-    22,
-    30,
-    38,
-    46,
-    54
    ]
   ],
   [
@@ -4026,15 +4051,6 @@
    ]
   ],
   [
-   "Primal Bite",
-   36,
-   [
-    36,
-    48,
-    60
-   ]
-  ],
-  [
    "Dire Bear Form",
    40,
    [
@@ -4082,6 +4098,14 @@
   ],
   [
    "Gift of the Wild",
+   50,
+   [
+    50,
+    60
+   ]
+  ],
+  [
+   "Primal Bite",
    50,
    [
     50,

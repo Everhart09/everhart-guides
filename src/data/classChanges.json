@@ -1,8 +1,8 @@
 {
  "meta": {
-  "importedAt": "2026-10-05",
+  "importedAt": "2026-10-31",
   "classic": "https://nether.wowhead.com/classic/data/talents-classic?dv=29&db=1761625051",
-  "forever": "https://nether.wowhead.com/forever/data/talents-classic?dv=29&db=1790897736"
+  "forever": "https://nether.wowhead.com/forever/data/talents-classic?dv=29&db=1793399207"
  },
  "classes": {
   "warrior": {
@@ -18,13 +18,13 @@
       "name": "Spearing Strike",
       "tree": "Arms",
       "max": 1,
-      "desc": "A brutal attack that deals 40% weapon damage, plus an additional 80% weapon damage against Giants, Dragonkin, and mounted targets."
+      "desc": "A brutal attack that deals 40% weapon damage. Deals an additional 80% weapon damage against Giants, Dragonkin, and mounted targets. Mounted targets are dismounted."
      },
      {
       "name": "Bloodthrill",
       "tree": "Arms",
       "max": 5,
-      "desc": "Your Main Hand melee attacks against enemies afflicted by your Rend have a 20% chance to allow the use of your Overpower ability on the target. Lasts 6 sec."
+      "desc": "Grants your Main Hand melee attacks against enemies afflicted by your Rend a 20% chance to allow an activation of Overpower."
      },
      {
       "name": "Weaponmaster",
@@ -48,7 +48,7 @@
       "name": "Raging Blows",
       "tree": "Fury",
       "max": 1,
-      "desc": "Causes your Whirlwind to also strike with your Off Hand weapon, and reduces the Rage cost of your Cleave ability by 2."
+      "desc": "Reduces the Rage cost of your Cleave and Whirlwind abilities by 3."
      },
      {
       "name": "Gore Drinker",
@@ -123,7 +123,8 @@
       "name": "Improved Cleave",
       "tree": "Fury",
       "max": 3,
-      "desc": "Increases the bonus damage done by your Cleave ability by 120%."
+      "desc": "Increases the bonus damage done by your Cleave ability by 120%.",
+      "note": "Now a baseline ability at level 1"
      },
      {
       "name": "Improved Battle Shout",
@@ -135,7 +136,8 @@
       "name": "Toughness",
       "tree": "Protection",
       "max": 5,
-      "desc": "Increases your armor value from items by 10%."
+      "desc": "Increases your armor value from items by 10%.",
+      "note": "Now a baseline ability at level 1"
      },
      {
       "name": "Improved Shield Block",
@@ -273,7 +275,7 @@
        "Effect changed"
       ],
       "before": "Causes all enemies near the warrior to be dazed, reducing movement speed by 50% for 6 sec.",
-      "after": "Causes all nearby enemies to be Dazed, reducing movement speed by 50% for 6 sec."
+      "after": "Causes all enemies within 10 yds to be Dazed, reducing movement speed by 50% for 6 sec."
      },
      {
       "name": "Blood Craze",
@@ -337,7 +339,7 @@
        "Effect changed"
       ],
       "before": "Instantly attack the target causing damage equal to 45% of your attack power. In addition, the next 5 successful melee attacks will restore 10 health. This effect lasts 8 sec.",
-      "after": "Instantly attack the target causing damage equal to 35% of your Attack Power plus 30 and increasing your movement speed by 10% for 10 sec."
+      "after": "Instantly attack the target causing damage equal to 45% of your Attack Power plus 30 and increasing your movement speed by 10% for 10 sec."
      },
      {
       "name": "Improved Bloodrage",
@@ -478,7 +480,15 @@
    "abilities": {
     "added": [
      {
+      "name": "Improved Cleave",
+      "level": 1
+     },
+     {
       "name": "Improved Overpower",
+      "level": 1
+     },
+     {
+      "name": "Toughness",
       "level": 1
      },
      {
@@ -503,6 +513,11 @@
       "name": "Slam",
       "from": 30,
       "to": 20
+     },
+     {
+      "name": "Berserker Rage",
+      "from": 32,
+      "to": 30
      }
     ]
    }
@@ -511,22 +526,16 @@
    "talents": {
     "added": [
      {
-      "name": "Improved Seals",
-      "tree": "Holy",
-      "max": 3,
-      "desc": "Increases the damage done by your Seals and Judgements by 15%."
-     },
-     {
-      "name": "Voice of Truth",
-      "tree": "Holy",
-      "max": 1,
-      "desc": "Grants you immunity to Silence and Interrupt effects for 6 sec."
-     },
-     {
       "name": "Reverence",
       "tree": "Holy",
-      "max": 3,
+      "max": 2,
       "desc": "Allows 30% of your Mana regeneration to continue while casting."
+     },
+     {
+      "name": "Improved Seals",
+      "tree": "Holy",
+      "max": 5,
+      "desc": "Increases the damage done by your Seals and Judgements by 15%."
      },
      {
       "name": "Purifying Power",
@@ -535,16 +544,28 @@
       "desc": "Reduces the mana cost of your Cleanse and Purify spells by 20% and reduces the cooldown of your Exorcism and Holy Wrath spells by 33%."
      },
      {
+      "name": "Holy Conduit",
+      "tree": "Holy",
+      "max": 2,
+      "desc": "Reduces the mana cost of your Consecration, Holy Wrath, Exorcism, and Hammer of Wrath spells by 40%."
+     },
+     {
+      "name": "Divine Precision",
+      "tree": "Holy",
+      "max": 2,
+      "desc": "Improves your chance to hit with Holy spells by 8%, and reduces the duration of Silence effects on you by 20%."
+     },
+     {
       "name": "Infusion of Light",
       "tree": "Holy",
       "max": 2,
       "desc": "Your Holy Shock and Flash of Light critical hits reduce the cast time of your next Holy Light cast within 15 sec by 1.0 sec."
      },
      {
-      "name": "Divine Precision",
+      "name": "Oath of Light",
       "tree": "Holy",
-      "max": 3,
-      "desc": "Improves your chance to hit with Holy spells by 18%."
+      "max": 1,
+      "desc": "Swear an Oath to protect target ally for 5 min, increasing the healing of your Holy Light on them by up to 0, your Flash of Light by up to 0, and your Holy Shock by up to 0. Only one Oath of Light may be sworn by the Paladin at any one time."
      },
      {
       "name": "Consecrated Ground",
@@ -553,28 +574,22 @@
       "desc": "Gives your Holy spells 10% increased damage against the first 4 enemies that enter your Consecration."
      },
      {
+      "name": "Boundless Light",
+      "tree": "Holy",
+      "max": 2,
+      "desc": "Increases the critical strike chance of your Holy Shock spell by 30% when cast on allies not affected by your Oath of Light."
+     },
+     {
       "name": "Light's Vigil",
       "tree": "Holy",
       "max": 1,
-      "desc": "Applies Light's Vigil to the target for 30 sec. Your next Holy Shock cast on them triggers no cooldown and causes enemy targets to suffer 175 to 189 Holy damage and refund 75% of Light's Vigil's Mana cost, or allied targets to heal their party for 326 to 344. You may only have one Light's Vigil active per party."
-     },
-     {
-      "name": "Improved Seal of Fury",
-      "tree": "Protection",
-      "max": 1,
-      "desc": "When Seal of Fury's shield is fully absorbed, restore 0 Mana, increased by 15% per level the attacker is above you, up to 45%."
+      "desc": "Applies Light's Vigil to a friendly target for 30 sec. The caster's next Holy Shock on the target incurs no cooldown and heals the target and their party for 326 to 344. Only one Vigil per Paladin may be active in each party."
      },
      {
       "name": "Sacred Duty",
       "tree": "Protection",
       "max": 2,
-      "desc": "Increases your total Stamina by 4% and reduces the cooldown of your Divine Shield, Divine Protection, and Templar's Bulwark spells by 60 sec."
-     },
-     {
-      "name": "Swift Judgement",
-      "tree": "Protection",
-      "max": 1,
-      "desc": "Finishes the remaining cooldown on your Judgement ability and reduces the Mana cost of your next Judgement by 100%."
+      "desc": "Reduces the cooldown of your Divine Shield, Divine Protection, and Templar's Bulwark spells by 60 sec, and reduces the duration of Forbearance by 10 sec."
      },
      {
       "name": "Templar's Bulwark",
@@ -583,16 +598,28 @@
       "desc": "When activated, this ability grants you an absorb shield equal to 100% of your maximum health for 8 sec. Applies Forbearance for 1 min. Cannot be cast while Forbearance is active."
      },
      {
-      "name": "Iron Creed",
+      "name": "Swift Judgement",
       "tree": "Protection",
-      "max": 5,
-      "desc": "Increases the threat generated by your Holy Strike ability by 25%. While Righteous Fury is active, Holy Strike also reduces your damage taken by 10% for 6 sec."
+      "max": 1,
+      "desc": "Unleash the energy of a Seal spell upon an enemy. Does not consume the Seal. Refer to individual Seals for Judgement effect. Does not share a cooldown with your Judgement ability."
      },
      {
-      "name": "Holy Conduit",
-      "tree": "Retribution",
+      "name": "Stoicism",
+      "tree": "Protection",
       "max": 2,
-      "desc": "Reduces the mana cost of your Consecration, Holy Wrath, Exorcism, and Hammer of Wrath spells by 40%."
+      "desc": "Reduces the duration of Stun and Charm effects on you by 20%."
+     },
+     {
+      "name": "Iron Creed",
+      "tree": "Protection",
+      "max": 3,
+      "desc": "Increases the threat generated by your Holy Strike ability by 30%. While Righteous Fury is active, Holy Strike also reduces your damage taken by 6% for 6 sec."
+     },
+     {
+      "name": "Shieldsworn",
+      "tree": "Protection",
+      "max": 1,
+      "desc": "Reduces the cooldown of your Holy Strike ability by 4 sec. Additionally, Holy Strike now strikes with your shield, triggering your active Holy Shield and Shield Specialization talents without consuming their charges or triggering their cooldowns, and allowing you to Block spells for 6 sec."
      },
      {
       "name": "Sanctified Judgement",
@@ -607,22 +634,22 @@
       "desc": "Increases the damage of your Holy Strike ability by 20% and causes it to refresh all Judgement effects on the target."
      },
      {
-      "name": "Champion of the Light",
-      "tree": "Retribution",
-      "max": 3,
-      "desc": "Increases your spell damage by up to 60% of your Intellect."
-     },
-     {
-      "name": "Instrument of Law",
+      "name": "Turn Evil",
       "tree": "Retribution",
       "max": 2,
-      "desc": "Reduces the cast time of your Hammer of Wrath by 1.0 sec, and reduces all threat you generate by 20% while Righteous Fury is not active."
+      "desc": "Reduces the cast time of your Turn Undead spell by 1.0 sec, its cooldown by 10 sec, and allows it to affect Demons."
      },
      {
-      "name": "Twist of Light",
+      "name": "Champion of the Light",
+      "tree": "Retribution",
+      "max": 5,
+      "desc": "Increases your spell damage by up to 60% of your Intellect, and reduces the cast time of your Hammer of Wrath by 1.0 sec."
+     },
+     {
+      "name": "Unsealed Wrath",
       "tree": "Retribution",
       "max": 1,
-      "desc": "Reduces the Mana cost of your Seal spells by 20%, and when you replace your Seal of Command, Seal of Righteousness, Seal of Fury, or Seal of Justice with a different Seal, you gain an Echo of that Seal. Your next melee attack applies the replaced Seal's effects, consuming the Echo."
+      "desc": "Your melee attacks store a copy of your active Seal for 15 sec, stacking up to 3 times. Landing an attack with a different Seal consumes all stacks, giving the stored Seal its normal chance to activate once per stack."
      }
     ],
     "removed": [
@@ -683,6 +710,13 @@
       "desc": "Places a Blessing on the friendly target, reducing damage dealt from all sources by up to 10 for 5 min. In addition, when the target blocks a melee attack the attacker will take 14 Holy damage. Players may only have one Blessing on them per Paladin at any one time."
      },
      {
+      "name": "One-Handed Weapon Specialization",
+      "tree": "Protection",
+      "max": 5,
+      "desc": "Increases the damage you deal with one-handed melee weapons by 10%.",
+      "note": "Now a baseline ability at level 1"
+     },
+     {
       "name": "Improved Blessing of Might",
       "tree": "Retribution",
       "max": 5,
@@ -709,6 +743,16 @@
     ],
     "changed": [
      {
+      "name": "Spiritual Focus",
+      "tree": "Holy",
+      "notes": [
+       "Row 2 → 1",
+       "Effect changed"
+      ],
+      "before": "Gives your Flash of Light and Holy Light spells a 70% chance to not lose casting time when you take damage.",
+      "after": "Gives your Flash of Light, Holy Light, and Light's Vigil spells a 70% chance to not lose casting time when you take damage."
+     },
+     {
       "name": "Healing Light",
       "tree": "Holy",
       "notes": [
@@ -719,40 +763,21 @@
       "after": "Increases the amount healed by your Holy Light, Flash of Light, and Holy Shock spells by 12%."
      },
      {
-      "name": "Spiritual Focus",
+      "name": "Divine Favor",
       "tree": "Holy",
       "notes": [
-       "Ranks 5 → 2",
-       "Effect changed"
-      ],
-      "before": "Gives your Flash of Light and Holy Light spells a 70% chance to not lose casting time when you take damage.",
-      "after": "Gives your Flash of Light, Holy Light, and Light's Vigil spells a 70% chance to not lose casting time when you take damage."
-     },
-     {
-      "name": "Unyielding Faith",
-      "tree": "Holy",
-      "notes": [
-       "Row 3 → 2",
-       "Effect changed"
-      ],
-      "before": "Increases your chance to resist Fear and Disorient effects by an additional 10%.",
-      "after": "Reduces the duration of Fear and Disorient effects on you by 30%."
+       "Row 5 → 3"
+      ]
      },
      {
       "name": "Illumination",
       "tree": "Holy",
       "notes": [
+       "Row 4 → 3",
        "Effect changed"
       ],
       "before": "After getting a critical effect from your Flash of Light, Holy Light, or Holy Shock heal spell, gives you a 100% chance to gain Mana equal to the base cost of the spell.",
       "after": "After getting a critical effect from your Flash of Light, Holy Light, Light's Vigil, or Holy Shock heal spell you have a 100% chance to gain Mana equal to 50% of the base cost of the spell."
-     },
-     {
-      "name": "Divine Favor",
-      "tree": "Holy",
-      "notes": [
-       "Row 5 → 4"
-      ]
      },
      {
       "name": "Holy Shock",
@@ -771,13 +796,13 @@
        "Effect changed"
       ],
       "before": "Increases the critical effect chance of your Holy spells by 5%.",
-      "after": "Increases the critical strike chance of your Holy Shock and Holy Strike spells by 15%, and all other spells by 5%."
+      "after": "Increases the critical strike healing bonus of your Holy spells by 50%."
      },
      {
-      "name": "Toughness",
+      "name": "Divine Intellect",
       "tree": "Protection",
       "notes": [
-       "Row 2 → 1"
+       "Moved from Holy to Protection"
       ]
      },
      {
@@ -787,7 +812,7 @@
        "Effect changed"
       ],
       "before": "Increases your chance to block attacks with your shield by 30% after being the victim of a critical strike. Lasts 10 sec or 5 blocks.",
-      "after": "Damaging melee attacks against you have a 10% chance to increase your chance to block by 20%. Lasts 10 sec or 5 blocks."
+      "after": "Damaging melee attacks against you have a 10% chance to increase your chance to block by 30%. Lasts 10 sec or 5 blocks."
      },
      {
       "name": "Precision",
@@ -808,40 +833,58 @@
       "after": "Reduces the cooldown of your Blessing of Protection by 2 min and increases the duration of your Blessing of Freedom by 6 sec."
      },
      {
+      "name": "Improved Hammer of Justice",
+      "tree": "Protection",
+      "notes": [
+       "Row 4 → 3"
+      ]
+     },
+     {
+      "name": "Shield Specialization",
+      "tree": "Protection",
+      "notes": [
+       "Ranks 3 → 2",
+       "Effect changed"
+      ],
+      "before": "Increases the amount of damage absorbed by your shield by 30%.",
+      "after": "Increases the amount of damage absorbed by your shield by 30%, and gives your blocks a 100% chance to restore 4% of your maximum Mana. May only occur once every 3 sec."
+     },
+     {
+      "name": "Toughness",
+      "tree": "Protection",
+      "notes": [
+       "Row 2 → 3"
+      ]
+     },
+     {
+      "name": "Improved Righteous Fury",
+      "tree": "Protection",
+      "notes": [
+       "Row 3 → 4",
+       "Effect changed"
+      ],
+      "before": "Increases the amount of threat generated by your Righteous Fury spell by 50%.",
+      "after": "While Righteous Fury is active, all damage taken is reduced by 9%."
+     },
+     {
       "name": "Anticipation",
       "tree": "Protection",
       "notes": [
-       "Row 3 → 2",
+       "Row 3 → 4",
        "Effect changed"
       ],
       "before": "Increases your Defense skill by 10.",
       "after": "Increases your Defense Skill by 20."
      },
      {
-      "name": "Improved Righteous Fury",
+      "name": "Holy Shield",
       "tree": "Protection",
       "notes": [
+       "Row 7 → 5",
        "Effect changed"
       ],
-      "before": "Increases the amount of threat generated by your Righteous Fury spell by 50%.",
-      "after": "While Righteous Fury is active, all damage taken is reduced by 6%."
-     },
-     {
-      "name": "Shield Specialization",
-      "tree": "Protection",
-      "notes": [
-       "Effect changed"
-      ],
-      "before": "Increases the amount of damage absorbed by your shield by 30%.",
-      "after": "Increases the amount of damage absorbed by your shield by 30%, and gives your blocks a 100% chance to restore 6% of your maximum Mana. May only occur once every 3 sec."
-     },
-     {
-      "name": "One-Handed Weapon Specialization",
-      "tree": "Protection",
-      "notes": [
-       "Ranks 5 → 3",
-       "Row 6 → 4"
-      ]
+      "before": "Increases chance to block by 30% for 10 sec, and deals 65 Holy damage for each attack blocked while active. Damage caused by Holy Shield causes 20% additional threat. Each block expends a charge. 4 charges. [S03 - Tuning and Overrides Passive - All Classes: Activating Holy Shield also grants you 2 Spell Power for each point of your defense skill beyond (60 * 5). Lasts 15 sec]",
+      "after": "Increases chance to block by 30% for 10 sec, and deals 75 Holy damage for each attack blocked while active. Damage caused by Holy Shield causes 20% additional threat. Each block expends a charge. 4 charges."
      },
      {
       "name": "Reckoning",
@@ -850,16 +893,7 @@
        "Effect changed"
       ],
       "before": "Gives you a 100% chance to gain an extra attack after being the victim of a critical strike.",
-      "after": "Gives you a 40% chance to gain an extra attack after Blocking a melee attack and a 100% chance to gain an extra attack after being the victim of a non-periodic critical strike."
-     },
-     {
-      "name": "Holy Shield",
-      "tree": "Protection",
-      "notes": [
-       "Effect changed"
-      ],
-      "before": "Increases chance to block by 30% for 10 sec, and deals 65 Holy damage for each attack blocked while active. Damage caused by Holy Shield causes 20% additional threat. Each block expends a charge. 4 charges. [S03 - Tuning and Overrides Passive - All Classes: Activating Holy Shield also grants you 2 Spell Power for each point of your defense skill beyond (60 * 5). Lasts 15 sec]",
-      "after": "Increases chance to block by 30% for 10 sec, and deals 110 Holy damage for each attack blocked while active. Damage caused by Holy Shield causes 20% additional threat. Each block expends a charge. 4 charges."
+      "after": "Gives you a 40% chance after Blocking and a 100% chance after receiving a non-periodic critical strike to gain an extra attack. Stores up to 4 extra attacks. Cannot occur from Blocks more than once every 1.5 sec."
      },
      {
       "name": "Deflection",
@@ -890,11 +924,12 @@
       "name": "Conviction",
       "tree": "Retribution",
       "notes": [
+       "Ranks 5 → 3",
        "Row 3 → 2",
        "Effect changed"
       ],
       "before": "Increases your chance to get a critical strike with melee weapons by 5%.",
-      "after": "Improves your chance to get a critical strike with melee attacks by 5%."
+      "after": "Improves your chance to get a critical strike with all spells and attacks by 6%."
      },
      {
       "name": "Vindication",
@@ -903,7 +938,17 @@
        "Effect changed"
       ],
       "before": "Gives the Paladin's damaging melee attacks a chance to reduce the target's Strength and Agility by 15% [S03 - Tuning and Overrides Passive - Paladin: reduce the target's Attack Power by (30 *- 1), and increase the Paladin's Attack Power by 15% for 30 sec / 10 sec.]",
-      "after": "Gives your damaging melee attacks a chance to reduce the target's Attack Power by (3 /- 3 * - 204), and increase your Attack Power by 3% for 30 sec."
+      "after": "Gives your damaging melee attacks a chance to reduce the target's Attack Power by (3 /- 3 * 6) for 30 sec."
+     },
+     {
+      "name": "Unyielding Faith",
+      "tree": "Retribution",
+      "notes": [
+       "Moved from Holy to Retribution",
+       "Effect changed"
+      ],
+      "before": "Increases your chance to resist Fear and Disorient effects by an additional 10%.",
+      "after": "Reduces the duration of Fear and Disorient effects on you by 30%."
      },
      {
       "name": "Seal of Command",
@@ -933,6 +978,23 @@
       "after": "All critical strikes against you cause 10% of the damage taken to the attacker as well. The damage caused by Eye for an Eye will not exceed 50% of the Paladin's total health."
      },
      {
+      "name": "Two-Handed Weapon Specialization",
+      "tree": "Retribution",
+      "notes": [
+       "Row 5 → 4",
+       "Effect changed"
+      ],
+      "before": "Increases the damage you deal with two-handed melee weapons by 6%.",
+      "after": "Increases the physical damage you deal by 6%, and reduces all threat you generate by 20% while a two-handed melee weapon is equipped."
+     },
+     {
+      "name": "Repentance",
+      "tree": "Retribution",
+      "notes": [
+       "Row 7 → 5"
+      ]
+     },
+     {
       "name": "Vengeance",
       "tree": "Retribution",
       "notes": [
@@ -942,30 +1004,27 @@
       ],
       "before": "Gives you a 15% bonus to Physical and Holy damage you deal for 8 sec after dealing a critical strike from a weapon swing, spell, or ability. [S03 - Tuning and Overrides Passive - Paladin: Also Reduces all Physical and Holy threat you generate by 30% while Righteous Fury is not active]",
       "after": "Increases your Physical and Holy damage dealt by 3% for 30 sec after landing a non-periodic critical strike. Stacks up to 3 times."
-     },
-     {
-      "name": "Repentance",
-      "tree": "Retribution",
-      "notes": [
-       "Row 7 → 5"
-      ]
      }
     ]
    },
    "abilities": {
     "added": [
      {
+      "name": "One-Handed Weapon Specialization",
+      "level": 1
+     },
+     {
       "name": "Holy Strike",
       "level": 6
      },
      {
-      "name": "Seal of Fury",
-      "level": 10
+      "name": "Righteous Fury",
+      "level": 10,
+      "note": "Was a Season of Discovery rune — now learned from your trainer"
      },
      {
-      "name": "Righteous Fury",
-      "level": 16,
-      "note": "Was a Season of Discovery rune — now learned from your trainer"
+      "name": "Seal of Fury",
+      "level": 10
      },
      {
       "name": "Blessing of Kings",
@@ -975,6 +1034,10 @@
       "name": "Flash of Light",
       "level": 20,
       "note": "Was a Season of Discovery rune — now learned from your trainer"
+     },
+     {
+      "name": "Voice of Truth",
+      "level": 20
      },
      {
       "name": "Judgement of Fury",
@@ -987,6 +1050,18 @@
     ],
     "removed": [
      {
+      "name": "Sense Undead",
+      "level": 20
+     },
+     {
+      "name": "Blessing of Salvation",
+      "level": 26
+     },
+     {
+      "name": "Blessing of Light",
+      "level": 40
+     },
+     {
       "name": "Blessing of Sanctuary",
       "level": 40
      },
@@ -997,6 +1072,14 @@
      {
       "name": "Divine Steed",
       "level": 45
+     },
+     {
+      "name": "Greater Blessing of Light",
+      "level": 60
+     },
+     {
+      "name": "Greater Blessing of Salvation",
+      "level": 60
      },
      {
       "name": "Greater Blessing of Sanctuary",
@@ -1013,6 +1096,11 @@
       "name": "Consecration",
       "from": 30,
       "to": 20
+     },
+     {
+      "name": "Holy Shield",
+      "from": 50,
+      "to": 40
      },
      {
       "name": "Holy Shock",
@@ -1041,7 +1129,7 @@
       "name": "Summon Hawk",
       "tree": "Beast Mastery",
       "max": 1,
-      "desc": "Command a hawk to dive-bomb your targeted enemy, dealing [32 / Ferocity: 48 / Unleashed Fury: 38 + (Ranged Attack Power * (0.05))] Physical damage and continuing its assault for 18 sec. Only 2 hawks can be active at once. Summon Hawk shares its cooldown with Arcane Shot."
+      "desc": "Command a hawk to dive-bomb your targeted enemy, dealing [32 / Ferocity: 48 / Unleashed Fury: 52 + (Ranged Attack Power * (0.05))] Physical damage and continuing its assault for 18 sec. Only 2 hawks can be active at once. Summon Hawk shares its cooldown with Arcane Shot."
      },
      {
       "name": "Lethal Attacks",
@@ -1077,7 +1165,7 @@
       "name": "Rapid Recuperation",
       "tree": "Marksmanship",
       "max": 2,
-      "desc": "Hitting a target with your Serpent Sting ability grants you 50% and consuming Rapid Killing grants you 100% of your Mana regeneration while casting for the next 15 sec."
+      "desc": "Afflicting a target with Serpent Sting allows 50% of your Mana Regeneration to continue while casting for 15 sec, increased to 100% when Rapid Killing is consumed."
      },
      {
       "name": "Sniper Shot",
@@ -1101,19 +1189,19 @@
       "name": "Predator's Edge",
       "tree": "Survival",
       "max": 5,
-      "desc": "Increases your melee critical strike damage by 30% and your Off Hand weapon damage by 50%."
+      "desc": "Increases your melee ability critical strike damage by 30% and your Off Hand weapon damage by 50%."
      },
      {
       "name": "Resourcefulness",
       "tree": "Survival",
       "max": 2,
-      "desc": "Reduces the mana cost of your Trap abilities and melee abilities by 60%. In addition, your critical strikes have a 60% chance to allow 50% of your Mana regeneration to continue while casting for 30 sec."
+      "desc": "Reduces the Mana cost of your Trap and melee abilities by 60%, and grants your melee and ranged ability Critical Strikes a 100% chance to allow 50% of your Mana Regeneration to continue while casting for 30 sec."
      },
      {
       "name": "Expose Prey",
       "tree": "Survival",
       "max": 2,
-      "desc": "Your attacks against targets with Hunter's Mark have a 10% chance to activate your Mongoose Bite for 5 sec."
+      "desc": "Grants your melee and ranged attacks against enemies afflicted by Hunter's Mark a 10% chance to allow an activation of Mongoose Bite. Lasts 10 sec."
      },
      {
       "name": "Survivalist's Discipline",
@@ -1242,13 +1330,6 @@
       "after": "Increases the Dodge bonus of your Aspect of the Monkey by 6%. Additionally, your pet gains 50% of the effect of your Aspect of the Monkey ability."
      },
      {
-      "name": "Pathfinding",
-      "tree": "Beast Mastery",
-      "notes": [
-       "Row 3 → 2"
-      ]
-     },
-     {
       "name": "Bestial Swiftness",
       "tree": "Beast Mastery",
       "notes": [
@@ -1345,7 +1426,7 @@
        "Effect changed"
       ],
       "before": "Increases the [S03 - Tuning and Overrides Passive - Hunter: ranged]attack power of party members within 45 yards by 50 [S03 - Tuning and Overrides Passive - Hunter: and the Hunter's ranged attack power by an additional 100]. Lasts 30 min.",
-      "after": "Increases the Ranged Attack Power of party members within 45 yds by 30."
+      "after": "Increases the Ranged Attack Power of party or raid members within 45 yds by 15."
      },
      {
       "name": "Mortal Shots",
@@ -1959,7 +2040,7 @@
       "name": "Power in Light",
       "tree": "Discipline",
       "max": 5,
-      "desc": "Your Smite and Penance spells deal 10% increased damage to targets afflicted with your Holy Fire."
+      "desc": "Your Smite and Penance spells deal 10% increased damage to targets afflicted with your Holy Fire or Shadow Word: Pain."
      },
      {
       "name": "Twin Disciplines",
@@ -1983,31 +2064,31 @@
       "name": "Penance",
       "tree": "Discipline",
       "max": 1,
-      "desc": "Launches a volley of holy light at the target, causing 81 Holy damage to an enemy, or 184 healing to an ally, instantly and every 1 sec for 2 sec."
+      "desc": "Launches a volley of holy light at the target, causing 45 Holy damage to an enemy, or 134 healing to an ally, instantly and every 1 sec for 2 sec."
      },
      {
       "name": "Renewed Hope",
       "tree": "Discipline",
       "max": 5,
-      "desc": "Your heals from Flash Heal, Binding Heal, Lesser Heal, Heal, Greater Heal, and Penance gain 10% increased critical strike chance when cast on targets with Weakened Soul, and reduce the remaining duration of Weakened Soul on their target by 5 sec."
+      "desc": "Your heals from Flash Heal, Lesser Heal, Heal, Greater Heal, and Penance gain 10% increased critical strike chance when cast on targets with Weakened Soul, and reduce the remaining duration of Weakened Soul on their target by 5 sec."
      },
      {
       "name": "Divine Aegis",
       "tree": "Discipline",
       "max": 3,
-      "desc": "Your critical heals create a protective shield on the target, absorbing 15% of the amount healed. Lasts 12 sec."
+      "desc": "Your non-periodic critical heals create a protective shield on the target, absorbing 15% of the amount healed. Shields up to (20 * 60) damage and lasts 12 sec."
      },
      {
       "name": "Twilight Focus",
       "tree": "Holy",
       "max": 3,
-      "desc": "Gives you a 70% chance to avoid interruption caused by damage while casting any spell."
+      "desc": "Gives your spells a 70% chance to not lose casting time when you take damage."
      },
      {
-      "name": "Binding Heal",
+      "name": "Holy Binding",
       "tree": "Holy",
       "max": 1,
-      "desc": "Heals a friendly target and the caster for 236 to 284. Low threat."
+      "desc": "Each time you heal a target other than yourself with Flash Heal, you are healed for 50% as much. This healing generates no threat."
      },
      {
       "name": "Litany of Light",
@@ -2025,13 +2106,19 @@
       "name": "Improved Mind Flay",
       "tree": "Shadow",
       "max": 2,
-      "desc": "Your Mind Flay now deals 20% more damage, gains 10 yards increased range, but slows the target's movement speed by 20%."
+      "desc": "Each instance of damage of Mind Flay deals 20% more damage than its previous instance of damage."
+     },
+     {
+      "name": "Dark Inspiration",
+      "tree": "Shadow",
+      "max": 5,
+      "desc": "Your Mind Blast and fully channeled Mind Flay causes Dark Inspiration, increasing yours and your party's Spirit by 15% for 10 sec."
      },
      {
       "name": "Devouring Contagion",
       "tree": "Shadow",
       "max": 2,
-      "desc": "Reduces the mana cost of your Devouring Plague by 50%.\nTargets that die while Devouring Plague is active spreads it, jumping to a nearby enemy within 10 yds for the remaining duration."
+      "desc": "Reduces the mana cost of your Devouring Plague by 50%.\nTargets that die while Devouring Plague is active spreads it, jumping to 2 nearby enemies within 10 yds for the remaining duration."
      },
      {
       "name": "Early Demise",
@@ -2086,6 +2173,18 @@
       "note": "Now a baseline ability at level 40"
      },
      {
+      "name": "Shadow Affinity",
+      "tree": "Shadow",
+      "max": 3,
+      "desc": "Reduces the threat generated by your Shadow spells by 25%."
+     },
+     {
+      "name": "Improved Fade",
+      "tree": "Shadow",
+      "max": 2,
+      "desc": "Decreases the cooldown of your Fade ability by 6 sec."
+     },
+     {
       "name": "Improved Vampiric Embrace",
       "tree": "Shadow",
       "max": 2,
@@ -2108,16 +2207,17 @@
        "Effect changed"
       ],
       "before": "Reduces the threat generated by your spells by 20%.",
-      "after": "Reduces the threat generated by your Holy spells by 30% and reduces the duration of Stun, Fear, and Silence effects inflicted on you by 15%."
+      "after": "Reduces the threat generated by your spells by 30% and reduces the duration of Stun, Fear, and Silence effects inflicted on you by 15%."
      },
      {
-      "name": "Improved Power Word: Shield",
+      "name": "Mental Strength",
       "tree": "Discipline",
       "notes": [
+       "Row 5 → 2",
        "Effect changed"
       ],
-      "before": "Increases the damage absorbed by your Power Word: Shield by 15%.",
-      "after": "Increases the damage absorbed by your Power Word: Shield by 20%."
+      "before": "Increases your maximum Mana by 10%.",
+      "after": "Increases your total Intellect by 10%."
      },
      {
       "name": "Martyrdom",
@@ -2149,6 +2249,16 @@
       "after": "When activated, reduces the Mana cost of your next spell by 100% and increases its critical effect chance by 25% if it is a non-periodic spell and capable of a critical effect."
      },
      {
+      "name": "Improved Power Word: Shield",
+      "tree": "Discipline",
+      "notes": [
+       "Row 2 → 3",
+       "Effect changed"
+      ],
+      "before": "Increases the damage absorbed by your Power Word: Shield by 15%.",
+      "after": "Increases the damage absorbed by your Power Word: Shield by 20%."
+     },
+     {
       "name": "Meditation",
       "tree": "Discipline",
       "notes": [
@@ -2165,16 +2275,6 @@
       ],
       "before": "Increases the Armor bonus of your Inner Fire spell by 30%.",
       "after": "Increases the Armor bonus of your Inner Fire spell by 45% and increases its total charges by 12."
-     },
-     {
-      "name": "Mental Strength",
-      "tree": "Discipline",
-      "notes": [
-       "Row 5 → 4",
-       "Effect changed"
-      ],
-      "before": "Increases your maximum Mana by 10%.",
-      "after": "Increases your total Intellect by 15%."
      },
      {
       "name": "Improved Mana Burn",
@@ -2296,13 +2396,11 @@
       "after": "Gives you a 100% chance to increase your Spirit by 100% for 15 sec after killing a non-trivial target or when an enemy afflicted by your Vampiric Embrace dies. For the duration, 50% of your Mana regeneration will continue while casting."
      },
      {
-      "name": "Shadow Affinity",
+      "name": "Improved Mind Blast",
       "tree": "Shadow",
       "notes": [
-       "Effect changed"
-      ],
-      "before": "Reduces the threat generated by your Shadow spells by 25%.",
-      "after": "Reduces the threat generated by your Shadow spells by 30%."
+       "Row 3 → 2"
+      ]
      },
      {
       "name": "Shadow Reach",
@@ -2342,7 +2440,7 @@
        "Effect changed"
       ],
       "before": "Your Shadow damage spells have a 100% chance to cause your target to be vulnerable to Shadow damage. This vulnerability increases the Shadow damage dealt to your target by 3% and lasts 15 sec. Stacks up to 5 times.",
-      "after": "Your Shadow damage spells have a 100% chance to increase the Shadow damage you deal by 2% for 15 sec, stacking up to 5 times."
+      "after": "Your Shadow damage spells have a 100% chance to increase the Shadow damage the target takes from you by 2% for 15 sec, stacking up to 5 times."
      },
      {
       "name": "Silence",
@@ -2442,22 +2540,10 @@
       "desc": "Reduces the cast time of your Lightning Bolt, Chain Lightning, and Lava Burst spells by 0.50 sec."
      },
      {
-      "name": "Improved Fire Nova",
+      "name": "Trial by Fire",
       "tree": "Elemental",
       "max": 2,
-      "desc": "Increases the damage done by your Fire Nova spell by 20% and reduces its cooldown by 4 sec."
-     },
-     {
-      "name": "Elemental Reach",
-      "tree": "Elemental",
-      "max": 2,
-      "desc": "Increases the range of your Lightning Bolt, Chain Lightning, Fire Nova, and Lava Burst spells by 6 yards, and increases the range of your Flame Shock spell by 15 yards."
-     },
-     {
-      "name": "Lightning Overload",
-      "tree": "Elemental",
-      "max": 3,
-      "desc": "Gives your Lightning Bolt and Chain Lightning spells a 10% chance to cast a second, similar spell on the same target at no additional cost that causes half damage and no threat."
+      "desc": "Increases the damage done by your Fire Nova spell by 20% and reduces its cooldown by 4 sec, and increases the duration of your Magma Totem by 20 sec."
      },
      {
       "name": "Earthbound",
@@ -2466,10 +2552,22 @@
       "desc": "Your Earthbind Totem Immobilizes nearby targets for 5 sec when cast."
      },
      {
+      "name": "Elemental Reach",
+      "tree": "Elemental",
+      "max": 2,
+      "desc": "Increases the range of your Lightning Bolt, Chain Lightning, Fire Nova, and Lava Burst spells by 6 yards and reduces the cooldown of Totemic Projection by 20 sec."
+     },
+     {
       "name": "Lava Burst",
       "tree": "Elemental",
       "max": 1,
-      "desc": "You hurl molten lava at the target, dealing 150 to 192 Fire damage. If your Flame Shock is on the target, Lava Burst deals 20% increased damage."
+      "desc": "You hurl molten lava at the target, dealing 114 to 145 Fire damage. If your Flame Shock is on the target, Lava Burst deals 20% increased damage."
+     },
+     {
+      "name": "Lightning Overload",
+      "tree": "Elemental",
+      "max": 3,
+      "desc": "Gives your Lightning Bolt and Chain Lightning spells a 10% chance to cast a second, similar spell on the same target at no additional cost that causes half damage and no threat."
      },
      {
       "name": "Mental Dexterity",
@@ -2529,7 +2627,7 @@
       "name": "Water Shield",
       "tree": "Restoration",
       "max": 1,
-      "desc": "The caster is surrounded by 3 globes of water. When a spell, melee, or ranged attack hits the caster or when one of the caster's healing spells gets a critical result, 2% of maximum mana is restored to the caster, expending one water globe. Only one globe will activate every few seconds. Lasts 10 min.\nOnly one Elemental Shield can be active on the Shaman at any one time."
+      "desc": "The caster is surrounded by 3 globes of water. When a spell, melee, or ranged attack hits the caster or when one of the caster's spells gets a critical result, 2% of maximum mana is restored to the caster, expending one water globe. Only one globe will activate every few seconds. Lasts 10 min.\nOnly one Elemental Shield can be active on the Shaman at any one time."
      },
      {
       "name": "Riptide",
@@ -2539,6 +2637,12 @@
      }
     ],
     "removed": [
+     {
+      "name": "Call of Thunder",
+      "tree": "Elemental",
+      "max": 5,
+      "desc": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 6%."
+     },
      {
       "name": "Improved Fire Totems",
       "tree": "Elemental",
@@ -2556,12 +2660,6 @@
       "tree": "Elemental",
       "max": 5,
       "desc": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by 1 sec."
-     },
-     {
-      "name": "Elemental Mastery",
-      "tree": "Elemental",
-      "max": 1,
-      "desc": "When activated, this spell gives your next Fire, Frost, or Nature damage spell a 100% critical strike chance and reduces the mana cost by 100%."
      },
      {
       "name": "Shield Specialization",
@@ -2638,13 +2736,14 @@
       "after": "Increases the damage done by your Lightning Bolt, Chain Lightning, and Earth Shock spells by 5%."
      },
      {
-      "name": "Elemental Warding",
+      "name": "Elemental Devastation",
       "tree": "Elemental",
       "notes": [
+       "Row 4 → 2",
        "Effect changed"
       ],
-      "before": "Reduces damage taken from Fire, Frost and Nature effects by 10%.",
-      "after": "Reduces damage taken from Fire, Frost, and Nature effects by 10%."
+      "before": "Your offensive spell crits will increase your chance to get a critical strike with melee attacks by 9% for 10 sec.",
+      "after": "Your Critical Strikes with direct damage spells increase your chance to get a Critical Strike with melee attacks by 9% for 10 sec."
      },
      {
       "name": "Reverberation",
@@ -2663,17 +2762,17 @@
        "Effect changed"
       ],
       "before": "Increases the damage done by your Fire Totems by 15%.",
-      "after": "Increases the damage done by your Fire Totems and by your Flame Shock, Fire Nova, and Lava Burst spells by 15%."
+      "after": "Increases the damage done by your Fire Totems and by your Flame Shock, Fire Nova, and Lava Burst spells by 15%, as well as increases the duration of your Flame Shock spell by 9 sec."
      },
      {
-      "name": "Elemental Devastation",
+      "name": "Elemental Warding",
       "tree": "Elemental",
       "notes": [
-       "Row 4 → 2",
+       "Row 2 → 3",
        "Effect changed"
       ],
-      "before": "Your offensive spell crits will increase your chance to get a critical strike with melee attacks by 9% for 10 sec.",
-      "after": "Your offensive spell critical strikes will increase your chance to get a critical strike with melee attacks by 9% for 10 sec."
+      "before": "Reduces damage taken from Fire, Frost and Nature effects by 10%.",
+      "after": "Reduces damage taken from Fire, Frost, and Nature effects by 10%."
      },
      {
       "name": "Eye of the Storm",
@@ -2682,18 +2781,7 @@
        "Effect changed"
       ],
       "before": "Gives you a 100% chance to gain the Focused Casting effect that lasts for 6 sec after being the victim of a melee or ranged critical strike. The Focused Casting effect prevents you from losing casting time when taking damage.",
-      "after": "Reduces the pushback suffered from damaging attacks while casting Lightning Bolt, Chain Lightning, and Lava Burst by 70%."
-     },
-     {
-      "name": "Call of Thunder",
-      "tree": "Elemental",
-      "notes": [
-       "Ranks 5 → 1",
-       "Row 3 → 4",
-       "Effect changed"
-      ],
-      "before": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 6%.",
-      "after": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by 3%."
+      "after": "Gives your Lightning Bolt, Chain Lightning, and Lava Burst spells a 70% chance to not lose casting time when you take damage."
      },
      {
       "name": "Elemental Fury",
@@ -2705,6 +2793,15 @@
       ],
       "before": "Increases the critical strike damage bonus of your Searing, Magma, and Fire Nova Totems and your Fire, Frost, and Nature spells by 100%.",
       "after": "Increases the critical strike damage bonus of your Searing and Magma Totems and your Fire, Frost, and Nature spells by 100%."
+     },
+     {
+      "name": "Elemental Mastery",
+      "tree": "Elemental",
+      "notes": [
+       "Effect changed"
+      ],
+      "before": "When activated, this spell gives your next Fire, Frost, or Nature damage spell a 100% critical strike chance and reduces the mana cost by 100%.",
+      "after": "Gain mastery over Fire and Lightning, reducing the cast time of Lightning Bolt and Lava Burst by 0.5 sec, and removing the cooldown from Chain Lightning. Lasts 15 sec."
      },
      {
       "name": "Earth's Grasp",
@@ -2787,24 +2884,22 @@
       "after": "Instantly strike for normal weapon damage and increase the damage you deal to the target with your next Lightning Bolt, Chain Lightning, or Earth Shock spell by 20% for 12 sec."
      },
      {
-      "name": "Totemic Focus",
-      "tree": "Restoration",
-      "notes": [
-       "Row 2 → 1",
-       "Effect changed"
-      ],
-      "before": "Reduces the Mana cost of your totems by 25%.",
-      "after": "Reduces the Mana cost of your totems and any spells that summon or move them by 25%."
-     },
-     {
       "name": "Tidal Focus",
       "tree": "Restoration",
       "notes": [
-       "Row 1 → 2",
        "Effect changed"
       ],
       "before": "Reduces the Mana cost of your healing spells by 5%.",
       "after": "Reduces the Mana cost of your healing spells by 5% and improves your chance to hit by 5%."
+     },
+     {
+      "name": "Totemic Focus",
+      "tree": "Restoration",
+      "notes": [
+       "Effect changed"
+      ],
+      "before": "Reduces the Mana cost of your totems by 25%.",
+      "after": "Reduces the Mana cost of your totems and any spells that summon or move them by 25%."
      },
      {
       "name": "Improved Reincarnation",
@@ -2826,8 +2921,11 @@
       "name": "Healing Focus",
       "tree": "Restoration",
       "notes": [
-       "Ranks 5 → 3"
-      ]
+       "Ranks 5 → 3",
+       "Effect changed"
+      ],
+      "before": "Gives you a 70% chance to avoid interruption caused by damage while casting any healing spell.",
+      "after": "Gives your healing spells a 70% chance to not lose casting time when you take damage."
      },
      {
       "name": "Tidal Mastery",
@@ -2909,7 +3007,7 @@
      },
      {
       "name": "Lava Burst",
-      "level": 50,
+      "level": 40,
       "note": "Was a Season of Discovery rune — now learned from your trainer"
      },
      {
@@ -2929,7 +3027,13 @@
      }
     ],
     "renamed": [],
-    "levelChanged": []
+    "levelChanged": [
+     {
+      "name": "Mana Tide Totem",
+      "from": 48,
+      "to": 38
+     }
+    ]
    }
   },
   "mage": {
@@ -2939,7 +3043,13 @@
       "name": "Improved Channeling",
       "tree": "Arcane",
       "max": 5,
-      "desc": "Gives you a 100% chance to avoid interruption caused by damage while channeling Arcane Missiles and a 70% chance while casting Arcane Blast."
+      "desc": "Gives your Arcane Missiles spell a 100% chance and your Arcane Blast and Arcane Wrath spells a 70% chance to not lose casting time when you take damage."
+     },
+     {
+      "name": "Missile Barrage",
+      "tree": "Arcane",
+      "max": 2,
+      "desc": "Gives your Arcane Blast spell a 40% chance, and your Arcane Wrath, Fireball, Frostbolt, Frost Blast, and Frostfire Bolt spells a 20% chance to reduce the channeled duration of your next Arcane Missiles spell by 50%, reduce the Mana cost by 100%, and missiles fire every 0.5 sec."
      },
      {
       "name": "Arcane Geometry",
@@ -2957,7 +3067,7 @@
       "name": "Arcane Blast",
       "tree": "Arcane",
       "max": 1,
-      "desc": "Blasts the target with energy, dealing 57 to 65 Arcane damage. Each time you cast Arcane Blast, the damage of all your other spells is increased by 10% and the mana cost of Arcane Blast is increased by 175%. Effect stacks up to 4 times and lasts 8 sec or until any other damage spell is cast."
+      "desc": "Blasts the target with energy, dealing 34 to 38 Arcane damage. Each time you cast Arcane Blast, you gain 12% of your Intellect as Spell Damage and the mana cost of Arcane Blast is increased by 100%. Effect stacks up to 4 times and lasts 18 sec from time of initial application."
      },
      {
       "name": "Arcane Shielding",
@@ -2966,28 +3076,34 @@
       "desc": "Decreases the Mana lost per point of damage taken when your Mana Shield spell is active by 33% and increases the resistances granted by your Mage Armor spell by 50%."
      },
      {
-      "name": "Missile Barrage",
+      "name": "Arcane Wrath",
       "tree": "Arcane",
       "max": 1,
-      "desc": "Gives your Arcane Blast spell a 40% chance, and your Fireball, Frostbolt, and Frostfire Bolt spells a 20% chance to reduce the channeled duration of your next Arcane Missiles spell by 50%, reduce the Mana cost by 100%, and missiles fire every 0.5 sec."
-     },
-     {
-      "name": "Wake of Fire",
-      "tree": "Fire",
-      "max": 2,
-      "desc": "Reduces the cooldown of your Fire Blast spell by 2 sec. Killing a non-trivial target increases the critical strike chance of your next Fire Blast cast within 30 sec by 50%."
+      "desc": "Launches a projectile of pure Arcane energy at the enemy target, causing 122 to 146 Arcane damage. This spell gains additional Spell Damage equal to 5% of your maximum Mana."
      },
      {
       "name": "Incineration",
       "tree": "Fire",
-      "max": 3,
-      "desc": "Increases the critical strike chance of your Fire Blast, Ice Lance, Arcane Blast, and Scorch spells by 6%."
+      "max": 5,
+      "desc": "Increases the critical strike chance of your Fire Blast, Ice Lance, Arcane Blast, and Scorch spells by 10%."
+     },
+     {
+      "name": "Accelerant",
+      "tree": "Fire",
+      "max": 5,
+      "desc": "Reduces the casting time of your Fireball, Frostfire Bolt, and Arcane Wrath spells by 0.5 sec."
      },
      {
       "name": "Heating Up",
       "tree": "Fire",
       "max": 1,
-      "desc": "Non-periodic critical strikes with Fireball, Frostfire Bolt, Fire Blast, and Scorch reduce the cast time of your next Pyroblast cast within 20 sec by 25%, stacking up to 3 times."
+      "desc": "Non-periodic critical strikes with Fireball, Frostfire Bolt, Fire Blast, and Scorch reduce the cast time of your next Pyroblast cast within 20 sec by 25%, stacking up to 3 times. Fire Blast grants an additional stack every time it deals damage."
+     },
+     {
+      "name": "Precision",
+      "tree": "Frost",
+      "max": 3,
+      "desc": "Improves your chance to hit with all spells by 6%."
      },
      {
       "name": "Ice Lance",
@@ -3003,6 +3119,13 @@
      }
     ],
     "removed": [
+     {
+      "name": "Arcane Focus",
+      "tree": "Arcane",
+      "max": 5,
+      "desc": "Reduces the chance that the opponent can resist your Arcane spells by 10%.",
+      "note": "Now a baseline ability at level 1"
+     },
      {
       "name": "Improved Arcane Missiles",
       "tree": "Arcane",
@@ -3029,16 +3152,29 @@
       "desc": "Decreases the mana lost per point of damage taken when Mana Shield is active by 20%."
      },
      {
-      "name": "Improved Fire Blast",
+      "name": "Improved Fireball",
       "tree": "Fire",
-      "max": 3,
-      "desc": "Reduces the cooldown of your Fire Blast spell by 1.5 sec."
+      "max": 5,
+      "desc": "Reduces the casting time of your Fireball spell by 0.5 sec."
      },
      {
       "name": "Incinerate",
       "tree": "Fire",
       "max": 2,
       "desc": "Increases the critical strike chance of your Fire Blast and Scorch spells by 4%."
+     },
+     {
+      "name": "Elemental Precision",
+      "tree": "Frost",
+      "max": 3,
+      "desc": "Reduces the chance that the opponent can resist your Frost and Fire spells by 6%."
+     },
+     {
+      "name": "Piercing Ice",
+      "tree": "Frost",
+      "max": 3,
+      "desc": "Increases the damage done by your Frost spells by 6%.",
+      "note": "Now a baseline ability at level 1"
      }
     ],
     "changed": [
@@ -3050,13 +3186,15 @@
       ]
      },
      {
-      "name": "Arcane Focus",
+      "name": "Arcane Resilience",
       "tree": "Arcane",
       "notes": [
+       "Ranks 1 → 3",
+       "Row 3 → 1",
        "Effect changed"
       ],
-      "before": "Reduces the chance that the opponent can resist your Arcane spells by 10%.",
-      "after": "Improves your chance to hit with Arcane spells by 5%."
+      "before": "Increases your armor by an amount equal to 50% of your Intellect.",
+      "after": "Increases your Armor by an amount equal to 75% of your Intellect."
      },
      {
       "name": "Arcane Subtlety",
@@ -3077,17 +3215,6 @@
       ],
       "before": "Increases all resistances by 10 and causes all spells you fully resist to restore 5% of your total mana. 1 sec. cooldown.",
       "after": "Increases all your resistances by 10 and causes all spells you fully resist to restore 2% of your total mana. Cannot trigger more often than 1 time per sec."
-     },
-     {
-      "name": "Arcane Resilience",
-      "tree": "Arcane",
-      "notes": [
-       "Ranks 1 → 2",
-       "Row 3 → 2",
-       "Effect changed"
-      ],
-      "before": "Increases your armor by an amount equal to 50% of your Intellect.",
-      "after": "Increases your Armor by an amount equal to 50% of your Intellect."
      },
      {
       "name": "Improved Counterspell",
@@ -3135,15 +3262,6 @@
       "after": "For the next 15 sec, your spells deal 30% more damage while costing 30% more mana to cast."
      },
      {
-      "name": "Improved Fireball",
-      "tree": "Fire",
-      "notes": [
-       "Effect changed"
-      ],
-      "before": "Reduces the casting time of your Fireball spell by 0.5 sec.",
-      "after": "Reduces the casting time of your Fireball and Frostfire Bolt spells by 0.5 sec."
-     },
-     {
       "name": "Impact",
       "tree": "Fire",
       "notes": [
@@ -3166,6 +3284,17 @@
       ],
       "before": "Hurls an immense fiery boulder that causes 148 to 195 Fire damage and an additional 56 Fire damage over 12 sec.",
       "after": "Hurls an immense fiery boulder that causes 101 to 131 Fire damage and an additional 44 Fire damage over 12 sec."
+     },
+     {
+      "name": "Improved Fire Blast",
+      "tree": "Fire",
+      "notes": [
+       "Ranks 3 → 2",
+       "Row 2 → 3",
+       "Effect changed"
+      ],
+      "before": "Reduces the cooldown of your Fire Blast spell by 1.5 sec.",
+      "after": "Reduces the cooldown of your Fire Blast spell by 2 sec and increases its range by 15 yards."
      },
      {
       "name": "Improved Scorch",
@@ -3195,6 +3324,16 @@
       "after": "A wave of flame radiates outward from the caster, damaging all enemies caught within the blast for 154 to 184 Fire damage, and Dazing them for 50% reduced movement speed for 6 sec."
      },
      {
+      "name": "Fire Power",
+      "tree": "Fire",
+      "notes": [
+       "Ranks 5 → 3",
+       "Effect changed"
+      ],
+      "before": "Increases the damage done by your Fire spells by 10%.",
+      "after": "Increases the damage done by your Fire spells by 3% per your Fire effects on the target, up to a maximum increase of 12%. Effects which mix multiple schools of magic do not qualify."
+     },
+     {
       "name": "Combustion",
       "tree": "Fire",
       "notes": [
@@ -3210,26 +3349,16 @@
        "Effect changed"
       ],
       "before": "Increases the armor and resistances given by your Frost Armor and Ice Armor spells by 30%. In addition, gives your Frost Ward a 20% chance to reflect Frost spells and effects while active.",
-      "after": "Increases the Armor and resistance given by your Frost Armor and Ice Armor spells by 30%. In addition, gives your Frost Ward a 20% chance to reflect Frost spells and effects while active."
+      "after": "Increases the Armor and resistances granted by your Frost Armor and Ice Armor spells by 30%, gives your Frost Ward a 20% chance to negate the warded damage spell, and increases the amount absorbed by your Ice Barrier and Frost Ward by 20%."
      },
      {
-      "name": "Elemental Precision",
-      "tree": "Frost",
-      "notes": [
-       "Ranks 3 → 5",
-       "Effect changed"
-      ],
-      "before": "Reduces the chance that the opponent can resist your Frost and Fire spells by 6%.",
-      "after": "Improves your chance to hit with Frost and Fire spells by 5%."
-     },
-     {
-      "name": "Permafrost",
+      "name": "Improved Frostbolt",
       "tree": "Frost",
       "notes": [
        "Effect changed"
       ],
-      "before": "Increases the duration of your Chill effects by 3 secs and reduces the target's speed by an additional 10%.",
-      "after": "Increases the duration of your Chill effects by 33% and reduces the target's speed by an additional 10%."
+      "before": "Reduces the casting time of your Frostbolt spell by 0.5 sec.",
+      "after": "Reduces the casting time of your Frostbolt and Frost Blast spells by 0.5 sec."
      },
      {
       "name": "Frostbite",
@@ -3239,6 +3368,15 @@
       ],
       "before": "Gives your Chill effects a 15% chance to freeze the target for 5 sec.",
       "after": "Gives your Chill effects a 15% chance to Freeze the target for 5 sec."
+     },
+     {
+      "name": "Permafrost",
+      "tree": "Frost",
+      "notes": [
+       "Effect changed"
+      ],
+      "before": "Increases the duration of your Chill effects by 3 secs and reduces the target's speed by an additional 10%.",
+      "after": "Increases the duration of your Chill effects by 33% and reduces the target's speed by an additional 10%."
      },
      {
       "name": "Frost Channeling",
@@ -3255,6 +3393,15 @@
       ],
       "before": "Adds a chill effect to your Blizzard spell. This effect lowers the target's movement speed by 65%. Lasts 1.50 sec.",
       "after": "Adds a Chill effect to your Blizzard spell. This effect lowers the target's movement speed by 40% for 1.5 sec."
+     },
+     {
+      "name": "Arctic Reach",
+      "tree": "Frost",
+      "notes": [
+       "Effect changed"
+      ],
+      "before": "Increases the range of your Frostbolt and Blizzard spells and the radius of your Frost Nova and Cone of Cold spells by 20%.",
+      "after": "Increases the range of your Frostbolt, Frost Blast, Ice Lance, and Blizzard spells and the radius of your Frost Nova and Cone of Cold spells by 20%."
      },
      {
       "name": "Ice Block",
@@ -3293,7 +3440,7 @@
        "Effect changed"
       ],
       "before": "Gives your Frost damage spells a 100% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by 2% for 15 sec. Stacks up to 5 times.",
-      "after": "Gives your Frost damage spells a 100% chance to apply the Winter's Chill effect, which increases the chance your Ice Lance and Frostbolt spells will critically hit the target by 2% for 15 sec. Stacks up to 5 times."
+      "after": "Gives your Frostbolt, Frost Blast, and Fingers of Frost empowered Ice Lance spells a 100% chance to apply Winter's Chill, increasing the target's damage taken from your next Cone of Cold by 20% and it gains an additional 7% of your spell damage, stacking up to 5 times."
      },
      {
       "name": "Ice Barrier",
@@ -3302,12 +3449,16 @@
        "Effect changed"
       ],
       "before": "Instantly shields you, absorbing 455 damage. Lasts 1 min. While the shield holds, spells will not be interrupted.",
-      "after": "Instantly shields you, absorbing 448 damage. Lasts 1 min. While the shield holds, your spellcasts will not be interrupted or delayed from taking damage."
+      "after": "Shield yourself, absorbing [448 + (Frost spell power * 0.1) * (1)] damage and increasing your Frost damage by 15% for 1 min. While shielded, your Frost damage is increased by an additional 5% and you do not lose casting time when you take damage."
      }
     ]
    },
    "abilities": {
     "added": [
+     {
+      "name": "Arcane Focus",
+      "level": 1
+     },
      {
       "name": "Improved Blink",
       "level": 1,
@@ -3318,6 +3469,14 @@
       "level": 1
      },
      {
+      "name": "Piercing Ice",
+      "level": 1
+     },
+     {
+      "name": "Frost Blast",
+      "level": 24
+     },
+     {
       "name": "Ice Lance",
       "level": 28,
       "note": "Was a Season of Discovery rune — now learned from your trainer"
@@ -3326,6 +3485,10 @@
       "name": "Arcane Blast",
       "level": 30,
       "note": "Was a Season of Discovery rune — now learned from your trainer"
+     },
+     {
+      "name": "Arcane Wrath",
+      "level": 36
      },
      {
       "name": "Frostfire Bolt",
@@ -3351,12 +3514,6 @@
    "talents": {
     "added": [
      {
-      "name": "Malediction",
-      "tree": "Affliction",
-      "max": 5,
-      "desc": "Increases all periodic damage done by your Warlock spells by 5%."
-     },
-     {
       "name": "Soul Harvest",
       "tree": "Affliction",
       "max": 2,
@@ -3366,7 +3523,7 @@
       "name": "Improved Drains",
       "tree": "Affliction",
       "max": 3,
-      "desc": "Increases health drained or damage done by your Drain Life, Drain Soul, and Wrack spells by 20%."
+      "desc": "Increases Health drained, damage done, or Mana drained by your Drain Life, Drain Soul, and Drain Mana spells by 20%."
      },
      {
       "name": "Improved Bane of Agony",
@@ -3426,7 +3583,7 @@
       "name": "Demonic Brand",
       "tree": "Demonology",
       "max": 3,
-      "desc": "Your Searing Pain generates 50% less threat and brands the target for 10 sec. Your pet's next 6 attacks against the target generate high threat and deal ((((60 - 26) * 1.5) + 14 + (0.078 * ((Shadow spell power)))) * (1 * 1 * 1)) to ((((60 - 26) * 1.5) + 17 + (0.078 * ((Shadow spell power)))) * (1 * 1 * 1)) Fire or Shadow damage based on the pet."
+      "desc": "Your Searing Pain generates 50% less threat and brands the target for 10 sec. Your pet's next 6 attacks against the target deal ((((60 - 26) * 1.5) + 14 + (0.078 * ((Shadow spell power)))) * (1 * 1 * 1)) to ((((60 - 26) * 1.5) + 17 + (0.078 * ((Shadow spell power)))) * (1 * 1 * 1)) Fire or Shadow damage based on the pet. If Shadow damage is dealt, it has high threat."
      },
      {
       "name": "Improved Felhunter",
@@ -3507,12 +3664,6 @@
       "tree": "Affliction",
       "max": 3,
       "desc": "Increases the damage done by your Curse of Agony by 6%."
-     },
-     {
-      "name": "Grim Reach",
-      "tree": "Affliction",
-      "max": 2,
-      "desc": "Increases the range of your Affliction spells by 20%."
      },
      {
       "name": "Improved Drain Mana",
@@ -3632,6 +3783,13 @@
       "after": "Reduces the casting time of your Corruption spell by 2 sec and increases the damage it deals by 10%."
      },
      {
+      "name": "Grim Reach",
+      "tree": "Affliction",
+      "notes": [
+       "Row 4 → 2"
+      ]
+     },
+     {
       "name": "Fel Concentration",
       "tree": "Affliction",
       "notes": [
@@ -3639,7 +3797,7 @@
        "Effect changed"
       ],
       "before": "Gives you a 70% chance to avoid interruption caused by damage while channeling the Drain Life, Drain Mana, or Drain Soul spell.",
-      "after": "Gives you a 70% chance to avoid interruption caused by damage while channeling or casting your Drain Life, Drain Mana, Drain Soul, or Wrack spells."
+      "after": "Gives your Drain Life, Drain Mana, Drain Soul, and Wrack spells a 70% chance to not lose casting time when you take damage."
      },
      {
       "name": "Amplify Curse",
@@ -3677,15 +3835,6 @@
       ],
       "before": "Transfers 15 health from the target to the caster every 3 sec. Lasts 30 sec.",
       "after": "Transfers 11 health from the target to the caster every 3 sec. Lasts 30 sec."
-     },
-     {
-      "name": "Shadow Mastery",
-      "tree": "Affliction",
-      "notes": [
-       "Effect changed"
-      ],
-      "before": "Increases the damage dealt or life drained by your Shadow spells by 10%.",
-      "after": "Increases the damage dealt or life drained by your Shadow spells by 5%."
      },
      {
       "name": "Improved Health Funnel",
@@ -3784,11 +3933,8 @@
       "name": "Destructive Reach",
       "tree": "Destruction",
       "notes": [
-       "Row 4 → 1",
-       "Effect changed"
-      ],
-      "before": "Increases the range of your Destruction spells by 20%.",
-      "after": "Increases the range of your damaging spells by 20%."
+       "Row 4 → 1"
+      ]
      },
      {
       "name": "Improved Shadow Bolt",
@@ -3854,7 +4000,7 @@
        "Effect changed"
       ],
       "before": "Gives you a 70% chance to resist interruption caused by damage while channeling the Rain of Fire, Hellfire or Soul Fire spell.",
-      "after": "Gives you a 70% chance to resist interruption caused by damage while casting or channeling any Destruction spell."
+      "after": "Gives your Destruction spells a 70% chance to not lose casting time when you take damage."
      },
      {
       "name": "Conflagrate",
@@ -3956,7 +4102,7 @@
       "name": "Genesis",
       "tree": "Balance",
       "max": 5,
-      "desc": "Increases the periodic damage and healing done by your spells and abilities by 5%."
+      "desc": "Increases the periodic damage and healing done by your spells and abilities by 10%."
      },
      {
       "name": "Nature's Majesty",
@@ -3995,34 +4141,22 @@
       "desc": "Reduces the Energy cost of your Shred ability by 18 and reduces the Rage cost of your Lacerate ability by 3."
      },
      {
-      "name": "Shifting Power",
+      "name": "Lacerate",
       "tree": "Feral Combat",
       "max": 1,
-      "desc": "Instantly convert 0 Mana into 40 Energy. Shifting Power's cost is reduced by effects that reduce the cost of Shapeshifting."
+      "desc": "Lacerates the enemy target, making them bleed for 20 damage over 15 sec plus 10% weapon damage per existing application of Lacerate on the target. Causes a high amount of threat. This effect stacks up to 5 times on the same target."
      },
      {
-      "name": "Primal Bite",
+      "name": "Predatory Discipline",
       "tree": "Feral Combat",
       "max": 1,
-      "desc": "Bite the target, dealing 100% normal damage plus 26 and generating a high amount of threat."
+      "desc": "Your Ferocious Bite ability no longer converts extra Energy into damage, but still deals extra damage based on your excess Energy."
      },
      {
-      "name": "Improved Shifting Power",
+      "name": "Natural Instinct",
       "tree": "Feral Combat",
       "max": 2,
-      "desc": "Reduces the cooldown of your Shifting Power spell by 8 sec."
-     },
-     {
-      "name": "Predatory Instincts",
-      "tree": "Feral Combat",
-      "max": 2,
-      "desc": "Increases the critical strike damage bonus of your melee abilities by 20%."
-     },
-     {
-      "name": "Natural Reaction",
-      "tree": "Feral Combat",
-      "max": 5,
-      "desc": "Increases your dodge chance by 5%, and gives you a 100% chance to gain 5 Rage each time you dodge."
+      "desc": "Increases the critical strike damage bonus of your melee abilities by 20% and increases your spell healing by 25% of your Intellect."
      },
      {
       "name": "Rend and Tear",
@@ -4031,22 +4165,34 @@
       "desc": "Increases damage done by your melee abilities on Bleeding targets by 10%."
      },
      {
-      "name": "Berserk",
+      "name": "Natural Reaction",
+      "tree": "Feral Combat",
+      "max": 5,
+      "desc": "Increases your dodge chance by 5%, and gives you a 100% chance to gain 5 Rage each time you dodge."
+     },
+     {
+      "name": "Primal Bite",
       "tree": "Feral Combat",
       "max": 1,
-      "desc": "Requires Cat Form, Bear Form, Dire Bear Form\nCauses your Primal Bite ability to strike up to 3 targets, removes its cooldown, and increases the critical strike chance of your Combo Point-generating abilities by 100%. Clears and grants immunity to Fear effects for the duration. Lasts 15 sec."
+      "desc": "Bite the target, dealing 100% normal damage plus 42 and generating a high amount of threat."
+     },
+     {
+      "name": "Shifting Power",
+      "tree": "Feral Combat",
+      "max": 1,
+      "desc": "Instantly convert 0 Mana into 40 Energy. Shifting Power's cost is reduced by effects that reduce the cost of Shapeshifting."
      },
      {
       "name": "Naturalist",
       "tree": "Restoration",
       "max": 5,
-      "desc": "Reduces the cast time of your Healing Touch spell by 0.5 sec and increases all damage you deal by 5%."
+      "desc": "Reduces the cast time of your Healing Touch and Wild Growth spells by 0.5 sec and increases all damage you deal by 10%."
      },
      {
-      "name": "Gift of the Earthmother",
+      "name": "Bloom",
       "tree": "Restoration",
       "max": 1,
-      "desc": "Reduces the global cooldown by 0.5 seconds on your Rejuvenation, Swiftmend, and Wild Growth spells."
+      "desc": "When your Rejuvenation or Regrowth spell expires due to its duration, the target is instantly healed for an amount equal to 100% of your Spirit. If either spell expires due to being dispelled, the target is healed for 50% of your Spirit instead."
      },
      {
       "name": "Living Spirit",
@@ -4243,7 +4389,7 @@
        "Effect changed"
       ],
       "before": "Transforms the Druid into Moonkin Form. While in this form the armor contribution from items is increased by 360% [S03 - Tuning and Overrides Passive - Druid: Moonfire costs 50% less mana and deals 100% more damage over time, your periodic damage spells can deal critical periodic damage, you gain (60 * 3) spell damage] and all party members within 30 yards have their spell critical chance increased by 3%. [S03 - Tuning and Overrides Passive - Druid: The Moonkin cannot cast healing spells while shapeshifted / The Moonkin can only cast Balance spells while shapeshifted.] [Reduces all threat from Arcane and Nature spells by 0% while in this form] The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
-      "after": "Shapeshift into Moonkin Form, increasing Omen of Clarity's chance to trigger by 100%, Armor contribution from items by 360%, and all party members within 45 yards have their Critical Strike chance increased by 3%, exclusive with Leader of the Pack. Also protects the caster from Polymorph effects and prevents the use of healing spells. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects."
+      "after": "Shapeshift into Moonkin Form, increasing Omen of Clarity's chance to trigger by 100%, Armor contribution from items by 360%, and all party or raid members within 45 yards have their Critical Strike chance increased by 3%. Also protects the caster from Polymorph effects and prevents the use of healing spells. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects."
      },
      {
       "name": "Ferocity",
@@ -4255,14 +4401,14 @@
       "after": "Reduces the cost of your Maul, Primal Bite, Swipe, Claw, and Rake abilities by 5 Rage or Energy."
      },
      {
-      "name": "Heart of the Wild",
+      "name": "Furor",
       "tree": "Feral Combat",
       "notes": [
-       "Row 6 → 1",
+       "Moved from Restoration to Feral Combat",
        "Effect changed"
       ],
-      "before": "Increases your Intellect by 20%. In addition, while in Bear or Dire Bear Form your Stamina is increased by 20% and while in Cat Form your Strength is increased by 20%.",
-      "after": "Increases your Intellect by 10%. In addition, while in Bear Form or Dire Bear Form your Stamina is increased by 20% and while in Cat Form your Strength is increased by 10%."
+      "before": "Gives you 100% chance to gain 10 Rage when you shapeshift into Bear and Dire Bear Form or 40 Energy when you shapeshift into Cat Form.",
+      "after": "Gives you a 100% chance to gain 10 Rage when shapeshifting into Bear Form or Dire Bear Form. Shapeshifting into Cat Form restores 100% of the Energy you had when last in Cat Form, plus 10 Energy per second spent outside Bear Form or Dire Bear Form, up to 100 Energy."
      },
      {
       "name": "Feral Instinct",
@@ -4291,7 +4437,7 @@
        "Effect changed"
       ],
       "before": "Increases your Armor contribution from items by 10%.",
-      "after": "While in Bear Form, Cat Form, Dire Bear Form, or Moonkin Form, you gain 3 additional base Armor per level and another 2.00 base Armor for each point of defense skill beyond five times your level. This amount can be further increased by multipliers from those forms."
+      "after": "While in Bear Form, Cat Form, Dire Bear Form, or Moonkin Form, you gain 180 additional base Armor per level and another 2.00 base Armor for each point of defense skill beyond five times your level. This amount can be further increased by multipliers from those forms."
      },
      {
       "name": "Savage Fury",
@@ -4348,7 +4494,7 @@
        "Effect changed"
       ],
       "before": "While in Cat, Bear or Dire Bear Form, the Leader of the Pack increases ranged and melee critical chance of all party members within 45 yards by 3%.",
-      "after": "While in Cat Form, Bear Form, or Dire Bear Form, the Leader of the Pack increases the critical strike chance of all party members within 45 yards by 3%, exclusive with Moonkin Aura."
+      "after": "While in Cat Form, Bear Form, or Dire Bear Form, the Leader of the Pack increases the Critical Strike chance of all party or raid members within 45 yards by 3%."
      },
      {
       "name": "Nature's Focus",
@@ -4358,27 +4504,27 @@
        "Effect changed"
       ],
       "before": "Gives you a 70% chance to avoid interruption caused by damage while casting the Healing Touch, Regrowth and Tranquility spells.",
-      "after": "Gives you a 70% chance to avoid interruption caused by damage while casting Arcane and Nature spells."
+      "after": "Gives your Arcane and Nature spells a 70% chance to not lose casting time when you take damage."
      },
      {
-      "name": "Furor",
+      "name": "Heart of the Wild",
       "tree": "Restoration",
       "notes": [
+       "Moved from Feral Combat to Restoration",
        "Effect changed"
       ],
-      "before": "Gives you 100% chance to gain 10 Rage when you shapeshift into Bear and Dire Bear Form or 40 Energy when you shapeshift into Cat Form.",
-      "after": "Gives you a 100% chance to gain 10 Rage when you shapeshift into Bear Form or Dire Bear Form. When you shift into Cat Form, you will regain 100% of the Energy you had when you were last in Cat Form, plus 10 Energy for each second you spent not in Bear Form, Cat Form, or Dire Bear Form, up to a maximum of 100 Energy."
+      "before": "Increases your Intellect by 20%. In addition, while in Bear or Dire Bear Form your Stamina is increased by 20% and while in Cat Form your Strength is increased by 20%.",
+      "after": "Increases your Intellect by 10%. In addition, while in Bear Form or Dire Bear Form your Stamina is increased by 20% and while in Cat Form your Strength is increased by 10%."
      },
      {
-      "name": "Subtlety",
+      "name": "Reflection",
       "tree": "Restoration",
       "notes": [
-       "Ranks 5 → 3",
        "Row 3 → 2",
        "Effect changed"
       ],
-      "before": "Reduces the threat generated by your Healing spells by 20%.",
-      "after": "Reduces the threat generated by your Nature and Arcane spells by 30%."
+      "before": "Allows 15% of your Mana regeneration to continue while casting.",
+      "after": "Allows 50% of your Mana regeneration to continue while casting."
      },
      {
       "name": "Natural Shapeshifter",
@@ -4388,13 +4534,14 @@
       ]
      },
      {
-      "name": "Reflection",
+      "name": "Subtlety",
       "tree": "Restoration",
       "notes": [
+       "Ranks 5 → 3",
        "Effect changed"
       ],
-      "before": "Allows 15% of your Mana regeneration to continue while casting.",
-      "after": "Allows 50% of your Mana regeneration to continue while casting."
+      "before": "Reduces the threat generated by your Healing spells by 20%.",
+      "after": "Reduces the threat generated by your Nature and Arcane spells by 30%."
      },
      {
       "name": "Gift of Nature",
@@ -4414,7 +4561,7 @@
        "Effect changed"
       ],
       "before": "[S03 - Tuning and Overrides Passive - Druid: Instantly heals a target with an active Rejuvenation or Regrowth effect for / Consumes a Rejuvenation or Regrowth effect on a friendly target to instantly heal them] an amount equal to 12 sec. of Rejuvenation or 18 sec. of Regrowth.",
-      "after": "Instantly heals a target with an active Rejuvenation or Regrowth effect for an amount equal to the full duration of the periodic effect of one of those spells."
+      "after": "Instantly heals a target with your active Rejuvenation or Regrowth effect for an amount equal to the full duration of the periodic effect of the consumed spell."
      },
      {
       "name": "Improved Tranquility",
@@ -4461,13 +4608,13 @@
       "level": 26
      },
      {
-      "name": "Primal Bite",
-      "level": 36
-     },
-     {
       "name": "Lacerate",
       "level": 42,
       "note": "Was a Season of Discovery rune — now learned from your trainer"
+     },
+     {
+      "name": "Primal Bite",
+      "level": 50
      },
      {
       "name": "Wild Growth",
@@ -4482,6 +4629,11 @@
       "name": "Nature's Grasp",
       "from": 18,
       "to": 10
+     },
+     {
+      "name": "Shred",
+      "from": 22,
+      "to": 20
      }
     ]
    }

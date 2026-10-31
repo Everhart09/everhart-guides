@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const { pathToFileURL } = require('url');
 const { fetchForeverData, latestDataUrl, fetchIcon } = require('./forever-data.cjs');
-const { buildGearData, dbFromUrl } = require('./forever-gear.cjs');
+const { buildGearData, checkGearItems, dbFromUrl } = require('./forever-gear.cjs');
 const { buildClassChanges } = require('./class-changes.cjs');
 const { buildDungeonData, portraitSource } = require('./forever-dungeons.cjs');
 const appUpdater = require('./app-updater.cjs');
-const { fetchPatchNotes, latestPost } = require('./forever-patchnotes.cjs');
+const { fetchPatchNotes, latestPost, PARSER_VERSION } = require('./forever-patchnotes.cjs');
 const { buildLegacyData } = require('./forever-legacy.cjs');
 
 appUpdater.register();
@@ -118,7 +118,7 @@ ipcMain.handle('updates:check', async (_event, current) => {
     const latestDb = dbFromUrl(latest);
     result.talents = { latest, current: current?.talentDataUrl ?? null, changed: latest !== current?.talentDataUrl };
     const refused = readJSON(skippedFile()) ?? {};
-    result.gear = { latest: latestDb, current: current?.gearDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.gearDb && latestDb !== refused.gear };
+    result.gear = { latest: latestDb, current: current?.gearDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.gearDb && (latestDb !== refused.gear || refused.gearChecked !== latestDb) };
     result.dungeons = { latest: latestDb, current: current?.dungeonsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.dungeonsDb };
     result.maps = { latest: latestDb, current: current?.mapsDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.mapsDb };
     result.legacy = { latest: latestDb, current: current?.legacyDb ?? null, changed: Boolean(latestDb) && latestDb !== current?.legacyDb };
@@ -138,7 +138,9 @@ ipcMain.handle('updates:check', async (_event, current) => {
     const norm = (s) => (s ?? '').replace(/[–—-]/g, '-').replace(/\s+/g, ' ').trim().toLowerCase();
     // New notes = a new thread title, or (once we know which post we have) a newer post in the thread.
     const newerPost = current?.patchPostId ? notes.postId !== current.patchPostId : false;
-    result.patchNotes = { ...notes, changed: norm(notes.title) !== norm(current?.patchTitle) || newerPost };
+    // Notes converted by an older parser are re-imported once, even with no new post.
+    const olderParser = (current?.patchParser ?? 0) < PARSER_VERSION;
+    result.patchNotes = { ...notes, changed: norm(notes.title) !== norm(current?.patchTitle) || newerPost || olderParser };
   } catch (e) {
     result.patchNotes = { error: e.message };
   }
@@ -203,7 +205,7 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
       /* data version unknown: the next check will offer the affected types again */
     }
 
-    const gearData = doGear ? await attempt('Pre-raid gear lists', async () => {
+    let gearData = doGear ? await attempt('Pre-raid gear lists', async () => {
       const { icons, ...gear } = await buildGearData({
         profiles: options.gearProfiles,
         classGear: options.classGear,
@@ -213,10 +215,28 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
       await downloadIcons(icons, send, split('gear', 0.9), ranges.gear[1], 'Downloading new item icons');
       return gear;
     }) : null;
+    // Wowhead blocks the item list pages, so the lists can't be rebuilt; instead check each recommended item through the
+    // tooltip service and drop the ones that no longer exist in Forever.
+    const gearSkip = skipped.find((x) => x.what === 'Pre-raid gear lists' && x.blocked);
+    let gearChecked = false;
+    if (gearSkip && options.currentGear?.items) {
+      try {
+        const checked = await checkGearItems(options.currentGear, { db, onProgress: (f, label) => stepProgress('gear')(f, label) });
+        gearChecked = true;
+        const { removed, renamed } = checked.meta.checked;
+        if (removed.length || renamed.length) gearData = checked;
+        gearSkip.reason = `Wowhead blocks its item lists, so new items can't be added. The app checked every recommended item instead: ${removed.length ? `removed ${removed.length} that no longer exist in WoW Forever` : 'none were removed'}${renamed.length ? ` and updated ${renamed.length} renamed` : ''}.`;
+      } catch {
+        /* keep the plain skip message */
+      }
+    }
     // Remember a refused gear download for this data version, so the daily check stops offering it until the data changes.
     const refused = readJSON(skippedFile()) ?? {};
     if (db && skipped.some((x) => x.what === 'Pre-raid gear lists' && x.blocked)) refused.gear = db;
-    if (gearData) delete refused.gear;
+    // Which data version had its items checked (older app versions refused without checking, so they get one check).
+    if (gearChecked && db) refused.gearChecked = db;
+    // A real rebuild clears the refusal; an item check (gearData.meta.checked) keeps it, so it isn't re-offered daily.
+    if (gearData && !gearData.meta.checked) delete refused.gear;
     fs.writeFileSync(skippedFile(), JSON.stringify(refused));
 
     const dungeonData = doDungeons ? await attempt('Dungeon guides', async () => {

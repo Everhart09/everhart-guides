@@ -92,7 +92,7 @@ const VALUE = {
       ? '+50% Health and Mana regeneration for 15 sec. Use it at a Ley Line to become Attuned for an hour (it survives death, but not entering a raid), doubling that to +100%. Cuts a lot of drinking while leveling.'
       : '+50% Health regeneration for 15 sec, or +100% for an hour after using it at a Ley Line. Less downtime while leveling.',
   }),
-  skysight: () => ({ v: [0, 1, 4], why: '+15% run speed for 15 sec. Use it at an elemental convergence to become Charged for an hour (it survives death, but not entering a raid): +30% run speed. Much faster questing on foot.' }),
+  skysight: () => ({ v: [0, 1, 4], why: '+15% run and mounted speed for 30 sec. Use it at an elemental convergence to become Charged for an hour (it survives death, but not entering a raid): +30% speed. Much faster questing.' }),
 
   bloodFury: (p) => {
     if (dps(p)) return { v: [7, 8, 4], why: `+10% ${p.kind === 'caster' ? 'Spell Power' : 'Attack Power'} for 15 sec every 2 min. A solid burst cooldown to stack with your others${p.pet ? ' (it boosts your damage, not your pet\'s)' : ''}.` };

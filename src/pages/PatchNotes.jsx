@@ -74,6 +74,13 @@ export default function PatchNotes({ nav, embedded = false }) {
         ))}
       </div>
 
+      {PATCH.intro?.length > 0 && (
+        <section className="panel pn-intro">
+          <div className="kicker">From Blizzard</div>
+          {PATCH.intro.map((p) => <p key={p}>{p}</p>)}
+        </section>
+      )}
+
       <div className="pn-toolbar">
         <div className="pn-chips">
           {chips.map((c) => (

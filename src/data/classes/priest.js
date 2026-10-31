@@ -76,8 +76,8 @@ export default {
         ['Improved Mind Blast', 3], ['Improved Mind Flay', 1], ['Vampiric Embrace', 1], ['Shadow Weaving', 3],
         ['Improved Mind Flay', 1], ['Silence', 1], ['Devouring Contagion', 2], ['Improved Mind Blast', 2],
         ['Darkness', 5], ['Shadowform', 1], ['Wand Specialization', 2], ['Twin Disciplines', 3],
-        ['Improved Power Word: Shield', 3], ['Silent Resolve', 2], ['Mental Agility', 3], ['Inner Focus', 1],
-        ['Meditation', 3], ['Mental Strength', 3],
+        ['Silent Resolve', 2], ['Mental Strength', 3], ['Improved Power Word: Shield', 3], ['Mental Agility', 3],
+        ['Inner Focus', 1], ['Meditation', 3],
       ],
     },
     {
@@ -86,7 +86,7 @@ export default {
       difficulty: 3,
       ratings: { leveling: 2, solo: 2, group: 5, pvp: 2, raid: 5 },
       summary:
-        'Holy priests are the strongest raid healers. Spiritual Guidance and Spiritual Healing boost every heal, Improved Healing makes Greater Heal efficient, and Holy Specialization + Inspiration add crit and armor buffs. Prayer of Mending and Binding Heal add strong group healing, and Divine Spirit is now baseline.',
+        'Holy priests are the strongest raid healers. Spiritual Guidance and Spiritual Healing boost every heal, Improved Healing makes Greater Heal efficient, and Holy Specialization + Inspiration add crit and armor buffs. Prayer of Mending adds strong group healing, Holy Binding heals you whenever you Flash Heal someone else, and Divine Spirit is now baseline.',
       pros: [
         'Best healing throughput in the game',
         'Prayer of Healing for group healing',
@@ -113,7 +113,7 @@ export default {
       ],
       rotation: {
         opener: ['**Power Word: Shield** on the tank before pull', '**Renew** on the tank'],
-        single: ['**Prayer of Mending** on the tank on cooldown', '**Greater Heal** (down-ranked) on tanks', '**Flash Heal** for emergencies', '**Renew** for incoming damage', '**Binding Heal** when you and an ally are both hurt'],
+        single: ['**Prayer of Mending** on the tank on cooldown', '**Greater Heal** (down-ranked) on tanks', '**Flash Heal** for emergencies', '**Renew** for incoming damage', '**Flash Heal** on allies also heals you through **Holy Binding**'],
         aoe: ['**Prayer of Healing** when 3+ party members are hurt', '**Holy Nova** for melee-stack damage'],
         cooldowns: ['**Inner Focus** + **Prayer of Healing** for free big heals', '**Spirit of Redemption** saves wipes', '**Fade** to drop healing threat'],
         notes: ['Cancel-cast heals to avoid overhealing', 'Use the 5-second rule: stop casting to regen mana'],
@@ -129,11 +129,11 @@ export default {
       consumables: ['Flask of Distilled Wisdom', 'Mageblood Potion', 'Major Mana Potion', 'Brilliant Mana Oil', 'Dark Rune / Demonic Rune'],
       build: [
         ['Holy Specialization', 5], ['Improved Renew', 3], ['Divine Fury', 2], ['Inspiration', 3],
-        ['Holy Nova', 1], ['Twilight Focus', 1], ['Improved Healing', 3], ['Binding Heal', 1],
+        ['Holy Nova', 1], ['Twilight Focus', 1], ['Improved Healing', 3], ['Holy Binding', 1],
         ['Holy Reach', 1], ['Spirit of Redemption', 1], ['Litany of Light', 2], ['Spiritual Guidance', 2],
         ['Spiritual Healing', 3], ['Spiritual Guidance', 2], ['Prayer of Mending', 1], ['Spiritual Guidance', 1],
-        ['Twin Disciplines', 5], ['Improved Power Word: Shield', 3], ['Silent Resolve', 2], ['Mental Agility', 3],
-        ['Inner Focus', 1], ['Meditation', 1], ['Mental Strength', 4],
+        ['Twin Disciplines', 5], ['Silent Resolve', 2], ['Mental Strength', 3], ['Improved Power Word: Shield', 3],
+        ['Mental Agility', 3], ['Inner Focus', 1], ['Meditation', 1], ['Mental Strength', 1],
       ],
     },
     {
@@ -183,8 +183,8 @@ export default {
       ],
       consumables: ['Flask of Distilled Wisdom', 'Major Mana Potion', 'Mageblood Potion'],
       build: [
-        ['Twin Disciplines', 5], ['Improved Power Word: Shield', 3], ['Silent Resolve', 2], ['Mental Agility', 3],
-        ['Inner Focus', 1], ['Meditation', 3], ['Mental Strength', 3], ['Soul Warding', 1],
+        ['Twin Disciplines', 5], ['Silent Resolve', 2], ['Mental Strength', 3], ['Improved Power Word: Shield', 3],
+        ['Mental Agility', 3], ['Inner Focus', 1], ['Meditation', 3], ['Soul Warding', 1],
         ['Penance', 1], ['Renewed Hope', 3], ['Divine Aegis', 3], ['Improved Inner Fire', 2],
         ['Power Infusion', 1], ['Mental Strength', 2], ['Renewed Hope', 2], ['Holy Specialization', 5],
         ['Improved Renew', 3], ['Divine Fury', 2], ['Inspiration', 3], ['Twilight Focus', 2],

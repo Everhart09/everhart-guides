@@ -99,7 +99,10 @@ export default function PreRaidGear({ cls, spec }) {
         </div>
         <div className="gear-meta">
           <span className="meta-pill">Best setup: {SETUP_NAMES[data.setup] ?? data.setup}</span>
-          <span className="fine">Item level ≤ {GEAR.meta.maxItemLevel} · updated {day(GEAR.meta.importedAt)}</span>
+          <span className="fine">
+            Item level ≤ {GEAR.meta.maxItemLevel} · lists from {day(GEAR.meta.importedAt)}
+            {GEAR.meta.checked && <> · items checked {day(GEAR.meta.checked.at)}{GEAR.meta.checked.removed.length ? ` (${GEAR.meta.checked.removed.length} that left the game removed)` : ''}</>}
+          </span>
         </div>
       </header>
       <p className="gear-intro">

@@ -180,13 +180,17 @@ export const LEVEL_ROTATIONS = {
         ['**Divine Shield** (34) → heal when in trouble', 'Bubble makes you immune to damage; heal yourself to full inside it.'],
       ], '',
       'You can now handle bad pulls: Repentance takes an extra mob out of the fight, and Divine Shield lets you heal up safely.'],
-      [40, 'Twist of Light', [
-        ['**Seal of Command** up — swapping seals leaves an Echo', 'With Twist of Light, changing seals leaves a lingering effect of the old one.'],
-        ['**Holy Strike** on cooldown', 'Still a core button.'],
-        ['**Judgement** + re-seal', 'Judge and reseal, using the Echo for extra damage.'],
-        ['**Hammer of Wrath** on low targets (44)', 'A ranged finisher that only works below 20% health.'],
+      [44, 'Hammer of Wrath', [
+        ['**Seal of Command** + **Holy Strike** + **Judgement**', 'Your core damage loop.'],
+        ['**Hammer of Wrath** on low targets', 'A ranged finisher that only works below 20% health.'],
       ], '',
-      'Twist of Light rewards swapping seals mid-fight. Keep the core loop going and finish targets with Hammer of Wrath once you learn it.'],
+      'Hammer of Wrath finishes fleeing or low-health targets from range. The rest of your loop stays the same.'],
+      [52, 'Unsealed Wrath', [
+        ['Swing with **Seal of Command** to store copies (up to 3)', 'Unsealed Wrath stores a copy of your active Seal with each attack.'],
+        ['Switch to a different Seal and attack to release them', 'All the stored Seals trigger at once for a burst of damage.'],
+        ['**Holy Strike** and **Judgement** on cooldown', 'Still your core buttons.'],
+      ], '',
+      'Unsealed Wrath rewards switching Seals: build up copies of one, then swap to cash them in.'],
     ],
     holy: [
       [20, 'Healing groups', [
@@ -205,7 +209,7 @@ export const LEVEL_ROTATIONS = {
       [30, 'Divine Favor', [
         ['**Divine Favor** + **Holy Light** for a guaranteed big heal', 'A guaranteed crit for when the tank is about to die.'],
         ['**Flash of Light** filler', 'Your everyday heal.'],
-        ['**Voice of Truth** to heal through interrupts', 'Makes your heals harder to push back.'],
+        ['**Oath of Light** on the tank', 'Makes your Holy Light, Flash of Light and Holy Shock heal them for more.'],
       ], '',
       'Divine Favor is your emergency button: a guaranteed crit on your next heal. Everything else stays the same.'],
       [33, 'Holy Shock', [
@@ -237,7 +241,7 @@ export const LEVEL_ROTATIONS = {
         ['**Judgement** + re-seal', 'Extra threat on cooldown.'],
       ], 'Consecration is baseline at 20 in Forever.',
       'Consecration makes you a real AoE tank: gather the pack, drop it under them, and keep Holy Strike and Judgement on the main target.'],
-      [30, 'Swift Judgement', [
+      [32, 'Swift Judgement', [
         ['**Consecration** + **Holy Strike**', 'Your core AoE and single-target threat.'],
         ['**Judgement**, then **Swift Judgement** for a free second one', 'Two Judgements back to back is a big burst of threat.'],
         ["**Templar's Bulwark** (31) for big damage", 'A defensive cooldown for heavy-hitting pulls.'],
@@ -373,7 +377,7 @@ export const LEVEL_ROTATIONS = {
         ['**Mongoose Bite** — now also causes a bleed', 'Your best attack gains damage over time.'],
         ['**Raptor Strike** on cooldown', 'Steady damage.'],
         ['**Counterattack** after parries', 'Free damage.'],
-        ['**Strider Kick** to stick to runners', 'A Forever ability for chasing targets.'],
+        ['**Wing Clip** to stop runners', 'Slows a target so it can\'t escape your melee.'],
       ], '',
       'This is the Survival setup you will use at 60: Mongoose Bite bleeds, Raptor Strike filler and Counterattack on parries.'],
     ],
@@ -555,8 +559,8 @@ export const LEVEL_ROTATIONS = {
         ['**Power Word: Shield** for spikes', 'Instantly absorbs damage when the tank is in trouble.'],
       ], 'Solo with Smite, Shadow Word: Pain and a wand.',
       'Holy is a dedicated healer. In groups, keep Renew on the tank and use Heal for steady damage. Save Flash Heal for emergencies.'],
-      [28, 'Binding Heal & Holy Nova', [
-        ['**Binding Heal** when you and an ally are hurt', 'Heals you and your target at once.'],
+      [28, 'Holy Binding & Holy Nova', [
+        ['**Flash Heal** others to heal yourself too', 'Holy Binding heals you for half of every Flash Heal you cast on someone else.'],
         ['**Holy Nova** for group damage', 'A small heal on everyone near you.'],
         ['**Renew** + **Flash Heal**', 'Your core healing.'],
       ], '',
@@ -576,7 +580,7 @@ export const LEVEL_ROTATIONS = {
       'This is the Holy setup you will use at 60: Prayer of Mending on cooldown, Renew on the tank and Greater Heal for big hits.'],
     ],
     discipline: [
-      [20, 'Inner Focus', [
+      [26, 'Inner Focus', [
         ['**Power Word: Shield** liberally', 'Prevents damage before it happens; Discipline leans on it heavily.'],
         ['**Renew**', 'Heal over time.'],
         ['**Flash Heal** / **Heal**', 'Fast or efficient heals as needed.'],
@@ -740,7 +744,7 @@ export const LEVEL_ROTATIONS = {
         ['**Cone of Cold** (26) as they reach you', 'A short-range AoE slow.'],
       ], '',
       'Ice Lance rewards freezing targets. Frost Nova, then Ice Lance for big damage.'],
-      [32, 'Ice Block & Cold Snap', [
+      [33, 'Ice Block & Cold Snap', [
         ['**Frostbolt** spam', 'Your main spell.'],
         ['**Frost Nova** → **Ice Lance** / **Frostbolt** (Shatter crits)', 'Shatter makes frozen targets easier to crit.'],
         ['**Ice Block** to reset bad pulls', 'Immune to damage for a few seconds.'],
@@ -961,19 +965,19 @@ export const LEVEL_ROTATIONS = {
         ['**Faerie Fire** to pull runners', 'Stops stealth and lets you hit fleeing mobs.'],
       ], 'Travel Form at 30 replaces a mount.',
       'Leader of the Pack adds crit for you and your party. Shred from behind whenever you can.'],
-      [33, 'Primal Bite', [
-        ['Bear: **Primal Bite** for big threat', 'Forever\'s name for Mangle.'],
+      [34, 'Lacerate', [
+        ['Bear: **Lacerate** to stack a bleed and build threat', 'Forever\'s new bear bleed. Stack it on the target you are tanking.'],
         ['Cat: **Shred** / **Claw** to 5', 'Build combo points.'],
-        ['**Rip** + **Rake** bleeds (Rend and Tear at 35)', 'Keep bleeds up.'],
+        ['**Rip** + **Rake** bleeds (Rend and Tear at 40)', 'Keep bleeds up; Rend and Tear makes every attack hit bleeding targets harder.'],
       ], '',
-      'Primal Bite is your new bear threat button.'],
-      [40, 'Berserk', [
-        ['**Berserk** — Primal Bite hits 3 targets with no cooldown', 'A big burst for tanking packs.'],
-        ['Keep **Rake** and **Rip** up', 'Your bleeds.'],
-        ['**Shifting Power** for energy', 'A Forever ability to restore energy.'],
+      'Lacerate gives Bear Form a stacking bleed, which also powers Rend and Tear once you have it.'],
+      [45, 'Primal Bite', [
+        ['Bear: **Primal Bite** for big threat', 'Forever\'s name for Mangle, now the 31-point talent.'],
+        ['Keep **Rake**, **Rip** and **Lacerate** up', 'Your bleeds.'],
+        ['**Shifting Power** for energy (49)', 'Turns mana into energy in Cat Form.'],
         ['**Dire Bear Form** for tanking', 'Your tanking form.'],
       ], '',
-      'This is the Feral setup you will use at 60: bleeds in Cat Form, and Primal Bite with Berserk for tanking.'],
+      'This is the Feral setup you will use at 60: bleeds in Cat Form, and Primal Bite with Lacerate for tanking.'],
     ],
     balance: [
       [8, 'Roots & Wrath', [
@@ -995,7 +999,7 @@ export const LEVEL_ROTATIONS = {
       ], '',
       'Vengeance makes your crits hit much harder.'],
       [31, 'Eclipse', [
-        ['**Moonfire** + **Insect Swarm** (30)', 'Two damage over time spells.'],
+        ['**Moonfire** + **Insect Swarm** (34)', 'Two damage over time spells.'],
         ['**Wrath** to build Eclipse charges', 'Builds toward Eclipse.'],
         ['**Starfire** with Eclipse charges', 'Eclipse makes Starfire stronger.'],
       ], '',

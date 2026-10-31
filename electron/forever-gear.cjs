@@ -274,4 +274,43 @@ async function buildGearData({ profiles, classGear, db = null, onProgress = () =
 /** Wowhead database build id from a Wowhead data URL (the "db=" parameter). */
 const dbFromUrl = (url) => url?.match(/[?&]db=(\d+)/)?.[1] ?? null;
 
-module.exports = { buildGearData, dbFromUrl };
+/**
+ * When Wowhead blocks the item list pages, the lists can't be rebuilt, but each item can still be checked through
+ * the tooltip service. Returns a copy of `gear` with items that no longer exist in WoW Forever removed (from the
+ * items table and every spec list) and renamed items given their new name. `meta.checked` records what changed.
+ */
+async function checkGearItems(gear, { db = null, onProgress = () => {} } = {}) {
+  const out = JSON.parse(JSON.stringify(gear));
+  const ids = Object.keys(out.items);
+  const removed = [];
+  const renamed = [];
+  let done = 0;
+  const queue = [...ids];
+  const worker = async () => {
+    while (queue.length) {
+      const id = queue.shift();
+      const res = await fetch(`https://nether.wowhead.com/forever/tooltip/item/${id}`, { headers: UA });
+      // Only a definite "not found" removes an item; a network hiccup keeps it.
+      if (res.status === 404) { removed.push(out.items[id].name); delete out.items[id]; }
+      else if (res.ok) {
+        const j = await res.json();
+        if (j.error) { removed.push(out.items[id].name); delete out.items[id]; }
+        else if (j.name && j.name !== out.items[id].name) { renamed.push(`${out.items[id].name} → ${j.name}`); out.items[id].name = j.name; if (j.icon) out.items[id].icon = j.icon; }
+      }
+      done++;
+      if (done % 20 === 0) onProgress(done / ids.length, `Checking gear items (${done} of ${ids.length})…`);
+    }
+  };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+  // Drop removed items from every list in every spec.
+  const prune = (x) => {
+    if (Array.isArray(x)) return x.filter((e) => !(e && typeof e === 'object' && 'id' in e && !out.items[e.id])).map(prune);
+    if (x && typeof x === 'object') return Object.fromEntries(Object.entries(x).map(([k, v]) => [k, prune(v)]));
+    return x;
+  };
+  out.specs = prune(out.specs);
+  out.meta = { ...out.meta, items: Object.keys(out.items).length, checked: { at: new Date().toISOString().slice(0, 10), db, removed, renamed } };
+  return out;
+}
+
+module.exports = { checkGearItems, buildGearData, dbFromUrl };

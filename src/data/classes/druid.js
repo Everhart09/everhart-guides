@@ -28,7 +28,7 @@ export default {
       difficulty: 3,
       ratings: { leveling: 5, solo: 5, group: 4, pvp: 3, raid: 3 },
       summary:
-        'Feral is the fastest and most flexible druid leveling spec. Cat Form deals solid damage with stealth openers, Bear Form tanks dungeons, and Shifting Power turns mana into instant energy. Primal Bite (Forever\'s Mangle) is a big threat tool for bears, Rend and Tear rewards keeping bleeds up, and the 31-point Berserk makes Primal Bite cleave. At 60 Feral druids are excellent off-tanks and bring Leader of the Pack to their group.',
+        'Feral is the fastest and most flexible druid leveling spec. Cat Form deals solid damage with stealth openers, Bear Form tanks dungeons, and Shifting Power turns mana into instant energy. Lacerate gives bears a stacking bleed, Rend and Tear rewards keeping bleeds up, and Primal Bite (Forever\'s Mangle) is now the 31-point talent and a huge threat tool. At 60 Feral druids are excellent off-tanks and bring Leader of the Pack to their group.',
       pros: [
         'Can tank AND DPS with one spec — great for dungeons',
         'Stealth in Cat Form for skipping mobs and picking fights',
@@ -57,7 +57,7 @@ export default {
       rotation: {
         opener: ['Cat Form → **Prowl**', '**Ravage** or **Pounce** from behind', '**Shred** from behind or **Claw**'],
         single: ['**Rake** and **Rip** bleeds up — Rend and Tear boosts damage on bleeding targets', '**Claw**/**Shred** to 5 combo points', '**Ferocious Bite** or **Rip** at 5 points', '**Shifting Power** when energy is low — converts mana into 40 energy'],
-        aoe: ['Bear Form: **Swipe** + **Demoralizing Roar**', '**Primal Bite** for big threat (cleaves during **Berserk**)', '**Maul** as a rage dump', '**Feral Charge** to interrupt casters'],
+        aoe: ['Bear Form: **Swipe** + **Demoralizing Roar**', '**Primal Bite** and **Lacerate** for big threat', '**Maul** as a rage dump', '**Feral Charge** to interrupt casters'],
         cooldowns: ['**Barkskin** (caster form)', '**Frenzied Regeneration** in Bear Form', '**Innervate** a healer at 40+'],
         notes: ['Keep **Mark of the Wild** and **Thorns** up; **Omen of Clarity** is baseline at 20', 'Shift out & heal yourself between pulls'],
       },
@@ -75,10 +75,10 @@ export default {
       build: [
         ['Ferocity', 5], ['Feral Swiftness', 2], ['Thick Hide', 3], ['Sharpened Claws', 2],
         ['Savage Fury', 2], ['Feral Charge', 1], ['Predatory Strikes', 3], ['Blood Frenzy', 2],
-        ['Leader of the Pack', 1], ['Predatory Instincts', 2], ['Primal Bite', 1], ['Heart of the Wild', 1],
-        ['Rend and Tear', 5], ['Berserk', 1], ['Heart of the Wild', 4], ['Shredding Attacks', 3],
-        ['Shifting Power', 1], ['Improved Shifting Power', 2], ['Furor', 5], ['Natural Shapeshifter', 3],
-        ['Naturalist', 2],
+        ['Leader of the Pack', 1], ['Natural Instinct', 2], ['Heart of the Wild', 1], ['Lacerate', 1],
+        ['Heart of the Wild', 4], ['Shredding Attacks', 1], ['Rend and Tear', 5], ['Primal Bite', 1],
+        ['Shredding Attacks', 2], ['Predatory Discipline', 1], ['Shifting Power', 1], ['Furor', 5],
+        ['Natural Shapeshifter', 3], ['Naturalist', 2], ['Natural Reaction', 1],
       ],
     },
     {
@@ -183,7 +183,7 @@ export default {
       build: [
         ["Nature's Focus", 5], ['Naturalist', 5], ['Reflection', 3], ['Gift of Nature', 2],
         ['Improved Rejuvenation', 3], ['Swiftmend', 1], ['Tranquil Spirit', 1], ["Nature's Swiftness", 1],
-        ['Living Spirit', 3], ['Gift of the Earthmother', 1], ['Improved Regrowth', 5], ['Wild Growth', 1],
+        ['Living Spirit', 3], ['Bloom', 1], ['Improved Regrowth', 5], ['Wild Growth', 1],
         ['Gift of Nature', 3], ['Tranquil Spirit', 4], ['Genesis', 5], ['Moonglow', 3],
         ["Nature's Majesty", 2], ["Nature's Splendor", 1], ['Improved Moonfire', 2],
       ],

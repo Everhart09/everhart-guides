@@ -18,18 +18,18 @@ export const BUILD_WHY = {
     early: 'Shield Specialization makes you block more, which keeps Revenge (your cheapest threat) available.',
   },
   'paladin/retribution': {
-    main: 'Retribution (31) is about Seal of Command and big two-handed swings. Conviction and Sanctified Judgement add crit and mana, and the deep talents turn Holy Strike and Judgement into one loop.',
-    second: 'Holy (20) gives Divine Intellect and Healing Light, so you heal yourself efficiently between pulls, plus Divine Favor for emergencies.',
+    main: 'Retribution (34) is about Seal of Command and big two-handed swings. Conviction and Sanctified Judgement add crit and mana, Champion of the Light turns Intellect into spell damage, and Unsealed Wrath at the bottom rewards switching Seals.',
+    second: 'Holy (13) gives Divine Strength and Healing Light, so you hit harder and heal yourself efficiently between pulls, plus Divine Favor for emergencies. Protection (4) picks up Divine Intellect, which moved there in Forever.',
     early: 'Seal of Command early. It is the biggest jump in leveling speed.',
   },
   'paladin/holy': {
-    main: 'Holy (32) maximizes healing: Divine Intellect for mana, Healing Light for bigger heals, Spiritual Focus so damage cannot interrupt you, down to Holy Shock and Light\'s Vigil.',
-    second: 'Retribution (19) grabs Conviction and Sanctified Judgement for crit and mana, plus Pursuit of Justice for movement speed.',
-    early: 'Divine Intellect and Spiritual Focus first. Mana and uninterrupted casts are what a healer needs most.',
+    main: 'Holy (31) maximizes healing: Spiritual Focus so damage cannot interrupt you, Healing Light for bigger heals, Illumination for mana, Oath of Light on your tank, down to Holy Shock, Boundless Light and Light\'s Vigil.',
+    second: 'Retribution (15) grabs Conviction and Sanctified Judgement for crit and mana, Unyielding Faith, and Pursuit of Justice for movement speed. Protection (5) takes Divine Intellect for mana.',
+    early: 'Spiritual Focus and Healing Light first. Uninterrupted, bigger heals are what a healer needs most.',
   },
   'paladin/protection': {
-    main: 'Protection (39) is the tanking tree: Redoubt and Anticipation for block and avoidance, Improved Righteous Fury for threat, and Holy Shield at the bottom.',
-    second: 'Holy (12) takes Divine Intellect and Spiritual Focus so you can heal yourself without being interrupted.',
+    main: 'Protection (44) is the tanking tree: Redoubt and Anticipation for block and avoidance, Improved Righteous Fury for threat, Holy Shield, and Shieldsworn at the bottom so Holy Strike triggers your shield. Divine Intellect now lives here too.',
+    second: 'Holy (7) takes Spiritual Focus so you can heal yourself without being interrupted, and Improved Seals for threat.',
     early: 'Improved Righteous Fury: holding threat matters more than anything else when tanking.',
   },
   'hunter/beast-mastery': {
@@ -78,12 +78,12 @@ export const BUILD_WHY = {
     early: 'Improved Power Word: Shield first. Shields are your main tool.',
   },
   'shaman/enhancement': {
-    main: 'Enhancement (31) is a melee shaman: Thundering Strikes for crit, Mental Dexterity to turn Intellect into attack power, Elemental Weapons, down to Stormstrike and Maelstrom Weapon.',
-    second: 'Elemental (20) adds Reverberation for faster shocks, Elemental Devastation for crit and Call of Thunder.',
+    main: 'Enhancement (32) is a melee shaman: Thundering Strikes for crit, Mental Dexterity to turn Intellect into attack power, Elemental Weapons, down to Stormstrike and Maelstrom Weapon.',
+    second: 'Elemental (19) adds Concussion, Reverberation for faster shocks, and Elemental Devastation for melee crit after your spells crit.',
     early: 'Thundering Strikes first. Crits trigger Flurry for faster attacks.',
   },
   'shaman/elemental': {
-    main: 'Elemental (31) is a lightning caster: Concussion for damage, Reverberation for faster shocks, Elemental Alacrity for faster Lightning Bolts, down to Lightning Overload and Lava Burst.',
+    main: 'Elemental (31) is a lightning caster: Concussion for damage, Elemental Alacrity for faster Lightning Bolts, Lightning Overload and Lava Burst, down to Elemental Mastery for burst.',
     second: 'Restoration (20) adds Tidal Focus, Water Shield and Mana Tide Totem so you can keep casting.',
     early: 'Concussion and Elemental Alacrity first: more damage per cast and faster casts.',
   },
@@ -94,27 +94,27 @@ export const BUILD_WHY = {
   },
   'mage/frost': {
     main: 'Frost (41) is the leveling mage: Improved Frostbolt and Ice Shards for faster, harder Frostbolts, Improved Frost Nova and Shatter for freeze combos, Ice Barrier for safety.',
-    second: 'Arcane (10) takes Arcane Focus for hit and Arcane Concentration for free spells.',
+    second: 'Arcane (10) takes Arcane Resilience for armor and Arcane Concentration for free spells. Hit now comes from Precision in the Frost tree.',
     early: 'Improved Frostbolt first: a faster Frostbolt is more damage and safer kiting.',
   },
   'mage/fire': {
-    main: 'Fire (31) is big crits and burst: Improved Fireball, Ignite to add burning to crits, Pyroblast, Incineration and Combustion.',
-    second: 'Arcane (20) gives Arcane Concentration and Arcane Meditation for mana, which Fire badly needs.',
-    early: 'Improved Fireball first: a faster Fireball is your main damage increase.',
+    main: 'Fire (31) is big crits and burst: Accelerant for a faster Fireball, Ignite to add burning to crits, Pyroblast, Incineration and Combustion.',
+    second: 'Arcane (18) gives Arcane Concentration and Arcane Meditation for mana, which Fire badly needs, plus Missile Barrage procs from Fireball. Frost (2) takes Precision for hit.',
+    early: 'Accelerant first: a faster Fireball is your main damage increase.',
   },
   'mage/arcane': {
-    main: 'Arcane (31) is about mana and burst: Arcane Concentration for free spells, Arcane Impact, Presence of Mind and Arcane Power.',
-    second: 'Frost (20) adds Ice Shards, Piercing Ice, Ice Lance and Shatter, so you still level with Frostbolt.',
-    early: 'Arcane Focus and Arcane Concentration first for hit and free casts.',
+    main: 'Arcane (32) is about mana and burst: Arcane Concentration for free spells, Arcane Impact, Presence of Mind and Arcane Power, plus Arcane Wrath, the new Arcane bolt.',
+    second: 'Frost (19) adds Precision for hit, Improved Frostbolt, Ice Shards, Ice Lance and Shatter, so you still level with Frostbolt.',
+    early: 'Arcane Concentration and Precision first for free casts and hit.',
   },
   'warlock/affliction': {
-    main: 'Affliction (31) is damage over time and sustain: Improved Corruption for an instant Corruption, Improved Drains, Nightfall and Siphon Life.',
+    main: 'Affliction (31) is damage over time and sustain: Improved Corruption for an instant Corruption, Suppression for hit and less threat, Improved Drains, Nightfall and Siphon Life.',
     second: 'Demonology (20) makes your Voidwalker a better tank and adds Fel Domination for quick resummons.',
     early: 'Improved Corruption first: instant Corruption works while moving.',
   },
   'warlock/demonology': {
     main: 'Demonology (31) is about your pet and your own toughness: Demonic Embrace for Stamina, Master Summoner, Fel Domination and Soul Link.',
-    second: 'Affliction (20) adds Improved Drains, Improved Bane of Agony and Nightfall for more damage.',
+    second: 'Affliction (20) adds Suppression for hit, Improved Drains, Improved Bane of Agony and Nightfall for more damage.',
     early: 'Demonic Embrace first. It makes you much harder to kill.',
   },
   'warlock/destruction': {
@@ -123,8 +123,8 @@ export const BUILD_WHY = {
     early: 'Improved Shadow Bolt first: faster casts mean more damage.',
   },
   'druid/feral': {
-    main: 'Feral (41) covers both cat damage and bear tanking: Ferocity for cheaper attacks, Feral Swiftness for speed, Thick Hide for armor, down to Leader of the Pack and Berserk.',
-    second: 'Restoration (10) takes Furor for free rage and energy when shifting, plus Naturalist.',
+    main: 'Feral (41) covers both cat damage and bear tanking: Ferocity for cheaper attacks, Furor for free rage and energy when shifting, Thick Hide for armor, Lacerate and Natural Instinct, down to Leader of the Pack and Primal Bite.',
+    second: 'Restoration (10) takes Heart of the Wild for Intellect and bear Stamina, Natural Shapeshifter for cheaper shifting, and Naturalist.',
     early: 'Ferocity first. Cheaper Claw and Maul means faster kills.',
   },
   'druid/balance': {
@@ -133,7 +133,7 @@ export const BUILD_WHY = {
     early: 'Improved Wrath first: faster casts are more damage.',
   },
   'druid/restoration': {
-    main: 'Restoration (38) is a heal-over-time healer: Nature\'s Focus so casts cannot be interrupted, Reflection for mana, Swiftmend and Wild Growth.',
+    main: 'Restoration (38) is a heal-over-time healer: Nature\'s Focus so casts cannot be interrupted, Reflection for mana, Bloom for extra healing when your heals expire, Swiftmend and Wild Growth.',
     second: 'Balance (13) adds Moonglow for mana and Nature\'s Majesty for crit.',
     early: 'Nature\'s Focus and Reflection first: uninterrupted heals and better mana.',
   },

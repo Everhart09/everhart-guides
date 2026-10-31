@@ -76,7 +76,7 @@ export default {
         ['Shamanistic Focus', 1], ['Anticipation', 1], ['Flurry', 5], ['Stormstrike', 1],
         ['Mental Quickness', 2], ['Improved Stormstrike', 2], ['Maelstrom Weapon', 5], ['Rage of the Farseer', 1],
         ['Concussion', 5], ['Reverberation', 5], ['Elemental Devastation', 3], ['Elemental Focus', 1],
-        ['Elemental Alacrity', 3], ['Call of Thunder', 1], ['Eye of the Storm', 2],
+        ['Elemental Alacrity', 3], ['Anticipation', 1], ['Eye of the Storm', 2],
       ],
     },
     {
@@ -85,7 +85,7 @@ export default {
       difficulty: 2,
       ratings: { leveling: 3, solo: 3, group: 3, pvp: 5, raid: 2 },
       summary:
-        'Elemental turns the shaman into a lightning caster. Call of Thunder and Elemental Fury create devastating crits, Elemental Alacrity speeds up casts, Lightning Overload fires free extra bolts, and the 31-point Lava Burst hits hardest on targets with Flame Shock. Infamous in PvP for its burst — Chain Lightning + Earth Shock can kill in seconds.',
+        'Elemental turns the shaman into a lightning caster. Elemental Fury creates devastating crits, Elemental Alacrity speeds up casts, Lightning Overload fires free extra bolts, Lava Burst hits hardest on targets with Flame Shock, and the 31-point Elemental Mastery makes Lightning Bolt and Lava Burst faster for a burst window. Infamous in PvP for its burst — Chain Lightning + Earth Shock can kill in seconds.',
       pros: [
         'Huge PvP burst with Lava Burst and Lightning Overload',
         'Earth Shock is a fast, instant interrupt',
@@ -126,9 +126,9 @@ export default {
       consumables: ['Greater Arcane Elixir', 'Major Mana Potion', 'Brilliant Wizard Oil', 'Free Action Potion'],
       build: [
         ['Concussion', 5], ['Call of Flame', 3], ['Reverberation', 2], ['Elemental Alacrity', 3],
-        ['Elemental Focus', 1], ['Convection', 1], ['Call of Thunder', 1], ['Eye of the Storm', 3],
-        ['Convection', 1], ['Lightning Overload', 3], ['Elemental Reach', 2], ['Elemental Fury', 5],
-        ['Lava Burst', 1], ['Totemic Focus', 5], ['Tidal Focus', 5], ['Mindfulness', 3],
+        ['Elemental Focus', 1], ['Convection', 1], ['Eye of the Storm', 3], ['Convection', 2],
+        ['Lightning Overload', 3], ['Elemental Reach', 1], ['Lava Burst', 1], ['Elemental Fury', 5],
+        ['Elemental Mastery', 1], ['Tidal Focus', 5], ['Totemic Focus', 5], ['Mindfulness', 3],
         ['Water Shield', 1], ['Healing Focus', 1], ['Restorative Totems', 3], ['Mana Tide Totem', 1],
         ['Natural Grace', 1],
       ],

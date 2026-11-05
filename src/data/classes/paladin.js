@@ -147,7 +147,7 @@ export default {
         'AoE farming of instances is lucrative',
       ],
       cons: [
-        'No taunt in Classic — hard to main tank raids',
+        'No taunt — hard to main tank raids',
         'Mana-dependent threat; running out = losing aggro',
         'Not wanted for most raid roles',
       ],

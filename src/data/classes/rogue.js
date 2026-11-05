@@ -12,7 +12,8 @@ export default {
     'A master of stealth and burst. Rogues build combo points with energy-based attacks and spend them on finishers, control fights with stuns, Sap and Blind, and apply poisons for extra damage. Top-tier melee DPS and a terror in world PvP.',
   milestones: [
     [1, 'Stealth & Sinister Strike', 'Eviscerate finisher'],
-    [6, 'Pick Pocket & Gouge', 'Free gold and an interrupt'],
+    [4, 'Pick Pocket', 'Free gold from humanoids'],
+    [6, 'Gouge', 'An interrupt and short incapacitate'],
     [10, 'Sap & Sprint', 'Slice and Dice at 10 too'],
     [12, 'Kick', 'Interrupt casters'],
     [20, 'Poisons', 'Class quest unlocks Instant & Crippling Poison'],

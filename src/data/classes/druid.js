@@ -16,9 +16,8 @@ export default {
     [10, 'Bear Form', 'Class quest — your first shapeshift'],
     [16, 'Aquatic Form', 'Class quest — fast swimming, water breathing'],
     [20, 'Cat Form & Rebirth', 'Stealth, energy and combo points'],
-    [30, 'Travel Form', '40% faster — a free mount until 40'],
-    [40, 'Dire Bear Form & Tranquility', 'Innervate too'],
-    [50, 'Hurricane', 'Big AoE channel'],
+    [30, 'Travel Form & Tranquility', '40% faster travel, plus your big group heal'],
+    [40, 'Dire Bear Form & Hurricane', 'Innervate too'],
   ],
   trees: foreverTrees('druid'),
   specs: [

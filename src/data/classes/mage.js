@@ -18,7 +18,8 @@ export default {
     [20, 'Blink & Blizzard', 'Evocation and mounts-free AoE grinding begins'],
     [24, 'Counterspell', 'Interrupt and lock out a school'],
     [26, 'Cone of Cold', 'Core of AoE frost kiting'],
-    [40, 'Portals & Ice Armor', 'Teleport groups to capitals'],
+    [30, 'Ice Armor', 'Upgrade from Frost Armor'],
+    [40, 'Portals', 'Teleport groups to capitals'],
   ],
   trees: foreverTrees('mage'),
   specs: [

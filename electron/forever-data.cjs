@@ -46,6 +46,9 @@ function captureData(src) {
   const stub = new Proxy(function () {}, {
     get: (_t, k) => (k === 'setPageData' ? (key, val) => { page[key] = val; } : stub),
     apply: (_t, _self, args) => {
+      // WH.Gatherer.addData(type, env, data): only type 6 is spells. Other types (15 = skill lines like "Affliction")
+      // reuse the same ids and would overwrite spells such as Taunt.
+      if (typeof args[0] === 'number' && args[0] !== 6) return stub;
       for (const a of args) {
         if (a && typeof a === 'object') for (const [id, v] of Object.entries(a)) if (v?.name_enus) spells[id] = { name: v.name_enus, icon: v.icon, desc: v.description_enus };
       }

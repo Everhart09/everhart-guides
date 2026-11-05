@@ -72,11 +72,11 @@ export default {
       ],
       consumables: ['Elixir of the Mongoose', 'Major Mana Potion', 'Jagged Arrows / Thorium Shells', 'Pet food stock'],
       build: [
-        ['Deadly Aspects', 5], ['Focused Fire', 2], ['Endurance Training', 3], ['Bestial Swiftness', 1],
-        ['Unleashed Fury', 5], ['Ferocity', 5], ['Intimidation', 1], ['Bestial Discipline', 2],
-        ['Summon Hawk', 1], ['Frenzy', 5], ['Bestial Wrath', 1], ['Lethal Attacks', 5],
-        ['Efficiency', 3], ['Improved Stings', 2], ['Improved Arcane Shot', 5], ['Rapid Killing', 2],
-        ['Trueshot Aura', 1], ['Careful Aim', 2],
+        ['Deadly Aspects', 5], ['Endurance Training', 3], ['Focused Fire', 2], ['Bestial Swiftness', 1],
+        ['Unleashed Fury', 4], ['Summon Hawk', 1], ['Unleashed Fury', 1], ['Ferocity', 3],
+        ['Intimidation', 1], ['Ferocity', 2], ['Bestial Discipline', 2], ['Frenzy', 5],
+        ['Bestial Wrath', 1], ['Lethal Attacks', 5], ['Improved Stings', 2], ['Careful Aim', 5],
+        ['Improved Stings', 1], ['Rapid Killing', 2], ['Mortal Shots', 5],
       ],
     },
     {
@@ -85,12 +85,12 @@ export default {
       difficulty: 2,
       ratings: { leveling: 4, solo: 4, group: 4, pvp: 4, raid: 5 },
       summary:
-        'Marksmanship focuses on personal ranged damage. Lethal Attacks, Careful Aim and Mortal Shots make crits hit hard, Ranged Weapon Specialization boosts every shot, and Trueshot Aura buffs your whole party. Sniper Shot is a long-range 31-point finisher. The standard raiding spec, and Aimed Shot + Scatter Shot are strong in PvP.',
+        'Marksmanship focuses on personal ranged damage. Lethal Attacks, Careful Aim and Mortal Shots make crits hit hard, Ranged Weapon Specialization boosts every shot, and Trueshot Aura buffs your whole party. Sniper Shot is a long-range 31-point finisher, and Lone Wolf adds 20% damage while you fight with your pet dismissed. The standard raiding spec.',
       pros: [
         'Highest hunter raid DPS',
         'Trueshot Aura is a valuable party buff',
-        'Scatter Shot gives PvP control',
-        'Less reliant on pet survival',
+        'Lone Wolf: 20% more damage with no pet out',
+        'No pet to manage or keep alive',
       ],
       cons: [
         'Mana-hungry in long fights',
@@ -113,12 +113,13 @@ export default {
         opener: ["**Hunter's Mark**", '**Aimed Shot**', '**Multi-Shot**', '**Arcane Shot**'],
         single: ['**Auto Shot** never stops', '**Aimed Shot** between Auto Shots', '**Multi-Shot** on cooldown', '**Arcane Shot** while moving'],
         aoe: ['**Multi-Shot** with Barrage', '**Volley** for large packs'],
-        cooldowns: ['**Rapid Fire** + trinkets', '**Feign Death** to drop aggro', '**Scatter Shot** → trap in PvP'],
-        notes: ['**Tranquilizing Shot** on enraged bosses', 'Keep pet alive with **Mend Pet**'],
+        cooldowns: ['**Rapid Fire** + trinkets', '**Feign Death** to drop aggro', '**Freezing Trap** to control an extra enemy'],
+        notes: ['**Tranquilizing Shot** on enraged bosses', '**Dismiss Pet** for Lone Wolf: 20% more damage with no pet out'],
       },
       leveling: [
         'Very viable to level as MM — big Aimed Shot openers',
         'Deadly Aspects (Beast Mastery row 1) is a strong early pick for faster leveling',
+        'Lone Wolf (20) wants your pet dismissed; keep it out to tank tough pulls while leveling if you prefer',
       ],
       professions: [
         { name: 'Engineering', why: 'Scopes & Biznicks' },
@@ -126,10 +127,10 @@ export default {
       ],
       consumables: ['Elixir of the Mongoose', 'Juju Might', 'Major Mana Potion', 'Thorium Headed Arrows'],
       build: [
-        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Rapid Killing', 2], ['Improved Arcane Shot', 3],
-        ['Mortal Shots', 5], ['Trueshot Aura', 1], ['Barrage', 3], ['Scatter Shot', 1],
-        ['Ranged Weapon Specialization', 5], ['Sniper Shot', 1], ['Efficiency', 5], ['Deadly Aspects', 5],
-        ['Focused Fire', 2], ['Endurance Training', 3], ['Unleashed Fury', 5],
+        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Lone Wolf', 1], ['Efficiency', 3],
+        ['Improved Stings', 1], ['Trueshot Aura', 1], ['Improved Stings', 2], ['Rapid Killing', 2],
+        ['Improved Arcane Shot', 5], ['Mortal Shots', 5], ['Sniper Shot', 1], ['Barrage', 3],
+        ['Rapid Recuperation', 2], ['Ranged Weapon Specialization', 5], ['Deadly Aspects', 5], ['Improved Tracking', 5],
       ],
     },
     {
@@ -138,16 +139,16 @@ export default {
       difficulty: 3,
       ratings: { leveling: 4, solo: 4, group: 3, pvp: 5, raid: 3 },
       summary:
-        'Survival in WoW Forever is a hybrid melee hunter. Predator\'s Edge boosts melee crits and off-hand damage, Expose Prey procs Mongoose Bite off Hunter\'s Mark, and Lacerating Strikes adds a bleed. Deterrence, Counterattack and Strider Kick keep you alive and mobile, and Lightning Reflexes adds 10% Agility.',
+        'Survival in WoW Forever is a hybrid melee hunter. Predator\'s Edge boosts melee crits and off-hand damage, Expose Prey procs Mongoose Bite off Hunter\'s Mark, and Lacerating Strikes adds a bleed. Counterattack and Strider Kick keep you in control and mobile, Lightning Reflexes adds 10% Agility, and Lone Wolf adds 20% damage while you fight with your pet dismissed.',
       pros: [
         'Strong in melee range — the classic hunter dead zone stops being a weakness',
-        'Excellent survivability with Deterrence, Survivalist and Counterattack',
-        'Traps hit harder and come back faster (Clever Traps, Survivalist\'s Discipline)',
+        'Sturdy with Survivalist health and Counterattack on parries',
+        'Traps hit harder and last longer (Clever Traps), and Resourcefulness makes them cheap',
         'Lightning Reflexes makes Agility gear hit harder',
       ],
       cons: [
         'Needs good melee weapons as well as a ranged weapon',
-        'Pet is weaker than in Beast Mastery',
+        'Lone Wolf means no pet to hold threat for you',
         'Melee uptime can be hard against kiting classes',
       ],
       stats: [
@@ -167,12 +168,12 @@ export default {
         opener: ['**Freezing Trap** pre-placed', "**Hunter's Mark** (enables Expose Prey procs)", '**Aimed Shot** → **Arcane Shot** as they close'],
         single: ['**Mongoose Bite** whenever it lights up — Lacerating Strikes adds a bleed', '**Raptor Strike** on cooldown', '**Counterattack** after a parry', '**Wing Clip** runners; **Strider Kick** to catch up'],
         aoe: ['**Explosive Trap** + **Multi-Shot**', '**Volley** at range'],
-        cooldowns: ['**Deterrence** when focused by melee', '**Feign Death** → **Freezing Trap** reset', '**Rapid Fire** for ranged burst'],
+        cooldowns: ['**Feign Death** → **Freezing Trap** reset', '**Rapid Fire** for ranged burst'],
         notes: ['Keep **Hunter\'s Mark** on your target at all times', 'Use **Aspect of the Beast** (30) in melee, **Aspect of the Hawk** at range'],
       },
       leveling: [
         'Survival levels well — Mongoose Bite and Raptor Strike handle mobs that reach you',
-        'Pick up Deterrence early for emergencies',
+        'Lone Wolf (Marksmanship) wants your pet dismissed; keep it out to tank while leveling if you prefer',
       ],
       professions: [
         { name: 'Engineering', why: 'PvP essential' },
@@ -181,10 +182,10 @@ export default {
       consumables: ['Elixir of the Mongoose', 'Free Action Potion', 'Major Mana Potion'],
       build: [
         ['Improved Tracking', 5], ['Savage Strikes', 2], ['Survivalist', 3], ['Surefooted', 3],
-        ['Deterrence', 1], ['Clever Traps', 1], ["Predator's Edge", 5], ['Counterattack', 1],
-        ['Expose Prey', 2], ['Resourcefulness', 2], ['Lightning Reflexes', 5], ['Lacerating Strikes', 1],
-        ['Lethal Attacks', 5], ['Efficiency', 3], ['Careful Aim', 2], ['Improved Arcane Shot', 3],
-        ['Rapid Killing', 2], ['Trueshot Aura', 1], ['Hawk Eye', 3], ['Improved Concussive Shot', 1],
+        ['Clever Traps', 2], ["Predator's Edge", 5], ['Expose Prey', 2], ['Strider Kick', 1],
+        ['Survival Tactics', 2], ['Resourcefulness', 2], ['Lightning Reflexes', 3], ['Lacerating Strikes', 1],
+        ['Lightning Reflexes', 2], ['Deadly Aspects', 5], ['Lethal Attacks', 5], ['Careful Aim', 5],
+        ['Rapid Killing', 2], ['Lone Wolf', 1],
       ],
     },
   ],

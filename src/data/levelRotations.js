@@ -319,25 +319,26 @@ export const LEVEL_ROTATIONS = {
       'This is the Beast Mastery setup you will use at 60. Line up Bestial Wrath, Summon Hawk and Rapid Fire on tough targets.'],
     ],
     marksmanship: [
-      [25, 'Mortal Shots', [
+      [25, 'Trueshot Aura & Lone Wolf', [
+        ['**Trueshot Aura** always on', 'More attack power for you and your group.'],
+        ['**Dismiss Pet** when you can manage without it', 'Lone Wolf gives 20% more damage with no pet out. Keep the pet while leveling if you want it to tank.'],
         ['**Aimed Shot** opener', 'Start every fight with a big hit.'],
-        ['**Arcane Shot** (Improved Arcane Shot) + **Multi-Shot**', 'Shorter cooldowns mean more shots between Auto Shots.'],
-        ['**Rapid Fire** — Rapid Killing lowers its cooldown', 'Use it more often thanks to your talents.'],
+        ['**Arcane Shot** + **Multi-Shot**', 'Your regular shots between Auto Shots.'],
       ], 'Careful Aim turns your Intellect into attack power.',
       'Marksmanship focuses on your own shots. Open with Aimed Shot, then cycle Arcane Shot and Multi-Shot.'],
-      [30, 'Trueshot Aura', [
-        ['**Trueshot Aura** always on', 'More attack power for you and your group.'],
+      [30, 'Improved Arcane Shot', [
         ['**Aimed Shot** between Auto Shots', 'Fit it in without delaying your next Auto Shot.'],
-        ['**Multi-Shot** + **Arcane Shot**', 'Your regular shots.'],
-        ['**Feign Death** (30) to drop threat', 'Fake your death to drop a mob onto your pet or reset a bad pull.'],
+        ['**Arcane Shot** (Improved Arcane Shot) + **Multi-Shot**', 'Shorter cooldowns mean more shots between Auto Shots.'],
+        ['**Rapid Fire**: Rapid Killing lowers its cooldown', 'Use it more often thanks to your talents.'],
+        ['**Feign Death** (30) to drop threat', 'Fake your death to reset a bad pull.'],
       ], '',
-      'Trueshot Aura is permanent extra damage. Feign Death lets you escape mistakes.'],
-      [34, 'Scatter Shot', [
+      'Your shots come around faster now. Feign Death lets you escape mistakes.'],
+      [35, 'Mortal Shots', [
         ['**Aimed Shot** + **Multi-Shot**', 'Your main damage.'],
-        ['**Scatter Shot** → step back → keep shooting', 'Disorients the target so you can regain range.'],
+        ['**Arcane Shot** while moving', 'Instant damage.'],
         ['**Rapid Fire** for burst', 'Use it on harder targets.'],
       ], '',
-      'Scatter Shot is your range control: disorient, step back, keep shooting.'],
+      'Mortal Shots makes your ranged crits hit much harder, so Lethal Attacks and Careful Aim pay off even more.'],
       [40, 'Sniper Shot', [
         ['**Sniper Shot** to open from long range', 'A Forever ability that opens from extra distance.'],
         ['**Aimed Shot** between Auto Shots', 'Your big hit.'],
@@ -355,12 +356,12 @@ export const LEVEL_ROTATIONS = {
         ['**Wing Clip** → step back if needed', 'Slow and reposition when you want range again.'],
       ], 'Survival in Forever fights well in melee range.',
       'Survival in Forever is comfortable in melee. Let mobs come to you and use Raptor Strike and Mongoose Bite alongside your pet.'],
-      [23, 'Deterrence', [
-        ['**Deterrence** when melee is on you', 'Greatly increases your dodge and parry for a few seconds.'],
-        ['**Raptor Strike** + **Mongoose Bite**', 'Your melee damage.'],
+      [25, "Predator's Edge", [
         ['**Arcane Shot** + **Multi-Shot** at range', 'Use your shots while mobs approach.'],
+        ['**Raptor Strike** + **Mongoose Bite**', "Predator's Edge makes their crits hit 30% harder."],
+        ['Dual-wield one-handers', "Predator's Edge also adds 50% off-hand damage."],
       ], '',
-      'Deterrence keeps you alive when several mobs are hitting you.'],
+      "Predator's Edge makes melee your main damage: big Raptor Strike and Mongoose Bite crits, and a stronger off-hand."],
       [30, 'Counterattack & Aspect of the Beast', [
         ['**Aspect of the Beast** in melee', 'More attack power while fighting up close.'],
         ['**Counterattack** after you parry', 'A free strike that also roots the target.'],
@@ -409,12 +410,12 @@ export const LEVEL_ROTATIONS = {
       'Poisons are a big damage increase. Keep both weapons coated, and use Vanish to escape fights you cannot win.'],
     ],
     combat: [
-      [25, 'Dual Wield Specialization', [
+      [25, 'Precision', [
         ['**Slice and Dice** up', 'Keep it running the whole fight.'],
         ['**Sinister Strike** to 5', 'Your combo builder.'],
         ['**Eviscerate**', 'Your finisher.'],
         ['**Kidney Shot** (30) to stop runners', 'A finisher that stuns instead of damaging.'],
-      ], 'Precision and Dual Wield Specialization make your off-hand count.',
+      ], 'Precision makes your attacks miss less; Dual Wield Specialization (33) later makes your off-hand count.',
       'Combat is the steady, sturdy leveling rogue. Keep Slice and Dice up and alternate Sinister Strike and Eviscerate.'],
       [31, 'Blade Flurry', [
         ['**Slice and Dice** up', 'Keep it running.'],
@@ -429,7 +430,14 @@ export const LEVEL_ROTATIONS = {
         ['**Eviscerate**', 'Spend them.'],
         ['**Adrenaline Rush** + **Blade Flurry** together', 'Double energy regeneration plus cleave for a huge burst.'],
       ], 'Hack and Slash rewards axes and swords with extra attacks.',
-      'This is the Combat rotation you will use at 60. Stack Adrenaline Rush with Blade Flurry for burst on tough or multiple targets.'],
+      'Stack Adrenaline Rush with Blade Flurry for burst on tough or multiple targets.'],
+      [44, 'Shank', [
+        ['**Slice and Dice** up', 'Keep it running.'],
+        ['**Shank** on cooldown unless it would cap your Energy', 'Costs 5 Energy and gives back 25; Flash of Steel makes it give more and come back faster.'],
+        ['**Sinister Strike** to 5', 'Build points.'],
+        ['**Eviscerate**', 'Spend them.'],
+      ], 'Shank is close to free damage, so fit it in every time it is ready.',
+      'This is the Combat rotation you will use at 60: Slice and Dice up, Shank on cooldown, Sinister Strike to five and Eviscerate.'],
     ],
     assassination: [
       [24, 'Dagger openers', [
@@ -446,36 +454,36 @@ export const LEVEL_ROTATIONS = {
         ['**Kidney Shot** (30) to lock down', 'Stun a target to stop casts or escapes.'],
       ], '',
       'Cold Blood gives you a guaranteed crit Eviscerate for burst.'],
-      [30, 'Mutilate', [
-        ['**Mutilate** to build — two daggers, 2 combo points', 'Hits with both daggers and gives two combo points at once.'],
-        ['**Slice and Dice** up', 'Keep it running.'],
-        ['**Eviscerate** at 5', 'Your finisher.'],
-        ['**Cold Blood** → **Eviscerate** for burst', 'Save it for tough targets.'],
-      ], 'Mutilate deals extra damage to poisoned targets.',
-      'Mutilate replaces Backstab and Sinister Strike as your builder and works from any angle. Two points per press means you reach five quickly.'],
       [35, 'Seal Fate', [
-        ['**Mutilate** — crits now add extra combo points', 'Seal Fate gives an extra point on crits, so you often reach five in two presses.'],
+        ['**Backstab** from behind: crits now add extra combo points', 'Seal Fate gives an extra point on crits, so you reach five faster.'],
         ['**Slice and Dice** up', 'Keep it running.'],
         ['**Eviscerate** at 5', 'Your finisher.'],
       ], 'Seal Fate makes crit your best stat.',
       'Seal Fate turns crits into extra combo points, so crit is now your most valuable stat.'],
-      [40, 'Venom', [
-        ['**Venom** finisher up', 'A Forever finisher that boosts your poison damage. Keep it running like Slice and Dice.'],
-        ['**Mutilate** to build', 'Your builder.'],
+      [40, 'Mutilate', [
+        ['**Mutilate** to build: two daggers, 2 combo points', 'Hits with both daggers and gives two combo points at once, plus more when it crits.'],
+        ['**Slice and Dice** up', 'Keep it running.'],
+        ['**Eviscerate** at 5', 'Your finisher.'],
+        ['**Cold Blood** → **Eviscerate** for burst', 'Save it for tough targets.'],
+      ], 'Mutilate deals extra damage to poisoned targets.',
+      'Mutilate replaces Backstab and Sinister Strike as your builder and works from any angle. With Seal Fate you often reach five points in two presses.'],
+      [44, 'Shank & Venom', [
         ['**Slice and Dice** up', 'Still keep it running.'],
+        ['**Shank** on cooldown', 'Costs 5 Energy and gives back 25. With the Venom talent it also boosts your poison damage by 30% for 6 seconds.'],
+        ['**Mutilate** to build', 'Your builder.'],
         ['**Eviscerate** at 5', 'Spend the rest on Eviscerate.'],
-      ], 'Venom boosts poison damage by 30% — keep it rolling.',
-      'This is the Assassination rotation you will use at 60: keep Venom and Slice and Dice up, build with Mutilate and spend extra points on Eviscerate.'],
+      ], 'Venom works through Shank, so never let Shank sit off cooldown.',
+      'This is the Assassination rotation you will use at 60: keep Slice and Dice up, Shank on cooldown to keep Venom running, build with Mutilate and spend extra points on Eviscerate.'],
     ],
     subtlety: [
-      [23, 'Ghostly Strike', [
+      [25, 'Ghostly Strike', [
         ['**Ambush** or **Cheap Shot** (26) to open', 'Open from Stealth.'],
         ['**Ghostly Strike** for extra dodge', 'A combo builder that also makes you dodge more for a few seconds.'],
         ['**Sinister Strike** to 5', 'Build points.'],
         ['**Eviscerate**', 'Spend them.'],
       ], '',
       'Subtlety is the stealth and control spec. Ghostly Strike adds survivability to your rotation.'],
-      [25, 'Premeditation', [
+      [26, 'Premeditation', [
         ['**Premeditation** → **Cheap Shot**', 'Two free combo points before the fight starts.'],
         ['**Ghostly Strike** / **Sinister Strike** to 5', 'Build the rest.'],
         ['**Eviscerate** or **Kidney Shot** (30)', 'Damage, or control with a stun.'],
@@ -493,13 +501,13 @@ export const LEVEL_ROTATIONS = {
         ['**Rupture** (Serrated Blades) or **Eviscerate** at 5', 'Rupture on long fights, Eviscerate on short ones.'],
       ], 'Hemorrhage works with any weapon — 145% damage with a dagger.',
       'Hemorrhage replaces Sinister Strike as your builder.'],
-      [40, 'Thousand Cuts', [
-        ['**Rupture** up — its ticks make **Hemorrhage** cheaper', 'A Forever talent synergy: keep Rupture rolling.'],
+      [44, 'Shank', [
+        ['**Hemorrhage** up, then **Rupture**', 'Hemorrhage makes your Rupture and Garrote hit 15% harder, and Serrated Blades boosts Rupture further.'],
+        ['**Shank** on cooldown', 'Costs 5 Energy and gives back 25, keeping your Hemorrhages flowing.'],
         ['**Hemorrhage** to build', 'Your builder.'],
         ['**Eviscerate** / **Kidney Shot** at 5', 'Damage or control.'],
-        ['Quietus: Hemorrhage hits harder below 35% health', 'Lean on Hemorrhage as the target gets low.'],
       ], '',
-      'This is the Subtlety setup you will use at 60: Rupture up so Hemorrhage stays cheap, and finishers for damage or stuns.'],
+      'This is the Subtlety setup you will use at 60: Hemorrhage and Rupture up, Shank on cooldown for Energy, and finishers for damage or stuns.'],
     ],
   },
 
@@ -628,14 +636,14 @@ export const LEVEL_ROTATIONS = {
       'Totems join the rotation. Drop Searing Totem at the start of each fight for free damage.'],
     ],
     enhancement: [
-      [20, 'Elemental Weapons', [
+      [24, 'Elemental Weapons', [
         ['Slow two-hander with **Rockbiter Weapon**', 'Enhancement scales with big, slow weapons.'],
         ['**Searing Totem** + **Strength of Earth Totem**', 'Damage plus more Strength.'],
         ['**Earth Shock** to finish or interrupt', 'Instant damage when needed.'],
         ['**Lightning Shield** up', 'Passive damage.'],
       ], 'Mental Dexterity turns your Intellect into attack power.',
       'Enhancement is a melee shaman. Use a slow two-hander, drop your totems and fight up close.'],
-      [25, 'Flurry', [
+      [28, 'Flurry', [
         ['**Rockbiter Weapon** (or **Windfury Weapon** at 30)', 'Your weapon enchant.'],
         ['**Earth Shock** to finish', 'Instant finisher.'],
         ['**Flame Shock** on tougher mobs', 'Damage over time for longer fights.'],
@@ -648,7 +656,7 @@ export const LEVEL_ROTATIONS = {
         ['**Reincarnation** saves your life', 'Resurrect yourself if a fight goes wrong.'],
       ], '',
       'Windfury and Stormstrike are the heart of Enhancement. Stormstrike first, then Earth Shock while the bonus is active.'],
-      [35, 'Maelstrom Weapon', [
+      [37, 'Maelstrom Weapon', [
         ['**Windfury Weapon** on', 'Your weapon enchant.'],
         ['**Stormstrike** on cooldown', 'Your main strike.'],
         ['**Lightning Bolt** at 5 Maelstrom Weapon stacks', 'Five stacks make Lightning Bolt instant.'],
@@ -670,26 +678,27 @@ export const LEVEL_ROTATIONS = {
         ['**Searing Totem** on tougher mobs', 'Extra damage.'],
       ], 'Elemental Alacrity makes Lightning Bolt much faster.',
       'Elemental is a ranged caster. Chain Lightning Bolts as the mob approaches, then finish with Earth Shock.'],
-      [30, 'Lightning Overload', [
+      [33, 'Lightning Overload', [
         ['**Lightning Bolt** — chance for a free second bolt', 'Lightning Overload sometimes fires an extra bolt.'],
         ['**Flame Shock**', 'Damage over time.'],
         ['**Earth Shock** to finish', 'Instant finisher.'],
         ['**Chain Lightning** (32) for packs', 'Hits several targets.'],
       ], '',
       'Lightning Overload gives your bolts a chance to fire twice.'],
-      [35, 'Elemental Fury', [
+      [36, 'Elemental Fury', [
         ['**Chain Lightning** to open', 'A big opener that hits several targets.'],
         ['**Lightning Bolt**', 'Your main spell.'],
         ['**Earth Shock** to finish', 'Instant finisher.'],
       ], 'Elemental Fury doubles your crit damage bonus.',
       'Elemental Fury makes your crits hit much harder.'],
-      [40, 'Lava Burst', [
-        ['**Flame Shock**', 'Apply it first.'],
-        ['**Lava Burst** (hits harder with Flame Shock)', 'A big hit that is strongest on targets with Flame Shock.'],
-        ['**Chain Lightning** / **Lightning Bolt**', 'Your fillers.'],
+      [40, 'Lightning Mastery', [
+        ['**Flame Shock** up', 'Damage over time on your target.'],
+        ['**Lightning Mastery** on tough fights', 'For 15 seconds Chain Lightning has no cooldown and Lightning Bolt casts 0.5 sec faster.'],
+        ['**Chain Lightning** on cooldown', 'Your strongest cast.'],
+        ['**Lightning Bolt**', 'Your filler.'],
         ['**Earth Shock** while moving', 'Instant damage on the move.'],
       ], '',
-      'This is the Elemental rotation you will use at 60: Flame Shock, Lava Burst, then Lightning Bolt and Chain Lightning.'],
+      'This is the Elemental rotation you will use at 60: Flame Shock up, Chain Lightning on cooldown, Lightning Bolt in between, and Lightning Mastery for burst.'],
     ],
     restoration: [
       [20, 'Water Shield', [
@@ -856,19 +865,19 @@ export const LEVEL_ROTATIONS = {
         ['**Fear** extra mobs', 'Handle adds.'],
       ], 'Instant Corruption works while moving.',
       'Affliction stacks damage over time on everything and drains life to stay healthy.'],
-      [25, 'Nightfall', [
+      [30, 'Siphon Life', [
+        ['**Siphon Life** + **Corruption** + **Bane of Agony**', 'More damage over time, plus healing.'],
+        ['**Drain Life**', 'Your main channel and your healing.'],
+        ['Wand when DoTs are ticking', 'Save mana.'],
+      ], '',
+      'Siphon Life adds more sustain. Your damage over time spells do most of the work.'],
+      [34, 'Nightfall', [
         ['DoTs up', 'Keep them ticking.'],
         ['**Drain Life**', 'Your main channel.'],
         ['Instant **Shadow Bolt** on Nightfall procs', 'Free instant Shadow Bolts.'],
         ['**Life Tap** + **Drain Life** cycle', 'Endless mana and health.'],
       ], '',
       'Nightfall gives you free instant Shadow Bolts while you drain.'],
-      [30, 'Siphon Life', [
-        ['**Siphon Life** + **Corruption** + **Bane of Agony**', 'More damage over time, plus healing.'],
-        ['**Drain Life** — Soul Siphon makes it stronger per DoT', 'More DoTs means stronger drains.'],
-        ['Wand when DoTs are ticking', 'Save mana.'],
-      ], '',
-      'Siphon Life adds more sustain. Your damage over time spells do most of the work.'],
       [40, 'Wrack', [
         ['DoTs up', 'Keep them ticking.'],
         ['**Wrack** — boosts your other DoTs by 10%', 'A Forever ability that strengthens your damage over time.'],
@@ -878,31 +887,32 @@ export const LEVEL_ROTATIONS = {
       'This is the Affliction setup you will use at 60: every damage over time spell up, Wrack to boost them and Drain Life for sustain.'],
     ],
     demonology: [
-      [20, 'Master Summoner', [
+      [20, 'Demonic Sacrifice', [
         ['Pet attacks', 'Your pet does the heavy lifting.'],
         ['**Bane of Agony** + **Corruption**', 'Your damage over time.'],
         ['**Shadow Bolt**', 'Your main hit.'],
-        ['**Health Funnel** your pet', 'Keep it alive.'],
+        ['**Demonic Sacrifice** for a big buff when needed', 'Sacrifice your pet for a strong buff, then resummon.'],
       ], 'Demonic Embrace makes you much tankier.',
       'Demonology invests in your pet and your own toughness.'],
-      [25, 'Fel Domination', [
-        ['Pet tanks, DoTs + **Shadow Bolt**', 'Your core rotation.'],
-        ['**Fel Domination** to resummon fast', 'Instant pet summon.'],
-        ['**Demonic Sacrifice** for a big buff when needed', 'Sacrifice your pet for a strong buff.'],
+      [25, 'Demonic Energies', [
+        ['Pet tanks, DoTs + **Shadow Bolt**', 'Your core rotation; your spell damage now heals your pet.'],
+        ['**Life Tap**', 'With Demonic Energies your pet gets the mana too.'],
+        ['**Health Funnel** your pet', 'Keep it alive on long fights.'],
       ], '',
-      'Fel Domination lets you resummon a pet instantly if it dies.'],
+      'Demonic Energies keeps your pet healthy and topped up on mana just by fighting.'],
       [30, 'Soul Link', [
         ['**Soul Link** always on', 'Shares damage between you and your pet.'],
         ['Pet tanks, DoTs + **Shadow Bolt**', 'Your core rotation.'],
         ['**Health Funnel** the pet', 'Keep it alive.'],
       ], 'Felhunter at 30 is great against casters.',
       'Soul Link makes you and your pet much harder to kill.'],
-      [40, 'Demonic Pact', [
-        ['**Demonic Sacrifice** your Succubus, then summon another pet — Demonic Pact keeps the buff', 'A Forever synergy: keep the sacrifice buff and a pet.'],
-        ['**Soul Link** on', 'Shared damage.'],
-        ['DoTs + **Shadow Bolt**', 'Your core rotation.'],
+      [40, 'Master Demonologist', [
+        ['Pick your pet for the fight', 'Master Demonologist: Imp for 10% Fire damage, Succubus for 10% Shadow damage, Voidwalker or Felhunter for less damage taken.'],
+        ['**Soul Link** on', 'Shared damage, and 3% more damage for you and the pet.'],
+        ['DoTs + **Shadow Bolt**', 'Your core rotation; Demonic Knowledge adds spell damage while your pet is out.'],
+        ['**Soul Fire** on targets below 35%', 'Decimation makes it faster and free of Soul Shards after a Shadow Bolt.'],
       ], '',
-      'This is the Demonology setup you will use at 60: sacrifice a Succubus, summon a new pet and keep Soul Link up.'],
+      'This is the Demonology setup you will use at 60: keep your pet out for Demonic Knowledge, Master Demonologist and Soul Link, and finish targets with Soul Fire.'],
     ],
     destruction: [
       [20, 'Ruin', [
@@ -992,25 +1002,32 @@ export const LEVEL_ROTATIONS = {
         ['**Wrath** filler', 'Your quicker spell.'],
       ], '',
       'Starfire is your big hit.'],
-      [25, 'Vengeance crits', [
-        ['**Moonfire**', 'Damage over time.'],
-        ['**Starfire** — Vengeance doubles crit damage', 'Big crits.'],
+      [25, 'Insect Swarm', [
+        ['**Moonfire** + **Insect Swarm**', 'Two damage over time spells; Genesis makes them stronger.'],
+        ['**Starfire** for big hits', 'A slow but very strong spell.'],
+        ['**Wrath** filler', 'Your quicker spell.'],
+      ], '',
+      'Two damage over time spells tick while you cast Starfire and Wrath.'],
+      [32, 'Vengeance crits', [
+        ['**Moonfire** + **Insect Swarm**', 'Damage over time.'],
+        ['**Starfire**: Vengeance doubles crit damage', "Big crits, and Nature's Grace speeds up your next cast."],
         ['**Wrath** filler', 'Your quicker spell.'],
       ], '',
       'Vengeance makes your crits hit much harder.'],
-      [31, 'Eclipse', [
-        ['**Moonfire** + **Insect Swarm** (34)', 'Two damage over time spells.'],
-        ['**Wrath** to build Eclipse charges', 'Builds toward Eclipse.'],
-        ['**Starfire** with Eclipse charges', 'Eclipse makes Starfire stronger.'],
-      ], '',
-      'Eclipse links Wrath and Starfire: build charges with Wrath, then spend them on Starfire.'],
       [40, 'Moonkin Form', [
         ['**Moonkin Form** on', 'More armor and crit for your spells.'],
         ['**Moonfire** + **Insect Swarm**', 'Your damage over time.'],
-        ['**Wrath** → **Starfire** (Eclipse)', 'Your core cycle.'],
+        ['**Starfire** / **Wrath**', 'Your casts.'],
         ['**Hurricane** for packs', 'AoE damage.'],
       ], "You can't heal in Moonkin Form.",
-      'This is the Balance setup you will use at 60: Moonkin Form, both damage over time spells and the Eclipse cycle.'],
+      'Moonkin Form boosts your spell crit and armor. Stay in it while you fight.'],
+      [43, 'Eclipse', [
+        ['**Moonkin Form** on', 'Stay in it.'],
+        ['**Moonfire** + **Insect Swarm**', 'Your damage over time.'],
+        ['**Wrath** to build Eclipse charges', 'Each Wrath makes your next 2 Starfires 0.5 sec faster, up to 4 charges.'],
+        ['**Starfire** with Eclipse charges', 'Spend the charges on faster Starfires.'],
+      ], '',
+      'This is the Balance setup you will use at 60: Moonkin Form, both damage over time spells and the Eclipse cycle of Wrath into faster Starfires.'],
     ],
     restoration: [
       [12, 'Regrowth', [

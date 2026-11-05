@@ -56,7 +56,7 @@ export default {
         opener: ['Send in **Voidwalker**', '**Bane of Agony**', '**Corruption** (instant)', '**Siphon Life**', '**Immolate** if time allows'],
         single: ['Keep **Corruption**, **Bane of Agony** and **Siphon Life** up', '**Drain Life** to heal & finish', 'Instant **Shadow Bolt** on Nightfall procs', 'Wand when DoTs are ticking & mana is low'],
         aoe: ['DoT 2–3 mobs, Voidwalker holds them', '**Fear** extras', '**Hellfire** / **Rain of Fire** for big packs'],
-        cooldowns: ['**Death Coil** — instant fear & heal (42)', '**Life Tap** for mana (Improved Life Tap / Soul Harvest help)', 'Healthstone & Voidwalker **Sacrifice** shield'],
+        cooldowns: ['**Death Coil** — instant fear & heal (42)', '**Life Tap** for mana (Improved Life Tap helps)', 'Healthstone & Voidwalker **Sacrifice** shield'],
         notes: ['Drain Soul the last 25% of a mob to collect shards', 'Keep **Demon Armor** up'],
       },
       leveling: [
@@ -71,11 +71,11 @@ export default {
       ],
       consumables: ['Elixir of Shadow Power', 'Greater Arcane Elixir', 'Major Mana Potion', 'Elixir of Fortitude'],
       build: [
-        ['Improved Corruption', 5], ['Suppression', 3], ['Improved Drains', 2], ['Improved Bane of Agony', 2],
-        ['Amplify Curse', 1], ['Fel Concentration', 2], ['Nightfall', 2], ['Malevolence', 3],
-        ['Siphon Life', 1], ['Soul Siphon', 3], ['Suppression', 1], ['Shadow Mastery', 5],
-        ['Wrack', 1], ['Demonic Embrace', 5], ['Improved Health Funnel', 2], ['Improved Voidwalker', 3],
-        ['Fel Vitality', 3], ['Master Summoner', 2], ['Fel Domination', 1], ['Unholy Power', 4],
+        ['Improved Corruption', 5], ['Suppression', 4], ['Improved Life Tap', 2], ['Suppression', 1],
+        ['Improved Drains', 3], ['Grim Reach', 2], ['Improved Bane of Agony', 2], ['Fel Concentration', 1],
+        ['Siphon Life', 1], ['Pandemic', 3], ['Nightfall', 2], ['Malevolence', 4],
+        ['Wrack', 1], ['Malevolence', 1], ['Soul Siphon', 3], ['Shadow Mastery', 5],
+        ['Demonic Embrace', 5], ['Fel Vitality', 3], ['Demonic Aegis', 2], ['Demonic Sacrifice', 1],
       ],
     },
     {
@@ -84,11 +84,11 @@ export default {
       difficulty: 2,
       ratings: { leveling: 4, solo: 5, group: 3, pvp: 4, raid: 2 },
       summary:
-        'Demonology empowers your pets and makes you extremely tanky. Soul Link sends 30% of your damage taken to your demon, Master Demonologist adds bonuses per pet, Demonic Knowledge adds spell damage while a demon is out, and Demonic Pact lets you keep your Demonic Sacrifice buff while using another pet. Demonic Embrace boosts Stamina. Amazing for solo content and world PvP survivability.',
+        'Demonology empowers your pets and makes you extremely tanky. Soul Link sends 30% of your damage taken to your demon, Master Demonologist adds bonuses per pet, Demonic Knowledge adds spell damage while a demon is out, and Decimation makes Soul Fire a fast, shard-free finisher on low-health targets. Demonic Embrace boosts Stamina. Amazing for solo content and world PvP survivability.',
       pros: [
         'Incredibly durable — Soul Link + Demonic Embrace',
         'Pets hit harder and live longer',
-        'Fel Domination for instant pet resummon in PvP',
+        'Demonic Energies heals your pet as you deal damage',
         'Very relaxed solo play',
       ],
       cons: [
@@ -112,7 +112,7 @@ export default {
         opener: ['Pet attacks first', '**Bane of Agony** + **Corruption**', '**Shadow Bolt** spam'],
         single: ['Keep DoTs up', '**Shadow Bolt** filler', '**Health Funnel** your pet when needed', '**Drain Life** for sustain'],
         aoe: ['**Fear** and **Seduce** extra targets', '**Rain of Fire** if the pet holds threat'],
-        cooldowns: ['**Soul Link** is always up', '**Fel Domination** to resummon a dead pet fast', '**Death Coil** for emergencies'],
+        cooldowns: ['**Soul Link** is always up', '**Soul Fire** on targets below 35% (Decimation)', '**Death Coil** for emergencies'],
         notes: ['Felhunter for PvP vs casters, Voidwalker for leveling, Succubus for damage'],
       },
       leveling: [
@@ -125,12 +125,11 @@ export default {
       ],
       consumables: ['Elixir of Fortitude', 'Greater Arcane Elixir', 'Major Mana Potion'],
       build: [
-        ['Demonic Embrace', 5], ['Improved Voidwalker', 3], ['Fel Vitality', 2], ['Master Summoner', 2],
-        ['Demonic Sacrifice', 1], ['Improved Sayaad', 2], ['Fel Domination', 1], ['Unholy Power', 4],
-        ['Soul Link', 1], ['Demonic Knowledge', 3], ['Improved Felhunter', 1], ['Master Demonologist', 5],
-        ['Demonic Pact', 1], ['Improved Corruption', 5], ['Suppression', 3], ['Improved Drains', 2],
-        ['Improved Bane of Agony', 2], ['Amplify Curse', 1], ['Fel Concentration', 2], ['Nightfall', 2],
-        ['Malevolence', 3],
+        ['Demonic Embrace', 5], ['Unholy Power', 5], ['Demonic Sacrifice', 1], ['Fel Vitality', 2],
+        ['Demonic Energies', 2], ['Fel Vitality', 1], ['Improved Sayaad', 3], ['Decimation', 1],
+        ['Soul Link', 1], ['Decimation', 1], ['Demonic Knowledge', 3], ['Master Demonologist', 5],
+        ['Suppression', 5], ['Bane', 5], ['Improved Shadow Bolt', 5], ['Ruin', 5],
+        ['Agonizing Flames', 1],
       ],
     },
     {

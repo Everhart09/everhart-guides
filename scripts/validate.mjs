@@ -8,7 +8,9 @@ import { indexTalents, unknownAbilityMentions, validateClass } from '../src/lib/
 // Bolded terms that are fine even though they aren't spells (stances/forms by name, item uses, etc.).
 const ALLOWED = ['Auto Shot', 'Auto-attack', 'Powershift',
   // Warlock pets and pet abilities
-  'Imp', 'Voidwalker', 'Succubus', 'Incubus', 'Felhunter', 'Sacrifice', 'Seduce', 'Seduction', 'Spell Lock', 'Devour Magic'];
+  'Imp', 'Voidwalker', 'Succubus', 'Incubus', 'Felhunter', 'Sacrifice', 'Seduce', 'Seduction', 'Spell Lock', 'Devour Magic',
+  // Real abilities missing from Wowhead's trainer list (Shank: rogue, level 44, spell 1329549)
+  'Shank', 'Mana gem'];
 
 let failed = 0;
 let warned = 0;

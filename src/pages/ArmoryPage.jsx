@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Icon } from '../components/icons.jsx';
 import { ClassEmblem } from '../components/GameIcon.jsx';
 import BackButton from '../components/BackButton.jsx';
-import { iconByName } from '../lib/icons.js';
+import { iconByName, professionIcon, talentIcon } from '../lib/icons.js';
 import { treePoints, specOf, nextPicks, classOf, charKey, useCharacters, upsertCharacter, toggleCharacterFav, removeCharacter, REGIONS } from '../lib/armory.js';
 
 const bridge = () => globalThis.everhart?.armory ?? null;
@@ -51,7 +51,9 @@ export default function ArmoryPage({ nav }) {
     if (!api || !hasKey || autoRan.current) return;
     autoRan.current = true;
     (async () => {
-      for (const c of chars.filter((x) => x.fav && Date.now() - (x.data?.fetchedAt ?? 0) > REFRESH_AFTER_MS)) await refresh(c);
+      // Characters saved before the character sheet (no stats yet) also refresh once.
+      const stale = (x) => !x.data?.stats || (x.fav && Date.now() - (x.data?.fetchedAt ?? 0) > REFRESH_AFTER_MS);
+      for (const c of chars.filter(stale)) await refresh(c);
     })();
   }, [api, hasKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -204,20 +206,74 @@ function CharacterCard({ c, active, busy, onSelect, onRefresh }) {
   );
 }
 
+
+// --- Character sheet (laid out like the in-game character panel) ----------------------------------
+
+const LEFT_SLOTS = ['HEAD', 'NECK', 'SHOULDER', 'BACK', 'CHEST', 'SHIRT', 'TABARD', 'WRIST'];
+const RIGHT_SLOTS = ['HANDS', 'WAIST', 'LEGS', 'FEET', 'FINGER_1', 'FINGER_2', 'TRINKET_1', 'TRINKET_2'];
+const BOTTOM_SLOTS = ['MAIN_HAND', 'OFF_HAND', 'RANGED'];
+const SLOT_ICON = {
+  HEAD: 'head', NECK: 'neck', SHOULDER: 'shoulder', BACK: 'chest', CHEST: 'chest', SHIRT: 'shirt', TABARD: 'tabard', WRIST: 'wrists',
+  HANDS: 'hands', WAIST: 'waist', LEGS: 'legs', FEET: 'feet', FINGER_1: 'finger', FINGER_2: 'finger', TRINKET_1: 'trinket', TRINKET_2: 'trinket',
+  MAIN_HAND: 'mainhand', OFF_HAND: 'offhand', RANGED: 'ranged',
+};
+const SLOT_NAME = { FINGER_1: 'Finger', FINGER_2: 'Finger', TRINKET_1: 'Trinket', TRINKET_2: 'Trinket', MAIN_HAND: 'Main Hand', OFF_HAND: 'Off Hand' };
+const CASTERS = ['mage', 'warlock', 'priest'];
+
+function Slot({ type, item, side }) {
+  const icon = item?.icon ? iconByName(item.icon) : iconByName(`inventoryslot_${SLOT_ICON[type]}`);
+  return (
+    <div className={`ar-slot ar-slot-${side} ${item ? `has q-border-${item.quality}` : 'empty'}`}>
+      <span className="ar-slot-icon"><img src={icon} alt="" width={44} height={44} /></span>
+      {item && (
+        <span className="ar-slot-text">
+          <span className={`q-${item.quality}`}>{item.name}</span>
+          {item.itemLevel != null && <em>{item.itemLevel}</em>}
+        </span>
+      )}
+      {item && (
+        <div className="ar-tip" role="tooltip">
+          <b className={`q-${item.quality}`}>{item.name}</b>
+          {item.itemLevel != null && <span className="ar-tip-gold">Item Level {item.itemLevel}</span>}
+          {(item.lines ?? []).map((l, i) => <span key={i} className={l.kind ? `ar-tip-${l.kind}` : ''}>{l.text}</span>)}
+          {!item.lines && item.enchant && <span className="ar-tip-green">{item.enchant}</span>}
+        </div>
+      )}
+      {!item && <div className="ar-tip ar-tip-small" role="tooltip"><span>{SLOT_NAME[type] ?? type[0] + type.slice(1).toLowerCase()} (empty)</span></div>}
+    </div>
+  );
+}
+
+function Stat({ icon, color, value, label }) {
+  if (value == null) return null;
+  return (
+    <div className="ar-stat" style={{ '--s': color }}>
+      <span className="ar-stat-ring"><Icon name={icon} size={20} /></span>
+      <span><b>{value}</b><em>{label}</em></span>
+    </div>
+  );
+}
+
 function CharacterDetail({ c, nav, busy, onRefresh, onRemove }) {
   const d = c.data;
   const cls = classOf(d);
   const spec = specOf(cls, d.talents);
   const totals = cls ? treePoints(cls, d.talents) : {};
-  const spent = Object.values(totals).reduce((a, b) => a + b, 0);
+  const spent = d.spec?.spent ?? Object.values(totals).reduce((a, b) => a + b, 0);
   const next = nextPicks(cls, spec, d.talents, d.level);
   const [error, setError] = useState(null);
+  const bySlot = Object.fromEntries((d.items ?? []).map((it) => [it.slotType, it]));
+  const s = d.stats ?? {};
+  const crit = cls && CASTERS.includes(cls.id) ? s.spellCrit : cls?.id === 'hunter' ? s.rangedCrit : s.meleeCrit;
+  const faction = (d.faction ?? '').toLowerCase();
+  const tree = spec && cls.trees.find((t) => t.id === spec.tree);
+  const capstone = tree && [...tree.talents].sort((a, b) => b.row - a.row)[0];
 
   const openGuide = (tab) => {
     if (!cls) return;
-    const s = spec ?? cls.specs[0];
-    try { localStorage.setItem(`everhart.level.talents.${cls.id}/${s.id}`, String(Math.max(1, d.level ?? 1))); } catch { /* fine */ }
-    nav.guide(cls.id, s.id, tab);
+    const sp = spec ?? cls.specs[0];
+    try { localStorage.setItem(`everhart.level.talents.${cls.id}/${sp.id}`, String(Math.max(1, d.level ?? 1))); } catch { /* fine */ }
+    nav.guide(cls.id, sp.id, tab);
   };
   const doRefresh = async () => {
     setError(null);
@@ -226,27 +282,59 @@ function CharacterDetail({ c, nav, busy, onRefresh, onRemove }) {
   };
 
   return (
-    <section className="panel ar-detail" style={{ '--c': cls?.color ?? 'var(--gold)' }}>
-      <header className="ar-detail-head">
-        <Portrait d={d} cls={cls} size={72} />
-        <div>
-          <div className="kicker">{[REGIONS.find((r) => r.id === c.region)?.label, d.ruleset, d.faction && d.faction[0] + d.faction.slice(1).toLowerCase()].filter(Boolean).join(' · ')}</div>
+    <section className={`ar-sheet faction-${faction || 'none'}`} style={{ '--c': cls?.color ?? 'var(--gold)' }}>
+      <header className="ar-sheet-head">
+        {(faction === 'horde' || faction === 'alliance') && <img className="ar-crest" src={`./brand/${faction}.png`} alt={d.faction} />}
+        <div className="ar-sheet-title">
           <h2>{fullName(d)}</h2>
-          <p>Level {d.level} {d.race} {spec ? `${spec.name} ` : ''}{d.className}{d.guild ? ` · <${d.guild}>` : ''}{d.itemLevel ? ` · item level ${d.itemLevel}` : ''}</p>
-          <p className="muted">Updated {ago(d.fetchedAt)}. Blizzard updates a character a little while after you log out.</p>
+          <p>
+            {d.itemLevel != null && <span className="ar-ilvl">{d.itemLevel} ILVL</span>}
+            <span>{d.level} {d.race} {d.className}</span>
+            {d.guild && <span className="ar-guild">&lt;{d.guild}&gt;</span>}
+            {d.ruleset && <span>· {d.ruleset}</span>}
+          </p>
         </div>
         <div className="ar-detail-actions">
-          {cls && <button className="btn-primary" onClick={() => openGuide('talents')}>Open {spec ? spec.name : cls.name} talents at level {d.level} <Icon name="arrow" size={13} /></button>}
           {onRefresh && <button className="btn-ghost" disabled={busy} onClick={doRefresh}>{busy ? 'Updating…' : 'Update now'}</button>}
           <button className="btn-ghost" onClick={onRemove}>Remove</button>
         </div>
       </header>
       {error && <p className="ar-error">{error}</p>}
 
-      <div className="ar-detail-grid">
+      <div className="ar-doll">
+        <div className="ar-doll-col">{LEFT_SLOTS.map((t) => <Slot key={t} type={t} item={bySlot[t]} side="left" />)}</div>
+        <div className="ar-doll-center">
+          {d.images?.main ? <img className="ar-render" src={d.images.main} alt="" /> : <span className="ar-render-none">{cls && <ClassEmblem id={cls.id} size={96} />}</span>}
+        </div>
+        <div className="ar-doll-col">{RIGHT_SLOTS.map((t) => <Slot key={t} type={t} item={bySlot[t]} side="right" />)}</div>
+        <div className="ar-doll-bottom">{BOTTOM_SLOTS.map((t, i) => <Slot key={t} type={t} item={bySlot[t]} side={i === 0 ? 'left' : 'right'} />)}</div>
+        <span className="ar-updated">Updated {ago(d.fetchedAt)} · Blizzard updates a character a little while after you log out</span>
+      </div>
+
+      {d.stats && (
+        <div className="ar-stats">
+          <Stat icon="heart" color="#2fd16a" value={s.health} label="Health" />
+          <Stat icon="star" color={s.powerType === 'Rage' ? '#e5484d' : s.powerType === 'Energy' ? '#f5d042' : '#3b8cf0'} value={s.power} label={s.powerType ?? 'Mana'} />
+          <Stat icon="sword" color="#e5484d" value={s.strength} label="Strength" />
+          <Stat icon="info" color="#e05cc4" value={s.intellect} label="Intellect" />
+          <Stat icon="arrow" color="#f5c242" value={s.agility} label="Agility" />
+          <Stat icon="shield" color="#f08a3c" value={s.stamina} label="Stamina" />
+          <Stat icon="plus" color="#e5484d" value={crit != null ? `${crit}%` : null} label="Critical Strike" />
+          <Stat icon="sun" color="#8fb4ff" value={s.spirit} label="Spirit" />
+        </div>
+      )}
+
+      <div className="ar-sections">
         <div className="ar-block">
-          <h3>Talents {spent > 0 && <span className="muted">{cls?.trees.map((t) => totals[t.id] ?? 0).join(' / ')}</span>}</h3>
-          {spent === 0 && <p className="muted">No talent points found{d.level < 10 ? ' (talents start at level 10)' : ''}.</p>}
+          <h3>Specialization</h3>
+          <div className="ar-spec-card">
+            {capstone && <img src={talentIcon(cls.id, capstone.name)} alt="" width={46} height={46} />}
+            <div>
+              <em>Active specialization</em>
+              <b>{d.spec?.name ?? spec?.name ?? 'None yet'}</b>
+              <span>{spent} Points Spent{cls && spent > 0 ? ` · ${cls.trees.map((t) => totals[t.id] ?? 0).join(' / ')}` : ''}</span>
+            </div>
+          </div>
           {next.length > 0 && (
             <>
               <p className="ar-next-label">Next in the {spec.name} {d.level >= 60 ? 'Level 60' : 'leveling'} build:</p>
@@ -255,18 +343,38 @@ function CharacterDetail({ c, nav, busy, onRefresh, onRemove }) {
               </ul>
             </>
           )}
-          {spent > 0 && spec && next.length === 0 && <p className="muted">Every point matches the guide build.</p>}
+          {cls && <button className="btn-link" onClick={() => openGuide('talents')}>View talent details at level {d.level} <Icon name="arrow" size={12} /></button>}
         </div>
 
         <div className="ar-block">
           <h3>Professions</h3>
           {d.professions?.length ? (
-            <ul className="ar-profs">
-              {d.professions.map((p) => <li key={p.name}><span>{p.name}</span><b>{p.skill ?? '?'}{p.max ? ` / ${p.max}` : ''}</b></li>)}
-            </ul>
+            <div className="ar-prof-grid">
+              {d.professions.map((p) => {
+                const id = p.name.toLowerCase().replace(/\s+/g, '-');
+                const pct = p.max ? Math.min(100, (100 * (p.skill ?? 0)) / p.max) : 0;
+                return (
+                  <div key={p.name} className="ar-prof">
+                    <span className="ar-prof-name">{professionIcon(id) && <img src={professionIcon(id)} alt="" width={22} height={22} />}{p.name}</span>
+                    <span className="ar-bar"><span style={{ width: `${pct}%` }} /><b>{p.skill ?? '?'}{p.max ? ` / ${p.max}` : ''}</b></span>
+                  </div>
+                );
+              })}
+            </div>
           ) : <p className="muted">No professions found.</p>}
         </div>
+      </div>
 
+      <div className="ar-sections">
+        {d.pvp && (
+          <div className="ar-block">
+            <h3>Player vs Player</h3>
+            <div className="ar-pvp">
+              <div><b>{d.pvp.honorableKills}</b><em>Honorable Kills</em></div>
+              <div><b>{d.pvp.rank}</b><em>Rank</em></div>
+            </div>
+          </div>
+        )}
         <div className="ar-block">
           <h3>Progress</h3>
           <ul className="ar-history">
@@ -275,23 +383,6 @@ function CharacterDetail({ c, nav, busy, onRefresh, onRemove }) {
             ))}
           </ul>
         </div>
-      </div>
-
-      <div className="ar-block">
-        <h3>Equipment</h3>
-        {d.items?.length ? (
-          <ul className="ar-gear">
-            {d.items.map((it) => (
-              <li key={it.slotType || it.slot}>
-                {it.icon ? <img src={iconByName(it.icon)} alt="" width={30} height={30} /> : <span className="ar-gear-empty" />}
-                <div>
-                  <span className={`q-${it.quality}`}>{it.name}</span>
-                  <span className="muted">{it.slot}{it.itemLevel ? ` · ilvl ${it.itemLevel}` : ''}{it.enchant ? ` · ${it.enchant}` : ''}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : <p className="muted">No equipment found.</p>}
       </div>
     </section>
   );

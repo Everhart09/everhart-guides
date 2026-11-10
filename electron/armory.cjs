@@ -105,27 +105,93 @@ function readIconMap() {
   try { return JSON.parse(fs.readFileSync(iconMapFile(), 'utf8')); } catch { return {}; }
 }
 
-/** Icon names (as used by ehicon://icons) for item ids, from Blizzard's item media; cached on disk. */
-async function itemIcons(region, ids, fetchIcon, iconDir, findIcon) {
+/**
+ * Icon names (as used by ehicon://icons) for item ids. Forever's item media points at Blizzard's render server by
+ * file id (…/icons/56/133766.jpg), so icons are downloaded from there and saved as "bnet-<file id>.jpg".
+ */
+async function itemIcons(region, ids, iconDir, findIcon) {
   const map = readIconMap();
-  const todo = ids.filter((id) => !(id in map));
+  const todo = ids.filter((id) => !map[id]?.url);
   for (const id of todo) {
     try {
       const media = await api(region, `/data/wow/media/item/${id}`, 'static');
-      const url = media?.assets?.find((a) => a.key === 'icon')?.value;
-      map[id] = url ? path.basename(new URL(url).pathname).replace(/\.\w+$/, '').toLowerCase() : null;
+      const asset = media?.assets?.find((a) => a.key === 'icon') ?? media?.assets?.[0];
+      if (asset?.value) map[id] = { url: asset.value, name: `bnet-${asset.file_data_id ?? path.basename(new URL(asset.value).pathname).replace(/\.\w+$/, '')}` };
     } catch {
       /* leave it for next time */
     }
   }
   if (todo.length) fs.writeFileSync(iconMapFile(), JSON.stringify(map));
   fs.mkdirSync(iconDir, { recursive: true });
-  for (const name of new Set(ids.map((id) => map[id]).filter(Boolean))) {
-    if (findIcon(name)) continue;
-    const img = await fetchIcon(name).catch(() => null);
-    if (img) fs.writeFileSync(path.join(iconDir, `${name}.jpg`), img);
+  const names = {};
+  for (const id of ids) {
+    const m = map[id];
+    if (!m?.url) continue;
+    if (!findIcon(m.name)) {
+      try {
+        const res = await fetch(m.url, { headers: UA });
+        if (res.ok) fs.writeFileSync(path.join(iconDir, `${m.name}.jpg`), Buffer.from(await res.arrayBuffer()));
+      } catch {
+        continue;
+      }
+    }
+    names[id] = m.name;
   }
-  return map;
+  return names;
+}
+
+/** Tooltip lines for an equipped item, in the order the game shows them. */
+function itemLines(it) {
+  const lines = [];
+  const add = (text, kind = '') => { if (text) lines.push({ text, kind }); };
+  add(it.binding?.name);
+  const type = [it.inventory_type?.name, it.is_subclass_hidden ? null : nameOf(it.item_subclass)].filter(Boolean);
+  if (type.length) add(type.join(' · '));
+  if (it.weapon) {
+    add([it.weapon.damage?.display_string, it.weapon.attack_speed?.display_string].filter(Boolean).join('   '));
+    add(it.weapon.dps?.display_string);
+  }
+  add(it.armor?.display?.display_string ?? it.armor?.display_string);
+  for (const s of it.stats ?? []) add(s.display?.display_string, s.is_equip_bonus ? 'green' : '');
+  for (const sp of it.spells ?? []) add(sp.description, 'green');
+  for (const e of it.enchantments ?? []) add(e.display_string, 'green');
+  add(it.set?.display_string, 'gold');
+  add(it.durability?.display_string);
+  add(it.requirements?.level?.display_string);
+  return lines;
+}
+
+function collectStats(s) {
+  if (!s) return null;
+  const eff = (v) => (typeof v === 'object' ? v?.effective ?? null : v ?? null);
+  const pct = (v) => (typeof v?.value === 'number' ? Math.round(v.value * 100) / 100 : null);
+  return {
+    health: s.health ?? null,
+    power: s.power ?? null,
+    powerType: nameOf(s.power_type),
+    strength: eff(s.strength),
+    agility: eff(s.agility),
+    stamina: eff(s.stamina),
+    intellect: eff(s.intellect),
+    spirit: eff(s.spirit),
+    armor: eff(s.armor),
+    attackPower: s.attack_power ?? null,
+    spellPower: s.spell_power ?? null,
+    meleeCrit: pct(s.melee_crit),
+    spellCrit: pct(s.spell_crit),
+    rangedCrit: pct(s.ranged_crit),
+    dodge: pct(s.dodge),
+    parry: pct(s.parry),
+    block: pct(s.block),
+  };
+}
+
+/** The active specialization: { name, spent }. */
+function activeSpec(json) {
+  const group = (json?.specialization_groups ?? []).find((g) => g.is_active) ?? json?.specialization_groups?.[0];
+  const specs = group?.specializations ?? [];
+  const best = specs.reduce((a, s) => ((s.spent_points ?? 0) > (a?.spent_points ?? -1) ? s : a), null);
+  return best ? { name: nameOf(best.specialization) ?? best.specialization_name ?? null, spent: best.spent_points ?? null } : null;
 }
 
 /** Downloads the character's render images; returns { avatar, main } as ehicon://armory/ URLs. */
@@ -171,7 +237,9 @@ async function lookup({ region, name }, deps) {
     throw Object.assign(new Error('Blizzard has no character by that name in this region yet. Characters appear from level 10, a little while after they log out.'), { code: 'notfound' });
   }
   const part = (p) => api(region, base + p, 'profile').catch(() => null);
-  const [equipment, specs, professions, media] = await Promise.all([part('/equipment'), part('/specializations'), part('/professions'), part('/character-media')]);
+  const [equipment, specs, professions, media, statistics, pvp] = await Promise.all(
+    ['/equipment', '/specializations', '/professions', '/character-media', '/statistics', '/pvp-summary'].map(part),
+  );
 
   const items = (equipment?.equipped_items ?? []).map((it) => ({
     id: it.item?.id ?? null,
@@ -181,8 +249,9 @@ async function lookup({ region, name }, deps) {
     quality: (it.quality?.type ?? 'COMMON').toLowerCase(),
     itemLevel: it.level?.value ?? null,
     enchant: (it.enchantments ?? []).map((e) => e.display_string).filter(Boolean)[0] ?? null,
+    lines: itemLines(it),
   }));
-  const iconMap = await itemIcons(region, items.map((i) => i.id).filter(Boolean), deps.fetchIcon, deps.iconDir, deps.findIcon).catch(() => ({}));
+  const iconMap = await itemIcons(region, items.map((i) => i.id).filter(Boolean), deps.iconDir, deps.findIcon).catch(() => ({}));
   for (const it of items) it.icon = iconMap[it.id] ?? null;
 
   return {
@@ -200,6 +269,9 @@ async function lookup({ region, name }, deps) {
     itemLevel: summary.equipped_item_level ?? summary.average_item_level ?? null,
     lastLogin: summary.last_login_timestamp ?? null,
     talents: collectTalents(specs),
+    spec: activeSpec(specs),
+    stats: collectStats(statistics),
+    pvp: pvp ? { honorableKills: pvp.honorable_kills ?? 0, rank: pvp.pvp_rank ?? 0 } : null,
     professions: collectProfessions(professions),
     items,
     images: await characterImages(region, slug, media),

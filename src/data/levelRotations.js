@@ -79,7 +79,7 @@ export const LEVEL_ROTATIONS = {
         ['**Heroic Strike** above 40 rage', 'Keep spending, but leave enough for Execute.'],
       ], 'Fury is gear-hungry — keep upgrading both weapons.',
       'You now fight entirely from Berserker Stance, opening with Intercept instead of Charge. Your damage comes from constant auto-attacks and spending rage as fast as it arrives.'],
-      [31, 'Death Wish', [
+      [33, 'Death Wish', [
         ['**Death Wish** on tough fights', 'More damage for 30 seconds and immunity to fear. Save it for elites and dangerous pulls.'],
         ['**Whirlwind** on cooldown', 'Your best damage per rage once you have it.'],
         ['**Execute** below 20%', 'Finish quickly to keep moving.'],
@@ -110,7 +110,7 @@ export const LEVEL_ROTATIONS = {
         ['**Taunt** anything that runs off', 'Pulls a mob back onto you if it starts attacking a healer or DPS.'],
       ], 'Solo with a two-hander in Battle Stance; switch to sword-and-board for dungeons.',
       'Protection is a dungeon spec. When questing alone, fight like any warrior. In groups, hold every mob with Thunder Clap and Demoralizing Shout, then build threat on the kill target with Sunder Armor and Revenge.'],
-      [20, 'Last Stand', [
+      [22, 'Last Stand', [
         ['**Shield Block** to trigger **Revenge**', 'Guaranteed blocks mean Revenge is ready more often.'],
         ['**Revenge** on cooldown', 'Your most rage-efficient threat button.'],
         ['**Sunder Armor** for threat', 'Fill with Sunders on the main target.'],
@@ -167,7 +167,7 @@ export const LEVEL_ROTATIONS = {
         ['**Exorcism** on undead and demons', 'A large instant hit that only works on those creature types.'],
       ], 'Seal of Command loves slow two-handers (3.5+ speed).',
       'Retribution is about big, slow weapon hits. Judge Crusader to open, switch to Seal of Command and let your two-hander do the work, with Holy Strike in between.'],
-      [27, 'Sacred Arbiter', [
+      [29, 'Sacred Arbiter', [
         ['**Seal of Command** up', 'Keep your damage seal active.'],
         ['**Holy Strike** — now refreshes your Judgements', 'With Sacred Arbiter, Holy Strike keeps your Judgement effects going.'],
         ['**Judgement** + re-seal', 'Judge on cooldown and reseal.'],
@@ -200,26 +200,27 @@ export const LEVEL_ROTATIONS = {
         ['**Blessing of Wisdom** on yourself', 'Mana regeneration lets you heal longer.'],
       ], 'Solo with Seal + Holy Strike + Judgement and heal yourself when needed.',
       'Holy is a group healer. In dungeons, Flash of Light handles most damage and Holy Light covers spikes. Questing alone, fight like a Retribution paladin and heal yourself.'],
-      [25, 'Illumination', [
+      [32, 'Illumination', [
         ['**Holy Light** crits refund mana', 'Illumination gives mana back when your heals crit, so bigger heals become more efficient.'],
         ['**Flash of Light** filler', 'Still your everyday heal.'],
         ['**Consecration** for AoE damage', 'Helps you solo packs when questing.'],
       ], '',
       'Illumination makes crits refund mana, so Holy Light is more efficient than it looks. You can heal longer before drinking.'],
-      [30, 'Divine Favor', [
+      [31, 'Divine Favor', [
         ['**Divine Favor** + **Holy Light** for a guaranteed big heal', 'A guaranteed crit for when the tank is about to die.'],
         ['**Flash of Light** filler', 'Your everyday heal.'],
-        ['**Oath of Light** on the tank', 'Makes your Holy Light, Flash of Light and Holy Shock heal them for more.'],
-      ], '',
-      'Divine Favor is your emergency button: a guaranteed crit on your next heal. Everything else stays the same.'],
-      [33, 'Holy Shock', [
+        ['**Holy Light** for big hits', 'For large damage spikes.'],
+      ], 'Your first 11 points went into Retribution for Seal of Command, so you can still quest like a Retribution paladin.',
+      'Divine Favor is your emergency button: a guaranteed crit on your next heal. From here your points go into Holy.'],
+      [41, 'Holy Shock', [
         ['**Holy Shock** for instant heals or damage', 'Instant, so it works while moving or when the tank needs health right now.'],
         ['**Flash of Light** filler', 'Your efficient everyday heal.'],
         ['**Holy Light** for big hits', 'For large damage spikes.'],
       ], '',
       'Holy Shock gives you an instant heal for emergencies and an instant damage spell when questing.'],
-      [40, "Light's Vigil", [
+      [55, "Light's Vigil", [
         ["**Light's Vigil** on the tank", 'Marks the tank so your heals on them spread to the rest of the party.'],
+        ['**Oath of Light** on the tank', 'Makes your Holy Light, Flash of Light and Holy Shock heal them for more.'],
         ['**Holy Shock** on the Vigil target to heal their party', 'Heals the whole group through the tank.'],
         ['**Flash of Light** / **Holy Light**', 'Your main heals.'],
         ['**Cleanse** (42) liberally', 'Removes magic as well as poison and disease once you learn it.'],
@@ -298,7 +299,7 @@ export const LEVEL_ROTATIONS = {
         ['**Mend Pet** to keep it healthy', 'Your pet doing well is your whole plan.'],
       ], 'Your pet does most of the damage — keep it fed and happy.',
       'Beast Mastery invests in the pet. Keep it fed, happy and healthy, and it will tank and deal most of the damage.'],
-      [31, 'Intimidation', [
+      [34, 'Intimidation', [
         ['**Intimidation** to stun dangerous targets', 'Your pet stuns the target and gains a lot of threat.'],
         ['**Arcane Shot** + **Multi-Shot**', 'Your shots between pet attacks.'],
         ['**Serpent Sting** on long fights', 'Worth it when the mob will live long enough.'],
@@ -319,27 +320,27 @@ export const LEVEL_ROTATIONS = {
       'This is the Beast Mastery setup you will use at 60. Line up Bestial Wrath, Summon Hawk and Rapid Fire on tough targets.'],
     ],
     marksmanship: [
-      [25, 'Trueshot Aura & Lone Wolf', [
+      [25, 'Trueshot Aura', [
         ['**Trueshot Aura** always on', 'More attack power for you and your group.'],
-        ['**Dismiss Pet** when you can manage without it', 'Lone Wolf gives 20% more damage with no pet out. Keep the pet while leveling if you want it to tank.'],
+        ['Pet tanks, you shoot', 'The leveling build keeps your pet. Lone Wolf (no pet) only comes in the Level 60 build.'],
         ['**Aimed Shot** opener', 'Start every fight with a big hit.'],
         ['**Arcane Shot** + **Multi-Shot**', 'Your regular shots between Auto Shots.'],
       ], 'Careful Aim turns your Intellect into attack power.',
       'Marksmanship focuses on your own shots. Open with Aimed Shot, then cycle Arcane Shot and Multi-Shot.'],
-      [30, 'Improved Arcane Shot', [
+      [33, 'Improved Arcane Shot', [
         ['**Aimed Shot** between Auto Shots', 'Fit it in without delaying your next Auto Shot.'],
         ['**Arcane Shot** (Improved Arcane Shot) + **Multi-Shot**', 'Shorter cooldowns mean more shots between Auto Shots.'],
         ['**Rapid Fire**: Rapid Killing lowers its cooldown', 'Use it more often thanks to your talents.'],
         ['**Feign Death** (30) to drop threat', 'Fake your death to reset a bad pull.'],
       ], '',
       'Your shots come around faster now. Feign Death lets you escape mistakes.'],
-      [35, 'Mortal Shots', [
+      [38, 'Mortal Shots', [
         ['**Aimed Shot** + **Multi-Shot**', 'Your main damage.'],
         ['**Arcane Shot** while moving', 'Instant damage.'],
         ['**Rapid Fire** for burst', 'Use it on harder targets.'],
       ], '',
       'Mortal Shots makes your ranged crits hit much harder, so Lethal Attacks and Careful Aim pay off even more.'],
-      [40, 'Sniper Shot', [
+      [45, 'Sniper Shot', [
         ['**Sniper Shot** to open from long range', 'A Forever ability that opens from extra distance.'],
         ['**Aimed Shot** between Auto Shots', 'Your big hit.'],
         ['**Multi-Shot** on cooldown', 'Steady extra damage.'],
@@ -356,7 +357,7 @@ export const LEVEL_ROTATIONS = {
         ['**Wing Clip** → step back if needed', 'Slow and reposition when you want range again.'],
       ], 'Survival in Forever fights well in melee range.',
       'Survival in Forever is comfortable in melee. Let mobs come to you and use Raptor Strike and Mongoose Bite alongside your pet.'],
-      [25, "Predator's Edge", [
+      [26, "Predator's Edge", [
         ['**Arcane Shot** + **Multi-Shot** at range', 'Use your shots while mobs approach.'],
         ['**Raptor Strike** + **Mongoose Bite**', "Predator's Edge makes their crits hit 30% harder."],
         ['Dual-wield one-handers', "Predator's Edge also adds 50% off-hand damage."],
@@ -454,7 +455,7 @@ export const LEVEL_ROTATIONS = {
         ['**Kidney Shot** (30) to lock down', 'Stun a target to stop casts or escapes.'],
       ], '',
       'Cold Blood gives you a guaranteed crit Eviscerate for burst.'],
-      [35, 'Seal Fate', [
+      [36, 'Seal Fate', [
         ['**Backstab** from behind: crits now add extra combo points', 'Seal Fate gives an extra point on crits, so you reach five faster.'],
         ['**Slice and Dice** up', 'Keep it running.'],
         ['**Eviscerate** at 5', 'Your finisher.'],
@@ -476,26 +477,26 @@ export const LEVEL_ROTATIONS = {
       'This is the Assassination rotation you will use at 60: keep Slice and Dice up, Shank on cooldown to keep Venom running, build with Mutilate and spend extra points on Eviscerate.'],
     ],
     subtlety: [
-      [25, 'Ghostly Strike', [
+      [27, 'Ghostly Strike', [
         ['**Ambush** or **Cheap Shot** (26) to open', 'Open from Stealth.'],
         ['**Ghostly Strike** for extra dodge', 'A combo builder that also makes you dodge more for a few seconds.'],
         ['**Sinister Strike** to 5', 'Build points.'],
         ['**Eviscerate**', 'Spend them.'],
       ], '',
       'Subtlety is the stealth and control spec. Ghostly Strike adds survivability to your rotation.'],
-      [26, 'Premeditation', [
+      [28, 'Premeditation', [
         ['**Premeditation** → **Cheap Shot**', 'Two free combo points before the fight starts.'],
         ['**Ghostly Strike** / **Sinister Strike** to 5', 'Build the rest.'],
         ['**Eviscerate** or **Kidney Shot** (30)', 'Damage, or control with a stun.'],
       ], '',
       'Premeditation starts fights with combo points already built, so your first finisher comes very early.'],
-      [30, 'Preparation', [
+      [32, 'Preparation', [
         ['**Premeditation** → **Cheap Shot**', 'Your opener.'],
         ['**Sinister Strike** to 5 → **Kidney Shot**', 'Chain stuns to control the fight.'],
         ['**Preparation** to reset Vanish, Sprint and Evasion', 'Resets your escape cooldowns for a second use.'],
       ], 'Preparation doubles your escape tools.',
       'Preparation resets your defensive cooldowns, giving you a second chance in fights that go wrong.'],
-      [31, 'Hemorrhage', [
+      [30, 'Hemorrhage', [
         ['**Cheap Shot** opener', 'Stun to start.'],
         ['**Hemorrhage** to build', 'Your new builder; it also makes the target take more physical damage.'],
         ['**Rupture** (Serrated Blades) or **Eviscerate** at 5', 'Rupture on long fights, Eviscerate on short ones.'],
@@ -567,19 +568,19 @@ export const LEVEL_ROTATIONS = {
         ['**Power Word: Shield** for spikes', 'Instantly absorbs damage when the tank is in trouble.'],
       ], 'Solo with Smite, Shadow Word: Pain and a wand.',
       'Holy is a dedicated healer. In groups, keep Renew on the tank and use Heal for steady damage. Save Flash Heal for emergencies.'],
-      [28, 'Holy Binding & Holy Nova', [
-        ['**Flash Heal** others to heal yourself too', 'Holy Binding heals you for half of every Flash Heal you cast on someone else.'],
-        ['**Holy Nova** for group damage', 'A small heal on everyone near you.'],
+      [28, 'Holy Nova & Searing Light', [
+        ['**Smite** to quest', 'Divine Fury makes it faster and Searing Light adds 5% Holy damage.'],
+        ['**Holy Nova** for group damage', 'Damage around you plus a small heal on everyone near you.'],
         ['**Renew** + **Flash Heal**', 'Your core healing.'],
-      ], '',
-      'You now have tools for healing yourself and the group at once.'],
+      ], 'Holy Binding comes at 37: every Flash Heal on someone else also heals you.',
+      'The leveling build puts damage first, so you can quest with Smite and still heal dungeons.'],
       [30, 'Prayer of Healing', [
         ['**Prayer of Healing** when 3+ party members are hurt', 'Heals your whole party; very efficient on group damage.'],
         ['**Renew** on the tank', 'Keep it up.'],
         ['**Heal** for steady healing', 'Your efficient single-target heal.'],
       ], 'Litany of Light (31) rewards alternating heals.',
       'Prayer of Healing handles AoE damage in dungeons.'],
-      [40, 'Prayer of Mending', [
+      [50, 'Prayer of Mending', [
         ['**Prayer of Mending** on the tank on cooldown', 'Heals and then bounces to other injured party members.'],
         ['**Greater Heal** (down-ranked) on the tank', 'Big heals for big damage; lower ranks save mana.'],
         ['**Renew**', 'Keep it rolling.'],
@@ -636,27 +637,28 @@ export const LEVEL_ROTATIONS = {
       'Totems join the rotation. Drop Searing Totem at the start of each fight for free damage.'],
     ],
     enhancement: [
-      [24, 'Elemental Weapons', [
+      [20, 'Elemental Weapons', [
         ['Slow two-hander with **Rockbiter Weapon**', 'Enhancement scales with big, slow weapons.'],
         ['**Searing Totem** + **Strength of Earth Totem**', 'Damage plus more Strength.'],
         ['**Earth Shock** to finish or interrupt', 'Instant damage when needed.'],
         ['**Lightning Shield** up', 'Passive damage.'],
       ], 'Mental Dexterity turns your Intellect into attack power.',
       'Enhancement is a melee shaman. Use a slow two-hander, drop your totems and fight up close.'],
-      [28, 'Flurry', [
+      [25, 'Stormstrike', [
         ['**Rockbiter Weapon** (or **Windfury Weapon** at 30)', 'Your weapon enchant.'],
-        ['**Earth Shock** to finish', 'Instant finisher.'],
-        ['**Flame Shock** on tougher mobs', 'Damage over time for longer fights.'],
-      ], 'Thundering Strikes crits trigger Flurry.',
-      'Flurry speeds up your attacks after crits, so crit chance becomes valuable.'],
-      [30, 'Stormstrike & Windfury', [
-        ['**Windfury Weapon** on', 'Chance for extra attacks on every swing.'],
         ['**Stormstrike** on cooldown', 'A strong strike that makes your next Nature spells hit harder.'],
+        ['**Earth Shock** right after Stormstrike', 'Takes advantage of the Nature damage boost.'],
+        ['**Flame Shock** on tougher mobs', 'Damage over time for longer fights.'],
+      ], 'Thundering Strikes crits trigger Flurry, which you fill in over the next few levels.',
+      'Stormstrike is the heart of Enhancement: Stormstrike first, then Earth Shock while the bonus is active. Flurry speeds up your attacks after crits.'],
+      [30, 'Windfury', [
+        ['**Windfury Weapon** on', 'Chance for extra attacks on every swing.'],
+        ['**Stormstrike** on cooldown', 'Your main strike.'],
         ['**Earth Shock** right after Stormstrike', 'Takes advantage of the Nature damage boost.'],
         ['**Reincarnation** saves your life', 'Resurrect yourself if a fight goes wrong.'],
       ], '',
-      'Windfury and Stormstrike are the heart of Enhancement. Stormstrike first, then Earth Shock while the bonus is active.'],
-      [37, 'Maelstrom Weapon', [
+      'Windfury Weapon replaces Rockbiter and is a big jump in damage, especially with Flurry.'],
+      [35, 'Maelstrom Weapon', [
         ['**Windfury Weapon** on', 'Your weapon enchant.'],
         ['**Stormstrike** on cooldown', 'Your main strike.'],
         ['**Lightning Bolt** at 5 Maelstrom Weapon stacks', 'Five stacks make Lightning Bolt instant.'],
@@ -701,20 +703,27 @@ export const LEVEL_ROTATIONS = {
       'This is the Elemental rotation you will use at 60: Flame Shock up, Chain Lightning on cooldown, Lightning Bolt in between, and Lightning Mastery for burst.'],
     ],
     restoration: [
-      [20, 'Water Shield', [
+      [20, 'Melee leveling', [
+        ['**Rockbiter Weapon** on a two-hander or mace and shield', 'Your first ten points went into Enhancement: Mental Dexterity turns your Intellect into attack power.'],
+        ['**Lightning Bolt** to pull', 'Opens the fight from range.'],
+        ['**Earth Shock** to finish or interrupt', 'Instant damage.'],
+        ['**Healing Wave** between pulls', 'Restoration talents make it faster and cheaper as you level.'],
+      ], 'Restoration points start at 20, so you can heal dungeons at any level.',
+      'Restoration levels best as a melee shaman early on. From 20 every point goes into healing talents.'],
+      [38, 'Water Shield', [
         ['**Water Shield** up', 'Returns mana when you are hit.'],
         ['**Healing Wave** for big heals', 'Your strong heal.'],
         ['**Lesser Healing Wave** for fast heals', 'Quick but expensive.'],
         ['Drop **Healing Stream Totem** and **Mana Spring Totem** (26)', 'Passive healing and mana for the group.'],
       ], 'Solo with Lightning Bolt and shocks.',
       'Restoration is a group healer. Keep Water Shield and your totems up, and use Healing Wave for most of your healing.'],
-      [33, "Nature's Swiftness", [
+      [45, "Nature's Swiftness", [
         ["**Nature's Swiftness** + **Healing Wave** emergency", 'An instant big heal when someone is about to die.'],
         ['**Healing Wave** on the tank', 'Your main heal.'],
         ['**Mana Tide Totem** (34) when the party is low', 'Restores mana for the whole group.'],
       ], '',
       "Nature's Swiftness gives you an instant big heal for emergencies."],
-      [40, 'Riptide & Chain Heal', [
+      [50, 'Riptide & Chain Heal', [
         ['**Riptide** on the tank', 'An instant heal plus heal over time.'],
         ['**Chain Heal** on the most injured (stronger on Riptide targets)', 'Bounces between injured party members.'],
         ['**Healing Wave** on the tank', 'For big single-target damage.'],
@@ -787,7 +796,7 @@ export const LEVEL_ROTATIONS = {
         ['**Fire Blast** to finish', 'Instant finisher.'],
       ], '',
       'Heating Up turns Fireball crits into faster Pyroblasts.'],
-      [34, 'Blast Wave', [
+      [35, 'Blast Wave', [
         ['**Fireball** spam', 'Your main spell.'],
         ['**Blast Wave** when mobs close in', 'Knocks back and slows nearby enemies.'],
         ['**Fire Blast** to finish', 'Instant finisher.'],
@@ -887,20 +896,20 @@ export const LEVEL_ROTATIONS = {
       'This is the Affliction setup you will use at 60: every damage over time spell up, Wrack to boost them and Drain Life for sustain.'],
     ],
     demonology: [
-      [20, 'Demonic Sacrifice', [
+      [28, 'Demonic Sacrifice', [
         ['Pet attacks', 'Your pet does the heavy lifting.'],
         ['**Bane of Agony** + **Corruption**', 'Your damage over time.'],
         ['**Shadow Bolt**', 'Your main hit.'],
         ['**Demonic Sacrifice** for a big buff when needed', 'Sacrifice your pet for a strong buff, then resummon.'],
       ], 'Demonic Embrace makes you much tankier.',
       'Demonology invests in your pet and your own toughness.'],
-      [25, 'Demonic Energies', [
+      [26, 'Demonic Energies', [
         ['Pet tanks, DoTs + **Shadow Bolt**', 'Your core rotation; your spell damage now heals your pet.'],
         ['**Life Tap**', 'With Demonic Energies your pet gets the mana too.'],
         ['**Health Funnel** your pet', 'Keep it alive on long fights.'],
       ], '',
       'Demonic Energies keeps your pet healthy and topped up on mana just by fighting.'],
-      [30, 'Soul Link', [
+      [31, 'Soul Link', [
         ['**Soul Link** always on', 'Shares damage between you and your pet.'],
         ['Pet tanks, DoTs + **Shadow Bolt**', 'Your core rotation.'],
         ['**Health Funnel** the pet', 'Keep it alive.'],
@@ -1036,19 +1045,19 @@ export const LEVEL_ROTATIONS = {
         ['**Healing Touch** for big heals', 'Your big heal.'],
       ], 'Solo with Wrath and Moonfire.',
       'Restoration heals mostly with heals over time.'],
-      [28, 'Swiftmend', [
+      [35, 'Swiftmend', [
         ['**Rejuvenation** up', 'Keep it rolling.'],
         ['**Swiftmend** to consume a HoT instantly', 'An instant big heal.'],
         ['**Healing Touch** / **Regrowth**', 'Your other heals.'],
       ], '',
       'Swiftmend turns a heal over time into an instant heal.'],
-      [30, "Nature's Swiftness", [
+      [52, "Nature's Swiftness", [
         ["**Nature's Swiftness** + **Healing Touch** emergency", 'An instant big heal.'],
         ['**Rejuvenation** up', 'Keep it rolling.'],
         ['**Tranquility** for group damage', 'Heals your whole party.'],
       ], '',
       "Nature's Swiftness gives you an instant big heal for emergencies."],
-      [40, 'Wild Growth', [
+      [50, 'Wild Growth', [
         ['**Wild Growth** on the most damaged group', 'A group heal over time.'],
         ['**Rejuvenation** + **Swiftmend**', 'Your core healing.'],
         ['**Regrowth** (Improved Regrowth crits)', 'Quick heals.'],

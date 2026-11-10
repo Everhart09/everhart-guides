@@ -136,6 +136,14 @@ export default {
         ['Arcane Resilience', 3], ['Arcane Subtlety', 2], ['Arcane Concentration', 5], ['Magic Absorption', 1],
         ['Missile Barrage', 2], ['Arcane Meditation', 3],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Accelerant', 5], ['Ignite', 5], ['Pyroblast', 1], ['Incineration', 4],
+        ['Burning Soul', 3], ['Heating Up', 1], ['Master of Elements', 3], ['Critical Mass', 3],
+        ['Blast Wave', 1], ['Fire Power', 3], ['Flame Throwing', 1], ['Combustion', 1],
+        ['Wand Specialization', 2], ['Arcane Resilience', 3], ['Arcane Concentration', 5], ['Missile Barrage', 2],
+        ['Arcane Subtlety', 2], ['Magic Absorption', 1], ['Arcane Meditation', 3], ['Precision', 2],
+      ],
     },
     {
       id: 'arcane', tree: 'arcane', name: 'Arcane', role: 'Ranged DPS', roles: ['dps'],

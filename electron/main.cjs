@@ -9,6 +9,7 @@ const { buildDungeonData, portraitSource } = require('./forever-dungeons.cjs');
 const appUpdater = require('./app-updater.cjs');
 const { fetchPatchNotes, latestPost, PARSER_VERSION } = require('./forever-patchnotes.cjs');
 const { buildLegacyData } = require('./forever-legacy.cjs');
+const armory = require('./armory.cjs');
 
 appUpdater.register();
 
@@ -316,6 +317,17 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
   }
 });
 
+// Armory: the player's own Blizzard API key and character lookups.
+ipcMain.handle('armory:has-key', () => !!armory.readKey());
+ipcMain.handle('armory:set-key', (_event, key) => (key ? armory.testKey(key) : (armory.writeKey(null), { ok: true })));
+ipcMain.handle('armory:lookup', async (_event, query) => {
+  try {
+    return { ok: true, character: await armory.lookup(query, { fetchIcon, iconDir: userIconDir(), findIcon }) };
+  } catch (e) {
+    return { ok: false, error: e.message, code: e.code ?? null };
+  }
+});
+
 ipcMain.handle('app:info', () => ({
   version: require('../package.json').version,
   electron: process.versions.electron,
@@ -415,11 +427,16 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  armory.init(userDir());
   // ehicon://icons/<name>.jpg → downloaded icons first, then the icons bundled with the app.
   protocol.handle('ehicon', (request) => {
     const url = new URL(request.url);
     const name = path.basename(url.pathname).replace(/\.(jpg|webp)$/, '').replace(/[^a-z0-9_-]/gi, '');
     // ehicon://maps/<zone id>.jpg → zone maps; ehicon://portraits/<model>.webp → boss portraits; ehicon://icons/<name>.jpg → icons.
+    if (url.hostname === 'armory') {
+      const media = armory.mediaFile(decodeURIComponent(path.basename(url.pathname)));
+      return media ? net.fetch(pathToFileURL(media).toString()) : new Response('', { status: 404 });
+    }
     const file = url.hostname === 'maps' ? findMap(name) : url.hostname === 'portraits' ? findPortrait(name) : findIcon(name);
     return file ? net.fetch(pathToFileURL(file).toString()) : new Response('', { status: 404 });
   });

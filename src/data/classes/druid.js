@@ -133,6 +133,14 @@ export default {
         ['Vengeance', 5], ['Improved Starfire', 3], ['Moonkin Form', 1], ['Improved Starfire', 2],
         ['Eclipse', 3], ['Moonfury', 5], ["Nature's Focus", 5], ['Naturalist', 5],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Improved Wrath', 5], ['Improved Moonfire', 2], ['Moonglow', 3], ['Improved Entangling Roots', 3],
+        ["Nature's Majesty", 2], ['Insect Swarm', 1], ['Vengeance', 5], ["Nature's Grace", 1],
+        ['Improved Starfire', 5], ['Moonfury', 3], ['Moonkin Form', 1], ['Moonfury', 2],
+        ['Eclipse', 3], ['Genesis', 5], ["Nature's Splendor", 1], ["Nature's Focus", 5],
+        ['Naturalist', 4],
+      ],
     },
     {
       id: 'restoration', tree: 'restoration', name: 'Restoration', role: 'Healer', roles: ['healer'],
@@ -185,6 +193,13 @@ export default {
         ['Living Spirit', 3], ['Gift of Nature', 5], ['Improved Rejuvenation', 1], ['Wild Growth', 1],
         ['Improved Rejuvenation', 2], ['Tranquil Spirit', 5], ['Improved Tranquility', 2], ['Improved Regrowth', 5],
         ['Genesis', 5], ["Nature's Majesty", 1],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Improved Wrath', 5], ['Genesis', 5], ["Nature's Focus", 5], ['Heart of the Wild', 5],
+        ['Naturalist', 5], ['Swiftmend', 1], ['Reflection', 3], ['Improved Rejuvenation', 3],
+        ['Gift of Nature', 5], ['Living Spirit', 3], ['Wild Growth', 1], ['Bloom', 1],
+        ["Nature's Swiftness", 1], ['Improved Regrowth', 5], ['Improved Tranquility', 2], ["Nature's Majesty", 1],
       ],
     },
   ],

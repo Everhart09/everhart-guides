@@ -72,11 +72,18 @@ export default {
       ],
       consumables: ['Elixir of the Mongoose', 'Juju Power', 'Major Mana Potion', 'Elemental Sharpening Stone'],
       build: [
-        ['Thundering Strikes', 5], ['Ancestral Knowledge', 5], ['Shamanistic Focus', 1], ['Mental Dexterity', 3],
-        ['Elemental Weapons', 1], ['Stormstrike', 1], ['Elemental Weapons', 2], ['Flurry', 2],
-        ['Mental Quickness', 2], ['Spirit Weapons', 1], ['Flurry', 3], ['Improved Stormstrike', 1],
-        ['Maelstrom Weapon', 3], ['Rage of the Farseer', 1], ['Maelstrom Weapon', 2], ['Concussion', 5],
-        ['Elemental Devastation', 3], ['Tidal Focus', 5], ['Totemic Focus', 5],
+        ['Thundering Strikes', 5], ['Ancestral Knowledge', 4], ['Mental Dexterity', 3], ['Shamanistic Focus', 1],
+        ['Elemental Weapons', 3], ['Stormstrike', 1], ['Flurry', 5], ['Mental Quickness', 2],
+        ['Spirit Weapons', 1], ['Improved Stormstrike', 2], ['Maelstrom Weapon', 5], ['Rage of the Farseer', 1],
+        ['Concussion', 5], ['Elemental Devastation', 3], ['Tidal Focus', 5], ['Totemic Focus', 5],
+      ],
+      // Levels 10–59: damage first (Mental Dexterity early, Stormstrike at 25, Flurry by 30), plus questing comfort.
+      levelingBuild: [
+        ['Thundering Strikes', 5], ['Mental Dexterity', 3], ['Ancestral Knowledge', 2], ['Elemental Weapons', 3],
+        ['Shamanistic Focus', 1], ['Ancestral Knowledge', 1], ['Stormstrike', 1], ['Flurry', 5],
+        ['Mental Quickness', 2], ['Improved Stormstrike', 2], ['Maelstrom Weapon', 5], ['Rage of the Farseer', 1],
+        ['Improved Ghost Wolf', 2], ['Spirit Weapons', 1], ['Concussion', 5], ['Elemental Devastation', 3],
+        ['Call of Flame', 1], ['Tidal Focus', 5], ['Mindfulness', 3],
       ],
     },
     {
@@ -131,6 +138,14 @@ export default {
         ['Elemental Fury', 1], ['Thundering Strikes', 5], ['Tidal Focus', 5], ['Totemic Focus', 5],
         ['Mindfulness', 3], ['Natural Grace', 1],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Concussion', 5], ['Elemental Alacrity', 3], ['Convection', 2], ['Elemental Focus', 1],
+        ['Reverberation', 3], ['Convection', 1], ['Eye of the Storm', 3], ['Reverberation', 2],
+        ['Lightning Overload', 3], ['Call of Thunder', 1], ['Convection', 1], ['Elemental Fury', 5],
+        ['Lightning Mastery', 1], ['Convection', 1], ['Thundering Strikes', 5], ['Tidal Focus', 5],
+        ['Mindfulness', 3], ['Improved Reincarnation', 1], ['Totemic Focus', 5],
+      ],
     },
     {
       id: 'restoration', tree: 'restoration', name: 'Restoration', role: 'Healer', roles: ['healer'],
@@ -183,6 +198,14 @@ export default {
         ["Nature's Swiftness", 1], ['Healing Focus', 2], ['Ancestral Healing', 3], ['Healing Focus', 1],
         ['Riptide', 1], ['Tidal Mastery', 5], ['Restorative Totems', 5], ['Purification', 5],
         ['Thundering Strikes', 5],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Thundering Strikes', 5], ['Mental Dexterity', 3], ['Ancestral Knowledge', 2], ['Improved Healing Wave', 5],
+        ['Tidal Focus', 5], ['Mindfulness', 3], ['Totemic Focus', 2], ['Healing Focus', 3],
+        ['Water Shield', 1], ['Tidal Mastery', 5], ['Mana Tide Totem', 1], ["Nature's Swiftness", 1],
+        ['Healing Way', 3], ['Restorative Totems', 1], ['Riptide', 1], ['Restorative Totems', 2],
+        ['Totemic Focus', 3], ['Purification', 5],
       ],
     },
   ],

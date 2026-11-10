@@ -45,4 +45,10 @@ contextBridge.exposeInMainWorld('everhart', {
   setTheme: (theme) => ipcRenderer.send('app:set-theme', theme),
   /** Saves the page's print layout as a PDF. Resolves to { ok, path? , canceled? }. */
   exportPdf: (fileName) => ipcRenderer.invoke('app:export-pdf', fileName),
+  /** Armory: whether a Blizzard API key is saved; save ({ id, secret }) or remove (null) it; look up { region, name }. */
+  armory: {
+    hasKey: () => ipcRenderer.invoke('armory:has-key'),
+    setKey: (key) => ipcRenderer.invoke('armory:set-key', key),
+    lookup: (query) => ipcRenderer.invoke('armory:lookup', query),
+  },
 });

@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { Rich } from './ui.jsx';
-import { encodeBuild, orderFromBuild } from '../lib/calculator.js';
+import { encodeBuild } from '../lib/calculator.js';
 import { TALENT_META } from '../data/talents/index.js';
 import { stage } from '../data/release.js';
 
@@ -15,7 +15,7 @@ const day = (d) => d.toLocaleDateString(undefined, { month: 'short', day: 'numer
 export default function CheatSheet({ cls, spec, picks }) {
   const ranks = {};
   for (const p of picks) ranks[p.name] = Math.max(ranks[p.name] ?? 0, p.rank);
-  const code = encodeBuild(cls, orderFromBuild(spec.build));
+  const code = encodeBuild(cls, picks.map((p) => p.name));
   const split = cls.trees.map((t) => picks.filter((p) => p.tree === t.id).length).join(' / ');
 
   return createPortal(

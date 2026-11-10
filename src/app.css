@@ -2393,6 +2393,19 @@ svg.filled { fill: currentColor; }
 .stat-what { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
 .tier-meaning { display: block; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
 
+/* Talents tab: leveling / level 60 switch and the respec at 60 */
+.build-mode { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; padding: 12px 16px; }
+.build-mode p { flex: 1; min-width: 240px; font-size: 13px; line-height: 1.5; color: var(--text-2); }
+.respec { margin-top: 14px; }
+.respec h3 { margin: 2px 0 6px; }
+.respec-why { font-size: 13.5px; line-height: 1.6; color: var(--text-2); margin-bottom: 10px; }
+.respec-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px; list-style: none; padding: 0; margin: 0; }
+.respec-list li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 10px; border-radius: 8px; background: var(--inset); border-left: 3px solid var(--line); font-size: 13px; }
+.respec-list li.up { border-left-color: var(--good); }
+.respec-list li.down { border-left-color: var(--bad); }
+.rs-name { color: var(--text); }
+.rs-ranks { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
 /* Talents tab: why this build */
 .build-why { margin-bottom: 14px; }
 .bw-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; margin-top: 6px; }
@@ -2745,3 +2758,66 @@ svg.filled { fill: currentColor; }
 /* ---------- Patch notes: Blizzard's intro paragraphs ---------- */
 .pn-intro { margin-top: 14px; }
 .pn-intro p { margin-top: 8px; font-size: 13.5px; line-height: 1.65; color: var(--text-2); }
+
+/* Armory: your characters from Blizzard */
+.ar-key { margin-bottom: 14px; }
+.ar-key h3 { margin: 2px 0 8px; }
+.ar-key-ok { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: var(--text-2); }
+.ar-key-ok > svg { color: var(--good); }
+.ar-key-ok span { flex: 1; }
+.ar-steps { margin: 0 0 8px 18px; padding: 0; font-size: 13.5px; line-height: 1.7; color: var(--text-2); }
+.ar-steps a { color: var(--gold-2); }
+.ar-steps b { color: var(--text); }
+.ar-note { font-size: 12.5px; margin-bottom: 10px; }
+.ar-key-form, .ar-add { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ar-add { margin-bottom: 14px; padding: 12px 16px; }
+.ar-key-form input, .ar-add input {
+  flex: 1; min-width: 200px; padding: 8px 11px; border-radius: 8px; font-size: 13.5px;
+  background: var(--inset); border: 1px solid var(--line-soft); color: var(--text);
+}
+.ar-key-form input:focus, .ar-add input:focus { outline: none; border-color: var(--gold); }
+.ar-error { width: 100%; margin-top: 8px; font-size: 13px; color: var(--bad); }
+.ar-ok { width: 100%; margin-top: 8px; font-size: 13px; color: var(--good); }
+.ar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.ar-card {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; cursor: pointer;
+  background: var(--panel); border: 1px solid var(--line-soft); border-left: 3px solid var(--c);
+  transition: transform .15s, border-color .15s;
+}
+.ar-card:hover { transform: translateY(-2px); border-color: var(--line); border-left-color: var(--c); }
+.ar-card.active { box-shadow: 0 0 0 1px var(--c); }
+.ar-avatar { flex: none; border-radius: 10px; object-fit: cover; background: var(--inset); display: inline-flex; align-items: center; justify-content: center; }
+.ar-card-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ar-card-text strong { color: var(--c); font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ar-card-text span { font-size: 12.5px; color: var(--text-2); }
+.ar-card-sub { color: var(--muted) !important; }
+.ar-card-actions { display: flex; flex-direction: column; gap: 4px; }
+.ar-card-actions button { padding: 5px; border-radius: 7px; color: var(--muted); }
+.ar-card-actions button:hover { color: var(--text); background: var(--inset); }
+.ar-fav.on { color: var(--gold-2) !important; }
+.ar-detail { border-top: 2px solid var(--c); }
+.ar-detail-head { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.ar-detail-head > div:nth-child(2) { flex: 1; min-width: 240px; }
+.ar-detail-head h2 { margin: 2px 0; color: var(--c); }
+.ar-detail-head p { font-size: 13.5px; color: var(--text-2); }
+.ar-detail-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ar-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+@media (max-width: 1100px) { .ar-detail-grid { grid-template-columns: 1fr; } }
+.ar-block h3 { font-size: 14px; margin-bottom: 8px; display: flex; gap: 8px; align-items: baseline; }
+.ar-block p { font-size: 13px; }
+.ar-next-label { color: var(--text-2); margin-bottom: 6px; }
+.ar-next, .ar-profs, .ar-history { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; font-size: 13px; }
+.ar-next li { display: flex; gap: 8px; align-items: baseline; padding: 6px 9px; border-radius: 8px; background: var(--inset); }
+.ar-profs li { display: flex; justify-content: space-between; padding: 6px 9px; border-radius: 8px; background: var(--inset); }
+.ar-profs b { color: var(--gold-2); font-variant-numeric: tabular-nums; }
+.ar-history li { display: flex; gap: 10px; color: var(--text-2); }
+.ar-history .muted { min-width: 52px; }
+.ar-gear { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px; }
+.ar-gear li { display: flex; gap: 10px; align-items: center; padding: 6px 8px; border-radius: 9px; background: var(--inset); }
+.ar-gear img, .ar-gear-empty { flex: none; width: 30px; height: 30px; border-radius: 6px; background: var(--panel-3); }
+.ar-gear li > div { display: flex; flex-direction: column; min-width: 0; font-size: 13px; }
+.ar-gear li > div span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ar-gear .muted { font-size: 11.5px; }
+.q-poor { color: #9d9d9d; } .q-common { color: var(--text); } .q-uncommon { color: #1eff00; }
+.q-rare { color: #0070dd; } .q-epic { color: #a335ee; } .q-legendary { color: #ff8000; } .q-artifact, .q-heirloom { color: #e6cc80; }
+:root[data-theme='alliance'] .q-rare, :root[data-theme='nebula'] .q-rare { color: #3d8cf0; }

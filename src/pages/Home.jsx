@@ -5,6 +5,7 @@ import { ClassEmblem } from '../components/GameIcon.jsx';
 import { RoleChip } from '../components/ui.jsx';
 import { CountdownHero } from '../components/Countdown.jsx';
 import ContinueRow from '../components/ContinueRow.jsx';
+import FavoriteCharacters from '../components/FavoriteCharacters.jsx';
 
 const ALL_SPECS = CLASSES.flatMap((c) => c.specs.map((s) => ({ cls: c, spec: s })));
 
@@ -71,6 +72,7 @@ export default function Home({ nav }) {
         </div>
       </section>
 
+      <FavoriteCharacters nav={nav} />
       <ContinueRow nav={nav} />
 
       <CountdownHero onPatchNotes={nav.patch} />

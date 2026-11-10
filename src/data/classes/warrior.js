@@ -81,6 +81,14 @@ export default {
         ['Mortal Strike', 1], ['Improved Slam', 1], ['Cruelty', 5], ['Unbridled Wrath', 5],
         ['Enrage', 5], ['Improved Execute', 1], ['Reckless Swings', 1], ['Improved Bloodrage', 2],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Improved Heroic Strike', 3], ['Improved Rend', 3], ['Improved Charge', 2], ['Improved Tactical Mastery', 2],
+        ['Deep Wounds', 3], ['Improved Tactical Mastery', 1], ['Anger Management', 1], ['Two-Handed Weapon Specialization', 3],
+        ['Impale', 2], ['Sweeping Strikes', 1], ['Weaponmaster', 5], ['Improved Overpower', 2],
+        ['Bloodthrill', 2], ['Mortal Strike', 1], ['Spearing Strike', 1], ['Improved Slam', 2],
+        ['Cruelty', 5], ['Unbridled Wrath', 5], ['Blood Craze', 2], ['Enrage', 5],
+      ],
     },
     {
       id: 'fury', tree: 'fury', name: 'Fury', role: 'Melee DPS', roles: ['dps'],
@@ -140,6 +148,14 @@ export default {
         ['Improved Heroic Strike', 3], ['Improved Rend', 3], ['Improved Charge', 2], ['Improved Tactical Mastery', 3],
         ['Deep Wounds', 3], ['Anger Management', 1], ['Impale', 2],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Cruelty', 5], ['Unbridled Wrath', 5], ['Enrage', 5], ['Blood Craze', 3],
+        ['Dual Wield Specialization', 5], ['Death Wish', 1], ['Improved Berserker Rage', 1], ['Flurry', 3],
+        ['Improved Whirlwind', 2], ['Bloodthirst', 1], ['Furious Precision', 3], ['Improved Heroic Strike', 3],
+        ['Improved Rend', 3], ['Improved Charge', 2], ['Improved Tactical Mastery', 3], ['Anger Management', 1],
+        ['Deep Wounds', 3], ['Impale', 2],
+      ],
     },
     {
       id: 'protection', tree: 'protection', name: 'Protection', role: 'Tank', roles: ['tank'],
@@ -197,6 +213,15 @@ export default {
         ['Focused Rage', 1], ['Shield Slam', 1], ['Focused Rage', 2], ['Bastion', 5],
         ['Improved Heroic Strike', 3], ['Deflection', 5], ['Improved Tactical Mastery', 3], ['Improved Charge', 1],
         ['Anger Management', 1],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Shield Specialization', 5], ['Improved Revenge', 3], ['Improved Thunder Clap', 2], ['Master of Defense', 2],
+        ['Last Stand', 1], ['Improved Thunder Clap', 1], ['Improved Bloodrage', 2], ['Vanguard', 1],
+        ['Improved Sunder Armor', 2], ['Anticipation', 1], ['Concussion Blow', 1], ['Focused Rage', 3],
+        ['Anticipation', 1], ['Bastion', 5], ['Shield Slam', 1], ['Anticipation', 3],
+        ['Defiance', 3], ['Improved Heroic Strike', 3], ['Deflection', 5], ['Improved Charge', 2],
+        ['Improved Tactical Mastery', 3], ['Anger Management', 1],
       ],
     },
   ],

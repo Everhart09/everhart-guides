@@ -78,6 +78,14 @@ export default {
         ['Champion of the Light', 5], ['Unsealed Wrath', 1], ['Divine Strength', 5], ['Improved Seals', 5],
         ['Holy Conduit', 2], ['Divine Intellect', 5], ['Precision', 3],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Benediction', 5], ['Improved Judgement', 2], ['Conviction', 3], ['Seal of Command', 1],
+        ['Pursuit of Justice', 2], ['Sanctified Judgement', 3], ['Two-Handed Weapon Specialization', 3], ['Sacred Arbiter', 1],
+        ['Vengeance', 3], ['Repentance', 1], ['Vindication', 1], ['Champion of the Light', 5],
+        ['Unsealed Wrath', 1], ['Vindication', 2], ['Divine Strength', 5], ['Improved Seals', 5],
+        ['Divine Intellect', 5], ['Precision', 3],
+      ],
     },
     {
       id: 'holy', tree: 'holy', name: 'Holy', role: 'Healer', roles: ['healer'],
@@ -132,6 +140,15 @@ export default {
         ['Improved Judgement', 2], ['Conviction', 1], ['Sanctified Judgement', 2], ['Unyielding Faith', 2],
         ['Sanctified Judgement', 1], ['Pursuit of Justice', 2],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Benediction', 5], ['Improved Judgement', 2], ['Conviction', 3], ['Seal of Command', 1],
+        ['Spiritual Focus', 5], ['Healing Light', 3], ['Reverence', 2], ['Divine Favor', 1],
+        ['Illumination', 5], ['Holy Conduit', 2], ['Purifying Power', 1], ['Infusion of Light', 1],
+        ['Holy Shock', 1], ['Pursuit of Justice', 2], ['Consecrated Ground', 2], ['Boundless Light', 2],
+        ['Infusion of Light', 1], ['Oath of Light', 1], ['Holy Power', 5], ["Light's Vigil", 1],
+        ['Divine Intellect', 5],
+      ],
     },
     {
       id: 'protection', tree: 'protection', name: 'Protection', role: 'Tank', roles: ['tank'],
@@ -185,6 +202,14 @@ export default {
         ['Toughness', 1], ['Holy Shield', 1], ['Toughness', 4], ['Anticipation', 2],
         ['Improved Righteous Fury', 3], ['Shieldsworn', 1], ['Anticipation', 3], ['Stoicism', 2],
         ['Reckoning', 5], ['Iron Creed', 3], ['Benediction', 2], ['Deflection', 5],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Divine Intellect', 5], ['Precision', 3], ['Redoubt', 5], ["Templar's Bulwark", 1],
+        ['Shield Specialization', 2], ['Swift Judgement', 1], ['Improved Righteous Fury', 3], ['Holy Shield', 1],
+        ['Reckoning', 5], ['Iron Creed', 3], ['Anticipation', 1], ['Shieldsworn', 1],
+        ['Anticipation', 3], ['Toughness', 5], ['Sacred Duty', 2], ['Benediction', 5],
+        ['Deflection', 5],
       ],
     },
   ],

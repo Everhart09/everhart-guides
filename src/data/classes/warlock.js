@@ -78,6 +78,14 @@ export default {
         ['Wrack', 1], ['Malevolence', 1], ['Soul Siphon', 3], ['Shadow Mastery', 5],
         ['Demonic Embrace', 5], ['Fel Vitality', 3], ['Demonic Aegis', 2], ['Demonic Sacrifice', 1],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Improved Corruption', 5], ['Improved Drains', 3], ['Improved Life Tap', 2], ['Fel Concentration', 3],
+        ['Improved Bane of Agony', 2], ['Nightfall', 2], ['Malevolence', 3], ['Siphon Life', 1],
+        ['Soul Siphon', 3], ['Malevolence', 2], ['Shadow Mastery', 4], ['Wrack', 1],
+        ['Shadow Mastery', 1], ['Pandemic', 3], ['Suppression', 5], ['Demonic Embrace', 5],
+        ['Improved Voidwalker', 2], ['Fel Vitality', 3], ['Demonic Sacrifice', 1],
+      ],
     },
     {
       id: 'demonology', tree: 'demonology', name: 'Demonology', role: 'Ranged DPS', roles: ['dps'],
@@ -131,6 +139,13 @@ export default {
         ['Soul Link', 1], ['Decimation', 1], ['Demonic Knowledge', 3], ['Master Demonologist', 5],
         ['Suppression', 5], ['Bane', 5], ['Improved Shadow Bolt', 5], ['Ruin', 5],
         ['Agonizing Flames', 1],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Demonic Embrace', 5], ['Unholy Power', 5], ['Fel Vitality', 3], ['Improved Voidwalker', 3],
+        ['Demonic Energies', 2], ['Demonic Sacrifice', 1], ['Decimation', 2], ['Soul Link', 1],
+        ['Demonic Knowledge', 3], ['Master Demonologist', 5], ['Suppression', 5], ['Bane', 5],
+        ['Improved Shadow Bolt', 5], ['Ruin', 5], ['Agonizing Flames', 1],
       ],
     },
     {

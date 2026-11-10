@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from '../../components/icons.jsx';
-import { FIRST_TALENT_LEVEL, MAX_LEVEL, TOTAL_POINTS, indexTalents, rankText, stateAtLevel } from '../../lib/talents.js';
+import { FIRST_TALENT_LEVEL, MAX_LEVEL, TOTAL_POINTS, buildDiff, indexTalents, rankText, stateAtLevel } from '../../lib/talents.js';
+import { BUILD_MODES } from '../../lib/buildMode.js';
 import { useSavedLevel } from '../../lib/useSavedLevel.js';
 import { BUILD_WHY } from '../../data/buildWhy.js';
 import TalentTree from './TalentTree.jsx';
@@ -9,7 +10,7 @@ import { talentIcon } from '../../lib/icons.js';
 
 const PLAY_INTERVAL_MS = 420;
 
-export default function TalentPlanner({ cls, spec, picks, onCustomize }) {
+export default function TalentPlanner({ cls, spec, picks, mode = 'endgame', onMode = null, onCustomize }) {
   const [level, setLevel] = useSavedLevel(`talents.${cls.id}/${spec.id}`, 1);
   const [playing, setPlaying] = useState(false);
   const [tip, setTip] = useState(null);
@@ -61,13 +62,33 @@ export default function TalentPlanner({ cls, spec, picks, onCustomize }) {
   const signature = picks.filter((p) => p.max === 1);
   const treeById = Object.fromEntries(cls.trees.map((t) => [t.id, t]));
 
-  const why = BUILD_WHY[`${cls.id}/${spec.id}`];
+  const whyAll = BUILD_WHY[`${cls.id}/${spec.id}`];
+  const why = (mode === 'leveling' && whyAll?.leveling) || whyAll;
+  const respec = useMemo(
+    () => (spec.levelingBuild ? buildDiff(spec.levelingBuild, spec.build) : []),
+    [spec],
+  );
 
   return (
     <div className="planner">
+      {onMode && (
+        <section className="panel build-mode">
+          <div className="seg" role="radiogroup" aria-label="Which build">
+            {BUILD_MODES.map((m) => (
+              <button key={m.id} role="radio" aria-checked={mode === m.id} className={mode === m.id ? 'active' : ''}
+                onClick={() => onMode(m.id)}>{m.label}</button>
+            ))}
+          </div>
+          <p>
+            {mode === 'leveling'
+              ? 'The build to follow from 10 to 59: damage first, plus talents that make questing faster. Respec into the Level 60 build when you hit 60.'
+              : 'The build to respec into at 60, for dungeons and raids. Switch to Leveling for the order to follow while you level.'}
+          </p>
+        </section>
+      )}
       {why && (
         <section className="panel build-why">
-          <div className="kicker">Why this build</div>
+          <div className="kicker">Why this {mode === 'leveling' && onMode ? 'leveling build' : 'build'}</div>
           <div className="bw-grid">
             <p><b>{cls.trees.map((t) => picks.filter((p) => p.tree === t.id).length).join(' / ')}</b> {why.main}</p>
             <p>{why.second}</p>
@@ -180,6 +201,22 @@ export default function TalentPlanner({ cls, spec, picks, onCustomize }) {
           ))}
         </ol>
       </section>
+
+      {onMode && respec.length > 0 && (
+        <section className="panel respec">
+          <div className="kicker">At level 60</div>
+          <h3>Respec from the Leveling build into the Level 60 build</h3>
+          {whyAll?.respec && <p className="respec-why">{whyAll.respec}</p>}
+          <ul className="respec-list">
+            {respec.map((d) => (
+              <li key={d.name} className={d.to > d.from ? 'up' : 'down'}>
+                <span className="rs-name">{d.name}</span>
+                <span className="rs-ranks">{d.from} → {d.to}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {tip && createPortal(
         <div className="talent-tip" style={{ left: tip.x, top: tip.y }}>

@@ -80,6 +80,13 @@ export default {
         ['Bestial Wrath', 1], ['Lethal Attacks', 5], ['Improved Stings', 2], ['Careful Aim', 5],
         ['Improved Stings', 1], ['Rapid Killing', 2], ['Mortal Shots', 5],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Deadly Aspects', 5], ['Focused Fire', 2], ['Endurance Training', 3], ['Unleashed Fury', 5],
+        ['Bestial Swiftness', 1], ['Ferocity', 5], ['Summon Hawk', 1], ['Spirit Bond', 2],
+        ['Intimidation', 1], ['Frenzy', 5], ['Bestial Wrath', 1], ['Lethal Attacks', 5],
+        ['Careful Aim', 5], ['Improved Stings', 3], ['Rapid Killing', 2], ['Mortal Shots', 5],
+      ],
     },
     {
       id: 'marksmanship', tree: 'marksmanship', name: 'Marksmanship', role: 'Ranged DPS', roles: ['dps'],
@@ -121,7 +128,7 @@ export default {
       leveling: [
         'Very viable to level as MM — big Aimed Shot openers',
         'Deadly Aspects (Beast Mastery row 1) is a strong early pick for faster leveling',
-        'Lone Wolf (20) wants your pet dismissed; keep it out to tank tough pulls while leveling if you prefer',
+        'The leveling build keeps your pet to tank; Lone Wolf (no pet) only comes in the Level 60 build',
       ],
       professions: [
         { name: 'Engineering', why: 'Scopes & Biznicks' },
@@ -133,6 +140,14 @@ export default {
         ['Improved Stings', 1], ['Trueshot Aura', 1], ['Improved Stings', 2], ['Rapid Killing', 2],
         ['Improved Arcane Shot', 5], ['Mortal Shots', 5], ['Sniper Shot', 1], ['Barrage', 3],
         ['Rapid Recuperation', 2], ['Ranged Weapon Specialization', 5], ['Deadly Aspects', 5], ['Improved Tracking', 5],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Improved Stings', 3], ['Efficiency', 2],
+        ['Trueshot Aura', 1], ['Deadly Aspects', 5], ['Rapid Killing', 2], ['Improved Arcane Shot', 5],
+        ['Mortal Shots', 5], ['Efficiency', 1], ['Barrage', 1], ['Sniper Shot', 1],
+        ['Barrage', 2], ['Rapid Recuperation', 1], ['Ranged Weapon Specialization', 5], ['Focused Fire', 2],
+        ['Improved Tracking', 5],
       ],
     },
     {
@@ -175,7 +190,7 @@ export default {
       },
       leveling: [
         'Survival levels well — Mongoose Bite and Raptor Strike handle mobs that reach you',
-        'Lone Wolf (Marksmanship) wants your pet dismissed; keep it out to tank while leveling if you prefer',
+        'The leveling build keeps your pet and takes Deterrence; Lone Wolf (no pet) only comes in the Level 60 build',
       ],
       professions: [
         { name: 'Engineering', why: 'PvP essential' },
@@ -188,6 +203,14 @@ export default {
         ['Survival Tactics', 2], ['Resourcefulness', 2], ['Lightning Reflexes', 3], ['Lacerating Strikes', 1],
         ['Lightning Reflexes', 2], ['Deadly Aspects', 5], ['Lethal Attacks', 5], ['Careful Aim', 5],
         ['Rapid Killing', 2], ['Lone Wolf', 1],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Improved Tracking', 5], ['Savage Strikes', 2], ['Survivalist', 3], ['Deterrence', 1],
+        ['Surefooted', 3], ['Clever Traps', 2], ["Predator's Edge", 5], ['Expose Prey', 2],
+        ['Strider Kick', 1], ['Resourcefulness', 2], ['Lightning Reflexes', 4], ['Lacerating Strikes', 1],
+        ['Lightning Reflexes', 1], ['Lethal Attacks', 5], ['Careful Aim', 5], ['Rapid Killing', 2],
+        ['Deadly Aspects', 5], ['Focused Fire', 2],
       ],
     },
   ],

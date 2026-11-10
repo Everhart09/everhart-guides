@@ -37,6 +37,9 @@ export default function Sidebar({ route, nav }) {
       </button>
 
       <div className="side-label">Tools</div>
+      <button className={`side-home ${route.view === 'armory' ? 'active' : ''}`} onClick={nav.armory}>
+        <Icon name="heart" size={16} /> Armory
+      </button>
       <button className={`side-home ${route.view === 'calc' ? 'active' : ''}`} onClick={() => nav.calc()}>
         <Icon name="plus" size={16} /> Talent Calculator
       </button>

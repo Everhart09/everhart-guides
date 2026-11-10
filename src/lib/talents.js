@@ -17,12 +17,29 @@ export const reqPoints = (talent, talents) => talent.reqQty ?? talents[talent.re
 /** Description for a rank (1-based); falls back to the max rank. */
 export const rankText = (talent, rank) => talent.ranks[Math.max(0, Math.min(talent.max, rank || talent.max) - 1)];
 
+/**
+ * A spec's build for a mode: 'leveling' (levels 10–59, then respec) or 'endgame' (the level 60 build).
+ * Specs without a separate leveling build use their level 60 build for both.
+ */
+export const buildOf = (spec, mode = 'endgame') => (mode === 'leveling' && spec.levelingBuild) || spec.build;
+
+/** Talents whose ranks differ between two builds: [{ name, from, to }], biggest changes first. */
+export function buildDiff(fromBuild, toBuild) {
+  const total = (b) => b.reduce((m, [n, c]) => ({ ...m, [n]: (m[n] ?? 0) + c }), {});
+  const a = total(fromBuild);
+  const b = total(toBuild);
+  return [...new Set([...Object.keys(a), ...Object.keys(b)])]
+    .map((name) => ({ name, from: a[name] ?? 0, to: b[name] ?? 0 }))
+    .filter((d) => d.from !== d.to)
+    .sort((x, y) => Math.abs(y.to - y.from) - Math.abs(x.to - x.from));
+}
+
 /** Expand a spec build into one entry per talent point: { level, name, tree, rank, max }. */
-export function expandBuild(cls, spec) {
+export function expandBuild(cls, spec, mode = 'endgame') {
   const talents = indexTalents(cls);
   const ranks = {};
   const picks = [];
-  for (const [name, count] of spec.build) {
+  for (const [name, count] of buildOf(spec, mode)) {
     if (!talents[name]) continue; // not a Forever talent — skipped until the build is updated
     for (let i = 0; i < count; i++) {
       ranks[name] = (ranks[name] || 0) + 1;
@@ -67,12 +84,15 @@ export function validateClass(cls) {
     }
   }
 
-  for (const spec of cls.specs) {
-    const label = `${cls.name}/${spec.name}`;
+  const builds = cls.specs.flatMap((spec) => [
+    { spec, build: spec.build, label: `${cls.name}/${spec.name}` },
+    ...(spec.levelingBuild ? [{ spec, build: spec.levelingBuild, label: `${cls.name}/${spec.name}: leveling build` }] : []),
+  ]);
+  for (const { spec, build, label } of builds) {
     const ranks = {};
     const totals = {};
     let points = 0;
-    for (const [name, count] of spec.build) {
+    for (const [name, count] of build) {
       const t = talents[name];
       if (!t) { errors.push(`${label}: "${name}" is not a WoW Forever talent`); continue; }
       for (let i = 0; i < count; i++) {

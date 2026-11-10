@@ -137,6 +137,14 @@ export default {
         ['Silent Resolve', 2], ['Mental Strength', 2], ['Silent Resolve', 1], ['Mental Agility', 3],
         ['Inner Focus', 1], ['Meditation', 3],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Holy Specialization', 5], ['Divine Fury', 5], ['Twilight Focus', 1], ['Improved Renew', 3],
+        ['Holy Nova', 1], ['Searing Light', 2], ['Wand Specialization', 2], ['Twin Disciplines', 5],
+        ['Improved Healing', 3], ['Holy Binding', 1], ['Inspiration', 3], ['Spirit of Redemption', 1],
+        ['Spiritual Guidance', 5], ['Spiritual Healing', 3], ['Prayer of Mending', 1], ['Mental Strength', 3],
+        ['Mental Agility', 3], ['Inner Focus', 1], ['Meditation', 3],
+      ],
     },
     {
       id: 'discipline', tree: 'discipline', name: 'Discipline', role: 'Healer / Support', roles: ['healer'],
@@ -191,6 +199,14 @@ export default {
         ['Divine Aegis', 3], ['Power Infusion', 1], ['Holy Specialization', 5], ['Twilight Focus', 3],
         ['Divine Fury', 5], ['Inspiration', 3], ['Improved Healing', 1], ['Holy Binding', 1],
         ['Improved Healing', 2],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Twin Disciplines', 5], ['Wand Specialization', 2], ['Mental Strength', 3], ['Improved Power Word: Shield', 3],
+        ['Mental Agility', 3], ['Inner Focus', 1], ['Meditation', 3], ['Soul Warding', 1],
+        ['Penance', 1], ['Renewed Hope', 5], ['Divine Aegis', 3], ['Power Infusion', 1],
+        ['Holy Specialization', 5], ['Divine Fury', 5], ['Holy Nova', 1], ['Inspiration', 1],
+        ['Twilight Focus', 3], ['Searing Light', 2], ['Improved Healing', 3],
       ],
     },
   ],

@@ -17,6 +17,7 @@ const FEATURES = [
     how: [
       '**Overview**: summary, ratings for leveling, solo, dungeons, PvP and raiding, pros and cons, signature talents, races, professions and consumables.',
       '**Talents**: drag the level slider (1–60) or press play to watch the build fill in point by point. Arrow keys step one level and Space plays or pauses. The trees use their in-game backgrounds.',
+      '**Leveling / Level 60**: most specs have two builds. The Leveling build is the one to follow from 10 to 59 (damage first, plus questing comfort); the Level 60 build is what to respec into at max level. The card at the bottom of the Talents tab lists exactly what changes.',
       '**Stats & Gear**: stat priority with explanations, weapon choices and the best pre-raid item for every slot, taken from the Forever item database.',
       '**Rotation**: opener, single-target, AoE and cooldowns, with a "why" under each step and a level slider that shows what your rotation looks like before 60.',
       '**Leveling & Route**: tips, talent checkpoints and a route planner. Pick your faction and level to see which zones and dungeons to do, with the zone map.',
@@ -63,6 +64,17 @@ const FEATURES = [
       'Filter by faction, or pick a class to see only the races that can play it.',
     ],
     go: (nav) => nav.racials(), open: 'See all racials',
+  },
+  {
+    id: 'armory', icon: 'heart', title: 'Armory',
+    what: 'Your WoW Forever characters, looked up from Blizzard: level, gear, talents, professions and progress over time.',
+    how: [
+      'One-time setup: create a free API client at develop.battle.net and paste its Client ID and Secret into the Armory page. The key is stored encrypted on your computer and only sent to Blizzard.',
+      'Add a character by its first and last name and region. Blizzard lists characters from level 10, a little while after you log out.',
+      'Star your favorites: they appear on the Overview page and update by themselves when you open the Armory.',
+      'Each character shows the next talents to take from its spec guide, and opens the Talents tab at its current level.',
+    ],
+    go: (nav) => nav.armory(), open: 'Open the Armory',
   },
   {
     id: 'picker', icon: 'star', title: 'Class Picker',

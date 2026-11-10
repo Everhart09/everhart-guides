@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { ClassEmblem } from '../components/GameIcon.jsx';
 import { Difficulty, RoleChip } from '../components/ui.jsx';
 import { expandBuild, validateClass } from '../lib/talents.js';
+import { useBuildMode } from '../lib/buildMode.js';
 import { Icon } from '../components/icons.jsx';
 import OverviewTab from './guide/OverviewTab.jsx';
 import TalentPlanner from './guide/TalentPlanner.jsx';
@@ -21,8 +22,13 @@ const TABS = [
 ];
 
 export default function GuidePage({ cls, spec, tab = 'overview', nav }) {
-  const picks = useMemo(() => expandBuild(cls, spec), [cls, spec]);
-  const split = cls.trees.map((t) => picks.filter((p) => p.tree === t.id).length).join(' / ');
+  const [buildMode, setBuildMode] = useBuildMode();
+  const hasLeveling = !!spec.levelingBuild;
+  const mode = hasLeveling ? buildMode : 'endgame';
+  const picks = useMemo(() => expandBuild(cls, spec, mode), [cls, spec, mode]);
+  const levelingPicks = useMemo(() => expandBuild(cls, spec, 'leveling'), [cls, spec]);
+  const endgamePicks = useMemo(() => expandBuild(cls, spec, 'endgame'), [cls, spec]);
+  const split = cls.trees.map((t) => endgamePicks.filter((p) => p.tree === t.id).length).join(' / ');
   const buildProblems = useMemo(() => validateClass(cls).filter((e) => e.startsWith(`${cls.name}/${spec.name}:`)), [cls, spec]);
 
   return (
@@ -78,10 +84,13 @@ export default function GuidePage({ cls, spec, tab = 'overview', nav }) {
 
       <div className="tab-body" key={tab}>
         {tab === 'overview' && <OverviewTab cls={cls} spec={spec} picks={picks} nav={nav} />}
-        {tab === 'talents' && <TalentPlanner cls={cls} spec={spec} picks={picks} onCustomize={() => nav.calc(cls.id, spec.id)} />}
+        {tab === 'talents' && (
+          <TalentPlanner cls={cls} spec={spec} picks={picks} mode={mode} onMode={hasLeveling ? setBuildMode : null}
+            onCustomize={() => nav.calc(cls.id, spec.id)} />
+        )}
         {tab === 'gear' && <GearTab cls={cls} spec={spec} />}
         {tab === 'rotation' && <RotationTab cls={cls} spec={spec} />}
-        {tab === 'leveling' && <LevelingTab cls={cls} spec={spec} picks={picks} nav={nav} />}
+        {tab === 'leveling' && <LevelingTab cls={cls} spec={spec} picks={levelingPicks} nav={nav} />}
       </div>
       <CheatSheet cls={cls} spec={spec} picks={picks} />
     </div>

@@ -84,6 +84,15 @@ export default {
         ['Adrenaline Rush', 1], ['Flash of Steel', 4], ['Malice', 5], ['Remorseless Attacks', 2],
         ['Ruthlessness', 3], ['Improved Slice and Dice', 3], ['Lethality', 2], ['Cold Blood', 1],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Efficient Strikes', 2], ['Coup de Grace', 3], ['Precision', 3], ['Deflection', 3],
+        ['Endurance', 2], ['Riposte', 1], ['Lightning Reflexes', 1], ['Aggression', 3],
+        ['Flawless Execution', 1], ['Weapon Expertise', 2], ['Blade Flurry', 1], ['Dual Wield Specialization', 1],
+        ['Hack and Slash', 5], ['Lightning Reflexes', 1], ['Flash of Steel', 1], ['Adrenaline Rush', 1],
+        ['Flash of Steel', 4], ['Malice', 5], ['Ruthlessness', 3], ['Improved Slice and Dice', 3],
+        ['Remorseless Attacks', 2], ['Lethality', 2], ['Cold Blood', 1],
+      ],
     },
     {
       id: 'assassination', tree: 'assassination', name: 'Assassination', role: 'Melee DPS', roles: ['dps'],
@@ -141,6 +150,15 @@ export default {
         ['Lightning Reflexes', 2], ['Precision', 3], ['Puncturing Wounds', 3], ['Endurance', 1],
         ['Composure', 1], ['Opportunity', 2],
       ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Malice', 5], ['Ruthlessness', 3], ['Improved Slice and Dice', 2], ['Lethality', 2],
+        ['Improved Slice and Dice', 1], ['Vigor', 2], ['Cold Blood', 1], ['Vile Poisons', 5],
+        ['Improved Poisons', 4], ['Venom', 1], ['Seal Fate', 3], ['Improved Poisons', 1],
+        ['Mutilate', 1], ['Remorseless Attacks', 2], ['Relentless Strikes', 5], ['Coup de Grace', 3],
+        ['Lightning Reflexes', 2], ['Puncturing Wounds', 3], ['Precision', 3], ['Endurance', 1],
+        ['Composure', 1],
+      ],
     },
     {
       id: 'subtlety', tree: 'subtlety', name: 'Subtlety', role: 'Melee DPS / PvP', roles: ['dps'],
@@ -196,6 +214,14 @@ export default {
         ['Hemorrhage', 1], ['Initiative', 3], ['Elusiveness', 2], ['Heightened Senses', 2],
         ['Malice', 5], ['Coup de Grace', 3], ['Lightning Reflexes', 5], ['Improved Sprint', 2],
         ['Precision', 3], ['Endurance', 2], ['Improved Kick', 2],
+      ],
+      // Levels 10–59; respec into `build` at 60.
+      levelingBuild: [
+        ['Opportunity', 5], ['Improved Ambush', 3], ['Dirty Deeds', 2], ['Premeditation', 1],
+        ['Serrated Blades', 3], ['Initiative', 3], ['Ghostly Strike', 1], ['Elusiveness', 2],
+        ['Hemorrhage', 1], ['Preparation', 1], ['Setup', 3], ['Master of Deception', 3],
+        ['Dirty Tricks', 2], ['Camouflage', 1], ['Malice', 5], ['Coup de Grace', 3],
+        ['Lightning Reflexes', 5], ['Precision', 3], ['Improved Sprint', 2], ['Endurance', 2],
       ],
     },
   ],

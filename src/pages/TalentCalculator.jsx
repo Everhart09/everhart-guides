@@ -5,7 +5,8 @@ import { TALENT_META } from '../data/talents/index.js';
 import { ClassEmblem } from '../components/GameIcon.jsx';
 import { Icon } from '../components/icons.jsx';
 import { talentIcon } from '../lib/icons.js';
-import { TOTAL_POINTS, indexTalents, rankText, reqPoints } from '../lib/talents.js';
+import { TOTAL_POINTS, buildOf, indexTalents, rankText, reqPoints } from '../lib/talents.js';
+import { readBuildMode } from '../lib/buildMode.js';
 import {
   addBlocker, decodeBuild, encodeBuild, isLegal, legalOrder, levelForPoints, orderFromBuild,
   ranksOf, removeBlocker, removeLast,
@@ -36,7 +37,7 @@ function writeJSON(key, value) {
 function specOrder(talents, spec) {
   const order = [];
   const ranks = {};
-  for (const name of orderFromBuild(spec.build)) {
+  for (const name of orderFromBuild(buildOf(spec, readBuildMode()))) {
     if (!talents[name] || addBlocker(talents, ranks, name)) continue;
     ranks[name] = (ranks[name] || 0) + 1;
     order.push(name);

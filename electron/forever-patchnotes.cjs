@@ -125,11 +125,19 @@ function listItems(ul, prefix = '') {
       continue;
     }
     const item = toItem(li);
-    if (!prefix) out.push(item);
+    // A developers' note stays unprefixed so attachNotes() joins it to the change before it.
+    if (!prefix || (typeof item === 'string' && DEV_NOTE.test(item))) out.push(item);
     else if (typeof item === 'string') out.push(`${prefix} — ${item}`);
     else out.push({ ...item, t: `${prefix} — ${item.t}` });
   }
   return out;
+}
+
+/** "Loose" lists wrap each item's text in <p> (<li><p><strong>Druid</strong></p><ul>…); unwrap so they read like tight lists. */
+function unwrapLoose(node) {
+  if (!node.children) return node;
+  node.children = node.children.flatMap((c) => (node.tag === 'li' && c.tag === 'p' ? c.children : [c])).map(unwrapLoose);
+  return node;
 }
 
 function sectionFor(heading) {
@@ -139,7 +147,7 @@ function sectionFor(heading) {
 
 /** Converts one notes post into sections → groups → items. */
 function toSections(cooked) {
-  const root = parse(cooked.replace(/<a [^>]*class="anchor"[^>]*><\/a>/g, ''));
+  const root = unwrapLoose(parse(cooked.replace(/<a [^>]*class="anchor"[^>]*><\/a>/g, '')));
   const sections = new Map();
   const section = (heading) => {
     const s = sectionFor(heading);

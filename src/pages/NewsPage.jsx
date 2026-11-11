@@ -3,12 +3,13 @@ import { isBetaOver } from '../data/release.js';
 import { Icon } from '../components/icons.jsx';
 import PatchNotes from './PatchNotes.jsx';
 import BetaNotes from './BetaNotes.jsx';
+import Hotfixes from './Hotfixes.jsx';
 
 /** Patch notes and (while the beta runs) the beta overview, on one page. */
 export default function NewsPage({ tab = 'notes', nav }) {
   const launched = isBetaOver(); // the beta overview and beta wording go away once the beta has ended
   const showBeta = !launched;
-  const current = showBeta && tab === 'beta' ? 'beta' : 'notes';
+  const current = showBeta && tab === 'beta' ? 'beta' : tab === 'hotfixes' ? 'hotfixes' : 'notes';
 
   return (
     <div className="page">
@@ -20,7 +21,7 @@ export default function NewsPage({ tab = 'notes', nav }) {
           <h1>{launched ? 'WoW Forever Patch Notes' : 'WoW Forever News'}</h1>
           <p className="hero-desc">
             {launched
-              ? `Blizzard's official notes for the latest update, posted by ${PATCH.author}. Filter by class or category, or search for a change.`
+              ? `Blizzard's official notes for the latest update, posted by ${PATCH.author}, and every hotfix since launch. Filter by class or category, or search for a change.`
               : `Blizzard's latest beta development notes, plus where the beta stands: level cap, open dungeons, known issues and the schedule to launch.`}
           </p>
           <div className="hero-meta">
@@ -31,14 +32,15 @@ export default function NewsPage({ tab = 'notes', nav }) {
         </div>
       </header>
 
-      {showBeta && (
-        <nav className="tabs">
-          <button className={current === 'notes' ? 'active' : ''} onClick={() => nav.patch('notes')}>Patch notes</button>
-          <button className={current === 'beta' ? 'active' : ''} onClick={() => nav.patch('beta')}>Beta overview</button>
-        </nav>
-      )}
+      <nav className="tabs">
+        <button className={current === 'notes' ? 'active' : ''} onClick={() => nav.patch('notes')}>Patch notes</button>
+        <button className={current === 'hotfixes' ? 'active' : ''} onClick={() => nav.patch('hotfixes')}>Hotfixes</button>
+        {showBeta && <button className={current === 'beta' ? 'active' : ''} onClick={() => nav.patch('beta')}>Beta overview</button>}
+      </nav>
 
-      {current === 'notes' ? <PatchNotes nav={nav} embedded /> : <BetaNotes nav={nav} embedded />}
+      {current === 'notes' && <PatchNotes nav={nav} embedded />}
+      {current === 'hotfixes' && <Hotfixes nav={nav} />}
+      {current === 'beta' && <BetaNotes nav={nav} embedded />}
     </div>
   );
 }

@@ -6,9 +6,9 @@ import { Icon } from '../components/icons.jsx';
 import { stage } from '../data/release.js';
 
 const CHIP_LABELS = { general: 'General', pvp: 'PvP', professions: 'Professions', quests: 'Quests', ui: 'Interface', known: 'Known issues' };
-const itemText =(it) => (typeof it === 'string' ? it : [it.t, it.note, ...(it.sub ?? [])].join(' '));
+export const itemText = (it) => (typeof it === 'string' ? it : [it.t, it.note, ...(it.sub ?? [])].join(' '));
 
-function Item({ it }) {
+export function PatchItem({ it }) {
   if (typeof it === 'string') return <li>{it}</li>;
   return (
     <li>
@@ -116,7 +116,7 @@ export default function PatchNotes({ nav, embedded = false }) {
                       <button className="btn-ghost" onClick={() => nav.cls(cls.id)}>{cls.name} guides <Icon name="arrow" size={12} /></button>
                     </div>
                   ) : g.title && <h4 className="pn-group-title">{g.title}</h4>}
-                  <ul className="pn-items">{g.items.map((it) => <Item key={itemText(it)} it={it} />)}</ul>
+                  <ul className="pn-items">{g.items.map((it) => <PatchItem key={itemText(it)} it={it} />)}</ul>
                 </div>
               );
             })}

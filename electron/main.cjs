@@ -10,6 +10,7 @@ const appUpdater = require('./app-updater.cjs');
 const { fetchPatchNotes, latestPost, PARSER_VERSION } = require('./forever-patchnotes.cjs');
 const { buildLegacyData } = require('./forever-legacy.cjs');
 const armory = require('./armory.cjs');
+const { fetchHotfixes } = require('./forever-hotfixes.cjs');
 
 appUpdater.register();
 
@@ -22,6 +23,7 @@ const gearFile = () => path.join(userDir(), 'forever-gear.json');
 const changesFile = () => path.join(userDir(), 'class-changes.json');
 const patchNotesFile = () => path.join(userDir(), 'patch-notes.json');
 const legacyFile = () => path.join(userDir(), 'forever-legacy.json');
+const hotfixesFile = () => path.join(userDir(), 'hotfixes.json');
 // Data versions a source refused to serve (e.g. { gear: 1792500090 }), so the daily check doesn't keep offering them.
 const skippedFile = () => path.join(userDir(), 'skipped-updates.json');
 const dungeonsFile = () => path.join(userDir(), 'forever-dungeons.json');
@@ -314,6 +316,19 @@ ipcMain.handle('updates:apply', async (event, options = {}) => {
     };
   } catch (e) {
     return { ok: false, error: e.message, skipped };
+  }
+});
+
+// Hotfixes: fetched when the Hotfixes tab opens (Blizzard posts them almost daily), cached for offline use.
+ipcMain.handle('hotfixes:get', async (_event, force = false) => {
+  const cached = readJSON(hotfixesFile());
+  if (cached && !force && Date.now() - Date.parse(cached.fetchedAt) < 20 * 60 * 1000) return { data: cached };
+  try {
+    const data = await fetchHotfixes();
+    fs.writeFileSync(hotfixesFile(), JSON.stringify(data));
+    return { data };
+  } catch (e) {
+    return { data: cached, error: e.message };
   }
 });
 

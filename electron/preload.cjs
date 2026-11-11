@@ -13,6 +13,8 @@ contextBridge.exposeInMainWorld('everhart', {
   getLegacyOverride: () => ipcRenderer.sendSync('legacy:get-override'),
   /** Downloaded beta patch notes (or null to use the bundled ones). */
   getPatchNotesOverride: () => ipcRenderer.sendSync('patchnotes:get-override'),
+  /** Blizzard's hotfix posts, one entry per day: { data, error? }. Cached for 20 minutes unless force is true. */
+  getHotfixes: (force) => ipcRenderer.invoke('hotfixes:get', force),
   /** Info about downloaded zone maps (or null to use the bundled maps). */
   getMapsMeta: () => ipcRenderer.sendSync('maps:get-meta'),
   /** Downloaded Classic-vs-Forever class comparison (or null to use the bundled one). */

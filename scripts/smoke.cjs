@@ -16,7 +16,7 @@ app.whenReady().then(async () => {
   const js = (code) => win.webContents.executeJavaScript(code);
 
   // Top-level pages; classes, specs, professions and dungeons are discovered from the app's own sidebar and hub below.
-  const routes = [{ view: 'home' }, { view: 'picker' }, { view: 'patch', tab: 'notes' }, { view: 'patch', tab: 'beta' },
+  const routes = [{ view: 'home' }, { view: 'picker' }, { view: 'patch', tab: 'notes' }, { view: 'patch', tab: 'beta' }, { view: 'patch', tab: 'hotfixes' },
     { view: 'calc', classId: 'warrior' }, { view: 'legacy' }, { view: 'about' }, { view: 'races' }, { view: 'races', classId: 'shaman', specId: 'enhancement' }, { view: 'racials' }, { view: 'armory' }, { view: 'dungeons' }, { view: 'professions' }];
 
   const pages = [];

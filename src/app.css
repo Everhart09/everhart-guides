@@ -2899,3 +2899,12 @@ svg.filled { fill: currentColor; }
 .ar-pvp div { text-align: center; }
 .ar-pvp b { display: block; font-size: 26px; color: #f5c242; }
 .ar-pvp em { font-style: normal; font-size: 14px; color: #f3eee4; }
+
+/* Patch notes: hotfixes tab */
+.hf-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
+.hf-bar .muted { flex: 1; min-width: 240px; }
+.hf-day { margin-bottom: 22px; }
+.hf-day-head { display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; }
+.hf-day-head h2 { font-size: 20px; margin: 0; white-space: nowrap; }
+.hf-day-head .rule { flex: 1; height: 1px; background: var(--line-soft); }
+.hf-new { padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #10110f; background: var(--gold-2); }

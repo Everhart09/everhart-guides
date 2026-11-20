@@ -2908,3 +2908,5 @@ svg.filled { fill: currentColor; }
 .hf-day-head h2 { font-size: 20px; margin: 0; white-space: nowrap; }
 .hf-day-head .rule { flex: 1; height: 1px; background: var(--line-soft); }
 .hf-new { padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #10110f; background: var(--gold-2); }
+.bw-source { margin-top: 10px; font-size: 12px; color: var(--muted); }
+.bw-source a { color: var(--gold-2); display: inline-flex; align-items: center; gap: 3px; }

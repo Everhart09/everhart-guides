@@ -74,18 +74,20 @@ export default {
       ],
       consumables: ['Elixir of the Mongoose', 'Major Mana Potion', 'Jagged Arrows / Thorium Shells', 'Pet food stock'],
       build: [
-        ['Deadly Aspects', 5], ['Endurance Training', 3], ['Focused Fire', 2], ['Bestial Swiftness', 1],
-        ['Unleashed Fury', 4], ['Summon Hawk', 1], ['Unleashed Fury', 1], ['Ferocity', 3],
-        ['Intimidation', 1], ['Ferocity', 2], ['Bestial Discipline', 2], ['Frenzy', 5],
-        ['Bestial Wrath', 1], ['Lethal Attacks', 5], ['Improved Stings', 2], ['Careful Aim', 5],
-        ['Improved Stings', 1], ['Rapid Killing', 2], ['Mortal Shots', 5],
+        ['Deadly Aspects', 5], ['Endurance Training', 1], ['Focused Fire', 2], ['Improved Revive Pet', 2],
+        ['Unleashed Fury', 5], ['Bestial Swiftness', 1], ['Ferocity', 5], ['Summon Hawk', 1],
+        ['Bestial Discipline', 2], ['Intimidation', 1], ['Frenzy', 5], ['Bestial Wrath', 1],
+        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Improved Stings', 3], ['Rapid Killing', 2],
+        ['Mortal Shots', 4], ['Trueshot Aura', 1],
       ],
-      // Levels 10–59; respec into `build` at 60.
+      // Levels 10–59 (<Progress> Staedt: Leveling (2026-11-19)); respec into `build` at 60.
       levelingBuild: [
-        ['Deadly Aspects', 5], ['Focused Fire', 2], ['Endurance Training', 3], ['Unleashed Fury', 5],
-        ['Bestial Swiftness', 1], ['Ferocity', 5], ['Summon Hawk', 1], ['Spirit Bond', 2],
-        ['Intimidation', 1], ['Frenzy', 5], ['Bestial Wrath', 1], ['Lethal Attacks', 5],
-        ['Careful Aim', 5], ['Improved Stings', 3], ['Rapid Killing', 2], ['Mortal Shots', 5],
+        ['Deadly Aspects', 5], ['Focused Fire', 2], ['Improved Revive Pet', 2], ['Endurance Training', 1],
+        ['Bestial Swiftness', 1], ['Pathfinding', 2], ['Unleashed Fury', 2], ['Summon Hawk', 1],
+        ['Unleashed Fury', 3], ['Ferocity', 1], ['Bestial Discipline', 2], ['Ferocity', 4],
+        ['Frenzy', 3], ['Intimidation', 1], ['Bestial Wrath', 1], ['Lethal Attacks', 5],
+        ['Careful Aim', 5], ['Improved Stings', 3], ['Rapid Killing', 2], ['Trueshot Aura', 1],
+        ['Mortal Shots', 4],
       ],
     },
     {
@@ -136,18 +138,17 @@ export default {
       ],
       consumables: ['Elixir of the Mongoose', 'Juju Might', 'Major Mana Potion', 'Thorium Headed Arrows'],
       build: [
-        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Lone Wolf', 1], ['Efficiency', 3],
-        ['Improved Stings', 1], ['Trueshot Aura', 1], ['Improved Stings', 2], ['Rapid Killing', 2],
-        ['Improved Arcane Shot', 5], ['Mortal Shots', 5], ['Sniper Shot', 1], ['Barrage', 3],
-        ['Rapid Recuperation', 2], ['Ranged Weapon Specialization', 5], ['Deadly Aspects', 5], ['Improved Tracking', 5],
+        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Improved Stings', 3], ['Efficiency', 4],
+        ['Rapid Killing', 2], ['Improved Arcane Shot', 5], ['Lone Wolf', 1], ['Trueshot Aura', 1],
+        ['Mortal Shots', 4], ['Sniper Shot', 1], ['Mortal Shots', 1], ['Rapid Recuperation', 2],
+        ['Barrage', 2], ['Ranged Weapon Specialization', 5], ['Deadly Aspects', 5], ['Improved Tracking', 5],
       ],
-      // Levels 10–59; respec into `build` at 60.
+      // Levels 10–59 (LudiDeo: Leveling BM leaning (2026-11-18)); respec into `build` at 60.
       levelingBuild: [
-        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Improved Stings', 3], ['Efficiency', 2],
-        ['Trueshot Aura', 1], ['Deadly Aspects', 5], ['Rapid Killing', 2], ['Improved Arcane Shot', 5],
-        ['Mortal Shots', 5], ['Efficiency', 1], ['Barrage', 1], ['Sniper Shot', 1],
-        ['Barrage', 2], ['Rapid Recuperation', 1], ['Ranged Weapon Specialization', 5], ['Focused Fire', 2],
-        ['Improved Tracking', 5],
+        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Rapid Killing', 2], ['Hawk Eye', 3],
+        ['Trueshot Aura', 1], ['Mortal Shots', 5], ['Barrage', 3], ['Rapid Recuperation', 1],
+        ['Ranged Weapon Specialization', 5], ['Sniper Shot', 1], ['Improved Tracking', 5], ['Deadly Aspects', 5],
+        ['Focused Fire', 2], ['Endurance Training', 3], ['Unleashed Fury', 5],
       ],
     },
     {
@@ -190,7 +191,7 @@ export default {
       },
       leveling: [
         'Survival levels well — Mongoose Bite and Raptor Strike handle mobs that reach you',
-        'The leveling build keeps your pet and takes Deterrence; Lone Wolf (no pet) only comes in the Level 60 build',
+        'The leveling build keeps your pet; Lone Wolf (no pet) only comes in the Level 60 build',
       ],
       professions: [
         { name: 'Engineering', why: 'PvP essential' },
@@ -199,18 +200,18 @@ export default {
       consumables: ['Elixir of the Mongoose', 'Free Action Potion', 'Major Mana Potion'],
       build: [
         ['Improved Tracking', 5], ['Savage Strikes', 2], ['Survivalist', 3], ['Surefooted', 3],
-        ['Clever Traps', 2], ["Predator's Edge", 5], ['Expose Prey', 2], ['Strider Kick', 1],
-        ['Survival Tactics', 2], ['Resourcefulness', 2], ['Lightning Reflexes', 3], ['Lacerating Strikes', 1],
-        ['Lightning Reflexes', 2], ['Deadly Aspects', 5], ['Lethal Attacks', 5], ['Careful Aim', 5],
-        ['Rapid Killing', 2], ['Lone Wolf', 1],
+        ['Clever Traps', 2], ["Predator's Edge", 5], ['Strider Kick', 1], ['Expose Prey', 2],
+        ['Resourcefulness', 2], ['Lightning Reflexes', 5], ['Lacerating Strikes', 1], ['Lethal Attacks', 5],
+        ['Careful Aim', 5], ['Improved Stings', 3], ['Lone Wolf', 1], ['Improved Arcane Shot', 1],
+        ['Trueshot Aura', 1], ['Mortal Shots', 4],
       ],
-      // Levels 10–59; respec into `build` at 60.
+      // Levels 10–59 (LudiDeo: Leveling 2H Weave (2026-11-17)); respec into `build` at 60.
       levelingBuild: [
-        ['Improved Tracking', 5], ['Savage Strikes', 2], ['Survivalist', 3], ['Deterrence', 1],
-        ['Surefooted', 3], ['Clever Traps', 2], ["Predator's Edge", 5], ['Expose Prey', 2],
-        ['Strider Kick', 1], ['Resourcefulness', 2], ['Lightning Reflexes', 4], ['Lacerating Strikes', 1],
-        ['Lightning Reflexes', 1], ['Lethal Attacks', 5], ['Careful Aim', 5], ['Rapid Killing', 2],
-        ['Deadly Aspects', 5], ['Focused Fire', 2],
+        ['Improved Tracking', 5], ['Savage Strikes', 2], ['Survivalist', 3], ['Surefooted', 3],
+        ['Clever Traps', 2], ["Predator's Edge", 5], ['Strider Kick', 1], ['Expose Prey', 2],
+        ["Survivalist's Discipline", 2], ['Lightning Reflexes', 5], ['Lacerating Strikes', 1], ['Resourcefulness', 2],
+        ['Lethal Attacks', 5], ['Careful Aim', 5], ['Deadly Aspects', 5], ['Focused Fire', 2],
+        ['Efficiency', 1],
       ],
     },
   ],

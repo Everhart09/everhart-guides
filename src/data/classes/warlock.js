@@ -57,7 +57,7 @@ export default {
         opener: ['Send in **Voidwalker**', '**Bane of Agony**', '**Corruption** (instant)', '**Siphon Life**', '**Immolate** if time allows'],
         single: ['Keep **Corruption**, **Bane of Agony** and **Siphon Life** up', '**Drain Life** to heal & finish', 'Instant **Shadow Bolt** on Nightfall procs', 'Wand when DoTs are ticking & mana is low'],
         aoe: ['DoT 2–3 mobs, Voidwalker holds them', '**Fear** extras', '**Hellfire** / **Rain of Fire** for big packs'],
-        cooldowns: ['**Death Coil** — instant fear & heal (42)', '**Life Tap** for mana (Improved Life Tap helps)', 'Healthstone & Voidwalker **Sacrifice** shield'],
+        cooldowns: ['**Death Coil** — instant fear & heal (42)', '**Life Tap** for mana', 'Healthstone & Voidwalker **Sacrifice** shield'],
         notes: ['Drain Soul the last 25% of a mob to collect shards', 'Keep **Demon Armor** up'],
       },
       leveling: [
@@ -72,19 +72,19 @@ export default {
       ],
       consumables: ['Elixir of Shadow Power', 'Greater Arcane Elixir', 'Major Mana Potion', 'Elixir of Fortitude'],
       build: [
-        ['Improved Corruption', 5], ['Suppression', 4], ['Improved Life Tap', 2], ['Suppression', 1],
-        ['Improved Drains', 3], ['Grim Reach', 2], ['Improved Bane of Agony', 2], ['Fel Concentration', 1],
-        ['Siphon Life', 1], ['Pandemic', 3], ['Nightfall', 2], ['Malevolence', 4],
-        ['Wrack', 1], ['Malevolence', 1], ['Soul Siphon', 3], ['Shadow Mastery', 5],
         ['Demonic Embrace', 5], ['Fel Vitality', 3], ['Demonic Aegis', 2], ['Demonic Sacrifice', 1],
+        ['Improved Corruption', 5], ['Grim Reach', 2], ['Suppression', 5], ['Pandemic', 3],
+        ['Improved Bane of Agony', 2], ['Amplify Curse', 1], ['Malevolence', 5], ['Nightfall', 2],
+        ['Siphon Life', 1], ['Soul Siphon', 3], ['Shadow Mastery', 5], ['Wrack', 1],
+        ['Improved Shadow Bolt', 5],
       ],
-      // Levels 10–59; respec into `build` at 60.
+      // Levels 10–59 (Crix: Affliction 1-60 (2026-11-19)); respec into `build` at 60.
       levelingBuild: [
-        ['Improved Corruption', 5], ['Improved Drains', 3], ['Improved Life Tap', 2], ['Fel Concentration', 3],
-        ['Improved Bane of Agony', 2], ['Nightfall', 2], ['Malevolence', 3], ['Siphon Life', 1],
-        ['Soul Siphon', 3], ['Malevolence', 2], ['Shadow Mastery', 4], ['Wrack', 1],
-        ['Shadow Mastery', 1], ['Pandemic', 3], ['Suppression', 5], ['Demonic Embrace', 5],
-        ['Improved Voidwalker', 2], ['Fel Vitality', 3], ['Demonic Sacrifice', 1],
+        ['Improved Corruption', 5], ['Suppression', 4], ['Soul Harvest', 2], ['Improved Bane of Agony', 2],
+        ['Improved Drains', 3], ['Fel Concentration', 3], ['Grim Reach', 1], ['Siphon Life', 1],
+        ['Soul Siphon', 3], ['Grim Reach', 1], ['Shadow Mastery', 5], ['Wrack', 1],
+        ['Demonic Embrace', 5], ['Fel Vitality', 3], ['Demonic Aegis', 2], ['Demonic Sacrifice', 1],
+        ['Amplify Curse', 1], ['Curse of Exhaustion', 1], ['Pandemic', 3], ['Malevolence', 4],
       ],
     },
     {
@@ -134,18 +134,19 @@ export default {
       ],
       consumables: ['Elixir of Fortitude', 'Greater Arcane Elixir', 'Major Mana Potion'],
       build: [
-        ['Demonic Embrace', 5], ['Unholy Power', 5], ['Demonic Sacrifice', 1], ['Fel Vitality', 2],
-        ['Demonic Energies', 2], ['Fel Vitality', 1], ['Improved Sayaad', 3], ['Decimation', 1],
-        ['Soul Link', 1], ['Decimation', 1], ['Demonic Knowledge', 3], ['Master Demonologist', 5],
-        ['Suppression', 5], ['Bane', 5], ['Improved Shadow Bolt', 5], ['Ruin', 5],
-        ['Agonizing Flames', 1],
+        ['Improved Corruption', 1], ['Unholy Power', 5], ['Demonic Energies', 2], ['Fel Vitality', 3],
+        ['Master Summoner', 2], ['Improved Sayaad', 3], ['Demonic Brand', 3], ['Demonic Sacrifice', 1],
+        ['Suppression', 1], ['Decimation', 1], ['Soul Link', 1], ['Demonic Knowledge', 3],
+        ['Decimation', 1], ['Master Demonologist', 5], ['Demonic Pact', 1], ['Improved Shadow Bolt', 5],
+        ['Bane', 5], ['Ruin', 5], ['Agonizing Flames', 3],
       ],
-      // Levels 10–59; respec into `build` at 60.
+      // Levels 10–59 (Crix: Demonology 1-60 (2026-11-20)); respec into `build` at 60.
       levelingBuild: [
-        ['Demonic Embrace', 5], ['Unholy Power', 5], ['Fel Vitality', 3], ['Improved Voidwalker', 3],
-        ['Demonic Energies', 2], ['Demonic Sacrifice', 1], ['Decimation', 2], ['Soul Link', 1],
-        ['Demonic Knowledge', 3], ['Master Demonologist', 5], ['Suppression', 5], ['Bane', 5],
-        ['Improved Shadow Bolt', 5], ['Ruin', 5], ['Agonizing Flames', 1],
+        ['Improved Corruption', 1], ['Unholy Power', 5], ['Demonic Energies', 2], ['Fel Vitality', 3],
+        ['Master Summoner', 2], ['Improved Sayaad', 3], ['Demonic Brand', 3], ['Fel Domination', 1],
+        ['Demonic Sacrifice', 1], ['Soul Link', 1], ['Demonic Knowledge', 3], ['Demonic Embrace', 1],
+        ['Master Demonologist', 5], ['Demonic Pact', 1], ['Improved Corruption', 4], ['Soul Harvest', 2],
+        ['Suppression', 4], ['Pandemic', 3], ['Improved Bane of Agony', 2], ['Malevolence', 4],
       ],
     },
     {
@@ -157,7 +158,7 @@ export default {
         'Destruction (DS/Ruin) is the classic raid warlock spec: sacrifice your Succubus for 15% shadow damage, then Shadow Bolt with Ruin doubling your crit damage. In Forever, Conflagrate, Shadow and Flame and the 31-point Incinerate add a Fire side: Immolate → Conflagrate boosts your Shadow damage. Shadowburn adds an instant execute for PvP.',
       pros: [
         'Top raid damage with a simple rotation',
-        'Ruin + Improved Shadow Bolt crit synergy',
+        'Ruin and Bane: fast, hard-hitting Shadow Bolts',
         'Shadowburn instant execute',
         'Demonic Sacrifice removes pet micromanagement',
       ],
@@ -169,7 +170,7 @@ export default {
       stats: [
         { name: 'Spell Hit (to 16%)', weight: 100, note: 'Boss hit cap' },
         { name: 'Spell Damage (Shadow)', weight: 95, note: '' },
-        { name: 'Spell Critical', weight: 80, note: 'Ruin & Improved Shadow Bolt' },
+        { name: 'Spell Critical', weight: 80, note: 'Ruin doubles the value of crits' },
         { name: 'Stamina', weight: 45, note: 'Life Tap fuel' },
         { name: 'Intellect', weight: 40, note: '' },
       ],
@@ -195,11 +196,20 @@ export default {
       ],
       consumables: ['Elixir of Shadow Power', 'Greater Arcane Elixir', 'Flask of Supreme Power', 'Brilliant Wizard Oil'],
       build: [
-        ['Improved Shadow Bolt', 5], ['Cataclysm', 3], ['Aftermath', 2], ['Ruin', 5],
-        ['Shadowburn', 1], ['Agonizing Flames', 3], ['Conflagrate', 1], ['Bane of Havoc', 1],
-        ['Fire and Brimstone', 3], ['Bane', 1], ['Shadow and Flame', 5], ['Incinerate', 1],
-        ['Bane', 4], ['Demonic Embrace', 5], ['Improved Voidwalker', 3], ['Fel Vitality', 2],
-        ['Master Summoner', 2], ['Demonic Sacrifice', 1], ['Improved Sayaad', 2], ['Fel Domination', 1],
+        ['Bane', 5], ['Cataclysm', 3], ['Improved Corruption', 5], ['Demonic Embrace', 3],
+        ['Unholy Power', 2], ['Aftermath', 2], ['Shadowburn', 1], ['Ruin', 4],
+        ['Conflagrate', 1], ['Ruin', 1], ['Agonizing Flames', 3], ['Bane of Havoc', 1],
+        ['Fire and Brimstone', 3], ['Aftermath', 1], ['Shadow and Flame', 5], ['Incinerate', 1],
+        ['Aftermath', 2], ['Suppression', 2], ['Demonic Embrace', 2], ['Fel Vitality', 3],
+        ['Demonic Sacrifice', 1],
+      ],
+      // Levels 10–59 (<Progress> Hadoogin: Leveling (2026-11-06)); respec into `build` at 60.
+      levelingBuild: [
+        ['Bane', 5], ['Destructive Reach', 2], ['Cataclysm', 3], ['Shadowburn', 1],
+        ['Ruin', 4], ['Conflagrate', 1], ['Ruin', 1], ['Agonizing Flames', 3],
+        ['Bane of Havoc', 1], ['Intensity', 3], ['Fire and Brimstone', 3], ['Shadow and Flame', 3],
+        ['Incinerate', 1], ['Shadow and Flame', 2], ['Improved Corruption', 5], ['Demonic Embrace', 3],
+        ['Unholy Power', 5], ['Demonic Energies', 2], ['Improved Sayaad', 3],
       ],
     },
   ],

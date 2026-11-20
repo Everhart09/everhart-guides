@@ -1,8 +1,8 @@
 {
  "meta": {
   "source": "Wowhead Forever talent calculator",
-  "dataUrl": "https://nether.wowhead.com/forever/data/talents-classic?dv=34&db=1793836334",
-  "importedAt": "2026-11-05"
+  "dataUrl": "https://nether.wowhead.com/forever/data/talents-classic?dv=34&db=1794954800",
+  "importedAt": "2026-11-20"
  },
  "classes": {
   "warrior": [
@@ -355,8 +355,8 @@
       "col": 2,
       "max": 2,
       "ranks": [
-       "Your Enrage, Berserker Rage, Bloodrage, Death Wish, and Bloodthirst abilities cause your next 3 melee attacks to restore 0.5% of your maximum Health.",
-       "Your Enrage, Berserker Rage, Bloodrage, Death Wish, and Bloodthirst abilities cause your next 3 melee attacks to restore 1.0% of your maximum Health."
+       "Your Enrage, Berserker Rage, Bloodrage, Death Wish, Reckless Swings, and Bloodthirst abilities cause your next 3 melee attacks to restore 0.5% of your maximum Health.",
+       "Your Enrage, Berserker Rage, Bloodrage, Death Wish, Reckless Swings, and Bloodthirst abilities cause your next 3 melee attacks to restore 1.0% of your maximum Health."
       ],
       "req": "Blood Craze",
       "reqQty": 3
@@ -518,9 +518,9 @@
       "col": 3,
       "max": 3,
       "ranks": [
-       "Increases all threat generated in Defensive stance by an additional 5% while a shield is equipped.",
-       "Increases all threat generated in Defensive stance by an additional 10% while a shield is equipped.",
-       "Increases all threat generated in Defensive stance by an additional 15% while a shield is equipped."
+       "Increases all threat generated in Defensive stance by an additional 7% while a shield is equipped.",
+       "Increases all threat generated in Defensive stance by an additional 13% while a shield is equipped.",
+       "Increases all threat generated in Defensive stance by an additional 20% while a shield is equipped."
       ]
      },
      {
@@ -2912,7 +2912,7 @@
       "col": 1,
       "max": 1,
       "ranks": [
-       "Afflicts your target with Shadow energy that causes all party members to be healed for 20% of any Shadow spell damage you deal for 30 sec."
+       "Afflicts your target with Shadow energy that causes all party members to be healed for 10% of any Shadow spell damage you deal for 30 sec. You receive 100% increased healing on yourself from this effect."
       ]
      },
      {
@@ -3225,9 +3225,9 @@
       "col": 1,
       "max": 3,
       "ranks": [
-       "Increases your Attack Power by an amount equal to 50% of your Intellect.",
-       "Increases your Attack Power by an amount equal to 100% of your Intellect.",
-       "Increases your Attack Power by an amount equal to 150% of your Intellect."
+       "Increases your Attack Power by an amount equal to 33% of your Intellect.",
+       "Increases your Attack Power by an amount equal to 66% of your Intellect.",
+       "Increases your Attack Power by an amount equal to 100% of your Intellect."
       ]
      },
      {
@@ -3306,7 +3306,7 @@
       "col": 2,
       "max": 1,
       "ranks": [
-       "Instantly strike for 150% weapon damage and increase the damage you deal to the target with your next Lightning Bolt, Chain Lightning, or Earth Shock spell by 20% for 12 sec."
+       "Instantly strike for 100% weapon damage and increase the damage you deal to the target with your next Lightning Bolt, Chain Lightning, or Earth Shock spell by 20% for 12 sec."
       ]
      },
      {
@@ -3356,11 +3356,11 @@
       "col": 2,
       "max": 5,
       "ranks": [
-       "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 4%. Stacks up to 5 times. Lasts 30 sec.",
-       "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 8%. Stacks up to 5 times. Lasts 30 sec.",
-       "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 12%. Stacks up to 5 times. Lasts 30 sec.",
-       "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 16%. Stacks up to 5 times. Lasts 30 sec.",
-       "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec."
+       "When you deal damage with a melee attack, you have a ((Mainhand weapon min base speed * 6 / 60) * 100)% chance (based on weapon speed) to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec.",
+       "When you deal damage with a melee attack, you have a ((Mainhand weapon min base speed * 7 / 60) * 100)% chance (based on weapon speed) to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec.",
+       "When you deal damage with a melee attack, you have a ((Mainhand weapon min base speed * 8 / 60) * 100)% chance (based on weapon speed) to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec.",
+       "When you deal damage with a melee attack, you have a ((Mainhand weapon min base speed * 9 / 60) * 100)% chance (based on weapon speed) to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec.",
+       "When you deal damage with a melee attack, you have a ((Mainhand weapon min base speed * 10 / 60) * 100)% chance (based on weapon speed) to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec."
       ]
      },
      {
@@ -4323,9 +4323,9 @@
       "col": 2,
       "max": 3,
       "ranks": [
-       "Increases the damage done or health drained by your Drain Life, Drain Soul, and Wrack spells by 4% per each of your other Affliction effects active on the target, up to a maximum increase of 12%.",
-       "Increases the damage done or health drained by your Drain Life, Drain Soul, and Wrack spells by 8% per each of your other Affliction effects active on the target, up to a maximum increase of 24%.",
-       "Increases the damage done or health drained by your Drain Life, Drain Soul, and Wrack spells by 12% per each of your other Affliction effects active on the target, up to a maximum increase of 36%."
+       "Increases the damage done or health drained by your Drain Life, Drain Soul, and Wrack spells by 4% per each of your Corruption, Siphon Life, and Bane of Agony effects active on the target, up to a maximum increase of 12%.",
+       "Increases the damage done or health drained by your Drain Life, Drain Soul, and Wrack spells by 8% per each of your Corruption, Siphon Life, and Bane of Agony effects active on the target, up to a maximum increase of 24%.",
+       "Increases the damage done or health drained by your Drain Life, Drain Soul, and Wrack spells by 12% per each of your Corruption, Siphon Life, and Bane of Agony effects active on the target, up to a maximum increase of 36%."
       ]
      },
      {
@@ -4347,7 +4347,7 @@
       "col": 1,
       "max": 1,
       "ranks": [
-       "Tears the target apart from within, inflicting 86 Shadow damage every 1 sec and increasing the damage they take from your other Shadow damage over time effects by 10% for 6 sec."
+       "Tears the target apart from within for 6 sec, inflicting 60 Shadow damage every 1 sec. While channeling, your Siphon Life, Corruption, and Bane of Agony effects on the target deal their periodic damage 100% faster."
       ],
       "req": "Siphon Life",
       "reqQty": 1
@@ -5298,7 +5298,7 @@
       "col": 3,
       "max": 1,
       "ranks": [
-       "Instantly heals a target with your active Rejuvenation or Regrowth effect for an amount equal to the full duration of the periodic effect of the consumed spell."
+       "Instantly heals a target with your active Rejuvenation or Regrowth effect for an amount equal to the full duration of the periodic effect."
       ]
      },
      {

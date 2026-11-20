@@ -299,16 +299,16 @@ export const LEVEL_ROTATIONS = {
         ['**Mend Pet** to keep it healthy', 'Your pet doing well is your whole plan.'],
       ], 'Your pet does most of the damage — keep it fed and happy.',
       'Beast Mastery invests in the pet. Keep it fed, happy and healthy, and it will tank and deal most of the damage.'],
-      [34, 'Intimidation', [
+      [39, 'Intimidation', [
         ['**Intimidation** to stun dangerous targets', 'Your pet stuns the target and gains a lot of threat.'],
         ['**Arcane Shot** + **Multi-Shot**', 'Your shots between pet attacks.'],
         ['**Serpent Sting** on long fights', 'Worth it when the mob will live long enough.'],
       ], '',
       'Intimidation gives you a stun on demand, great for interrupting casters or pulling a mob back onto the pet.'],
-      [34, 'Summon Hawk', [
+      [25, 'Summon Hawk', [
         ['**Summon Hawk** on cooldown — boosted by Ferocity and Unleashed Fury', 'A Forever ability: a hawk joins the fight and benefits from your pet talents.'],
         ['**Arcane Shot** + **Multi-Shot**', 'Your shots.'],
-        ['**Intimidation** to stun', 'Stun dangerous mobs.'],
+        ['**Mend Pet** between pulls', 'Keep your pet topped up.'],
       ], '',
       'Summon Hawk adds a second attacker for a short time. Use it on cooldown.'],
       [40, 'Bestial Wrath', [
@@ -327,13 +327,13 @@ export const LEVEL_ROTATIONS = {
         ['**Arcane Shot** + **Multi-Shot**', 'Your regular shots between Auto Shots.'],
       ], 'Careful Aim turns your Intellect into attack power.',
       'Marksmanship focuses on your own shots. Open with Aimed Shot, then cycle Arcane Shot and Multi-Shot.'],
-      [33, 'Improved Arcane Shot', [
-        ['**Aimed Shot** between Auto Shots', 'Fit it in without delaying your next Auto Shot.'],
-        ['**Arcane Shot** (Improved Arcane Shot) + **Multi-Shot**', 'Shorter cooldowns mean more shots between Auto Shots.'],
+      [31, 'Barrage', [
+        ['**Aimed Shot** between Auto Shots', 'Fit it in without delaying your next Auto Shot; Barrage makes it hit harder.'],
+        ['**Arcane Shot** + **Multi-Shot**', 'Barrage also boosts Multi-Shot.'],
         ['**Rapid Fire**: Rapid Killing lowers its cooldown', 'Use it more often thanks to your talents.'],
         ['**Feign Death** (30) to drop threat', 'Fake your death to reset a bad pull.'],
       ], '',
-      'Your shots come around faster now. Feign Death lets you escape mistakes.'],
+      'Barrage makes your big shots hit harder. Feign Death lets you escape mistakes.'],
       [38, 'Mortal Shots', [
         ['**Aimed Shot** + **Multi-Shot**', 'Your main damage.'],
         ['**Arcane Shot** while moving', 'Instant damage.'],
@@ -416,25 +416,26 @@ export const LEVEL_ROTATIONS = {
         ['**Sinister Strike** to 5', 'Your combo builder.'],
         ['**Eviscerate**', 'Your finisher.'],
         ['**Kidney Shot** (30) to stop runners', 'A finisher that stuns instead of damaging.'],
+        ['**Shank** (24) on cooldown', 'An off-hand strike that costs 5 Energy and gives back 25.'],
       ], 'Precision makes your attacks miss less; Dual Wield Specialization (33) later makes your off-hand count.',
       'Combat is the steady, sturdy leveling rogue. Keep Slice and Dice up and alternate Sinister Strike and Eviscerate.'],
-      [31, 'Blade Flurry', [
+      [32, 'Blade Flurry', [
         ['**Slice and Dice** up', 'Keep it running.'],
         ['**Sinister Strike** to 5', 'Build points.'],
         ['**Eviscerate**', 'Spend them.'],
         ['**Blade Flurry** with 2 targets', 'Every hit also strikes a second nearby enemy.'],
       ], 'Blade Flurry shreds two mobs at once.',
       'Blade Flurry lets you fight two mobs at once, doubling your damage on pairs.'],
-      [40, 'Adrenaline Rush', [
+      [42, 'Adrenaline Rush', [
         ['**Slice and Dice** up', 'Keep it running.'],
         ['**Sinister Strike** to 5', 'Build points.'],
         ['**Eviscerate**', 'Spend them.'],
         ['**Adrenaline Rush** + **Blade Flurry** together', 'Double energy regeneration plus cleave for a huge burst.'],
       ], 'Hack and Slash rewards axes and swords with extra attacks.',
       'Stack Adrenaline Rush with Blade Flurry for burst on tough or multiple targets.'],
-      [44, 'Shank', [
+      [44, 'Flash of Steel', [
         ['**Slice and Dice** up', 'Keep it running.'],
-        ['**Shank** on cooldown unless it would cap your Energy', 'Costs 5 Energy and gives back 25; Flash of Steel makes it give more and come back faster.'],
+        ['**Shank** on cooldown unless it would cap your Energy', 'Costs 5 Energy and gives back 25; Flash of Steel makes it give even more and come back faster.'],
         ['**Sinister Strike** to 5', 'Build points.'],
         ['**Eviscerate**', 'Spend them.'],
       ], 'Shank is close to free damage, so fit it in every time it is ready.',
@@ -448,14 +449,14 @@ export const LEVEL_ROTATIONS = {
         ['**Eviscerate** at 5', 'Finish with a full Eviscerate.'],
       ], 'Lethality makes your crits hit very hard.',
       'Assassination fights with daggers and big openers. Start from Stealth, then Backstab whenever you are behind the target.'],
-      [26, 'Cold Blood', [
+      [27, 'Cold Blood', [
         ['**Slice and Dice** up', 'Keep it running.'],
         ['**Backstab**/**Sinister Strike** to 5', 'Build points.'],
         ['**Cold Blood** → **Eviscerate**', 'Guarantees a crit on your next attack. Pair it with a big Eviscerate.'],
         ['**Kidney Shot** (30) to lock down', 'Stun a target to stop casts or escapes.'],
       ], '',
       'Cold Blood gives you a guaranteed crit Eviscerate for burst.'],
-      [36, 'Seal Fate', [
+      [37, 'Seal Fate', [
         ['**Backstab** from behind: crits now add extra combo points', 'Seal Fate gives an extra point on crits, so you reach five faster.'],
         ['**Slice and Dice** up', 'Keep it running.'],
         ['**Eviscerate** at 5', 'Your finisher.'],
@@ -502,13 +503,13 @@ export const LEVEL_ROTATIONS = {
         ['**Rupture** (Serrated Blades) or **Eviscerate** at 5', 'Rupture on long fights, Eviscerate on short ones.'],
       ], 'Hemorrhage works with any weapon — 145% damage with a dagger.',
       'Hemorrhage replaces Sinister Strike as your builder.'],
-      [44, 'Shank', [
+      [40, 'Boot Knife & Death Mark', [
         ['**Hemorrhage** up, then **Rupture**', 'Hemorrhage makes your Rupture and Garrote hit 15% harder, and Serrated Blades boosts Rupture further.'],
-        ['**Shank** on cooldown', 'Costs 5 Energy and gives back 25, keeping your Hemorrhages flowing.'],
+        ['**Shank** on cooldown', 'Boot Knife makes every Shank 2 combo points, and it gives Energy back.'],
         ['**Hemorrhage** to build', 'Your builder.'],
-        ['**Eviscerate** / **Kidney Shot** at 5', 'Damage or control.'],
+        ['**Death Mark** at 5', 'Stores part of your damage (bleeds count double) and releases it after 6 seconds.'],
       ], '',
-      'This is the Subtlety setup you will use at 60: Hemorrhage and Rupture up, Shank on cooldown for Energy, and finishers for damage or stuns.'],
+      'This is the Subtlety setup you will use at 60: bleeds up, Shank on cooldown for combo points, and Death Mark whenever it is ready.'],
     ],
   },
 
@@ -537,22 +538,21 @@ export const LEVEL_ROTATIONS = {
         ['**Mind Flay** or wand', 'Mind Flay slows the target; wand when saving mana.'],
       ], 'Every priest gets Devouring Plague at 20 in Forever. Spirit Tap keeps your mana high.',
       'Shadow is the fastest way to level a priest. Open with Mind Blast, put both damage over time spells on, shield yourself and finish with Mind Flay or your wand.'],
-      [25, 'Vampiric Embrace', [
-        ['**Vampiric Embrace**', 'Heals you for part of your Shadow damage.'],
-        ['**Mind Blast**', 'Your big hit.'],
+      [25, 'Spirit Tap & wand', [
+        ['**Mind Blast** opener', 'Your big hit.'],
         ['**Shadow Word: Pain** + **Devouring Plague**', 'Your damage over time.'],
-        ['**Mind Flay**', 'Your filler.'],
-      ], 'Vampiric Embrace heals you as you deal damage.',
-      'Vampiric Embrace heals you as you fight, so you rest even less between pulls.'],
-      [30, 'Silence', [
+        ['Wand to finish', 'Wand Specialization makes your wand strong, and it costs no mana.'],
+        ['Kill, then keep going', 'Spirit Tap doubles your Spirit after each kill, so mana comes back fast.'],
+      ], 'Twin Disciplines makes your instant spells stronger.',
+      'The leveling build starts with a strong wand and Spirit Tap: Mind Blast, damage over time spells, then wand the mob down and move on.'],
+      [34, 'Mind Flay', [
         ['DoTs up', 'Keep Shadow Word: Pain and Devouring Plague ticking.'],
         ['**Mind Blast** on cooldown', 'Your big hit.'],
-        ['**Mind Flay** filler', 'Fill gaps with it.'],
-        ['**Silence** casters', 'Stops casting enemies from healing or nuking you.'],
+        ['**Mind Flay** filler', 'Slows the target; Improved Mind Flay makes later ticks hit harder.'],
         ['**Shadow Word: Death** (32) to finish', 'A quick instant finisher.'],
       ], '',
-      'Silence handles dangerous casters, and Shadow Word: Death adds an instant finisher.'],
-      [40, 'Shadowform', [
+      'Mind Flay becomes your filler, and Dark Inspiration (39) rewards full Mind Flays and Mind Blasts.'],
+      [54, 'Shadowform', [
         ['**Shadowform** on — Shadow spells cost 50% less', 'Your Shadow spells get cheaper and hit harder, and you take less physical damage.'],
         ['**Shadow Word: Pain** + **Devouring Plague**', 'Your damage over time.'],
         ['**Mind Blast** on cooldown', 'Your big hit.'],
@@ -568,11 +568,11 @@ export const LEVEL_ROTATIONS = {
         ['**Power Word: Shield** for spikes', 'Instantly absorbs damage when the tank is in trouble.'],
       ], 'Solo with Smite, Shadow Word: Pain and a wand.',
       'Holy is a dedicated healer. In groups, keep Renew on the tank and use Heal for steady damage. Save Flash Heal for emergencies.'],
-      [28, 'Holy Nova & Searing Light', [
-        ['**Smite** to quest', 'Divine Fury makes it faster and Searing Light adds 5% Holy damage.'],
+      [28, 'Holy Nova', [
+        ['**Smite** to quest', 'Divine Fury makes it faster, and Spirit Tap brings your mana back after each kill.'],
         ['**Holy Nova** for group damage', 'Damage around you plus a small heal on everyone near you.'],
         ['**Renew** + **Flash Heal**', 'Your core healing.'],
-      ], 'Holy Binding comes at 37: every Flash Heal on someone else also heals you.',
+      ], 'Holy Binding comes at 32: every Flash Heal on someone else also heals you.',
       'The leveling build puts damage first, so you can quest with Smite and still heal dungeons.'],
       [30, 'Prayer of Healing', [
         ['**Prayer of Healing** when 3+ party members are hurt', 'Heals your whole party; very efficient on group damage.'],
@@ -589,14 +589,14 @@ export const LEVEL_ROTATIONS = {
       'This is the Holy setup you will use at 60: Prayer of Mending on cooldown, Renew on the tank and Greater Heal for big hits.'],
     ],
     discipline: [
-      [26, 'Inner Focus', [
+      [28, 'Inner Focus', [
         ['**Power Word: Shield** liberally', 'Prevents damage before it happens; Discipline leans on it heavily.'],
         ['**Renew**', 'Heal over time.'],
         ['**Flash Heal** / **Heal**', 'Fast or efficient heals as needed.'],
         ['**Inner Focus** for a free big heal', 'Your next spell is free and more likely to crit.'],
       ], 'Twin Disciplines boosts your instant spells.',
       'Discipline prevents damage with shields as much as it heals. Shield whoever is taking damage before topping them up.'],
-      [30, 'Soul Warding', [
+      [32, 'Soul Warding', [
         ['**Power Word: Shield** — shorter cooldown and cheaper', 'You can shield far more often now.'],
         ['**Renew**', 'Heal over time.'],
         ['**Heal** filler', 'Your efficient heal.'],
@@ -609,7 +609,7 @@ export const LEVEL_ROTATIONS = {
         ['**Flash Heal** / **Heal**', 'Your other heals.'],
       ], '',
       'Penance is your new main heal. Shield first, then Penance, for the strongest result.'],
-      [40, 'Power Infusion', [
+      [45, 'Power Infusion', [
         ['**Power Infusion** on your best caster', 'A big haste and damage boost for another player.'],
         ['**Penance** on cooldown', 'Your main heal.'],
         ['**Power Word: Shield**', 'Prevent damage.'],
@@ -637,7 +637,7 @@ export const LEVEL_ROTATIONS = {
       'Totems join the rotation. Drop Searing Totem at the start of each fight for free damage.'],
     ],
     enhancement: [
-      [20, 'Elemental Weapons', [
+      [21, 'Elemental Weapons', [
         ['Slow two-hander with **Rockbiter Weapon**', 'Enhancement scales with big, slow weapons.'],
         ['**Searing Totem** + **Strength of Earth Totem**', 'Damage plus more Strength.'],
         ['**Earth Shock** to finish or interrupt', 'Instant damage when needed.'],
@@ -665,7 +665,7 @@ export const LEVEL_ROTATIONS = {
         ['**Earth Shock** after Stormstrike', 'Use the Stormstrike bonus.'],
       ], '',
       'Maelstrom Weapon turns melee hits into instant Lightning Bolts.'],
-      [40, 'Rage of the Farseer', [
+      [51, 'Rage of the Farseer', [
         ['**Rage of the Farseer** for burst', 'A Forever cooldown for big damage.'],
         ['**Stormstrike** + **Earth Shock**', 'Your core combo.'],
         ['**Lightning Bolt** at 5 Maelstrom stacks', 'Instant bolts.'],
@@ -687,13 +687,13 @@ export const LEVEL_ROTATIONS = {
         ['**Chain Lightning** (32) for packs', 'Hits several targets.'],
       ], '',
       'Lightning Overload gives your bolts a chance to fire twice.'],
-      [36, 'Elemental Fury', [
+      [46, 'Elemental Fury', [
         ['**Chain Lightning** to open', 'A big opener that hits several targets.'],
         ['**Lightning Bolt**', 'Your main spell.'],
         ['**Earth Shock** to finish', 'Instant finisher.'],
       ], 'Elemental Fury doubles your crit damage bonus.',
       'Elemental Fury makes your crits hit much harder.'],
-      [40, 'Lightning Mastery', [
+      [51, 'Lightning Mastery', [
         ['**Flame Shock** up', 'Damage over time on your target.'],
         ['**Lightning Mastery** on tough fights', 'For 15 seconds Chain Lightning has no cooldown and Lightning Bolt casts 0.5 sec faster.'],
         ['**Chain Lightning** on cooldown', 'Your strongest cast.'],
@@ -762,7 +762,7 @@ export const LEVEL_ROTATIONS = {
         ['**Cone of Cold** (26) as they reach you', 'A short-range AoE slow.'],
       ], '',
       'Ice Lance rewards freezing targets. Frost Nova, then Ice Lance for big damage.'],
-      [33, 'Ice Block & Cold Snap', [
+      [34, 'Ice Block & Cold Snap', [
         ['**Frostbolt** spam', 'Your main spell.'],
         ['**Frost Nova** → **Ice Lance** / **Frostbolt** (Shatter crits)', 'Shatter makes frozen targets easier to crit.'],
         ['**Ice Block** to reset bad pulls', 'Immune to damage for a few seconds.'],
@@ -825,13 +825,13 @@ export const LEVEL_ROTATIONS = {
         ['**Frostbolt** to save mana', 'Cheaper filler.'],
       ], 'Arcane Blast gets more expensive with each stack — let it reset when mana runs low.',
       'Arcane Blast stacks up your damage but gets more expensive with each stack.'],
-      [30, 'Presence of Mind', [
+      [32, 'Presence of Mind', [
         ['**Presence of Mind** → instant big spell', 'Makes your next spell instant.'],
         ['**Arcane Blast** + **Arcane Missiles**', 'Your core rotation.'],
         ['**Frostbolt** to save mana', 'Cheaper filler.'],
       ], '',
       'Presence of Mind gives you an instant big spell.'],
-      [40, 'Arcane Power', [
+      [42, 'Arcane Power', [
         ['**Arcane Power** + **Presence of Mind** for burst', 'Big burst damage.'],
         ['**Arcane Blast** + **Arcane Missiles**', 'Your core rotation.'],
         ['**Arcane Explosion** for AoE', 'For packs.'],
@@ -880,13 +880,13 @@ export const LEVEL_ROTATIONS = {
         ['Wand when DoTs are ticking', 'Save mana.'],
       ], '',
       'Siphon Life adds more sustain. Your damage over time spells do most of the work.'],
-      [34, 'Nightfall', [
-        ['DoTs up', 'Keep them ticking.'],
-        ['**Drain Life**', 'Your main channel.'],
-        ['Instant **Shadow Bolt** on Nightfall procs', 'Free instant Shadow Bolts.'],
+      [35, 'Shadow Mastery', [
+        ['DoTs up', 'Keep them ticking; Shadow Mastery makes them all hit harder.'],
+        ['**Drain Life**', 'Your main channel. Soul Siphon makes it stronger for each damage over time spell on the target.'],
+        ['**Drain Soul** on mobs about to die', 'Soul Harvest returns mana when a drained mob dies.'],
         ['**Life Tap** + **Drain Life** cycle', 'Endless mana and health.'],
       ], '',
-      'Nightfall gives you free instant Shadow Bolts while you drain.'],
+      'Shadow Mastery boosts all your Shadow damage, and Drain Life keeps you topped up between pulls.'],
       [40, 'Wrack', [
         ['DoTs up', 'Keep them ticking.'],
         ['**Wrack** — boosts your other DoTs by 10%', 'A Forever ability that strengthens your damage over time.'],
@@ -896,7 +896,7 @@ export const LEVEL_ROTATIONS = {
       'This is the Affliction setup you will use at 60: every damage over time spell up, Wrack to boost them and Drain Life for sustain.'],
     ],
     demonology: [
-      [28, 'Demonic Sacrifice', [
+      [30, 'Demonic Sacrifice', [
         ['Pet attacks', 'Your pet does the heavy lifting.'],
         ['**Bane of Agony** + **Corruption**', 'Your damage over time.'],
         ['**Shadow Bolt**', 'Your main hit.'],
@@ -924,7 +924,7 @@ export const LEVEL_ROTATIONS = {
       'This is the Demonology setup you will use at 60: keep your pet out for Demonic Knowledge, Master Demonologist and Soul Link, and finish targets with Soul Fire.'],
     ],
     destruction: [
-      [20, 'Ruin', [
+      [21, 'Ruin', [
         ['**Immolate**', 'Fire damage over time.'],
         ['**Shadow Bolt** spam — Ruin doubles crit damage', 'Your main damage.'],
         ['**Life Tap** for mana', 'Keep casting.'],
@@ -1017,25 +1017,25 @@ export const LEVEL_ROTATIONS = {
         ['**Wrath** filler', 'Your quicker spell.'],
       ], '',
       'Two damage over time spells tick while you cast Starfire and Wrath.'],
-      [32, 'Vengeance crits', [
+      [34, 'Improved Starfire', [
         ['**Moonfire** + **Insect Swarm**', 'Damage over time.'],
-        ['**Starfire**: Vengeance doubles crit damage', "Big crits, and Nature's Grace speeds up your next cast."],
+        ['**Starfire** for big hits', "Improved Starfire makes it faster, and Nature's Grace (38) speeds up your next cast after a crit."],
         ['**Wrath** filler', 'Your quicker spell.'],
       ], '',
-      'Vengeance makes your crits hit much harder.'],
-      [40, 'Moonkin Form', [
-        ['**Moonkin Form** on', 'More armor and crit for your spells.'],
-        ['**Moonfire** + **Insect Swarm**', 'Your damage over time.'],
-        ['**Starfire** / **Wrath**', 'Your casts.'],
-        ['**Hurricane** for packs', 'AoE damage.'],
-      ], "You can't heal in Moonkin Form.",
-      'Moonkin Form boosts your spell crit and armor. Stay in it while you fight.'],
-      [43, 'Eclipse', [
-        ['**Moonkin Form** on', 'Stay in it.'],
+      'Starfire becomes a fast, heavy hitter.'],
+      [39, 'Eclipse', [
         ['**Moonfire** + **Insect Swarm**', 'Your damage over time.'],
         ['**Wrath** to build Eclipse charges', 'Each Wrath makes your next 2 Starfires 0.5 sec faster, up to 4 charges.'],
         ['**Starfire** with Eclipse charges', 'Spend the charges on faster Starfires.'],
+        ['**Hurricane** for packs', 'AoE damage.'],
       ], '',
+      'Eclipse links Wrath and Starfire: build charges with Wrath, then spend them on faster Starfires.'],
+      [48, 'Moonkin Form', [
+        ['**Moonkin Form** on', 'More armor and crit for your spells.'],
+        ['**Moonfire** + **Insect Swarm**', 'Your damage over time.'],
+        ['**Wrath** → **Starfire** (Eclipse)', 'Your core cycle.'],
+        ['**Hurricane** for packs', 'AoE damage.'],
+      ], "You can't heal in Moonkin Form.",
       'This is the Balance setup you will use at 60: Moonkin Form, both damage over time spells and the Eclipse cycle of Wrath into faster Starfires.'],
     ],
     restoration: [

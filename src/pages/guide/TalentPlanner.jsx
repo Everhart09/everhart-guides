@@ -64,6 +64,7 @@ export default function TalentPlanner({ cls, spec, picks, mode = 'endgame', onMo
 
   const whyAll = BUILD_WHY[`${cls.id}/${spec.id}`];
   const why = (mode === 'leveling' && whyAll?.leveling) || whyAll;
+  const credit = (mode === 'leveling' && onMode && whyAll?.levelingSource) || whyAll?.source || null;
   const respec = useMemo(
     () => (spec.levelingBuild ? buildDiff(spec.levelingBuild, spec.build) : []),
     [spec],
@@ -94,6 +95,12 @@ export default function TalentPlanner({ cls, spec, picks, mode = 'endgame', onMo
             <p>{why.second}</p>
             <p className="bw-early"><b>Leveling tip:</b> {why.early}</p>
           </div>
+          {credit && (
+            <p className="bw-source">
+              Based on {credit.by}&apos;s guide on {credit.site}, updated {new Date(`${credit.updated}T12:00:00`).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}.{' '}
+              <a href={credit.url} target="_blank" rel="noreferrer">View their guide <Icon name="arrow" size={11} /></a>
+            </p>
+          )}
         </section>
       )}
       <section className="panel planner-head">

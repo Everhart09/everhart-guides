@@ -257,7 +257,8 @@ export default function AboutPage({ nav }) {
       <section className="panel ab-sources">
         <ul>
           <li><b>WoW Forever game data</b> via Wowhead’s Forever database: talents, abilities, items, boss abilities and loot, Legacy perks, zone maps and boss portraits.</li>
-          <li><b>Blizzard</b>: the official WoW Forever patch notes, imported from the Blizzard forums.</li>
+          <li><b>Blizzard</b>: the official WoW Forever patch notes and hotfixes, imported from the Blizzard forums, and character data for the Armory.</li>
+          <li><b>Talent builds</b>: each spec's builds follow a current Mobalytics guide, mostly by players from the raiding guild Progress. The Talents tab names the author and links their guide. Earlier versions were checked against Icy Veins and RankedBoost.</li>
           <li><b>Guide writing</b>: ratings, rotations, tips and explanations are written for this app, with dungeon strategies credited to Wowhead’s Forever guides.</li>
         </ul>
       </section>
